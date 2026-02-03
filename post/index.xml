@@ -7,13 +7,32 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Tue, 03 Feb 2026 10:02:18 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 03 Feb 2026 11:35:26 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-02-03 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-02-03/</link>
+        <pubDate>Tue, 03 Feb 2026 11:35:26 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-02-03/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-02-03 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;网页部署&lt;/strong&gt;: 正式上线了网页，简单学习了markdown语法，学习了模版生成，文章背景图片放在static的img目录下。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2&lt;/strong&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷题&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[科研]2026-02-02</title>
         <link>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-02-02/</link>
         <pubDate>Tue, 03 Feb 2026 10:02:18 +0800</pubDate>
         
         <guid>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-02-02/</guid>
-        <description>&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+        <description>&lt;img src="https://usualtreee.github.io/img/cover1.jpg" alt="Featured image of post [科研]2026-02-02" /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;net图像&lt;/strong&gt;: net图像初步完成，第二天可以整理答题outline。&lt;/li&gt;
 &lt;/ul&gt;
@@ -25,7 +44,7 @@
         <pubDate>Tue, 03 Feb 2026 10:02:18 +0800</pubDate>
         
         <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-02-02/</guid>
-        <description>&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-02-02" /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;网页部署&lt;/strong&gt;: 使用github+hugo完成网页自动部署，具体教程参考&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1bovfeaEtQ?vd_source=e5e32fc700a7ddb9b955e71814bb7f74&amp;amp;spm_id_from=333.788.videopod.sections,%22%e7%82%b9%e5%87%bb%e8%b7%b3%e8%bd%ac%22&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;bilibili视频&lt;/a&gt;。&lt;/li&gt;
