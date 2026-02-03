@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on Usualtree</title>
-        <link>https://usualtreee.github.io/post/</link>
-        <description>Recent content in Posts on Usualtree</description>
+        <title>学习笔记 on Usualtree</title>
+        <link>https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+        <description>Recent content in 学习笔记 on Usualtree</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Tue, 03 Feb 2026 10:02:18 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>[科研]2026-02-02</title>
-        <link>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-02-02/</link>
-        <pubDate>Tue, 03 Feb 2026 10:02:18 +0800</pubDate>
-        
-        <guid>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-02-02/</guid>
-        <description>&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
-&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;net图像&lt;/strong&gt;: net图像初步完成，第二天可以整理答题outline。&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        <item>
+        <lastBuildDate>Tue, 03 Feb 2026 10:02:18 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>[自学]2026-02-02</title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-02-02/</link>
         <pubDate>Tue, 03 Feb 2026 10:02:18 +0800</pubDate>
