@@ -7,7 +7,19 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Tue, 03 Feb 2026 11:35:26 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 03 Feb 2026 21:18:53 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[科研]2026-02-03 </title>
+        <link>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-02-03/</link>
+        <pubDate>Tue, 03 Feb 2026 21:18:53 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-02-03/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover1.jpg" alt="Featured image of post [科研]2026-02-03 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;画图&lt;/strong&gt;:把两张图完善、整理到PPT里，画了net的小图，搞好了outline。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-02-03 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-02-03/</link>
         <pubDate>Tue, 03 Feb 2026 11:35:26 +0800</pubDate>
@@ -16,13 +28,13 @@
         <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-02-03 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;网页部署&lt;/strong&gt;: 正式上线了网页，简单学习了markdown语法，学习了模版生成，文章背景图片放在static的img目录下。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;2&lt;/strong&gt;:&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;STM32&lt;/strong&gt;: STM32CUBEIDE点灯成功，用f103c8t6。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
 &lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷题(又没学完，要欠三题)&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>

@@ -16,13 +16,13 @@
         <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-02-03 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;网页部署&lt;/strong&gt;: 正式上线了网页，简单学习了markdown语法，学习了模版生成，文章背景图片放在static的img目录下。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;2&lt;/strong&gt;:&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;STM32&lt;/strong&gt;: STM32CUBEIDE点灯成功，用f103c8t6。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
 &lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷题(又没学完，要欠三题)&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>
