@@ -7,7 +7,45 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Fri, 06 Feb 2026 17:13:27 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 28 Feb 2026 15:03:13 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-02-28 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-02-28/</link>
+        <pubDate>Sat, 28 Feb 2026 15:03:13 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-02-28/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-02-28 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣：翻转链表&lt;/strong&gt;:思路就是使用&lt;strong&gt;双指针&lt;/strong&gt;遍历链表，反向的同时，使用中间变量使得不会断链，注意c++的&lt;strong&gt;struct&lt;/strong&gt;可以存函数，c的不行，c++中struct和class的区别在于，继承时候子类的类型的父类的private还是public。以及null和nullptr的区别在于是否单独指空指针。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RTOS&lt;/strong&gt;:讲了rtos的简单概念以及各种&lt;strong&gt;状态&lt;/strong&gt;，注意只有&lt;strong&gt;就绪态&lt;/strong&gt;可以变成&lt;strong&gt;运行态&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股：1.1-1.4&lt;/strong&gt;:全局变量对于局部变量（局部中还包含&lt;strong&gt;静态局部&lt;/strong&gt;），重点记住存储区域不一样，内存分布模型要记得，其实他是操作系统分配的虚拟内存，bbs和data要区分，bbs是未初始化的全局变量以及静态变量以及初始化为0的全局变量，data是已初始化的全局以及静态变量。&lt;strong&gt;字符数组&lt;/strong&gt;初始化的方式不同，结果也会不同，后面遇到问题了具体分析。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;makedown语法巩固&lt;/strong&gt;: ##是标题，注意空格，-是无序列表，1.是有序列表。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;口语打卡&lt;/strong&gt;: 把之前欠的补完(如若可以)，来不及的话明天继续，努力追上进度，今天先&lt;strong&gt;一口气看课&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;: &lt;strong&gt;常识&lt;/strong&gt;：&lt;strong&gt;河西走廊&lt;/strong&gt;指的是黄河西边，有四城，威武是凉州。&lt;strong&gt;图形推理&lt;/strong&gt;：&lt;strong&gt;元素&lt;/strong&gt;指点、线、角等，&lt;strong&gt;属性&lt;/strong&gt;指曲直性、对称性、开闭性。若元素不同，则优先判断属性规律。&lt;strong&gt;数量关系&lt;/strong&gt;：只能为整数数量关系的现实题目时，遇到百分比，可以利用百分号设置，例如50x这种关系，或者用x+y为某数公倍数进行解题。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; RTOS看三节&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-02-06 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-02-06/</link>
         <pubDate>Fri, 06 Feb 2026 17:13:27 +0800</pubDate>
