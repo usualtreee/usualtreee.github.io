@@ -7,7 +7,40 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Sat, 28 Feb 2026 15:03:13 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 02 Mar 2026 09:45:43 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-03-02 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-02/</link>
+        <pubDate>Mon, 02 Mar 2026 09:45:43 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-02/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-02 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RTOS&lt;/strong&gt;: &lt;strong&gt;上下文切换&lt;/strong&gt;指的就是中断跳转时候，将寄存器状态切换到之前程序的状态，ISR = Interrupt Service Routine，即中断时候处理的函数， ICSR 是 Interrupt Control and State Register，上下文切换是用&lt;strong&gt;pendsv&lt;/strong&gt;进行切换，pendsv是一种特殊中断，由rtos滴答中断和任务执行完毕触发。
+&lt;strong&gt;空闲任务&lt;/strong&gt;指的是rtos调度时候必须有一个在运行的任务，平时都没有任务的时候就是空闲任务来担任了。freertos的使用也是移植加自己修改的。&lt;strong&gt;LTS&lt;/strong&gt;是 Long-Term Support，不带lts的版本资料更全。第11节有下载源码后的结构介绍。MDK是 Microcontroller Development Kit，通常指的是keil的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;两两交换链表中的节点&lt;/strong&gt;：依旧用dummy head，因为必须操作交换节点的前一个节点。注意cur-&amp;gt;next-&amp;gt;next可能导致空指针问题。注意修改顺序，从而明白tmp保存的中间变量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至1.10：&lt;strong&gt;数组的存储位置&lt;/strong&gt;：&lt;strong&gt;bbs和data&lt;/strong&gt;都在静态区。&lt;strong&gt;静态动态数组的生命周期区别&lt;/strong&gt;：手动和自动释放的区别。&lt;strong&gt;二维数组的访问&lt;/strong&gt;：按行存储的，所以指针访问时候要注意。&lt;strong&gt;extern的作用&lt;/strong&gt;：声明一个其他地方的变量或者函数（函数一般默认了extern），不能和static一起用。不分配内存，只做外部链接。&lt;strong&gt;数组大小&lt;/strong&gt;：必须在定义时候确定，sizeof获取大小，使用时其实是操作数组的指针，字符数组用sizeof和sizelen结果不一样。&lt;strong&gt;函数参数压栈的顺序&lt;/strong&gt;：现有一个概念，以及知道cdecl和stdcall这两个东西的存在即可。即他们规定了函数参数如何传递以及栈谁来清理，这两各有用处。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：台基主要是为了防潮。&lt;strong&gt;推理判断&lt;/strong&gt;：三视图要动手画，元素和属性很重要很好用。&lt;strong&gt;数量关系&lt;/strong&gt;：&lt;strong&gt;插板法&lt;/strong&gt;要会，同于同素分堆，每堆至少一个的情况。例如三十天完成的效率问题，可把效率设置成某个具体数，比如5。总量即5*30。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; RTOS看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-02-28 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-02-28/</link>
         <pubDate>Sat, 28 Feb 2026 15:03:13 +0800</pubDate>
