@@ -7,7 +7,39 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Mon, 02 Mar 2026 09:45:43 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 03 Mar 2026 10:46:39 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-03-03 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-03/</link>
+        <pubDate>Tue, 03 Mar 2026 10:46:39 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-03/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-03 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RTOS&lt;/strong&gt;: 移植要学会，步骤还挺多的，得理解。注意rtos会吧systick中断函数占用，且修改其优先级，导致delay函数有问题，这里时钟源要重新配置。cube其实可以自动配置rtos，但是内核版本太老了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;删除倒数第n个节点&lt;/strong&gt;用双节点，快指针到最后时候，慢指针就是需要位置（n的前一个）。cpp要手动释放内存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至：1.15。字和字节概念是不一样的。 Register reg = {0}：是把结构体里的成员都初始化成0，#pragma pack(1)为了结构体成员按1字节对齐。a 和 &amp;amp;a不完全等价，a指数组名。函数指针和指针函数是两个东西，注意区分。数组名作为实参退化成指针，c语言没有引用，cpp有。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：&lt;strong&gt;价值悖论&lt;/strong&gt;是说使用价值和交换价值相悖。&lt;strong&gt;工资粘性&lt;/strong&gt;是说工资不能随供求关系快速变动。&lt;strong&gt;小数定律&lt;/strong&gt;是说把大样本归结于小样本。&lt;strong&gt;古代曲谱&lt;/strong&gt;是唐代成形。&lt;strong&gt;平仄&lt;/strong&gt;中平指平，仄指上，去，入三声。&lt;strong&gt;推理判断&lt;/strong&gt;：点图像有加减运算，分割图像可以求占格子数，元素属性有很多种可以混合用，例如对称面加封闭面。&lt;strong&gt;数量关系&lt;/strong&gt;：几局几胜求概率问题，局数从少到多进行推理求概率。相似三角形等基本几何知识要复习。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; RTOS看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-03-02 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-02/</link>
         <pubDate>Mon, 02 Mar 2026 09:45:43 +0800</pubDate>
