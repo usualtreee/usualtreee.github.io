@@ -7,7 +7,39 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Tue, 03 Mar 2026 10:46:39 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 04 Mar 2026 09:23:13 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-03-04 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-04/</link>
+        <pubDate>Wed, 04 Mar 2026 09:23:13 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-04/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-04 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RTOS&lt;/strong&gt;: 基于寄存器的移植也有介绍。系统配置文件要会配置。还有特别的自定义类型要知道。也有特别的命名规则。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;环形链表&lt;/strong&gt;：判断是否环形用快慢指针。这里有数学推理，后续可以加强。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至：&lt;strong&gt;1.20&lt;/strong&gt;。&lt;strong&gt;strcpy&lt;/strong&gt; 面向字符串，以 &amp;lsquo;\0&amp;rsquo; 结束；&lt;strong&gt;memcpy&lt;/strong&gt; 面向内存，按字节拷贝，二者都不处理内存重叠。函数中申请堆内存的核心是：能正确传出、有人释放、失败路径不泄漏、释放后不再使用。通过位运算（特别是异或运算），我们可以在&lt;strong&gt;不使用临时变量的情况下交换两个整数的值&lt;/strong&gt;。此方法在嵌入式系统或性能要求较高的环境中比较有用。&lt;strong&gt;argc&lt;/strong&gt;（Argument Count，命令行参数总数）和&lt;strong&gt;argv&lt;/strong&gt;（Argument Vector，存储命令行参数的字符串数组）是获取命令行参数的唯一标准方式，需在main函数中声明为形参（语法上参数名可改但开发中固定使用），其他函数需使用时需从main传递而非自行声明。&lt;strong&gt;malloc、free&lt;/strong&gt; 使用时会有许多问题，要注意。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：强制措施由法院决定，气候分布要记住，雨草沙地海，亚洲东部是三季风。&lt;strong&gt;推理判断&lt;/strong&gt;：要记得分割，黑白球也能轴对称，发现一个规律之后排除部分选项，之后还要继续发现规律。&lt;strong&gt;数量关系&lt;/strong&gt;：可能会有复杂列方程题，要会速列，至少至多的题要会用不等式，圆锥体积要会。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; RTOS看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-03-03 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-03/</link>
         <pubDate>Tue, 03 Mar 2026 10:46:39 +0800</pubDate>
