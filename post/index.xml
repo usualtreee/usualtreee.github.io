@@ -22,7 +22,7 @@
 &lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;有效的字母异位词&lt;/strong&gt;首先得明白哈希表的定义，红黑数也要理解一下（BST和AVL也得知道），其次字符本质是数值，所以可以运算，本题在一个数组中就可以进行加减操作，如果数组最后都是0则符合题目要求。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至：static就是改变作用域或生命周期（全局是限制，静态拓展生命周期）；typedef和#define区别就是一个定义类型，一个替换文本；const是限定只读；头文件多重保护就是指 #ifndef MY_HEADER_H     #define MY_HEADER_H​ 4      #endif这套操作。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至1.27：static就是改变作用域或生命周期（全局是限制，静态拓展生命周期）；typedef和#define区别就是一个定义类型，一个替换文本；const是限定只读；头文件多重保护就是指 #ifndef MY_HEADER_H     #define MY_HEADER_H​ 4      #endif这套操作。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：普朗克提出黑体辐射不连续；资源税要开采自然资源。&lt;strong&gt;推理判断&lt;/strong&gt;：对称轴与图中一条线重合也算规律；经过几个格子也算；仅有两条互相垂直的对称轴也算（注意判断中心对称时候，别默认其轴对称了）。&lt;strong&gt;数量关系&lt;/strong&gt;：比例关系，要设置成nx。&lt;/p&gt;
