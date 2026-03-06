@@ -7,7 +7,39 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Wed, 04 Mar 2026 09:23:13 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 06 Mar 2026 09:09:58 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-03-06 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-06/</link>
+        <pubDate>Fri, 06 Mar 2026 09:09:58 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-06/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-06 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RTOS&lt;/strong&gt;: 具体取名分析要会，这里开始简单任务创建和删除。引入临界区概念（是为了全创建之后再轮询）。有动态方式的演示。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;有效的字母异位词&lt;/strong&gt;首先得明白哈希表的定义，红黑数也要理解一下（BST和AVL也得知道），其次字符本质是数值，所以可以运算，本题在一个数组中就可以进行加减操作，如果数组最后都是0则符合题目要求。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至：static就是改变作用域或生命周期（全局是限制，静态拓展生命周期）；typedef和#define区别就是一个定义类型，一个替换文本；const是限定只读；头文件多重保护就是指 #ifndef MY_HEADER_H     #define MY_HEADER_H​ 4      #endif这套操作。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：普朗克提出黑体辐射不连续；资源税要开采自然资源。&lt;strong&gt;推理判断&lt;/strong&gt;：对称轴与图中一条线重合也算规律；经过几个格子也算；仅有两条互相垂直的对称轴也算（注意判断中心对称时候，别默认其轴对称了）。&lt;strong&gt;数量关系&lt;/strong&gt;：比例关系，要设置成nx。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; RTOS看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-03-04 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-04/</link>
         <pubDate>Wed, 04 Mar 2026 09:23:13 +0800</pubDate>
