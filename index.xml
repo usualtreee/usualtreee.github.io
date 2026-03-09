@@ -7,7 +7,38 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Fri, 06 Mar 2026 09:09:58 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 07 Mar 2026 09:16:39 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-03-07 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-07/</link>
+        <pubDate>Sat, 07 Mar 2026 09:16:39 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-07/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-07 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RTOS&lt;/strong&gt;: 静态方式创建任务（与动态不同，空间得自己申请，其实是数组）。任务的挂起和恢复API介绍。挂起任务和挂起调度器是两码事情。可以查看演示。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:  &lt;strong&gt;两个数组的交集&lt;/strong&gt;：哈希表的使用场景：给元素判断是否在集合中出现过。set数据结构cpp自动有了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至：1.32。&lt;strong&gt;内存泄露&lt;/strong&gt;：申请内存后不释放；&lt;strong&gt;内存碎片&lt;/strong&gt;：频繁申请和释放内存，导致无较大的连续空间，解决方案也要会；&lt;strong&gt;内存池&lt;/strong&gt;是一种预先分配一大块内存，并按固定规则进行管理和复用的内存管理机制；&lt;strong&gt;递归函数的弊端&lt;/strong&gt;：空间有可能不足；&lt;strong&gt;volatile&lt;/strong&gt;：表明一个易变的变量，让程序直接访问原始地址；&lt;strong&gt;联合体&lt;/strong&gt;：所有成员共享一个地址，节省空间，但成员互相有关联。 &lt;strong&gt;指向常量指针&lt;/strong&gt;和&lt;strong&gt;常量指针&lt;/strong&gt;：前者指向内容不能变，后者指针不能变。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：红曲红是天然色素。&lt;strong&gt;推理判断&lt;/strong&gt;：横线可以考虑移动；3d图如果不简单可以跳；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; RTOS看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-03-06 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-06/</link>
         <pubDate>Fri, 06 Mar 2026 09:09:58 +0800</pubDate>
