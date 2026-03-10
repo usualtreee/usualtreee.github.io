@@ -7,7 +7,71 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Sat, 07 Mar 2026 09:16:39 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 10 Mar 2026 15:58:32 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-03-10 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-10/</link>
+        <pubDate>Tue, 10 Mar 2026 15:58:32 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-10/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-10 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RTOS&lt;/strong&gt;: 今天学习任务常用的函数，比较实用,如：&lt;strong&gt;任务状态查询&lt;/strong&gt;；（这里都是调用函数的演示，后续有需要进行实践）。如果一个task东西太多，分配的栈也要多一点，不然会卡住。或者多任务信息的数组小了也会卡住。&lt;strong&gt;任务时间统计相关的函数&lt;/strong&gt;比较重要，只先明白现象吧。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;四数相加II&lt;/strong&gt;：这题思路有点复杂，建议后续再来复习一遍思路。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至c语言完结；整形溢出是因为位数有上限，浮点数是容易精度丢失；共用体就是union；指针强制类型转换可能会导致风险；sizeof和strlen是有区别的；按位操作在嵌入式有常用的应用场景；&lt;strong&gt;至此&lt;/strong&gt;c语言一轮八股完成，重点就是内存、指针、关键词的用法，本次只是走马观花，有个大概框架，后续学习中继续完善。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：。&lt;strong&gt;推理判断&lt;/strong&gt;：。（今日科研任务重，暂停该项）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; RTOS看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>[自学]2026-03-09 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-09/</link>
+        <pubDate>Mon, 09 Mar 2026 09:24:05 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-09/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-09 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RTOS&lt;/strong&gt;: 中断介绍，rtos函数中后缀带fromisr才能在中断中用,屏蔽是指被rtos所管理。看演示可以更好理解。还有时间片调度的演示。时间片是切换视角，如果中断中用hal延时，就是纯延时，不会切换。（优先级要设置高，且用其他时钟源）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;两数之和&lt;/strong&gt;：map有key有value，用搜 9-目前数据 是否存在map中，如果在就成功，如果不在，就把目前数据存进来。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至：1.40。&lt;strong&gt;#include&amp;lt;&amp;gt; 和 #include&amp;quot;&amp;quot;&lt;/strong&gt;：区别在于是否包含系统头文件，从而搜索文件夹不一样。&lt;strong&gt;头文件#ifndef/#define/#endif的作用&lt;/strong&gt;：防重定义。&lt;strong&gt;volatile&lt;/strong&gt;：表示禁止编译器优化变量，因为硬件可能修改变量。&lt;strong&gt;register&lt;/strong&gt;:建议编译器将变量存在寄存器中。&lt;strong&gt;int*const 记住&lt;/strong&gt;：是指针不能变。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：上兵伐谋是孙子兵法说的；昼长夜短：要看白天持续时间，维度越高白天越长,&lt;strong&gt;月相&lt;/strong&gt;要会看；主张购买者明知质量有问题依旧购买而抗辩的销售者不受支持。&lt;strong&gt;推理判断&lt;/strong&gt;：最大最小面的规律也要注意；如果图像少，边数少，考虑边数数量关系；黑白球题目也要看黑白球的对称性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; RTOS看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-03-07 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-07/</link>
         <pubDate>Sat, 07 Mar 2026 09:16:39 +0800</pubDate>
