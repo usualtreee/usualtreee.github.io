@@ -7,7 +7,71 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Tue, 10 Mar 2026 15:58:32 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 12 Mar 2026 09:33:56 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-03-12 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-12/</link>
+        <pubDate>Thu, 12 Mar 2026 09:33:56 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-12/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-12 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RTOS&lt;/strong&gt;: 信号量是用来任务间同步或者资源管理的，有二值型和计数型。&lt;strong&gt;优先级翻转问题&lt;/strong&gt;：低优先级抢了信号量，又守不住运行状态，导致高优先级任务被迫在等。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;四数之和&lt;/strong&gt;：三数之和外面创建一个新的循环，这里剪枝的操作比较重要。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至2.32：（cpp此处看的快，是由于更加不熟悉，导致打算先了解框架，后续依旧需要二刷）左右值引用区别有知道；cpp有多重传值的方式，各有优缺点；typedef和using相比，using更直观也更先进，允许别名模版；野指针是说未定义的指针，悬挂指针是说曾经合法现在指向内容被销毁的指针；内置类型初始化可能没有默认初始化值，可能为0，类成员如果没有显示初始化值就无定义，所以可以使用默认成员初始化以及构造函数来避免未初始化问题；内联函数就是在编译阶段直接展开的函数；nullptr、null、和0是不断进步的关系；构造函数，析构函数，拷贝构造函数，移动构造函数的区别要知道；智能指针可以解决内存泄露，是一种类模版，长啥样要知道；初始化列表和赋值对于常量成员能不能用要注意；虚函数，纯虚函数，抽象类，单继承，多继承，vtable，接口等这部分知识相辅相成，要着重理解；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：近体诗产生于唐代，分为律诗和绝句，有五言和七言；。&lt;strong&gt;推理判断&lt;/strong&gt;：图像太复杂，只看直线数也可以；还可以使用直觉法，恩。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; RTOS看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>[自学]2026-03-11 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-11/</link>
+        <pubDate>Wed, 11 Mar 2026 19:00:39 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-11/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-11 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;RTOS&lt;/strong&gt;: delay函数有相对和绝对两种；队列是外设和任务各各之间的通信的主要形式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;三数之和&lt;/strong&gt;：其实是用一个循环加头尾双指针的做法，注意去重是重点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至2.10：cpp支持RAII，是零开销抽象；三大特性：封装，继承，多态，四大的话再加一个抽象；cpp编译更加复杂，更加严格；struct和class基本只有默认访问权限和默认继承权限的区别；常量成员函数就是说该函数不会修改对象的成员变量；如果要用new创建新内存，就用构造函数，析构函数；enum class更加安全；编译有四个过程，预处理，编译，汇编，链接。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：北京中轴线从元开始；冥王星被开除了；碳14只能检测有机物；核裂变是物理变化。&lt;strong&gt;推理判断&lt;/strong&gt;：此项无时间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; RTOS看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-03-10 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-10/</link>
         <pubDate>Tue, 10 Mar 2026 15:58:32 +0800</pubDate>
