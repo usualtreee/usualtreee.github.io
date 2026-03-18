@@ -7,7 +7,71 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Mon, 16 Mar 2026 09:35:20 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 18 Mar 2026 09:22:11 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-03-18 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-18/</link>
+        <pubDate>Wed, 18 Mar 2026 09:22:11 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-18/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-18 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Bootloader&lt;/strong&gt;: 介绍stm32相关的硬件知识；这里有个重点，介绍了最新的vscode和keil和hal库联合开发；很重要！&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;翻转字符串里的单词&lt;/strong&gt;：重点就是删空格，也是用双指针，之前教过；这里有点难，先理解数组单元里的移除元素章节。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：李白在李世民之后；河床内圈比外圈浅。&lt;strong&gt;推理判断&lt;/strong&gt;：曲直的交点也算考虑范围；。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Bootloader看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>[自学]2026-03-17 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-17/</link>
+        <pubDate>Tue, 17 Mar 2026 09:47:57 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-17/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-03-17 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Bootloader&lt;/strong&gt;: ota升级流程：触发检测，固件下载，验证机制，安全写入。以STM32为例，要理解ICP和ISP和IAP。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;力扣&lt;/strong&gt;:&lt;strong&gt;反转字符串II&lt;/strong&gt;：这里关键就是2k步长遍历就可以了；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;八股&lt;/strong&gt;:至2.55：函数重载也分成员和非成员；赋值运算符的重载涉及到内存；++a和a++的区别要知道；流操作符的实现原理要知道；重写就是多态基类的虚函数；隐藏就是基类不是虚函数，子类取了一个一模一样的名字；模版全特化和偏特化要知道；临界区的原子性和rtos一样也有方法；模版实例化的显示和隐性和延迟实例化；base：：和using能调用被隐藏的基类函数；typename和template的用法；静态绑定和动态绑定的区别；mutable和volatile的作用；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：雅典学院描绘的是柏拉图和亚里士多德。&lt;strong&gt;推理判断&lt;/strong&gt;：一堆小图形的时候可以看看数量；面数和边数相对应也可以算；曲面数和直线数分开看也算。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h4 id=&#34;-每日完成&#34;&gt;✅ 每日完成
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 口语打卡&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 力扣刷一题&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 八股学习&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Bootloader看三节课&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 粉笔学习&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-03-16 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-16/</link>
         <pubDate>Mon, 16 Mar 2026 09:35:20 +0800</pubDate>
