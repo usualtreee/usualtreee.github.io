@@ -7,7 +7,299 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Mon, 20 Apr 2026 10:09:43 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 21 Apr 2026 16:34:02 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[科研]2026-04-21 </title>
+        <link>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-04-21/</link>
+        <pubDate>Tue, 21 Apr 2026 16:34:02 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-04-21/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover1.jpg" alt="Featured image of post [科研]2026-04-21 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;h1 id=&#34;algangan光电器件-今日学习总结&#34;&gt;AlGaN/GaN光电器件 今日学习总结
+&lt;/h1&gt;&lt;h2 id=&#34;一器件基础模式增强型耗尽型&#34;&gt;一、器件基础模式（增强型/耗尽型）
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;增强型器件&lt;/strong&gt;
+阈值电压＞0；无栅压时器件关断，需加正向栅压才能导通。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;耗尽型器件&lt;/strong&gt;
+阈值电压＜0；无栅压时器件导通，需加负向栅压才能关断。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;二核心概念持久光电导ppc&#34;&gt;二、核心概念：持久光电导（PPC）
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;
+光照停止后，器件光电流长时间维持高位、不快速衰减的现象。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;物理机理&lt;/strong&gt;
+AlGaN/GaN异质结内的&lt;strong&gt;深能级缺陷&lt;/strong&gt;俘获光生载流子，室温下载流子释放极慢，导致器件电导被永久抬高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关键特征&lt;/strong&gt;
+衰减时间常数可达10⁴秒，无外部电压激励无法自发复位。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;三核心概念双脉冲易化ppf&#34;&gt;三、核心概念：双脉冲易化（PPF）
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;
+连续双光脉冲刺激下，第二个脉冲响应电流大于第一个的短时突触塑性现象。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;正常规律&lt;/strong&gt;
+脉冲间隔越小，PPF指数越大；间隔越大，PPF指数逐步衰减。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;四ppc与ppf的关联机理&#34;&gt;四、PPC与PPF的关联机理
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;常规器件：浅陷阱主导PPF，响应随脉冲间隔明显衰减。&lt;/li&gt;
+&lt;li&gt;强PPC器件：深陷阱抬高稳态电导基线，消除脉冲间陷阱排空过程，&lt;strong&gt;PPF指数不随间隔变化&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;核心逻辑：PPC为稳态背景增益，会完全掩盖PPF的瞬态时间依赖性。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;五实验现象分析与诊断针对低漏压下的反常ppf&#34;&gt;五、实验现象分析与诊断（针对低漏压下的反常PPF）
+&lt;/h2&gt;&lt;h3 id=&#34;1-观察到的反常现象&#34;&gt;1. 观察到的反常现象
+&lt;/h3&gt;&lt;p&gt;在 V_DS = 0.1 V 低漏极电压下，器件的 PPF 指数在 5 ms ~ 1 min 的时间间隔范围内&lt;strong&gt;几乎保持恒定&lt;/strong&gt;，未观测到预期的指数衰减。&lt;/p&gt;
+&lt;h3 id=&#34;2-物理归因浅陷阱动力学被冻结&#34;&gt;2. 物理归因：浅陷阱动力学被“冻结”
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;浅陷阱（PPF来源）&lt;/strong&gt;：在 0.1 V 低场下，沟道电子获得的漂移动能（E = eV）低于浅陷阱的激活能（几十 meV），导致电子被捕获后&lt;strong&gt;无力逃逸&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;结果&lt;/strong&gt;：第一个脉冲无法为第二个脉冲“预留”可释放的电子，PPF 的瞬态叠加效应&lt;strong&gt;被抑制&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;深陷阱（PPC来源）&lt;/strong&gt;：主导了缓慢且稳定的背景电流抬升，淹没了 PPF 信号。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-唤醒-ppf-的实验诊断方案针对-e-mode-gan-hemt&#34;&gt;3. 唤醒 PPF 的实验诊断方案（针对 E-mode GaN HEMT）
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;调控手段&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;物理目的（通俗比喻）&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;预期效果&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;提高 V_DS&lt;/strong&gt;（如 0.1 V → 3 V）&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;给电子“踩油门”&lt;/strong&gt;：增强横向电场，赋予电子足够动能爬出浅陷阱。&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;激活浅陷阱的捕获-释放循环，&lt;strong&gt;使 PPF 衰减曲线显现&lt;/strong&gt;。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;降低 V_G 至亚阈区&lt;/strong&gt;（V_G ≈ V_TH - 0.2 V）&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;“关小水龙头”&lt;/strong&gt;：耗尽沟道背景载流子，压制深陷阱导致的 PPC 背景噪声。&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;提高信噪比，&lt;strong&gt;让微弱的 PPF 信号凸显出来&lt;/strong&gt;。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;六重点文献研读与写作应用&#34;&gt;六、重点文献研读与写作应用
+&lt;/h2&gt;&lt;h3 id=&#34;1-surfaces-and-interfaces2024--机制定义标杆&#34;&gt;1. 《Surfaces and Interfaces》(2024) —— 机制定义标杆
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心贡献&lt;/strong&gt;：通过双指数模型（Eq. 3 &amp;amp; 4）严格区分了&lt;strong&gt;浅陷阱（快响应/PPF）&lt;/strong&gt; 与&lt;strong&gt;深陷阱（慢响应/PPC基线）&lt;/strong&gt; 的贡献。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关键结论&lt;/strong&gt;：浅陷阱贡献快速生成与衰减成分，深陷阱贡献慢速生成与衰减成分并决定最终的亚稳态电流。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用策略&lt;/strong&gt;：论文中可直接引用该文结论，作为判定 GaN HEMT 中“深陷阱主导 PPF 反常”的理论依据；同时可借鉴其双指数拟合法量化器件中的陷阱分布。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-nano-energy2020--异常现象标杆&#34;&gt;2. 《Nano Energy》(2020) —— 异常现象标杆
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心贡献&lt;/strong&gt;：首次报道了栅压可调的“反PPF”现象（负栅压下 PPF 指数随间隔增加而&lt;strong&gt;增大&lt;/strong&gt;，正栅压下正常衰减）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关键结论&lt;/strong&gt;：背景电流的漂移方向可由栅极电场调控，深陷阱的持续充放电是导致 PPF 测量值偏离真实动力学的原因。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用策略&lt;/strong&gt;：该文为“PPF 指数不遵循常规衰减”提供了先例。可将本工作中“PPF 指数不变”作为该谱系中的一种&lt;strong&gt;极端情况&lt;/strong&gt;加以论述（背景电流漂移恰好抵消了衰减），显著增强论文创新性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-applied-physics-letters1998&#34;&gt;3. 《Applied Physics Letters》(1998)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;器件&lt;/strong&gt;：Al₀.₁₅Ga₀.₈₅N/GaN 肖特基二极管&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;研究内容&lt;/strong&gt;：仅研究 PPC 机理，&lt;strong&gt;无 PPF 相关内容&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;价值定位&lt;/strong&gt;：作为 GaN 体系 PPC 效应的早期经典文献，可用于引言部分说明 PPC 在 GaN 材料中的普遍性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-ieee-electron-device-letters2024&#34;&gt;4. 《IEEE Electron Device Letters》(2024)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;器件&lt;/strong&gt;：AlGaN 基场效应光电晶体管&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;研究内容&lt;/strong&gt;：研究 PPC 抑制方法，&lt;strong&gt;无 PPF、无阈值电压数值、无 E-mode/D-mode 标注&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;价值定位&lt;/strong&gt;：说明即使在最新的 GaN 器件研究中，PPF 与 PPC 的关联机制仍未受到足够关注，凸显本工作的研究价值。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>[自学]2026-04-21 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-04-21/</link>
+        <pubDate>Tue, 21 Apr 2026 10:25:13 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-04-21/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-04-21 " /&gt;&lt;h4 id=&#34;-主线任务注意要从实践出发在实践中完善理论知识做好资料整理&#34;&gt;📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：迅为驱动学习；代码随想录刷题；听力加强；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 看到内核符号表，后续计划就是先看课，尽早看完，如有必要再进行实践，否则在3588项目中进行实践；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;：听了两题；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;雅思听力核心知识点总结&#34;&gt;雅思听力核心知识点总结
+&lt;/h1&gt;&lt;h2 id=&#34;一雅思听力口音核心规则&#34;&gt;一、雅思听力口音核心规则
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;核心主体&lt;/strong&gt;：80%为&lt;strong&gt;标准英式RP英音（BBC英音）&lt;/strong&gt;，是所有Section4学术讲座、核心独白的基准口音&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;次要口音&lt;/strong&gt;：10%-15%为澳式/新西兰英语，仅5%以内为美式英语+其他轻口音&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;备考重点&lt;/strong&gt;：无需专门练习美音，优先吃透剑桥真题英音材料；美式拼写（colour/color）官方均给分，不影响评分&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;考点提示&lt;/strong&gt;：口音从来不是雅思听力考点，同义替换、定位词、细节拼写才是核心&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;二高频方位短语leading-off&#34;&gt;二、高频方位短语：leading off
+&lt;/h2&gt;&lt;h3 id=&#34;核心释义按雅思出现频率排序&#34;&gt;核心释义（按雅思出现频率排序）
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;【地图题必考】&lt;/strong&gt;（道路/空间）从…延伸而出、与…相连、从…分岔开（以主路/主空间为起点向外分出支路）
+&lt;ul&gt;
+&lt;li&gt;雅思真题例句：A narrow path leading off the main trail leads to the old quarry.&lt;/li&gt;
+&lt;li&gt;核心辨析：&lt;code&gt;leading off A&lt;/code&gt;=以A为起点分岔；&lt;code&gt;leading to B&lt;/code&gt;=以B为终点到达&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;【独白/学术讨论高频】&lt;/strong&gt; 开启、带头做、以…开场
+&lt;ul&gt;
+&lt;li&gt;雅思真题例句：I’ll lead off with a brief overview of the project.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;三考古场景核心词post-holes--post&#34;&gt;三、考古场景核心词：post holes &amp;amp; post
+&lt;/h2&gt;&lt;h3 id=&#34;1-post-holes&#34;&gt;1. post holes
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;正确拼写&lt;/strong&gt;：&lt;code&gt;post holes&lt;/code&gt;（复数，名词作定语必须用单数post，写posts hole直接零分）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心释义&lt;/strong&gt;：考古场景专业术语「柱洞」，古代木质建筑的木柱埋入地下后留下的坑洞遗迹，是还原建筑形制的核心考古证据&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;精听陷阱&lt;/strong&gt;：音频中存在失爆连读，听起来像&lt;code&gt;pos holes&lt;/code&gt;，极易漏听/t/、误写复数&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;同义替换&lt;/strong&gt;：structural remains of ancient buildings / foundations of the original building&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-post-核心义柱子桩杆&#34;&gt;2. post 核心义：柱子、桩、杆
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;音标&lt;/strong&gt;：英音 /pəʊst/&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;雅思高频场景&amp;amp;搭配&lt;/strong&gt;：
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;搭配&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;th&gt;高频场景&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;sign post&lt;/td&gt;
+&lt;td&gt;路标&lt;/td&gt;
+&lt;td&gt;地图题超高频定位词&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;gate post&lt;/td&gt;
+&lt;td&gt;门柱&lt;/td&gt;
+&lt;td&gt;户外/景区场景&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;fence post&lt;/td&gt;
+&lt;td&gt;围栏桩&lt;/td&gt;
+&lt;td&gt;生活/户外场景&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;易混词辨析&lt;/strong&gt;：
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;核心特征&lt;/th&gt;
+&lt;th&gt;雅思场景&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;post&lt;/td&gt;
+&lt;td&gt;小型功能性垂直杆/柱，木质/金属，支撑/标识用&lt;/td&gt;
+&lt;td&gt;全场景最高频&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;pole&lt;/td&gt;
+&lt;td&gt;细长无承重杆，仅作延伸/架设用&lt;/td&gt;
+&lt;td&gt;户外场景&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;pillar&lt;/td&gt;
+&lt;td&gt;大型承重石柱/水泥柱，用于大型建筑&lt;/td&gt;
+&lt;td&gt;建筑/历史讲座&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;四学术场景核心词convenor也作convener英式拼写优先&#34;&gt;四、学术场景核心词：convenor（也作convener，英式拼写优先）
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;音标&lt;/strong&gt;：英音 /kənˈviːnə(r)/&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心释义&lt;/strong&gt;：（大学课程/学术项目的）课程负责人、模块主管、学术协调人，是雅思Section3学术讨论超高频词&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;雅思真题例句&lt;/strong&gt;：We were supposed to meet our course convenor to discuss our assignment plan.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;必考同义替换&lt;/strong&gt;：course leader / module leader / module coordinator / tutor / supervisor&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;备考避雷&lt;/strong&gt;：
+&lt;ol&gt;
+&lt;li&gt;拼写：&lt;code&gt;convenor&lt;/code&gt;/&lt;code&gt;convener&lt;/code&gt;均给分，漏写中间的&lt;code&gt;n&lt;/code&gt;直接零分&lt;/li&gt;
+&lt;li&gt;发音：重音在第二音节，不要和&lt;code&gt;conveyor&lt;/code&gt;（传送带）听混&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;五多义高频词article&#34;&gt;五、多义高频词：article
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;音标&lt;/strong&gt;：英音 /ˈɑːtɪkl/&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心释义（按雅思出现频率排序）&lt;/strong&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;【学术场景90%高频】&lt;/strong&gt;（期刊/报纸/杂志的）文章、学术论文
+&lt;ul&gt;
+&lt;li&gt;高频搭配：journal article 期刊论文 / newspaper article 报纸文章 / research article 研究论文&lt;/li&gt;
+&lt;li&gt;同义替换：essay / paper / report / study&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;【生活场景Section1高频】&lt;/strong&gt;（一件）物品、物件
+&lt;ul&gt;
+&lt;li&gt;高频搭配：article of clothing 一件衣物 / personal articles 个人物品 / valuable articles 贵重物品&lt;/li&gt;
+&lt;li&gt;同义替换：item / object&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;低频释义&lt;/strong&gt;：语法义「冠词」、法律义「条款」，听力几乎不考&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;备考避雷&lt;/strong&gt;：填空题中复数&lt;code&gt;articles&lt;/code&gt;必须加s，漏写直接零分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;今日嵌入式linux驱动学习总结&#34;&gt;今日嵌入式Linux驱动学习总结
+&lt;/h1&gt;&lt;h2 id=&#34;一cpu架构区分&#34;&gt;一、CPU架构区分
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;ARM32&lt;/strong&gt;：32位精简指令集，老旧嵌入式平台使用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ARM64(AArch64)&lt;/strong&gt;：64位ARM，RK3568开发板架构，目前嵌入式主流。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MIPS&lt;/strong&gt;：老式精简指令架构，现已淘汰，新项目基本不用。
+三者均为RISC架构，和电脑x86架构不通用，驱动程序必须交叉编译。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;二内核配置相关&#34;&gt;二、内核配置相关
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;make menuconfig&lt;/strong&gt;：内核图形化配置菜单，用来开关内核功能、设置驱动编译方式(y/M/)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Kconfig&lt;/strong&gt;：菜单定义文件，编写menuconfig里的选项、依赖关系。&lt;strong&gt;入门外部驱动不用学，内置驱动才需要&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;.config&lt;/strong&gt;：配置结果文件，menuconfig操作后自动生成，存放所有CONFIG_xxx配置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Makefile&lt;/strong&gt;：编译规则文件。
+&lt;ul&gt;
+&lt;li&gt;外部驱动只需背会极简版模板即可，不用深入复杂语法；&lt;/li&gt;
+&lt;li&gt;三者关系：Kconfig定义菜单 → menuconfig生成.config → Makefile读取.config完成编译。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;三rkdevtool烧录文件区分&#34;&gt;三、RKDevTool烧录文件区分
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;boot.img&lt;/strong&gt;：单分区启动镜像，仅含内核+设备树；单独烧录快，不改动根文件系统与用户数据，日常开发高频使用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;update.img&lt;/strong&gt;：全系统完整固件包，包含uboot、boot、rootfs所有分区；用于救砖、全新烧录整机系统。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;config.cfg(分区表)&lt;/strong&gt;：固定文件，定义eMMC分区地址大小；和内核编译、驱动添加无关，全程用原厂固定配置即可。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;四linux文件权限宏&#34;&gt;四、Linux文件权限宏
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;S_IRUGO&lt;/code&gt; 代表所有用户只读权限，对应数字&lt;strong&gt;444&lt;/strong&gt;，模块参数权限宏，定义sysfs节点访问权限。&lt;/p&gt;
+&lt;h2 id=&#34;五内核模块-module_param-参数传递&#34;&gt;五、内核模块 module_param 参数传递
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;.ko&lt;/code&gt; = Linux内核模块，运行在内核态。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;insmod&lt;/code&gt;：加载模块命令，&lt;strong&gt;模块参数就在insmod加载时传入&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;module_param&lt;/code&gt;：普通整型参数加载传值。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;module_param_array&lt;/code&gt;：数组参数，&lt;code&gt;array_size&lt;/code&gt;由内核自动统计传入元素个数，无需手动赋值。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rmmod&lt;/code&gt;：卸载模块，触发module_exit函数。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;六内核符号表&#34;&gt;六、内核符号表
+&lt;/h2&gt;&lt;p&gt;内核所有函数、全局变量的&lt;strong&gt;地址+名称清单&lt;/strong&gt;；
+作用：insmod加载驱动时，靠符号表绑定内核函数地址，驱动才能调用printk等内核接口；未导出符号无法使用。&lt;/p&gt;
+&lt;h2 id=&#34;七v4l2框架&#34;&gt;七、V4L2框架
+&lt;/h2&gt;&lt;p&gt;Linux专属&lt;strong&gt;摄像头/视频采集通用框架&lt;/strong&gt;，属于&lt;strong&gt;后期进阶内容&lt;/strong&gt;；
+前置基础极多（字符设备、I2C、platform总线等），现阶段完全不用学习，原厂多媒体驱动岗重点内容。&lt;/p&gt;
+&lt;h2 id=&#34;八芯片原厂bsp岗位学习范围总结&#34;&gt;八、芯片原厂BSP岗位学习范围总结
+&lt;/h2&gt;&lt;p&gt;前期：ARM架构、Uboot移植、DDR时钟、设备树DTS、内核基础子系统、存储(eMMC)、内核调试；
+中期：各类总线驱动、电源管理；
+后期：DRM显示、V4L2音视频、USB网络、内核补丁维护、固件量产打包。&lt;/p&gt;
+&lt;h2 id=&#34;九自身学习阶段定位&#34;&gt;九、自身学习阶段定位
+&lt;/h2&gt;&lt;p&gt;当前处于&lt;strong&gt;驱动入门基础阶段&lt;/strong&gt;：模块编写、参数传递、字符设备基础；
+无需碰内核深度裁剪、Kconfig手写、V4L2、原厂底层移植等高阶内容，先吃透基础驱动即可。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-04-20 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-04-20/</link>
         <pubDate>Mon, 20 Apr 2026 10:09:43 +0800</pubDate>

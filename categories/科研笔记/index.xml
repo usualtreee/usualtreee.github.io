@@ -7,7 +7,102 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Fri, 06 Feb 2026 17:13:31 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 21 Apr 2026 16:34:02 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[科研]2026-04-21 </title>
+        <link>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-04-21/</link>
+        <pubDate>Tue, 21 Apr 2026 16:34:02 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-04-21/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover1.jpg" alt="Featured image of post [科研]2026-04-21 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;h1 id=&#34;algangan光电器件-今日学习总结&#34;&gt;AlGaN/GaN光电器件 今日学习总结
+&lt;/h1&gt;&lt;h2 id=&#34;一器件基础模式增强型耗尽型&#34;&gt;一、器件基础模式（增强型/耗尽型）
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;增强型器件&lt;/strong&gt;
+阈值电压＞0；无栅压时器件关断，需加正向栅压才能导通。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;耗尽型器件&lt;/strong&gt;
+阈值电压＜0；无栅压时器件导通，需加负向栅压才能关断。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;二核心概念持久光电导ppc&#34;&gt;二、核心概念：持久光电导（PPC）
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;
+光照停止后，器件光电流长时间维持高位、不快速衰减的现象。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;物理机理&lt;/strong&gt;
+AlGaN/GaN异质结内的&lt;strong&gt;深能级缺陷&lt;/strong&gt;俘获光生载流子，室温下载流子释放极慢，导致器件电导被永久抬高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关键特征&lt;/strong&gt;
+衰减时间常数可达10⁴秒，无外部电压激励无法自发复位。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;三核心概念双脉冲易化ppf&#34;&gt;三、核心概念：双脉冲易化（PPF）
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;
+连续双光脉冲刺激下，第二个脉冲响应电流大于第一个的短时突触塑性现象。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;正常规律&lt;/strong&gt;
+脉冲间隔越小，PPF指数越大；间隔越大，PPF指数逐步衰减。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;四ppc与ppf的关联机理&#34;&gt;四、PPC与PPF的关联机理
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;常规器件：浅陷阱主导PPF，响应随脉冲间隔明显衰减。&lt;/li&gt;
+&lt;li&gt;强PPC器件：深陷阱抬高稳态电导基线，消除脉冲间陷阱排空过程，&lt;strong&gt;PPF指数不随间隔变化&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;核心逻辑：PPC为稳态背景增益，会完全掩盖PPF的瞬态时间依赖性。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;五实验现象分析与诊断针对低漏压下的反常ppf&#34;&gt;五、实验现象分析与诊断（针对低漏压下的反常PPF）
+&lt;/h2&gt;&lt;h3 id=&#34;1-观察到的反常现象&#34;&gt;1. 观察到的反常现象
+&lt;/h3&gt;&lt;p&gt;在 V_DS = 0.1 V 低漏极电压下，器件的 PPF 指数在 5 ms ~ 1 min 的时间间隔范围内&lt;strong&gt;几乎保持恒定&lt;/strong&gt;，未观测到预期的指数衰减。&lt;/p&gt;
+&lt;h3 id=&#34;2-物理归因浅陷阱动力学被冻结&#34;&gt;2. 物理归因：浅陷阱动力学被“冻结”
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;浅陷阱（PPF来源）&lt;/strong&gt;：在 0.1 V 低场下，沟道电子获得的漂移动能（E = eV）低于浅陷阱的激活能（几十 meV），导致电子被捕获后&lt;strong&gt;无力逃逸&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;结果&lt;/strong&gt;：第一个脉冲无法为第二个脉冲“预留”可释放的电子，PPF 的瞬态叠加效应&lt;strong&gt;被抑制&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;深陷阱（PPC来源）&lt;/strong&gt;：主导了缓慢且稳定的背景电流抬升，淹没了 PPF 信号。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-唤醒-ppf-的实验诊断方案针对-e-mode-gan-hemt&#34;&gt;3. 唤醒 PPF 的实验诊断方案（针对 E-mode GaN HEMT）
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;调控手段&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;物理目的（通俗比喻）&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;预期效果&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;提高 V_DS&lt;/strong&gt;（如 0.1 V → 3 V）&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;给电子“踩油门”&lt;/strong&gt;：增强横向电场，赋予电子足够动能爬出浅陷阱。&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;激活浅陷阱的捕获-释放循环，&lt;strong&gt;使 PPF 衰减曲线显现&lt;/strong&gt;。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;降低 V_G 至亚阈区&lt;/strong&gt;（V_G ≈ V_TH - 0.2 V）&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;“关小水龙头”&lt;/strong&gt;：耗尽沟道背景载流子，压制深陷阱导致的 PPC 背景噪声。&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;提高信噪比，&lt;strong&gt;让微弱的 PPF 信号凸显出来&lt;/strong&gt;。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;六重点文献研读与写作应用&#34;&gt;六、重点文献研读与写作应用
+&lt;/h2&gt;&lt;h3 id=&#34;1-surfaces-and-interfaces2024--机制定义标杆&#34;&gt;1. 《Surfaces and Interfaces》(2024) —— 机制定义标杆
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心贡献&lt;/strong&gt;：通过双指数模型（Eq. 3 &amp;amp; 4）严格区分了&lt;strong&gt;浅陷阱（快响应/PPF）&lt;/strong&gt; 与&lt;strong&gt;深陷阱（慢响应/PPC基线）&lt;/strong&gt; 的贡献。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关键结论&lt;/strong&gt;：浅陷阱贡献快速生成与衰减成分，深陷阱贡献慢速生成与衰减成分并决定最终的亚稳态电流。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用策略&lt;/strong&gt;：论文中可直接引用该文结论，作为判定 GaN HEMT 中“深陷阱主导 PPF 反常”的理论依据；同时可借鉴其双指数拟合法量化器件中的陷阱分布。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-nano-energy2020--异常现象标杆&#34;&gt;2. 《Nano Energy》(2020) —— 异常现象标杆
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心贡献&lt;/strong&gt;：首次报道了栅压可调的“反PPF”现象（负栅压下 PPF 指数随间隔增加而&lt;strong&gt;增大&lt;/strong&gt;，正栅压下正常衰减）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关键结论&lt;/strong&gt;：背景电流的漂移方向可由栅极电场调控，深陷阱的持续充放电是导致 PPF 测量值偏离真实动力学的原因。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用策略&lt;/strong&gt;：该文为“PPF 指数不遵循常规衰减”提供了先例。可将本工作中“PPF 指数不变”作为该谱系中的一种&lt;strong&gt;极端情况&lt;/strong&gt;加以论述（背景电流漂移恰好抵消了衰减），显著增强论文创新性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-applied-physics-letters1998&#34;&gt;3. 《Applied Physics Letters》(1998)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;器件&lt;/strong&gt;：Al₀.₁₅Ga₀.₈₅N/GaN 肖特基二极管&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;研究内容&lt;/strong&gt;：仅研究 PPC 机理，&lt;strong&gt;无 PPF 相关内容&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;价值定位&lt;/strong&gt;：作为 GaN 体系 PPC 效应的早期经典文献，可用于引言部分说明 PPC 在 GaN 材料中的普遍性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-ieee-electron-device-letters2024&#34;&gt;4. 《IEEE Electron Device Letters》(2024)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;器件&lt;/strong&gt;：AlGaN 基场效应光电晶体管&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;研究内容&lt;/strong&gt;：研究 PPC 抑制方法，&lt;strong&gt;无 PPF、无阈值电压数值、无 E-mode/D-mode 标注&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;价值定位&lt;/strong&gt;：说明即使在最新的 GaN 器件研究中，PPF 与 PPC 的关联机制仍未受到足够关注，凸显本工作的研究价值。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[科研]2026-02-06 </title>
         <link>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-02-06/</link>
         <pubDate>Fri, 06 Feb 2026 17:13:31 +0800</pubDate>

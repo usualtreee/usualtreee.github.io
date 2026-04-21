@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="📅 今日学习了啥 放假模式。。勿扰。。。">
-<title>[科研]2026-02-06 </title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="📅 今日学习了啥 AlGaN/GaN光电器件 今日学习总结 一、器件基础模式（增强型/耗尽型） 增强型器件 阈值电压＞0；无栅压时器件关断，需加正向栅压">
+<title>[科研]2026-04-21 </title>
 
-<link rel='canonical' href='https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-02-06/'>
+<link rel='canonical' href='https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-04-21/'>
 
-<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="[科研]2026-02-06 ">
-<meta property='og:description' content="📅 今日学习了啥 放假模式。。勿扰。。。">
-<meta property='og:url' content='https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-02-06/'>
+<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="[科研]2026-04-21 ">
+<meta property='og:description' content="📅 今日学习了啥 AlGaN/GaN光电器件 今日学习总结 一、器件基础模式（增强型/耗尽型） 增强型器件 阈值电压＞0；无栅压时器件关断，需加正向栅压">
+<meta property='og:url' content='https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-04-21/'>
 <meta property='og:site_name' content='Usualtree'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-06T17:13:31&#43;08:00'/><meta property='article:modified_time' content='2026-02-06T17:13:31&#43;08:00'/><meta property='og:image' content='https://usualtreee.github.io/img/cover1.jpg' />
-<meta name="twitter:title" content="[科研]2026-02-06 ">
-<meta name="twitter:description" content="📅 今日学习了啥 放假模式。。勿扰。。。"><meta name="twitter:card" content="summary_large_image">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-21T16:34:02&#43;08:00'/><meta property='article:modified_time' content='2026-04-21T16:34:02&#43;08:00'/><meta property='og:image' content='https://usualtreee.github.io/img/cover1.jpg' />
+<meta name="twitter:title" content="[科研]2026-04-21 ">
+<meta name="twitter:description" content="📅 今日学习了啥 AlGaN/GaN光电器件 今日学习总结 一、器件基础模式（增强型/耗尽型） 增强型器件 阈值电压＞0；无栅压时器件关断，需加正向栅压"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://usualtreee.github.io/img/cover1.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -279,6 +279,28 @@
       </ol>
     </li>
   </ol>
+
+  <ol>
+    <li><a href="#一器件基础模式增强型耗尽型">一、器件基础模式（增强型/耗尽型）</a></li>
+    <li><a href="#二核心概念持久光电导ppc">二、核心概念：持久光电导（PPC）</a></li>
+    <li><a href="#三核心概念双脉冲易化ppf">三、核心概念：双脉冲易化（PPF）</a></li>
+    <li><a href="#四ppc与ppf的关联机理">四、PPC与PPF的关联机理</a></li>
+    <li><a href="#五实验现象分析与诊断针对低漏压下的反常ppf">五、实验现象分析与诊断（针对低漏压下的反常PPF）</a>
+      <ol>
+        <li><a href="#1-观察到的反常现象">1. 观察到的反常现象</a></li>
+        <li><a href="#2-物理归因浅陷阱动力学被冻结">2. 物理归因：浅陷阱动力学被“冻结”</a></li>
+        <li><a href="#3-唤醒-ppf-的实验诊断方案针对-e-mode-gan-hemt">3. 唤醒 PPF 的实验诊断方案（针对 E-mode GaN HEMT）</a></li>
+      </ol>
+    </li>
+    <li><a href="#六重点文献研读与写作应用">六、重点文献研读与写作应用</a>
+      <ol>
+        <li><a href="#1-surfaces-and-interfaces2024--机制定义标杆">1. 《Surfaces and Interfaces》(2024) —— 机制定义标杆</a></li>
+        <li><a href="#2-nano-energy2020--异常现象标杆">2. 《Nano Energy》(2020) —— 异常现象标杆</a></li>
+        <li><a href="#3-applied-physics-letters1998">3. 《Applied Physics Letters》(1998)</a></li>
+        <li><a href="#4-ieee-electron-device-letters2024">4. 《IEEE Electron Device Letters》(2024)</a></li>
+      </ol>
+    </li>
+  </ol>
 </nav>
         </div>
     </section>
@@ -292,9 +314,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/%E7%A7%91%E7%A0%942026-02-06/">
+            <a href="/p/%E7%A7%91%E7%A0%942026-04-21/">
                 
-                    <img src="/img/cover1.jpg" loading="lazy" alt="Featured image of post [科研]2026-02-06 " />
+                    <img src="/img/cover1.jpg" loading="lazy" alt="Featured image of post [科研]2026-04-21 " />
                 
             </a>
         </div>
@@ -313,7 +335,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E7%A7%91%E7%A0%942026-02-06/">[科研]2026-02-06 </a>
+            <a href="/p/%E7%A7%91%E7%A0%942026-04-21/">[科研]2026-04-21 </a>
         </h2>
     
         
@@ -335,7 +357,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-02-06</time>
+                <time class="article-time--published">2026-04-21</time>
             </div>
         
 
@@ -352,7 +374,92 @@
     
     
     <h4 id="-今日学习了啥">📅 今日学习了啥
-</h4><p>放假模式。。勿扰。。。</p>
+</h4><h1 id="algangan光电器件-今日学习总结">AlGaN/GaN光电器件 今日学习总结
+</h1><h2 id="一器件基础模式增强型耗尽型">一、器件基础模式（增强型/耗尽型）
+</h2><ol>
+<li><strong>增强型器件</strong>
+阈值电压＞0；无栅压时器件关断，需加正向栅压才能导通。</li>
+<li><strong>耗尽型器件</strong>
+阈值电压＜0；无栅压时器件导通，需加负向栅压才能关断。</li>
+</ol>
+<h2 id="二核心概念持久光电导ppc">二、核心概念：持久光电导（PPC）
+</h2><ol>
+<li><strong>定义</strong>
+光照停止后，器件光电流长时间维持高位、不快速衰减的现象。</li>
+<li><strong>物理机理</strong>
+AlGaN/GaN异质结内的<strong>深能级缺陷</strong>俘获光生载流子，室温下载流子释放极慢，导致器件电导被永久抬高。</li>
+<li><strong>关键特征</strong>
+衰减时间常数可达10⁴秒，无外部电压激励无法自发复位。</li>
+</ol>
+<h2 id="三核心概念双脉冲易化ppf">三、核心概念：双脉冲易化（PPF）
+</h2><ol>
+<li><strong>定义</strong>
+连续双光脉冲刺激下，第二个脉冲响应电流大于第一个的短时突触塑性现象。</li>
+<li><strong>正常规律</strong>
+脉冲间隔越小，PPF指数越大；间隔越大，PPF指数逐步衰减。</li>
+</ol>
+<h2 id="四ppc与ppf的关联机理">四、PPC与PPF的关联机理
+</h2><ol>
+<li>常规器件：浅陷阱主导PPF，响应随脉冲间隔明显衰减。</li>
+<li>强PPC器件：深陷阱抬高稳态电导基线，消除脉冲间陷阱排空过程，<strong>PPF指数不随间隔变化</strong>。</li>
+<li>核心逻辑：PPC为稳态背景增益，会完全掩盖PPF的瞬态时间依赖性。</li>
+</ol>
+<h2 id="五实验现象分析与诊断针对低漏压下的反常ppf">五、实验现象分析与诊断（针对低漏压下的反常PPF）
+</h2><h3 id="1-观察到的反常现象">1. 观察到的反常现象
+</h3><p>在 V_DS = 0.1 V 低漏极电压下，器件的 PPF 指数在 5 ms ~ 1 min 的时间间隔范围内<strong>几乎保持恒定</strong>，未观测到预期的指数衰减。</p>
+<h3 id="2-物理归因浅陷阱动力学被冻结">2. 物理归因：浅陷阱动力学被“冻结”
+</h3><ul>
+<li><strong>浅陷阱（PPF来源）</strong>：在 0.1 V 低场下，沟道电子获得的漂移动能（E = eV）低于浅陷阱的激活能（几十 meV），导致电子被捕获后<strong>无力逃逸</strong>。</li>
+<li><strong>结果</strong>：第一个脉冲无法为第二个脉冲“预留”可释放的电子，PPF 的瞬态叠加效应<strong>被抑制</strong>。</li>
+<li><strong>深陷阱（PPC来源）</strong>：主导了缓慢且稳定的背景电流抬升，淹没了 PPF 信号。</li>
+</ul>
+<h3 id="3-唤醒-ppf-的实验诊断方案针对-e-mode-gan-hemt">3. 唤醒 PPF 的实验诊断方案（针对 E-mode GaN HEMT）
+</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:left">调控手段</th>
+<th style="text-align:left">物理目的（通俗比喻）</th>
+<th style="text-align:left">预期效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>提高 V_DS</strong>（如 0.1 V → 3 V）</td>
+<td style="text-align:left"><strong>给电子“踩油门”</strong>：增强横向电场，赋予电子足够动能爬出浅陷阱。</td>
+<td style="text-align:left">激活浅陷阱的捕获-释放循环，<strong>使 PPF 衰减曲线显现</strong>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>降低 V_G 至亚阈区</strong>（V_G ≈ V_TH - 0.2 V）</td>
+<td style="text-align:left"><strong>“关小水龙头”</strong>：耗尽沟道背景载流子，压制深陷阱导致的 PPC 背景噪声。</td>
+<td style="text-align:left">提高信噪比，<strong>让微弱的 PPF 信号凸显出来</strong>。</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="六重点文献研读与写作应用">六、重点文献研读与写作应用
+</h2><h3 id="1-surfaces-and-interfaces2024--机制定义标杆">1. 《Surfaces and Interfaces》(2024) —— 机制定义标杆
+</h3><ul>
+<li><strong>核心贡献</strong>：通过双指数模型（Eq. 3 &amp; 4）严格区分了<strong>浅陷阱（快响应/PPF）</strong> 与<strong>深陷阱（慢响应/PPC基线）</strong> 的贡献。</li>
+<li><strong>关键结论</strong>：浅陷阱贡献快速生成与衰减成分，深陷阱贡献慢速生成与衰减成分并决定最终的亚稳态电流。</li>
+<li><strong>应用策略</strong>：论文中可直接引用该文结论，作为判定 GaN HEMT 中“深陷阱主导 PPF 反常”的理论依据；同时可借鉴其双指数拟合法量化器件中的陷阱分布。</li>
+</ul>
+<h3 id="2-nano-energy2020--异常现象标杆">2. 《Nano Energy》(2020) —— 异常现象标杆
+</h3><ul>
+<li><strong>核心贡献</strong>：首次报道了栅压可调的“反PPF”现象（负栅压下 PPF 指数随间隔增加而<strong>增大</strong>，正栅压下正常衰减）。</li>
+<li><strong>关键结论</strong>：背景电流的漂移方向可由栅极电场调控，深陷阱的持续充放电是导致 PPF 测量值偏离真实动力学的原因。</li>
+<li><strong>应用策略</strong>：该文为“PPF 指数不遵循常规衰减”提供了先例。可将本工作中“PPF 指数不变”作为该谱系中的一种<strong>极端情况</strong>加以论述（背景电流漂移恰好抵消了衰减），显著增强论文创新性。</li>
+</ul>
+<h3 id="3-applied-physics-letters1998">3. 《Applied Physics Letters》(1998)
+</h3><ul>
+<li><strong>器件</strong>：Al₀.₁₅Ga₀.₈₅N/GaN 肖特基二极管</li>
+<li><strong>研究内容</strong>：仅研究 PPC 机理，<strong>无 PPF 相关内容</strong>。</li>
+<li><strong>价值定位</strong>：作为 GaN 体系 PPC 效应的早期经典文献，可用于引言部分说明 PPC 在 GaN 材料中的普遍性。</li>
+</ul>
+<h3 id="4-ieee-electron-device-letters2024">4. 《IEEE Electron Device Letters》(2024)
+</h3><ul>
+<li><strong>器件</strong>：AlGaN 基场效应光电晶体管</li>
+<li><strong>研究内容</strong>：研究 PPC 抑制方法，<strong>无 PPF、无阈值电压数值、无 E-mode/D-mode 标注</strong>。</li>
+<li><strong>价值定位</strong>：说明即使在最新的 GaN 器件研究中，PPF 与 PPC 的关联机制仍未受到足够关注，凸显本工作的研究价值。</li>
+</ul>
 
 </section>
 
@@ -377,7 +484,7 @@
             
                 
 <article class="has-image">
-    <a href="/p/%E7%A7%91%E7%A0%942026-04-21/">
+    <a href="/p/%E7%A7%91%E7%A0%942026-02-06/">
         
         
             <div class="article-image">
@@ -388,7 +495,7 @@
         
 
         <div class="article-details">
-            <h2 class="article-title">[科研]2026-04-21 </h2>
+            <h2 class="article-title">[科研]2026-02-06 </h2>
         </div>
     </a>
 </article>
