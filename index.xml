@@ -7,7 +7,26 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Sat, 18 Apr 2026 09:00:00 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 20 Apr 2026 10:09:43 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-04-20 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-04-20/</link>
+        <pubDate>Mon, 20 Apr 2026 10:09:43 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-04-20/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-04-20 " /&gt;&lt;h4 id=&#34;-主线任务注意要从实践出发在实践中完善理论知识做好资料整理&#34;&gt;📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：迅为驱动学习；代码随想录刷题；听力加强；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 今天一定要把helloworld搞定，，。。搞定了，但虚拟机连不上板子，这个明天解决吧&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;：听了两题，依旧是难文章听不出来，后面得精听精读；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;总结：今日都在配环境，确实没什么可总结知识点；&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-04-18 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-04-18/</link>
         <pubDate>Sat, 18 Apr 2026 09:00:00 +0800</pubDate>
@@ -16,94 +35,119 @@
         <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-04-18 " /&gt;&lt;h4 id=&#34;-主线任务注意要从实践出发在实践中完善理论知识做好资料整理&#34;&gt;📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
 &lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：迅为驱动学习；代码随想录刷题；听力加强；&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 还是老实跟着教程走了。。。教程干啥我干啥。重在理解吧。。&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 还是老实跟着教程走了。。。教程干啥我干啥。重在理解吧。。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;: 今天听了一题，只能说。，。。额！感觉得三四刷才能完全听明白；&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;总结如下：&lt;/p&gt;
 &lt;h1 id=&#34;rk3568-linux-嵌入式开发今日知识点总结&#34;&gt;RK3568 Linux 嵌入式开发今日知识点总结
 &lt;/h1&gt;&lt;h2 id=&#34;一编译体系全量编译与单独编译&#34;&gt;一、编译体系：全量编译与单独编译
 &lt;/h2&gt;&lt;h3 id=&#34;11-全量编译&#34;&gt;1.1 全量编译
 &lt;/h3&gt;&lt;p&gt;./build.sh all&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;SDK 初次解压初始化必须完整执行一次。&lt;/li&gt;
-&lt;li&gt;自动编译 uboot、内核、设备树、rootfs、recovery 全部模块，生成完整可烧录整机系统。&lt;/li&gt;
-&lt;li&gt;编译耗时长，后续开发调试禁止重复执行。&lt;/li&gt;
+&lt;li&gt;SDK 初次解压初始化必须完整执行一次&lt;/li&gt;
+&lt;li&gt;自动编译uboot、内核、设备树、rootfs、recovery全部模块，生成完整可烧录整机系统&lt;/li&gt;
+&lt;li&gt;编译耗时长，后续开发调试禁止重复执行&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;12-单独编译改哪编哪增量编译&#34;&gt;1.2 单独编译（改哪编哪，增量编译）
-&lt;/h3&gt;&lt;p&gt;./build.sh uboot        # 单独编译引导程序 uboot
-./build.sh kernel       # 单独编译 Linux 内核 + 设备树
-./build.sh rootfs       # 编译 buildroot 极简根文件系统
-./build.sh debian       # 编译 debian 发行版根文件系统（新手首选）
-./build.sh yocto        # 编译 yocto 企业级定制根文件系统
-./build.sh recovery     # 单独编译系统急救分区 recovery&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;./build.sh uboot&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;单独编译引导程序uboot&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;./build.sh kernel&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;单独编译Linux内核 + 设备树&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;./build.sh rootfs&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译buildroot极简根文件系统&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;./build.sh debian&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译debian发行版根文件系统（新手首选）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;./build.sh yocto&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译yocto企业级定制根文件系统&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;./build.sh recovery&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;单独编译系统急救分区recovery&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;13-编译后固件打包命令&#34;&gt;1.3 编译后固件打包命令
-&lt;/h3&gt;&lt;p&gt;./build.sh firmware     # 将单独编译的模块更新到 rockdev 分区镜像目录
-./build.sh updateimg    # 打包所有分区，生成整机一键烧录镜像 update.img&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;./build.sh firmware&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;将单独编译的模块更新到rockdev分区镜像目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;./build.sh updateimg&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;打包所有分区，生成整机一键烧录镜像update.img&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h3 id=&#34;14-板级硬件配置&#34;&gt;1.4 板级硬件配置
 &lt;/h3&gt;&lt;p&gt;./build.sh BoardConfig-rk3568-evb1-ddr4-v10.mk&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;作用：加载 RK3568 开发板专属硬件参数、分区配置。&lt;/li&gt;
-&lt;li&gt;规则：只要执行过一次 ./build.sh all，配置会永久保存，后续所有单独编译都无需重复手动执行此命令。&lt;/li&gt;
+&lt;li&gt;作用：加载RK3568开发板专属硬件参数、分区配置&lt;/li&gt;
+&lt;li&gt;规则：只要执行过一次./build.sh all，配置会永久保存，后续单独编译无需重复执行&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;二核心镜像文件区分&#34;&gt;二、核心镜像文件区分
 &lt;/h2&gt;&lt;h3 id=&#34;21-ubootimg-与-bootimg-本质区别&#34;&gt;2.1 uboot.img 与 boot.img 本质区别
-&lt;/h3&gt;&lt;p&gt;二者为完全独立、互不嵌套的两个硬件分区：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;uboot.img：开发板上电第一个运行的程序，负责底层硬件初始化、DDR内存配置、引导内核，不包含任何 Linux 系统本体。&lt;/li&gt;
-&lt;li&gt;boot.img：由 kernel.img(内核本体) + resource.img(设备树+开机资源) 打包而成，是 Linux 系统运行核心，由 uboot 引导加载。&lt;/li&gt;
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;uboot.img：开发板上电首个运行程序，负责底层硬件初始化、DDR配置、引导内核，不包含Linux系统本体&lt;/li&gt;
+&lt;li&gt;boot.img：由内核kernel.img+设备树resource.img打包而成，是Linux系统运行核心，由uboot负责加载&lt;/li&gt;
+&lt;li&gt;二者为完全独立的硬件分区，互不包含&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;22-设备树-device-tree&#34;&gt;2.2 设备树 Device Tree
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;定义：开发板专属硬件说明书，向 Linux 内核描述板子引脚、外设、屏幕、硬件参数信息。&lt;/li&gt;
-&lt;li&gt;归属：设备树属于内核的一部分。&lt;/li&gt;
-&lt;li&gt;编译规则：修改设备树 .dts 源码后，执行 ./build.sh kernel 即可自动编译生成二进制 .dtb，并自动打包进 boot.img。&lt;/li&gt;
+&lt;li&gt;定义：开发板专属硬件说明书，描述板子引脚、外设、硬件参数信息&lt;/li&gt;
+&lt;li&gt;归属：设备树属于Linux内核的一部分&lt;/li&gt;
+&lt;li&gt;编译规则：修改设备树.dts源码后，执行./build.sh kernel即可自动编译，新文件会打包进boot.img&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;23-根文件系统-rootfs&#34;&gt;2.3 根文件系统 rootfs
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;定义：rootfs 是根文件系统统称，是 Linux 的用户运行区域，存放系统命令、软件、运行库、桌面环境、用户文件。内核启动完成后挂载 rootfs，Linux 系统才算完整可用。&lt;/li&gt;
-&lt;li&gt;三种制作方案：
+&lt;li&gt;定义：rootfs是根文件系统统称，是Linux用户运行区域，存放系统命令、软件、库、用户文件&lt;/li&gt;
+&lt;li&gt;内核启动完成后挂载rootfs，Linux系统才算完整可用&lt;/li&gt;
+&lt;li&gt;三种制作方案
 &lt;ul&gt;
-&lt;li&gt;buildroot：极简轻量嵌入式系统，无原生包管理器，体积小启动快，多用于产品量产。&lt;/li&gt;
-&lt;li&gt;debian：新手首选，与 Ubuntu 同源，自带 apt 系统包管理器，软件生态完善，支持图形桌面。&lt;/li&gt;
-&lt;li&gt;yocto：企业级重型定制框架，定制自由度极高，学习门槛高，日常入门开发无需接触。&lt;/li&gt;
+&lt;li&gt;buildroot：极简轻量嵌入式系统，无原生包管理器，适合产品量产&lt;/li&gt;
+&lt;li&gt;debian：新手首选，自带apt包管理器，软件生态完善，支持图形桌面&lt;/li&gt;
+&lt;li&gt;yocto：企业级定制框架，定制自由度高，入门开发无需接触&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;命令命名说明：./build.sh rootfs 默认特指编译 buildroot 系统；debian、yocto 拥有独立编译命令，三者最终产出均为根文件系统镜像。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;24-recovery-分区作用&#34;&gt;2.4 Recovery 分区作用
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;定位：独立于主系统的系统急救小系统。&lt;/li&gt;
-&lt;li&gt;功能：系统救砖、固件升级、恢复出厂设置、存储分区格式化。&lt;/li&gt;
-&lt;li&gt;使用场景：正常开机流程不会运行该分区，仅主系统损坏崩溃时使用，日常驱动开发基本用不到。&lt;/li&gt;
+&lt;li&gt;定位：独立于主系统的系统急救小系统&lt;/li&gt;
+&lt;li&gt;功能：系统救砖、固件升级、恢复出厂、分区格式化&lt;/li&gt;
+&lt;li&gt;使用场景：正常开机不运行，仅主系统损坏时使用，日常开发基本用不到&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;三开发板完整上电启动流水线&#34;&gt;三、开发板完整上电启动流水线
-&lt;/h2&gt;&lt;p&gt;uboot.img 硬件初始化引导
-↓
-boot.img 内核加载 + 设备树解析硬件外设
-↓
-内核加载对应硬件驱动
-↓
-挂载 rootfs 根文件系统
-↓
-进入完整可用的 Linux 用户操作系统&lt;/p&gt;
+&lt;h2 id=&#34;三开发板上电启动流程&#34;&gt;三、开发板上电启动流程
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;uboot.img完成硬件初始化引导&lt;/li&gt;
+&lt;li&gt;加载boot.img，内核解析设备树识别硬件&lt;/li&gt;
+&lt;li&gt;内核加载外设驱动&lt;/li&gt;
+&lt;li&gt;挂载rootfs根文件系统&lt;/li&gt;
+&lt;li&gt;进入完整可用的Linux用户系统&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;四拓展概念辨析&#34;&gt;四、拓展概念辨析
 &lt;/h2&gt;&lt;h3 id=&#34;41-apt-与-pip-区别&#34;&gt;4.1 apt 与 pip 区别
 &lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;apt：Debian/Ubuntu 系列系统自带系统级包管理器，用于安装系统工具、编译器、底层依赖库、桌面软件。&lt;/li&gt;
-&lt;li&gt;pip：Python 语言专属包管理器，仅用于安装 Python 第三方库，无法管理系统底层软件。&lt;/li&gt;
-&lt;li&gt;二者功能互不替代，为互补关系。&lt;/li&gt;
+&lt;li&gt;apt：Debian/Ubuntu系统级包管理器，用于安装系统工具、编译器、底层软件&lt;/li&gt;
+&lt;li&gt;pip：Python专属包管理器，仅安装Python第三方库，无法管理系统软件&lt;/li&gt;
+&lt;li&gt;二者功能互补，互不替代&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;42-windows-与-linux-apt-环境&#34;&gt;4.2 Windows 与 Linux apt 环境
-&lt;/h3&gt;&lt;p&gt;Windows 原生不自带 apt 包管理器，apt 仅存在于原生 Linux 系统、WSL、Linux 虚拟机环境中。&lt;/p&gt;
-&lt;h2 id=&#34;五嵌入式开发调试基本原则&#34;&gt;五、嵌入式开发调试基本原则
+&lt;h3 id=&#34;42-系统环境说明&#34;&gt;4.2 系统环境说明
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Windows原生不自带apt，apt仅存在于原生Linux、WSL、Linux虚拟机环境&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;五开发调试基本原则&#34;&gt;五、开发调试基本原则
 &lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;SDK 首次解压初始化，必须完整执行一次 ./build.sh all。&lt;/li&gt;
-&lt;li&gt;后续开发严格遵守改哪编哪原则，不再重复执行耗时极长的全量编译。&lt;/li&gt;
-&lt;li&gt;SDK 顶层 build.sh 脚本自动封装交叉编译环境变量；仅手动进入 uboot/kernel 源码目录修改配置时，才需要手动设置 ARCH 架构变量。&lt;/li&gt;
-&lt;li&gt;单独编译任意模块后，都需要执行 ./build.sh firmware 更新分区镜像，才可烧录验证修改效果。&lt;/li&gt;
+&lt;li&gt;SDK首次初始化，必须完整执行一次./build.sh all&lt;/li&gt;
+&lt;li&gt;后续开发严格遵守改哪编哪，不再重复执行全量编译&lt;/li&gt;
+&lt;li&gt;顶层build.sh脚本自动封装编译环境，仅手动进入源码目录时需手动配置ARCH变量&lt;/li&gt;
+&lt;li&gt;单独编译模块后，需执行./build.sh firmware更新镜像，才可烧录验证修改&lt;/li&gt;
 &lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;雅思&lt;/strong&gt;: 今天听了一题，只能说。，。。额！感觉得三四刷才能完全听明白；&lt;/li&gt;
-&lt;/ul&gt;
 </description>
         </item>
         <item>

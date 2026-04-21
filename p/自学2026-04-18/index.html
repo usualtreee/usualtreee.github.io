@@ -297,14 +297,14 @@
         <li><a href="#24-recovery-分区作用">2.4 Recovery 分区作用</a></li>
       </ol>
     </li>
-    <li><a href="#三开发板完整上电启动流水线">三、开发板完整上电启动流水线</a></li>
+    <li><a href="#三开发板上电启动流程">三、开发板上电启动流程</a></li>
     <li><a href="#四拓展概念辨析">四、拓展概念辨析</a>
       <ol>
         <li><a href="#41-apt-与-pip-区别">4.1 apt 与 pip 区别</a></li>
-        <li><a href="#42-windows-与-linux-apt-环境">4.2 Windows 与 Linux apt 环境</a></li>
+        <li><a href="#42-系统环境说明">4.2 系统环境说明</a></li>
       </ol>
     </li>
-    <li><a href="#五嵌入式开发调试基本原则">五、嵌入式开发调试基本原则</a></li>
+    <li><a href="#五开发调试基本原则">五、开发调试基本原则</a></li>
   </ol>
 </nav>
         </div>
@@ -381,94 +381,119 @@
     <h4 id="-主线任务注意要从实践出发在实践中完善理论知识做好资料整理">📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
 </h4><p><strong>近期目标</strong>：迅为驱动学习；代码随想录刷题；听力加强；</p>
 <ul>
-<li><strong>嵌入式</strong>: 还是老实跟着教程走了。。。教程干啥我干啥。重在理解吧。。</li>
+<li>
+<p><strong>嵌入式</strong>: 还是老实跟着教程走了。。。教程干啥我干啥。重在理解吧。。</p>
+</li>
+<li>
+<p><strong>雅思</strong>: 今天听了一题，只能说。，。。额！感觉得三四刷才能完全听明白；</p>
+</li>
 </ul>
-<p>总结如下：</p>
 <h1 id="rk3568-linux-嵌入式开发今日知识点总结">RK3568 Linux 嵌入式开发今日知识点总结
 </h1><h2 id="一编译体系全量编译与单独编译">一、编译体系：全量编译与单独编译
 </h2><h3 id="11-全量编译">1.1 全量编译
 </h3><p>./build.sh all</p>
 <ul>
-<li>SDK 初次解压初始化必须完整执行一次。</li>
-<li>自动编译 uboot、内核、设备树、rootfs、recovery 全部模块，生成完整可烧录整机系统。</li>
-<li>编译耗时长，后续开发调试禁止重复执行。</li>
+<li>SDK 初次解压初始化必须完整执行一次</li>
+<li>自动编译uboot、内核、设备树、rootfs、recovery全部模块，生成完整可烧录整机系统</li>
+<li>编译耗时长，后续开发调试禁止重复执行</li>
 </ul>
 <h3 id="12-单独编译改哪编哪增量编译">1.2 单独编译（改哪编哪，增量编译）
-</h3><p>./build.sh uboot        # 单独编译引导程序 uboot
-./build.sh kernel       # 单独编译 Linux 内核 + 设备树
-./build.sh rootfs       # 编译 buildroot 极简根文件系统
-./build.sh debian       # 编译 debian 发行版根文件系统（新手首选）
-./build.sh yocto        # 编译 yocto 企业级定制根文件系统
-./build.sh recovery     # 单独编译系统急救分区 recovery</p>
+</h3><p>./build.sh uboot</p>
+<ul>
+<li>单独编译引导程序uboot</li>
+</ul>
+<p>./build.sh kernel</p>
+<ul>
+<li>单独编译Linux内核 + 设备树</li>
+</ul>
+<p>./build.sh rootfs</p>
+<ul>
+<li>编译buildroot极简根文件系统</li>
+</ul>
+<p>./build.sh debian</p>
+<ul>
+<li>编译debian发行版根文件系统（新手首选）</li>
+</ul>
+<p>./build.sh yocto</p>
+<ul>
+<li>编译yocto企业级定制根文件系统</li>
+</ul>
+<p>./build.sh recovery</p>
+<ul>
+<li>单独编译系统急救分区recovery</li>
+</ul>
 <h3 id="13-编译后固件打包命令">1.3 编译后固件打包命令
-</h3><p>./build.sh firmware     # 将单独编译的模块更新到 rockdev 分区镜像目录
-./build.sh updateimg    # 打包所有分区，生成整机一键烧录镜像 update.img</p>
+</h3><p>./build.sh firmware</p>
+<ul>
+<li>将单独编译的模块更新到rockdev分区镜像目录</li>
+</ul>
+<p>./build.sh updateimg</p>
+<ul>
+<li>打包所有分区，生成整机一键烧录镜像update.img</li>
+</ul>
 <h3 id="14-板级硬件配置">1.4 板级硬件配置
 </h3><p>./build.sh BoardConfig-rk3568-evb1-ddr4-v10.mk</p>
 <ul>
-<li>作用：加载 RK3568 开发板专属硬件参数、分区配置。</li>
-<li>规则：只要执行过一次 ./build.sh all，配置会永久保存，后续所有单独编译都无需重复手动执行此命令。</li>
+<li>作用：加载RK3568开发板专属硬件参数、分区配置</li>
+<li>规则：只要执行过一次./build.sh all，配置会永久保存，后续单独编译无需重复执行</li>
 </ul>
 <h2 id="二核心镜像文件区分">二、核心镜像文件区分
 </h2><h3 id="21-ubootimg-与-bootimg-本质区别">2.1 uboot.img 与 boot.img 本质区别
-</h3><p>二者为完全独立、互不嵌套的两个硬件分区：</p>
-<ul>
-<li>uboot.img：开发板上电第一个运行的程序，负责底层硬件初始化、DDR内存配置、引导内核，不包含任何 Linux 系统本体。</li>
-<li>boot.img：由 kernel.img(内核本体) + resource.img(设备树+开机资源) 打包而成，是 Linux 系统运行核心，由 uboot 引导加载。</li>
+</h3><ul>
+<li>uboot.img：开发板上电首个运行程序，负责底层硬件初始化、DDR配置、引导内核，不包含Linux系统本体</li>
+<li>boot.img：由内核kernel.img+设备树resource.img打包而成，是Linux系统运行核心，由uboot负责加载</li>
+<li>二者为完全独立的硬件分区，互不包含</li>
 </ul>
 <h3 id="22-设备树-device-tree">2.2 设备树 Device Tree
 </h3><ul>
-<li>定义：开发板专属硬件说明书，向 Linux 内核描述板子引脚、外设、屏幕、硬件参数信息。</li>
-<li>归属：设备树属于内核的一部分。</li>
-<li>编译规则：修改设备树 .dts 源码后，执行 ./build.sh kernel 即可自动编译生成二进制 .dtb，并自动打包进 boot.img。</li>
+<li>定义：开发板专属硬件说明书，描述板子引脚、外设、硬件参数信息</li>
+<li>归属：设备树属于Linux内核的一部分</li>
+<li>编译规则：修改设备树.dts源码后，执行./build.sh kernel即可自动编译，新文件会打包进boot.img</li>
 </ul>
 <h3 id="23-根文件系统-rootfs">2.3 根文件系统 rootfs
 </h3><ul>
-<li>定义：rootfs 是根文件系统统称，是 Linux 的用户运行区域，存放系统命令、软件、运行库、桌面环境、用户文件。内核启动完成后挂载 rootfs，Linux 系统才算完整可用。</li>
-<li>三种制作方案：
+<li>定义：rootfs是根文件系统统称，是Linux用户运行区域，存放系统命令、软件、库、用户文件</li>
+<li>内核启动完成后挂载rootfs，Linux系统才算完整可用</li>
+<li>三种制作方案
 <ul>
-<li>buildroot：极简轻量嵌入式系统，无原生包管理器，体积小启动快，多用于产品量产。</li>
-<li>debian：新手首选，与 Ubuntu 同源，自带 apt 系统包管理器，软件生态完善，支持图形桌面。</li>
-<li>yocto：企业级重型定制框架，定制自由度极高，学习门槛高，日常入门开发无需接触。</li>
+<li>buildroot：极简轻量嵌入式系统，无原生包管理器，适合产品量产</li>
+<li>debian：新手首选，自带apt包管理器，软件生态完善，支持图形桌面</li>
+<li>yocto：企业级定制框架，定制自由度高，入门开发无需接触</li>
 </ul>
 </li>
-<li>命令命名说明：./build.sh rootfs 默认特指编译 buildroot 系统；debian、yocto 拥有独立编译命令，三者最终产出均为根文件系统镜像。</li>
 </ul>
 <h3 id="24-recovery-分区作用">2.4 Recovery 分区作用
 </h3><ul>
-<li>定位：独立于主系统的系统急救小系统。</li>
-<li>功能：系统救砖、固件升级、恢复出厂设置、存储分区格式化。</li>
-<li>使用场景：正常开机流程不会运行该分区，仅主系统损坏崩溃时使用，日常驱动开发基本用不到。</li>
+<li>定位：独立于主系统的系统急救小系统</li>
+<li>功能：系统救砖、固件升级、恢复出厂、分区格式化</li>
+<li>使用场景：正常开机不运行，仅主系统损坏时使用，日常开发基本用不到</li>
 </ul>
-<h2 id="三开发板完整上电启动流水线">三、开发板完整上电启动流水线
-</h2><p>uboot.img 硬件初始化引导
-↓
-boot.img 内核加载 + 设备树解析硬件外设
-↓
-内核加载对应硬件驱动
-↓
-挂载 rootfs 根文件系统
-↓
-进入完整可用的 Linux 用户操作系统</p>
+<h2 id="三开发板上电启动流程">三、开发板上电启动流程
+</h2><ul>
+<li>uboot.img完成硬件初始化引导</li>
+<li>加载boot.img，内核解析设备树识别硬件</li>
+<li>内核加载外设驱动</li>
+<li>挂载rootfs根文件系统</li>
+<li>进入完整可用的Linux用户系统</li>
+</ul>
 <h2 id="四拓展概念辨析">四、拓展概念辨析
 </h2><h3 id="41-apt-与-pip-区别">4.1 apt 与 pip 区别
 </h3><ul>
-<li>apt：Debian/Ubuntu 系列系统自带系统级包管理器，用于安装系统工具、编译器、底层依赖库、桌面软件。</li>
-<li>pip：Python 语言专属包管理器，仅用于安装 Python 第三方库，无法管理系统底层软件。</li>
-<li>二者功能互不替代，为互补关系。</li>
+<li>apt：Debian/Ubuntu系统级包管理器，用于安装系统工具、编译器、底层软件</li>
+<li>pip：Python专属包管理器，仅安装Python第三方库，无法管理系统软件</li>
+<li>二者功能互补，互不替代</li>
 </ul>
-<h3 id="42-windows-与-linux-apt-环境">4.2 Windows 与 Linux apt 环境
-</h3><p>Windows 原生不自带 apt 包管理器，apt 仅存在于原生 Linux 系统、WSL、Linux 虚拟机环境中。</p>
-<h2 id="五嵌入式开发调试基本原则">五、嵌入式开发调试基本原则
+<h3 id="42-系统环境说明">4.2 系统环境说明
+</h3><ul>
+<li>Windows原生不自带apt，apt仅存在于原生Linux、WSL、Linux虚拟机环境</li>
+</ul>
+<h2 id="五开发调试基本原则">五、开发调试基本原则
 </h2><ol>
-<li>SDK 首次解压初始化，必须完整执行一次 ./build.sh all。</li>
-<li>后续开发严格遵守改哪编哪原则，不再重复执行耗时极长的全量编译。</li>
-<li>SDK 顶层 build.sh 脚本自动封装交叉编译环境变量；仅手动进入 uboot/kernel 源码目录修改配置时，才需要手动设置 ARCH 架构变量。</li>
-<li>单独编译任意模块后，都需要执行 ./build.sh firmware 更新分区镜像，才可烧录验证修改效果。</li>
+<li>SDK首次初始化，必须完整执行一次./build.sh all</li>
+<li>后续开发严格遵守改哪编哪，不再重复执行全量编译</li>
+<li>顶层build.sh脚本自动封装编译环境，仅手动进入源码目录时需手动配置ARCH变量</li>
+<li>单独编译模块后，需执行./build.sh firmware更新镜像，才可烧录验证修改</li>
 </ol>
-<ul>
-<li><strong>雅思</strong>: 今天听了一题，只能说。，。。额！感觉得三四刷才能完全听明白；</li>
-</ul>
 
 </section>
 
@@ -490,6 +515,25 @@ boot.img 内核加载 + 设备树解析硬件外设
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/%E8%87%AA%E5%AD%A62026-04-20/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[自学]2026-04-20 </h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="has-image">
@@ -562,25 +606,6 @@ boot.img 内核加载 + 设备树解析硬件外设
 
         <div class="article-details">
             <h2 class="article-title">[自学]2026-04-14 </h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/%E8%87%AA%E5%AD%A62026-04-13/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">[自学]2026-04-13 </h2>
         </div>
     </a>
 </article>
