@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="📅 今日学习了啥 RTOS: 中断介绍，rtos函数中后缀带fromisr才能在中断中用,屏蔽是指被rtos所管理。看演示可以更好理解。还有时间片调度的演">
-<title>[自学]2026-03-09 </title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理） 近期目标：迅为驱动学习；代码随想录刷题；听力加强； 嵌入式: 小学一下，这几天">
+<title>[自学]2026-04-22 </title>
 
-<link rel='canonical' href='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-09/'>
+<link rel='canonical' href='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-04-22/'>
 
-<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="[自学]2026-03-09 ">
-<meta property='og:description' content="📅 今日学习了啥 RTOS: 中断介绍，rtos函数中后缀带fromisr才能在中断中用,屏蔽是指被rtos所管理。看演示可以更好理解。还有时间片调度的演">
-<meta property='og:url' content='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-09/'>
+<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="[自学]2026-04-22 ">
+<meta property='og:description' content="📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理） 近期目标：迅为驱动学习；代码随想录刷题；听力加强； 嵌入式: 小学一下，这几天">
+<meta property='og:url' content='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-04-22/'>
 <meta property='og:site_name' content='Usualtree'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-03-09T09:24:05&#43;08:00'/><meta property='article:modified_time' content='2026-03-09T09:24:05&#43;08:00'/><meta property='og:image' content='https://usualtreee.github.io/img/cover.jpg' />
-<meta name="twitter:title" content="[自学]2026-03-09 ">
-<meta name="twitter:description" content="📅 今日学习了啥 RTOS: 中断介绍，rtos函数中后缀带fromisr才能在中断中用,屏蔽是指被rtos所管理。看演示可以更好理解。还有时间片调度的演"><meta name="twitter:card" content="summary_large_image">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-22T09:28:15&#43;08:00'/><meta property='article:modified_time' content='2026-04-22T09:28:15&#43;08:00'/><meta property='og:image' content='https://usualtreee.github.io/img/cover.jpg' />
+<meta name="twitter:title" content="[自学]2026-04-22 ">
+<meta name="twitter:description" content="📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理） 近期目标：迅为驱动学习；代码随想录刷题；听力加强； 嵌入式: 小学一下，这几天"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://usualtreee.github.io/img/cover.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -273,12 +273,37 @@
       <ol>
         <li>
           <ol>
-            <li><a href="#-今日学习了啥">📅 今日学习了啥</a></li>
-            <li><a href="#-每日完成">✅ 每日完成</a></li>
+            <li><a href="#-主线任务注意要从实践出发在实践中完善理论知识做好资料整理">📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）</a></li>
           </ol>
         </li>
       </ol>
     </li>
+  </ol>
+
+  <ol>
+    <li><a href="#-q1metabolic-是什么意思">❓ Q1：metabolic 是什么意思？</a></li>
+    <li><a href="#-q2become-aware-of-是什么意思">❓ Q2：become aware of 是什么意思？</a></li>
+    <li><a href="#-q3this-still-isnt-always-the-case-怎么理解">❓ Q3：This still isn&rsquo;t always the case 怎么理解？</a></li>
+    <li><a href="#-q4scenario-是什么意思">❓ Q4：scenario 是什么意思？</a></li>
+    <li><a href="#-备注">📌 备注</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#一module_init-是如何运行的">一、module_init 是如何运行的？</a>
+      <ol>
+        <li><a href="#11-两种运行路径">1.1 两种运行路径</a></li>
+        <li><a href="#12-放到对应的段里面是什么意思">1.2 “放到对应的段里面”是什么意思？</a></li>
+      </ol>
+    </li>
+    <li><a href="#二initcall-优先级全景图">二、Initcall 优先级全景图</a></li>
+    <li><a href="#三单片机裸机与-linux-引脚配置区别">三、单片机裸机与 Linux 引脚配置区别</a>
+      <ol>
+        <li><a href="#31-stm32-单片机裸机无操作系统">3.1 STM32 单片机（裸机/无操作系统）</a></li>
+        <li><a href="#32-rk3568-linux-平台设备树--驱动分离">3.2 RK3568 Linux 平台（设备树 + 驱动分离）</a></li>
+        <li><a href="#33-linux-平台引脚修改准则">3.3 Linux 平台引脚修改准则</a></li>
+      </ol>
+    </li>
+    <li><a href="#-今日总结两个核心思维转变">📌 今日总结：两个核心思维转变</a></li>
   </ol>
 </nav>
         </div>
@@ -293,9 +318,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/%E8%87%AA%E5%AD%A62026-03-09/">
+            <a href="/p/%E8%87%AA%E5%AD%A62026-04-22/">
                 
-                    <img src="/img/cover.jpg" loading="lazy" alt="Featured image of post [自学]2026-03-09 " />
+                    <img src="/img/cover.jpg" loading="lazy" alt="Featured image of post [自学]2026-04-22 " />
                 
             </a>
         </div>
@@ -314,7 +339,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E8%87%AA%E5%AD%A62026-03-09/">[自学]2026-03-09 </a>
+            <a href="/p/%E8%87%AA%E5%AD%A62026-04-22/">[自学]2026-04-22 </a>
         </h2>
     
         
@@ -336,7 +361,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-03-09</time>
+                <time class="article-time--published">2026-04-22</time>
             </div>
         
 
@@ -352,30 +377,204 @@
     <section class="article-content">
     
     
-    <h4 id="-今日学习了啥">📅 今日学习了啥
-</h4><ul>
+    <h4 id="-主线任务注意要从实践出发在实践中完善理论知识做好资料整理">📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+</h4><p><strong>近期目标</strong>：迅为驱动学习；代码随想录刷题；听力加强；</p>
+<ul>
 <li>
-<p><strong>RTOS</strong>: 中断介绍，rtos函数中后缀带fromisr才能在中断中用,屏蔽是指被rtos所管理。看演示可以更好理解。还有时间片调度的演示。时间片是切换视角，如果中断中用hal延时，就是纯延时，不会切换。（优先级要设置高，且用其他时钟源）。</p>
+<p><strong>嵌入式</strong>: 小学一下，这几天要期中考以及文章，最近可能学的比较少；</p>
 </li>
 <li>
-<p><strong>力扣</strong>:<strong>两数之和</strong>：map有key有value，用搜 9-目前数据 是否存在map中，如果在就成功，如果不在，就把目前数据存进来。</p>
+<p><strong>雅思</strong>：听了剑桥雅思 20 Test 3 Part 4；</p>
 </li>
-<li>
-<p><strong>八股</strong>:至：1.40。<strong>#include&lt;&gt; 和 #include&quot;&quot;</strong>：区别在于是否包含系统头文件，从而搜索文件夹不一样。<strong>头文件#ifndef/#define/#endif的作用</strong>：防重定义。<strong>volatile</strong>：表示禁止编译器优化变量，因为硬件可能修改变量。<strong>register</strong>:建议编译器将变量存在寄存器中。<strong>int*const 记住</strong>：是指针不能变。</p>
-</li>
-<li>
-<p><strong>粉笔学习</strong>:<strong>常识判断</strong>：上兵伐谋是孙子兵法说的；昼长夜短：要看白天持续时间，维度越高白天越长,<strong>月相</strong>要会看；主张购买者明知质量有问题依旧购买而抗辩的销售者不受支持。<strong>推理判断</strong>：最大最小面的规律也要注意；如果图像少，边数少，考虑边数数量关系；黑白球题目也要看黑白球的对称性。</p>
+</ul>
+<h1 id="雅思听力学习-qa-记录">雅思听力学习 Q&amp;A 记录
+</h1><p><strong>日期</strong>：2026-04-22<br>
+<strong>来源</strong>：剑桥雅思 20 Test 3 Part 4 “Inclusive Design”</p>
+<hr>
+<h2 id="-q1metabolic-是什么意思">❓ Q1：metabolic 是什么意思？
+</h2><p><strong>✅ 解答</strong>：</p>
+<ul>
+<li>形容词，中文意为 <strong>“新陈代谢的”</strong>、<strong>“代谢的”</strong>。</li>
+<li>常见搭配：
+<ul>
+<li><code>metabolic rate</code>：代谢率</li>
+<li><code>metabolic disease</code>：代谢疾病</li>
+</ul>
 </li>
 </ul>
 <hr>
-<h4 id="-每日完成">✅ 每日完成
-</h4><ul>
-<li><input checked="" disabled="" type="checkbox"> 口语打卡</li>
-<li><input checked="" disabled="" type="checkbox"> 力扣刷一题</li>
-<li><input checked="" disabled="" type="checkbox"> 八股学习</li>
-<li><input checked="" disabled="" type="checkbox"> RTOS看三节课</li>
-<li><input checked="" disabled="" type="checkbox"> 粉笔学习</li>
+<h2 id="-q2become-aware-of-是什么意思">❓ Q2：become aware of 是什么意思？
+</h2><p><strong>✅ 解答</strong>：</p>
+<ul>
+<li>短语，意为 <strong>“意识到、察觉到”</strong>。</li>
+<li>强调从“不知道”到“知道”的状态转变。</li>
+<li>例句：<em>Designers have become aware of the need to be inclusive.</em>（设计师意识到了包容性的必要性。）</li>
 </ul>
+<hr>
+<h2 id="-q3this-still-isnt-always-the-case-怎么理解">❓ Q3：This still isn&rsquo;t always the case 怎么理解？
+</h2><p><strong>✅ 解答</strong>：</p>
+<ul>
+<li>意为 <strong>“情况依然并非总是如此”</strong> 或 <strong>“这尚未成为普遍现象”</strong>。</li>
+<li>在听力原文中，它是一个 <strong>转折信号</strong>，指出前文提到的积极例子（可调节桌子）虽然常见，但并未完全普及。</li>
+</ul>
+<hr>
+<h2 id="-q4scenario-是什么意思">❓ Q4：scenario 是什么意思？
+</h2><p><strong>✅ 解答</strong>：</p>
+<ul>
+<li>名词，意为 <strong>“场景”、“情形”、“局面”</strong>。</li>
+<li>常见搭配：
+<ul>
+<li><code>worst-case scenario</code>：最坏的情况</li>
+<li><code>best-case scenario</code>：最好的情况</li>
+<li><code>in this scenario</code>：在这种情况下</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="-备注">📌 备注
+</h2><ul>
+<li>以上词汇均出现在雅思听力学术类 Part 4 场景中，建议结合原文语境记忆。</li>
+</ul>
+<h1 id="linux-驱动学习笔记---2026-04-22">Linux 驱动学习笔记 - 2026-04-22
+</h1><h2 id="一module_init-是如何运行的">一、module_init 是如何运行的？
+</h2><h3 id="11-两种运行路径">1.1 两种运行路径
+</h3><p><code>module_init</code> 宏指定的初始化函数，根据驱动编译方式的不同，走两条完全不同的执行路径：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:left">编译方式</th>
+<th style="text-align:left">执行路径</th>
+<th style="text-align:left">触发时机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>编译为模块 (.ko)</strong></td>
+<td style="text-align:left"><code>insmod</code> → 系统调用 → 内核模块加载器 → 直接调用 <code>module_init</code> 指定的函数</td>
+<td style="text-align:left">手动加载模块时</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>编译进内核 (built-in)</strong></td>
+<td style="text-align:left"><code>module_init</code> → 演变为 <code>device_initcall</code> → 函数指针放入特定段 → 内核启动时 <code>do_initcalls()</code> 统一遍历调用</td>
+<td style="text-align:left">内核启动过程中</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-放到对应的段里面是什么意思">1.2 “放到对应的段里面”是什么意思？
+</h3><ul>
+<li><strong>段（Section）</strong>：编译器将代码和数据归类打包的单元（如 <code>.text</code> 放代码，<code>.data</code> 放已初始化全局变量）。</li>
+<li><strong>内核的自定义段</strong>：内核定义了类似 <code>.initcall6.init</code> 的特殊段，专门存放初始化函数指针。</li>
+<li><strong>宏的作用</strong>：<code>module_init(my_init)</code> 展开后，会生成一个静态全局变量，其值为 <code>my_init</code> 函数地址，并通过 <code>__attribute__((__section__(&quot;.initcall6.init&quot;)))</code> 强制放入指定段。</li>
+<li><strong>链接脚本的作用</strong>：链接阶段，<code>vmlinux.lds</code> 脚本将所有目标文件中同名段（如 <code>.initcall6.init</code> 和 <code>.initcall6s.init</code>）的内容收集起来，<strong>首尾相接</strong>排列成一个连续数组，并用 <code>__initcall6_start</code> 和 <code>__initcall6_end</code> 标记首尾。</li>
+<li><strong>启动时调用</strong>：<code>do_initcalls()</code> 遍历这个函数指针数组，依次调用每一个初始化函数。</li>
+</ul>
+<blockquote>
+<p>💡 <strong>核心思想</strong>：利用<strong>编译时数据重排技术</strong>，将分散在无数文件中的初始化函数指针，汇聚成一个可遍历的数组，实现初始化的解耦与自动化调度。</p>
+</blockquote>
+<hr>
+<h2 id="二initcall-优先级全景图">二、Initcall 优先级全景图
+</h2><p>除了 <code>module_init</code>，内核还提供了一系列优先级更高的初始化宏，以满足不同子系统之间的依赖顺序。</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:center">等级</th>
+<th style="text-align:left">宏定义</th>
+<th style="text-align:left">典型用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">early</td>
+<td style="text-align:left"><code>early_initcall(fn)</code></td>
+<td style="text-align:left">最早期的硬件初始化（SMP 前），如电源管理、DMA</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:left"><code>pure_initcall(fn)</code></td>
+<td style="text-align:left">无任何依赖的“纯粹”初始化</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left"><code>core_initcall(fn)</code></td>
+<td style="text-align:left">核心子系统：调度器、内存管理</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left"><code>postcore_initcall(fn)</code></td>
+<td style="text-align:left">核心初始化后的补充初始化</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:left"><code>arch_initcall(fn)</code></td>
+<td style="text-align:left">CPU 架构相关初始化</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:left"><code>subsys_initcall(fn)</code></td>
+<td style="text-align:left">内核子系统：I2C、SPI、PCI、USB 等</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:left"><code>fs_initcall(fn)</code></td>
+<td style="text-align:left">文件系统初始化</td>
+</tr>
+<tr>
+<td style="text-align:center">(特殊)</td>
+<td style="text-align:left"><code>rootfs_initcall(fn)</code></td>
+<td style="text-align:left">根文件系统初始化</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>6</strong></td>
+<td style="text-align:left"><strong><code>device_initcall(fn)</code></strong></td>
+<td style="text-align:left"><strong>等价于 <code>module_init</code>，大多数设备驱动</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:left"><code>late_initcall(fn)</code></td>
+<td style="text-align:left">晚期初始化，依赖所有子系统就绪（如 RTC）</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>⚠️ <strong>关键认知</strong>：你的驱动之所以用 <code>module_init</code>，是因为它依赖的总线、GPIO 等基础设施已经由优先级更高的 <code>subsys_initcall</code> 或 <code>arch_initcall</code> 提前初始化完毕。</p>
+</blockquote>
+<hr>
+<h2 id="三单片机裸机与-linux-引脚配置区别">三、单片机裸机与 Linux 引脚配置区别
+</h2><h3 id="31-stm32-单片机裸机无操作系统">3.1 STM32 单片机（裸机/无操作系统）
+</h3><ul>
+<li><strong>配置方式</strong>：引脚复用、GPIO 方向、时钟使能等<strong>全部硬编码在驱动源码内部</strong>。</li>
+<li><strong>硬件耦合性</strong>：驱动代码与硬件接线<strong>强绑定</strong>。</li>
+<li><strong>修改成本</strong>：一旦硬件引脚接线发生变化，必须<strong>同步修改驱动 C 代码</strong>并重新编译。</li>
+</ul>
+<h3 id="32-rk3568-linux-平台设备树--驱动分离">3.2 RK3568 Linux 平台（设备树 + 驱动分离）
+</h3><ul>
+<li><strong>配置方式</strong>：所有引脚复用、GPIO 编号、时钟源等硬件描述信息<strong>统一存放在设备树（.dts/.dtsi）文件中</strong>。</li>
+<li><strong>硬件耦合性</strong>：驱动代码<strong>不关心具体引脚编号</strong>，仅通过设备树接口（如 <code>of_get_named_gpio</code>）动态获取配置。</li>
+<li><strong>修改成本</strong>：
+<ul>
+<li>原厂板载硬件引脚配置已由 BSP 预设完成，<strong>移植常见外设驱动时无需修改驱动 C 代码</strong>。</li>
+<li>若实际硬件接线与默认设备树不符，<strong>唯一修改入口是设备树 DTS 文件</strong>，驱动 C 源码保持不动。</li>
+</ul>
+</li>
+</ul>
+<h3 id="33-linux-平台引脚修改准则">3.3 Linux 平台引脚修改准则
+</h3><ul>
+<li><strong>驱动代码</strong>：与硬件无关，保持通用性和可移植性。</li>
+<li><strong>设备树（DTS）</strong>：硬件描述的<strong>唯一事实来源</strong>。</li>
+<li><strong>操作结论</strong>：引脚变更 → <strong>仅改 DTS</strong> → 编译为 <code>.dtb</code> → 替换启动文件 → 驱动自动适配新引脚。</li>
+</ul>
+<hr>
+<h2 id="-今日总结两个核心思维转变">📌 今日总结：两个核心思维转变
+</h2><ol>
+<li>
+<p><strong>从“函数调用”到“数组遍历”</strong>
+<code>module_init</code> 不是编译成一条 <code>call</code> 指令，而是生成一个函数指针存入特殊段，最终由内核统一遍历执行。这是内核实现<strong>启动流程自动化调度</strong>的关键设计。</p>
+</li>
+<li>
+<p><strong>从“代码配置”到“数据描述”</strong>
+在裸机开发中，引脚是<strong>写死在代码里的常量</strong>；而在 Linux 驱动开发中，引脚变成了<strong>从外部数据文件读取的变量</strong>。这种 <strong>“硬件描述与驱动逻辑分离”</strong> 的设计，正是 Linux 能够支持数千种不同硬件板卡、而驱动代码依然保持简洁通用的核心哲学。</p>
+</li>
+</ol>
 
 </section>
 
@@ -397,25 +596,6 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="has-image">
-    <a href="/p/%E8%87%AA%E5%AD%A62026-04-22/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">[自学]2026-04-22 </h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="has-image">
@@ -488,6 +668,25 @@
 
         <div class="article-details">
             <h2 class="article-title">[自学]2026-04-17 </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E8%87%AA%E5%AD%A62026-04-16/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[自学]2026-04-16 </h2>
         </div>
     </a>
 </article>

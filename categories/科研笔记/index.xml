@@ -7,7 +7,142 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Tue, 21 Apr 2026 16:34:02 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 22 Apr 2026 13:53:50 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E7%A7%91%E7%A0%94%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[科研]2026-04-22 </title>
+        <link>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-04-22/</link>
+        <pubDate>Wed, 22 Apr 2026 13:53:50 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-04-22/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover1.jpg" alt="Featured image of post [科研]2026-04-22 " /&gt;&lt;h4 id=&#34;-今日学习了啥&#34;&gt;📅 今日学习了啥
+&lt;/h4&gt;&lt;h1 id=&#34;algangan光电器件&#34;&gt;AlGaN/GaN光电器件
+&lt;/h1&gt;&lt;h2 id=&#34;六陷阱的空间位置与栅压调控逻辑&#34;&gt;六、陷阱的空间位置与栅压调控逻辑
+&lt;/h2&gt;&lt;h3 id=&#34;1-陷阱的垂直分布与功能分工&#34;&gt;1. 陷阱的垂直分布与功能分工
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;位置&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;陷阱类型&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;对器件的影响&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;AlGaN 表面&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;深能级空穴陷阱（如 $(V_{III}-2O_N)^{1-}$）&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;俘获光生空穴 → 正电荷削弱极化场 → &lt;strong&gt;PPC 来源之一&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;AlGaN 势垒层体内&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;浅/深能级电子陷阱&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;浅陷阱贡献 &lt;strong&gt;PPF&lt;/strong&gt; 快响应；深陷阱贡献 PPC 慢成分&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;AlGaN/GaN 界面&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;浅能级界面态&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;PPF 的主要来源&lt;/strong&gt;（离 2DEG 最近，俘获/释放最快）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;GaN 缓冲层&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;深能级电子陷阱（Fe/C 掺杂相关）&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;PPC 的主要来源&lt;/strong&gt;（位于沟道下方，通过背栅效应增强 2DEG）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;2-顶栅-e-mode-gan-hemt-的特殊性&#34;&gt;2. 顶栅 E-mode GaN HEMT 的特殊性
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;结构顺序&lt;/strong&gt;：栅极 → AlGaN 势垒层 → 2DEG 沟道 → GaN 缓冲层陷阱。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;屏蔽效应&lt;/strong&gt;：开态下，高浓度 2DEG 屏蔽栅极电场，使其&lt;strong&gt;无法穿透到下方缓冲层&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;调控窗口&lt;/strong&gt;：必须在&lt;strong&gt;亚阈区&lt;/strong&gt;（$V_G \approx V_{TH}$）耗尽 2DEG 后，栅压才能作用于缓冲层深陷阱。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-栅压极性对陷阱的影响顶栅结构&#34;&gt;3. 栅压极性对陷阱的影响（顶栅结构）
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;栅压&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;AlGaN 体陷阱（沟道上方）&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;GaN 缓冲层陷阱（沟道下方）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;正压 (+$V_G$)&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;吸引电子，陷阱变深 → &lt;strong&gt;弛豫时间变长&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;被 2DEG 屏蔽 → &lt;strong&gt;几乎无影响&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;负压 (-$V_G$)&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;排斥电子，陷阱变浅 → &lt;strong&gt;弛豫时间变短&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;需耗尽 2DEG 后才有效 → &lt;strong&gt;释放电子&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;七ppf-指数不变的物理归因&#34;&gt;七、PPF 指数不变的物理归因
+&lt;/h2&gt;&lt;h3 id=&#34;1-低漏压v_ds01textv下浅陷阱被冻结&#34;&gt;1. 低漏压（$V_{DS}=0.1\text{V}$）下浅陷阱被“冻结”
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;浅陷阱释放电子需要&lt;strong&gt;横向电场辅助&lt;/strong&gt;。0.1 V 提供的电场力不足以将逃逸出陷阱的电子有效扫出沟道。&lt;/li&gt;
+&lt;li&gt;结果：第一个脉冲无法为第二个脉冲留下“在路上”的电子 → &lt;strong&gt;PPF 的快衰减成分缺失&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-深陷阱的慢动力学在短窗口内静止&#34;&gt;2. 深陷阱的慢动力学在短窗口内“静止”
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;缓冲层深陷阱释放时间常数 $\tau_{d2} \gg 60\text{ s}$。&lt;/li&gt;
+&lt;li&gt;在 PPF 测试窗口（$\Delta t = 5\text{ ms} \sim 1\text{ min}$）内，$e^{-t/\tau_{d2}} \approx 1$，背景电流&lt;strong&gt;几乎不衰减&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;第二个脉冲始终叠加在&lt;strong&gt;相同高度的 PPC 基线&lt;/strong&gt;上 → &lt;strong&gt;PPF 指数不变&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-与-epsc-缓慢衰减的兼容性&#34;&gt;3. 与 EPSC 缓慢衰减的兼容性
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;PPF 不变&lt;/strong&gt;：发生在短窗口（&amp;lt; 1 min），深陷阱的慢释放在此窗口内“冻结”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;EPSC 衰减&lt;/strong&gt;：发生在长窗口（&amp;gt; 100 s），深陷阱的慢释放累积效应变得可见。&lt;/li&gt;
+&lt;li&gt;两者是同一物理过程（深陷阱极慢释放）在不同时间尺度上的表现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;八重点文献研读结论&#34;&gt;八、重点文献研读结论
+&lt;/h2&gt;&lt;h3 id=&#34;1-surfaces-and-interfaces2024&#34;&gt;1. 《Surfaces and Interfaces》(2024)
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心贡献&lt;/strong&gt;：用双指数模型将 EPSC 的生成和衰减拆分为&lt;strong&gt;快成分（浅陷阱）&lt;/strong&gt; 和&lt;strong&gt;慢成分（深陷阱）&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;关键结论&lt;/strong&gt;：深陷阱决定衰减曲线的&lt;strong&gt;亚稳态基线&lt;/strong&gt;（PPC 尾巴）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;对本工作的价值&lt;/strong&gt;：提供了数学工具（双指数拟合）和物理框架，可定量证明 GaN HEMT 由深陷阱主导。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-nano-energy2020--inse-底栅器件&#34;&gt;2. 《Nano Energy》(2020) — InSe 底栅器件
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心贡献&lt;/strong&gt;：发现栅压可调的“反 PPF”现象。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;机制&lt;/strong&gt;：负栅压下深陷阱持续释放电子 → 背景电流随时间&lt;strong&gt;抬升&lt;/strong&gt; → PPF 指数随 $\Delta t$ &lt;strong&gt;反常上升&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;零栅压数据&lt;/strong&gt;：背景电流平坦 → PPF 指数&lt;strong&gt;基本不变&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;对本工作的价值&lt;/strong&gt;：为“PPF 指数不变”提供了直接类比——当深陷阱无净充放电时，PPF 指数即呈现平台。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-ieee-edl2024--algan-2deg-pt&#34;&gt;3. 《IEEE EDL》(2024) — AlGaN 2DEG-PT
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心贡献&lt;/strong&gt;：证明 AlGaN 表面的 $(V_{III}-2O_N)^{1-}$ 空穴陷阱是 PPC 的主要来源，原位 SiNx 钝化可有效抑制。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;器件结构&lt;/strong&gt;：无 GaN 缓冲层，PPC 仅源于 AlGaN 表面及势垒层内部。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;对本工作的价值&lt;/strong&gt;：对比说明 GaN HEMT 的 PPC 来源更多元（增加缓冲层深陷阱），解释了本器件 PPC 尾巴更长的原因。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-nature-nanotechnology2023--mos-分级神经元&#34;&gt;4. 《Nature Nanotechnology》(2023) — MoS₂ 分级神经元
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心贡献&lt;/strong&gt;：用栅压调控浅陷阱的俘获/释放时间常数（$t_0$ 从 $10^1$ 到 $10^6\text{ ms}$），实现可变时间总和。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;无 PPF 内容&lt;/strong&gt;：该文聚焦连续多脉冲的累积响应，不涉及双脉冲易化比率。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;对本工作的价值&lt;/strong&gt;：提供“栅压是调控陷阱动力学的有效手段”的文献背书。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;九待办实验与论文写作要点&#34;&gt;九、待办实验与论文写作要点
+&lt;/h2&gt;&lt;h3 id=&#34;1-实验验证方案&#34;&gt;1. 实验验证方案
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;提高 $V_{DS}$&lt;/strong&gt;：从 0.1 V 提升至 1~3 V，观察 PPF 衰减曲线是否恢复。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;亚阈区栅压调控&lt;/strong&gt;：将 $V_G$ 设置在 $V_{TH}$ 附近，观察 PPC 背景是否被有效压制、PPF 是否显现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-数据分析方法&#34;&gt;2. 数据分析方法
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;采用《Surfaces and Interfaces》的&lt;strong&gt;双指数模型&lt;/strong&gt;对 EPSC 衰减曲线进行拟合，提取 $I_{d1}$、$\tau_{d1}$、$I_{d2}$、$\tau_{d2}$、$I_{so}$。&lt;/li&gt;
+&lt;li&gt;若 $I_{d2} \gg I_{d1}$ 且 $\tau_{d2} \gg 60\text{ s}$，则&lt;strong&gt;定量证实&lt;/strong&gt;器件由深能级陷阱主导。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-论文-discussion-逻辑链&#34;&gt;3. 论文 Discussion 逻辑链
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;现象陈述&lt;/strong&gt;：低漏压下 PPF 指数不变，EPSC 有长尾。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;双指数拟合结果&lt;/strong&gt;：慢成分占主导，快成分可忽略。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;物理归因&lt;/strong&gt;：浅陷阱被低电场冻结；深陷阱时间常数极大，在短窗口内背景“冻结”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;文献对标&lt;/strong&gt;：类比《Nano Energy》零栅压平台、《Surfaces》深陷阱决定基线。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;调控方案&lt;/strong&gt;：提出提高 $V_{DS}$ 或亚阈区栅压的验证思路。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;创新点总结&lt;/strong&gt;：揭示了 GaN HEMT 中深陷阱对突触响应的绝对主导地位，以及低场下浅陷阱动力学的抑制现象。&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
         <title>[科研]2026-04-21 </title>
         <link>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-04-21/</link>
         <pubDate>Tue, 21 Apr 2026 16:34:02 +0800</pubDate>
