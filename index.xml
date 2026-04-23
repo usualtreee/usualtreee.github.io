@@ -7,7 +7,634 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Wed, 22 Apr 2026 13:53:50 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 23 Apr 2026 09:00:00 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-04-23 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-04-23/</link>
+        <pubDate>Thu, 23 Apr 2026 09:00:00 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-04-23/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-04-23 " /&gt;&lt;h4 id=&#34;-主线任务注意要从实践出发在实践中完善理论知识做好资料整理&#34;&gt;📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：迅为驱动学习；代码随想录刷题；听力加强；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 继续看视频ing；好累啊，最近可能断更一段时间，找到状态再继续学；计划六月前完成linux学习和项目吧，七月边做简历边复习八股和刷代码随想录以及完善项目；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;：听了两题；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;linux-驱动学习笔记---2026-04-23&#34;&gt;Linux 驱动学习笔记 - 2026-04-23
+&lt;/h1&gt;&lt;h2 id=&#34;1-内核日志函数-printk&#34;&gt;1. 内核日志函数 &lt;code&gt;printk&lt;/code&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;11-作用&#34;&gt;1.1 作用
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;内核空间的 &lt;code&gt;printf&lt;/code&gt;，输出到&lt;strong&gt;内核环缓冲区&lt;/strong&gt;，通过 &lt;code&gt;dmesg&lt;/code&gt; 查看。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;12-日志级别&#34;&gt;1.2 日志级别
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;级别&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;宏&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_EMERG&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;系统崩溃前的紧急消息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_ALERT&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;必须立即处理&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_CRIT&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;严重错误&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_ERR&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;一般错误&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;4&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_WARNING&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;警告&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;5&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_NOTICE&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;普通但重要的通知&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;6&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_INFO&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;信息性消息（默认）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;7&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_DEBUG&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;调试信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;13-使用示例&#34;&gt;1.3 使用示例
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;printk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;KERN_INFO&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Driver loaded&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;pr_info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Driver loaded&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;// 推荐写法
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;14-注意事项&#34;&gt;1.4 注意事项
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;不支持浮点数&lt;/strong&gt;（&lt;code&gt;%f&lt;/code&gt; 无效）&lt;/li&gt;
+&lt;li&gt;指针需专用格式（如 &lt;code&gt;%pK&lt;/code&gt;、&lt;code&gt;%px&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;中断上下文中慎用，避免性能问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-vs-code-头文件路径配置&#34;&gt;2. VS Code 头文件路径配置
+&lt;/h2&gt;&lt;h3 id=&#34;21-配置文件位置&#34;&gt;2.1 配置文件位置
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;.vscode/c_cpp_properties.json&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;22-配置内容示例&#34;&gt;2.2 配置内容示例
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;configurations&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Linux&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;#34;includePath&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;s2&#34;&gt;&amp;#34;${workspaceFolder}/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;s2&#34;&gt;&amp;#34;/path/to/kernel-source/include&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;s2&#34;&gt;&amp;#34;/path/to/kernel-source/arch/arm64/include&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;#34;defines&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;__KERNEL__&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;#34;intelliSenseMode&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;linux-gcc-arm64&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;23-关键点&#34;&gt;2.3 关键点
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;includePath&lt;/code&gt; 数组内添加内核源码路径&lt;/li&gt;
+&lt;li&gt;必须定义 &lt;code&gt;__KERNEL__&lt;/code&gt; 宏&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;3-命令行技巧cp--r-复制目录&#34;&gt;3. 命令行技巧：&lt;code&gt;cp -r&lt;/code&gt; 复制目录
+&lt;/h2&gt;&lt;h3 id=&#34;31-基本用法&#34;&gt;3.1 基本用法
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp -r 源目录 目标目录
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;32-常用参数&#34;&gt;3.2 常用参数
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;参数&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;-r&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;递归复制（复制目录必备）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;-i&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;覆盖前询问确认&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;-u&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;仅当源文件比目标新时才复制&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;-v&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;显示复制过程详细信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;-a&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;归档模式，保留所有属性&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;33-驱动开发场景&#34;&gt;3.3 驱动开发场景
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp 03_dev_t/ 04_cdev -r   &lt;span class=&#34;c1&#34;&gt;# 备份上一版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; 04_cdev
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make clean                &lt;span class=&#34;c1&#34;&gt;# 清除编译产物，得到干净源码副本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;4-边缘-ai-推理云端-vs-端侧&#34;&gt;4. 边缘 AI 推理：云端 vs. 端侧
+&lt;/h2&gt;&lt;h3 id=&#34;41-对比&#34;&gt;4.1 对比
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;维度&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;云端推理&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;端侧推理&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;算力&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;近乎无限&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;受限&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;延迟&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;依赖网络&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;毫秒级响应&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;隐私&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;需上传数据&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;本地处理&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;可用性&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;需联网&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;可离线&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;42-rk3568-部署-llama-方案&#34;&gt;4.2 RK3568 部署 Llama 方案
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;方案&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;RKLLM&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;官方 NPU 加速（Toolkit + Runtime）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;llama.cpp&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;社区 CPU 方案，无需 NPU&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;43-资源瓶颈&#34;&gt;4.3 资源瓶颈
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;推理是&lt;strong&gt;内存带宽密集型&lt;/strong&gt;任务&lt;/li&gt;
+&lt;li&gt;RK3568 内存带宽约 8 GB/s，INT4 量化后 7B 模型约 3.5 GB&lt;/li&gt;
+&lt;li&gt;NPU 的核心作用是减少对系统内存带宽的依赖&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;5-rtos-简介zephyr-与-nuttx&#34;&gt;5. RTOS 简介：Zephyr 与 NuttX
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;特性&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Zephyr&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;NuttX&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Linux&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;定位&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;功能丰富的物联网 RTOS&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;轻量级 Linux，POSIX 兼容&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;通用 OS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;实时性&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;硬实时&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;硬实时&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;软实时&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;内存占用&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;50~300 KB&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;最低 32 KB Flash&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&amp;gt; 几 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;许可证&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Apache 2.0&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Apache 2.0&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;GPLv2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1 id=&#34;雅思听力学习-qa-记录&#34;&gt;雅思听力学习 Q&amp;amp;A 记录
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;日期&lt;/strong&gt;：2026-04-23&lt;br&gt;
+&lt;strong&gt;来源&lt;/strong&gt;：剑桥雅思 20 Test 4 Part 2 “Football Stadium Tour”&lt;br&gt;
+&lt;strong&gt;包含&lt;/strong&gt;：听力原文下半段 + 词汇辨析 + 昨日待补充内容&lt;/p&gt;
+&lt;h1 id=&#34;linux-驱动学习笔记---2026-04-23新增部分&#34;&gt;Linux 驱动学习笔记 - 2026-04-23（新增部分）
+&lt;/h1&gt;&lt;h2 id=&#34;1-内核日志函数-printk-1&#34;&gt;1. 内核日志函数 &lt;code&gt;printk&lt;/code&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;11-作用-1&#34;&gt;1.1 作用
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;内核空间的 &lt;code&gt;printf&lt;/code&gt;，输出到&lt;strong&gt;内核环缓冲区&lt;/strong&gt;，通过 &lt;code&gt;dmesg&lt;/code&gt; 查看。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;12-日志级别-1&#34;&gt;1.2 日志级别
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;级别&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;宏&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_EMERG&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;系统崩溃前的紧急消息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_ALERT&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;必须立即处理&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;2&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_CRIT&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;严重错误&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;3&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_ERR&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;一般错误&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;4&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_WARNING&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;警告&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;5&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_NOTICE&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;普通但重要的通知&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;6&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_INFO&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;信息性消息（默认）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;7&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;KERN_DEBUG&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;调试信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;13-使用示例-1&#34;&gt;1.3 使用示例
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;printk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;KERN_INFO&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Driver loaded&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;pr_info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Driver loaded&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;// 推荐写法
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;14-注意事项-1&#34;&gt;1.4 注意事项
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;不支持浮点数&lt;/strong&gt;（&lt;code&gt;%f&lt;/code&gt; 无效）&lt;/li&gt;
+&lt;li&gt;指针需专用格式（如 &lt;code&gt;%pK&lt;/code&gt;、&lt;code&gt;%px&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;中断上下文中慎用，避免性能问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-vs-code-头文件路径配置-1&#34;&gt;2. VS Code 头文件路径配置
+&lt;/h2&gt;&lt;h3 id=&#34;21-配置文件位置-1&#34;&gt;2.1 配置文件位置
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;.vscode/c_cpp_properties.json&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;22-配置内容示例-1&#34;&gt;2.2 配置内容示例
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;#34;configurations&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Linux&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;#34;includePath&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;s2&#34;&gt;&amp;#34;${workspaceFolder}/**&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;s2&#34;&gt;&amp;#34;/path/to/kernel-source/include&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;s2&#34;&gt;&amp;#34;/path/to/kernel-source/arch/arm64/include&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;#34;defines&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;__KERNEL__&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nt&#34;&gt;&amp;#34;intelliSenseMode&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;linux-gcc-arm64&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;23-关键点-1&#34;&gt;2.3 关键点
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;includePath&lt;/code&gt; 数组内添加内核源码路径&lt;/li&gt;
+&lt;li&gt;必须定义 &lt;code&gt;__KERNEL__&lt;/code&gt; 宏&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;3-命令行技巧cp--r-复制目录-1&#34;&gt;3. 命令行技巧：&lt;code&gt;cp -r&lt;/code&gt; 复制目录
+&lt;/h2&gt;&lt;h3 id=&#34;31-基本用法-1&#34;&gt;3.1 基本用法
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp -r 源目录 目标目录
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;32-常用参数-1&#34;&gt;3.2 常用参数
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;参数&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;-r&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;递归复制（复制目录必备）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;-i&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;覆盖前询问确认&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;-u&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;仅当源文件比目标新时才复制&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;-v&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;显示复制过程详细信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;code&gt;-a&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;归档模式，保留所有属性&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;33-驱动开发场景-1&#34;&gt;3.3 驱动开发场景
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp 03_dev_t/ 04_cdev -r   &lt;span class=&#34;c1&#34;&gt;# 备份上一版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; 04_cdev
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make clean                &lt;span class=&#34;c1&#34;&gt;# 清除编译产物，得到干净源码副本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;4-边缘-ai-推理云端-vs-端侧-1&#34;&gt;4. 边缘 AI 推理：云端 vs. 端侧
+&lt;/h2&gt;&lt;h3 id=&#34;41-对比-1&#34;&gt;4.1 对比
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;维度&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;云端推理&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;端侧推理&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;算力&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;近乎无限&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;受限&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;延迟&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;依赖网络&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;毫秒级响应&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;隐私&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;需上传数据&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;本地处理&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;可用性&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;需联网&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;可离线&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;42-rk3568-部署-llama-方案-1&#34;&gt;4.2 RK3568 部署 Llama 方案
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;方案&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;RKLLM&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;官方 NPU 加速（Toolkit + Runtime）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&lt;strong&gt;llama.cpp&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;社区 CPU 方案，无需 NPU&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;43-资源瓶颈-1&#34;&gt;4.3 资源瓶颈
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;推理是&lt;strong&gt;内存带宽密集型&lt;/strong&gt;任务&lt;/li&gt;
+&lt;li&gt;RK3568 内存带宽约 8 GB/s，INT4 量化后 7B 模型约 3.5 GB&lt;/li&gt;
+&lt;li&gt;NPU 的核心作用是减少对系统内存带宽的依赖&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;5-rtos-简介zephyr-与-nuttx-1&#34;&gt;5. RTOS 简介：Zephyr 与 NuttX
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;特性&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Zephyr&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;NuttX&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Linux&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;定位&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;功能丰富的物联网 RTOS&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;轻量级 Linux，POSIX 兼容&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;通用 OS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;实时性&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;硬实时&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;硬实时&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;软实时&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;内存占用&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;50~300 KB&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;最低 32 KB Flash&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;&amp;gt; 几 MB&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;许可证&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Apache 2.0&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Apache 2.0&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;GPLv2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;-q2听力原文中-hopefully-是希望还是谢天谢地&#34;&gt;❓ Q2：听力原文中 “hopefully” 是“希望”还是“谢天谢地”？
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;✅ 解答&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;意为 &lt;strong&gt;“希望”&lt;/strong&gt;，表达愿望或期待。&lt;/li&gt;
+&lt;li&gt;原文 &lt;em&gt;“hopefully the queue won&amp;rsquo;t be too long”&lt;/em&gt; → &lt;strong&gt;希望&lt;/strong&gt;排队不会太久。&lt;/li&gt;
+&lt;li&gt;不同于 &lt;em&gt;Thank goodness&lt;/em&gt;（谢天谢地，庆幸已发生的事）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;补充例句&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;句子副词：&lt;em&gt;Hopefully, we&amp;rsquo;ll arrive on time.&lt;/em&gt;（&lt;strong&gt;希望&lt;/strong&gt;我们能准时到。）&lt;/li&gt;
+&lt;li&gt;方式副词：&lt;em&gt;The dog wagged its tail hopefully.&lt;/em&gt;（小狗&lt;strong&gt;满怀期待地&lt;/strong&gt;摇着尾巴。）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;-q3swap-ends-是什么意思&#34;&gt;❓ Q3：“swap ends” 是什么意思？
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;✅ 解答&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;意为 &lt;strong&gt;“交换场地 / 互换半场”&lt;/strong&gt;，常见于足球、网球等体育语境。&lt;/li&gt;
+&lt;li&gt;例句：&lt;em&gt;Teams swap ends at half-time.&lt;/em&gt;（中场休息时两队交换场地。）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;-q4post-和-stick-有什么区别&#34;&gt;❓ Q4：post 和 stick 有什么区别？
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;✅ 解答&lt;/strong&gt;：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;维度&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Post&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Stick&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;尺寸&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;大、粗、固定&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;小、细、可手持&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;典型物&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;门柱、路灯柱、邮筒&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;树枝、手杖、球棍&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;动词义&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;张贴、发布、邮寄&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;粘贴、插入、卡住&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;听力实例：早期球门是 &lt;em&gt;sticks&lt;/em&gt;（细木棍），现代是 &lt;em&gt;goal post&lt;/em&gt;（坚固门柱）。&lt;/li&gt;
+&lt;li&gt;动词区分：&lt;em&gt;post a letter&lt;/em&gt;（寄信）vs &lt;em&gt;stick a stamp&lt;/em&gt;（贴邮票）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;-q5go-south-是什么意思&#34;&gt;❓ Q5：go south 是什么意思？
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;✅ 解答&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;英语习语，意为 &lt;strong&gt;“变糟、下跌、失败、恶化”&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;例句：&lt;em&gt;Things started to go south when the manager quit.&lt;/em&gt;（经理辞职后情况开始变糟。）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;-q6that-a-shame-是什么意思&#34;&gt;❓ Q6：that a shame 是什么意思？
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;✅ 解答&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;正确形式：&lt;strong&gt;That&amp;rsquo;s a shame&lt;/strong&gt; / &lt;strong&gt;What a shame&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;意为 &lt;strong&gt;“真可惜、太遗憾了”&lt;/strong&gt;，表达对小事不如意的惋惜。&lt;/li&gt;
+&lt;li&gt;注意：&lt;em&gt;shame&lt;/em&gt; 原意为“羞耻”，在此固定搭配中转为“遗憾”。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[科研]2026-04-22 </title>
         <link>https://usualtreee.github.io/p/%E7%A7%91%E7%A0%942026-04-22/</link>
         <pubDate>Wed, 22 Apr 2026 13:53:50 +0800</pubDate>
