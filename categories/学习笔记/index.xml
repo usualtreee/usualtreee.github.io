@@ -7,7 +7,119 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Mon, 04 May 2026 08:59:57 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 07 May 2026 10:30:55 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-05-07 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-07/</link>
+        <pubDate>Thu, 07 May 2026 10:30:55 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-07/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-05-07 " /&gt;&lt;h4 id=&#34;-主线任务注意要从实践出发在实践中完善理论知识做好资料整理&#34;&gt;📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代码随想录以及完善项目；英语继续精听，后续继续刷剑桥雅思，研二上必须考完；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;:&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;-支线任务学有余力完成多学点总没错&#34;&gt;📅 支线任务（学有余力完成，多学点总没错）
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;粉笔学习&lt;/strong&gt;:&lt;strong&gt;常识判断&lt;/strong&gt;：。&lt;strong&gt;推理判断&lt;/strong&gt;：。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;思考题&lt;/strong&gt;：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>[自学]2026-05-06 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-06/</link>
+        <pubDate>Wed, 06 May 2026 09:28:29 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-06/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-05-06 " /&gt;&lt;h4 id=&#34;-主线任务注意要从实践出发在实践中完善理论知识做好资料整理&#34;&gt;📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代码随想录以及完善项目；英语继续精听，后续继续刷剑桥雅思，研二上必须考完；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 依旧速刷设备树；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;：完成了一题阅读，只能说阅读到瓶颈了，慢慢练，不精听听力了，先吧20刷完；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;一核心概念梳理&#34;&gt;一、核心概念梳理
+&lt;/h2&gt;&lt;h3 id=&#34;1-lpddr低功耗双倍数据率内存&#34;&gt;1. LPDDR（低功耗双倍数据率内存）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;专为移动/低功耗设备设计，和普通DDR是两条技术路线&lt;/li&gt;
+&lt;li&gt;RK3568/3588的LPDDR都是焊死在核心板上的，后期无法升级&lt;/li&gt;
+&lt;li&gt;容量永远优先于代际，8G LPDDR4 &amp;gt; 4G LPDDR5&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-vlms视觉语言大模型&#34;&gt;2. VLMs（视觉语言大模型）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;把图像/视频的视觉理解能力和大语言模型的文本推理/生成能力结合&lt;/li&gt;
+&lt;li&gt;10B = 100亿参数量，INT4量化后约5-6GB，刚好适配RK3588 8G内存&lt;/li&gt;
+&lt;li&gt;综合前景远好于单一赛道的纯LLM和纯CV&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-多模态方向&#34;&gt;3. 多模态方向
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;音视语三模态模型真实存在，MiniCPM-V-2.6是首选入门款&lt;/li&gt;
+&lt;li&gt;端侧部署不是模态越多越好，最多到3个模态就完全满足需求&lt;/li&gt;
+&lt;li&gt;核心原则：只加能解决核心需求的模态，能少加就少加&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-端侧部署竞争力&#34;&gt;4. 端侧部署竞争力
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;让端侧跑通、跑稳、跑快模型，本身就是AI Infra的核心工作&lt;/li&gt;
+&lt;li&gt;核心竞争力在于全链路工程化能力、端侧模型深度优化能力、软硬结合能力&lt;/li&gt;
+&lt;li&gt;不要做只会一键跑demo的模型搬运工&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;二硬件拓扑与设备树&#34;&gt;二、硬件拓扑与设备树
+&lt;/h2&gt;&lt;h3 id=&#34;1-cpu拓扑&#34;&gt;1. CPU拓扑
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;物理插槽（Socket）：整颗芯片&lt;/li&gt;
+&lt;li&gt;集群（Cluster）：多个CPU核心组成的硬件分组，共享L2缓存、电源域、时钟域&lt;/li&gt;
+&lt;li&gt;物理CPU核心（Core）：最小独立运算硬件单元&lt;/li&gt;
+&lt;li&gt;硬件线程/逻辑核（Thread/SMT/超线程）：1个物理核模拟出2个逻辑核心&lt;/li&gt;
+&lt;li&gt;RK3588有2个集群（4个A76大核+4个A55小核），无超线程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-设备树核心概念&#34;&gt;2. 设备树核心概念
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;gpio-controller&lt;/code&gt;/&lt;code&gt;interrupt-controller&lt;/code&gt;：设备树的标准身份声明标签，能力提供方&lt;/li&gt;
+&lt;li&gt;pinctrl服务端（provider）：提前写好的引脚配置模板&lt;/li&gt;
+&lt;li&gt;pinctrl客户端（consumer）：真正要用引脚的外设，引用服务端的配置&lt;/li&gt;
+&lt;li&gt;dts（设备树源码，人类可读文本）→ dtc编译 → dtb（设备树二进制文件，内核可识别）&lt;/li&gt;
+&lt;li&gt;一块开发板整个系统只有一个主dtb文件，不是每个驱动对应一个&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-dtb文件结构&#34;&gt;3. dtb文件结构
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;memory reservation block（内存预留块）：⭐⭐⭐⭐⭐ 唯一必须搞懂、会用的核心内容&lt;/li&gt;
+&lt;li&gt;small header（头部）：仅需扫一眼了解&lt;/li&gt;
+&lt;li&gt;structure block（结构块）：仅需懂核心逻辑&lt;/li&gt;
+&lt;li&gt;strings block（字符串块）：仅需扫一眼了解&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;三硬件选型与学习边界&#34;&gt;三、硬件选型与学习边界
+&lt;/h2&gt;&lt;h3 id=&#34;1-rk3588-8g64g&#34;&gt;1. RK3588 8G+64G
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;完全足够完成95%以上的端侧多模态部署学习、全链路项目开发&lt;/li&gt;
+&lt;li&gt;能流畅跑通主流7B级视觉-语言-音频三模态大模型&lt;/li&gt;
+&lt;li&gt;64G板载存储完全够用，不够可通过TF卡或NVMe SSD扩展&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-驱动学习边界&#34;&gt;2. 驱动学习边界
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;不需要达到纯Linux驱动工程师级别的全栈精通&lt;/li&gt;
+&lt;li&gt;必须学透：字符设备驱动、platform总线+设备树、GPIO/I2C/SPI/UART/V4L2/ALSA、驱动内存管理与零拷贝、驱动调试排错&lt;/li&gt;
+&lt;li&gt;仅需了解：复杂总线底层驱动、Linux内核底层源码、工业级小众驱动、GPU/NPU底层原厂驱动&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-设备树学习边界&#34;&gt;3. 设备树学习边界
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;必须掌握：会在主dts里增删改节点、会编译dts生成dtb、会替换板子上的dtb文件、懂&lt;code&gt;compatible&lt;/code&gt;匹配逻辑、懂&lt;code&gt;memreserve&lt;/code&gt;的用法&lt;/li&gt;
+&lt;li&gt;完全不用深钻：dtb二进制的底层编码格式、内核解析dtb的底层源码实现&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-05-04 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-04/</link>
         <pubDate>Mon, 04 May 2026 08:59:57 +0800</pubDate>

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="📅 今日学习了啥 RTOS: 上下文切换指的就是中断跳转时候，将寄存器状态切换到之前程序的状态，ISR = Interrupt Service Routine，即中断时候处理的函数， ICSR 是 Interrupt Control">
-<title>[自学]2026-03-02 </title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理） 近期目标：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代">
+<title>[自学]2026-05-06 </title>
 
-<link rel='canonical' href='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-02/'>
+<link rel='canonical' href='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-06/'>
 
-<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="[自学]2026-03-02 ">
-<meta property='og:description' content="📅 今日学习了啥 RTOS: 上下文切换指的就是中断跳转时候，将寄存器状态切换到之前程序的状态，ISR = Interrupt Service Routine，即中断时候处理的函数， ICSR 是 Interrupt Control">
-<meta property='og:url' content='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-02/'>
+<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="[自学]2026-05-06 ">
+<meta property='og:description' content="📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理） 近期目标：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代">
+<meta property='og:url' content='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-06/'>
 <meta property='og:site_name' content='Usualtree'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-03-02T09:45:43&#43;08:00'/><meta property='article:modified_time' content='2026-03-02T09:45:43&#43;08:00'/><meta property='og:image' content='https://usualtreee.github.io/img/cover.jpg' />
-<meta name="twitter:title" content="[自学]2026-03-02 ">
-<meta name="twitter:description" content="📅 今日学习了啥 RTOS: 上下文切换指的就是中断跳转时候，将寄存器状态切换到之前程序的状态，ISR = Interrupt Service Routine，即中断时候处理的函数， ICSR 是 Interrupt Control"><meta name="twitter:card" content="summary_large_image">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-05-06T09:28:29&#43;08:00'/><meta property='article:modified_time' content='2026-05-06T09:28:29&#43;08:00'/><meta property='og:image' content='https://usualtreee.github.io/img/cover.jpg' />
+<meta name="twitter:title" content="[自学]2026-05-06 ">
+<meta name="twitter:description" content="📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理） 近期目标：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://usualtreee.github.io/img/cover.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -273,10 +273,31 @@
       <ol>
         <li>
           <ol>
-            <li><a href="#-今日学习了啥">📅 今日学习了啥</a></li>
-            <li><a href="#-每日完成">✅ 每日完成</a></li>
+            <li><a href="#-主线任务注意要从实践出发在实践中完善理论知识做好资料整理">📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）</a></li>
           </ol>
         </li>
+      </ol>
+    </li>
+    <li><a href="#一核心概念梳理">一、核心概念梳理</a>
+      <ol>
+        <li><a href="#1-lpddr低功耗双倍数据率内存">1. LPDDR（低功耗双倍数据率内存）</a></li>
+        <li><a href="#2-vlms视觉语言大模型">2. VLMs（视觉语言大模型）</a></li>
+        <li><a href="#3-多模态方向">3. 多模态方向</a></li>
+        <li><a href="#4-端侧部署竞争力">4. 端侧部署竞争力</a></li>
+      </ol>
+    </li>
+    <li><a href="#二硬件拓扑与设备树">二、硬件拓扑与设备树</a>
+      <ol>
+        <li><a href="#1-cpu拓扑">1. CPU拓扑</a></li>
+        <li><a href="#2-设备树核心概念">2. 设备树核心概念</a></li>
+        <li><a href="#3-dtb文件结构">3. dtb文件结构</a></li>
+      </ol>
+    </li>
+    <li><a href="#三硬件选型与学习边界">三、硬件选型与学习边界</a>
+      <ol>
+        <li><a href="#1-rk3588-8g64g">1. RK3588 8G+64G</a></li>
+        <li><a href="#2-驱动学习边界">2. 驱动学习边界</a></li>
+        <li><a href="#3-设备树学习边界">3. 设备树学习边界</a></li>
       </ol>
     </li>
   </ol>
@@ -293,9 +314,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/%E8%87%AA%E5%AD%A62026-03-02/">
+            <a href="/p/%E8%87%AA%E5%AD%A62026-05-06/">
                 
-                    <img src="/img/cover.jpg" loading="lazy" alt="Featured image of post [自学]2026-03-02 " />
+                    <img src="/img/cover.jpg" loading="lazy" alt="Featured image of post [自学]2026-05-06 " />
                 
             </a>
         </div>
@@ -314,7 +335,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E8%87%AA%E5%AD%A62026-03-02/">[自学]2026-03-02 </a>
+            <a href="/p/%E8%87%AA%E5%AD%A62026-05-06/">[自学]2026-05-06 </a>
         </h2>
     
         
@@ -336,7 +357,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-03-02</time>
+                <time class="article-time--published">2026-05-06</time>
             </div>
         
 
@@ -352,30 +373,82 @@
     <section class="article-content">
     
     
-    <h4 id="-今日学习了啥">📅 今日学习了啥
-</h4><ul>
+    <h4 id="-主线任务注意要从实践出发在实践中完善理论知识做好资料整理">📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+</h4><p><strong>近期目标</strong>：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代码随想录以及完善项目；英语继续精听，后续继续刷剑桥雅思，研二上必须考完；</p>
+<ul>
 <li>
-<p><strong>RTOS</strong>: <strong>上下文切换</strong>指的就是中断跳转时候，将寄存器状态切换到之前程序的状态，ISR = Interrupt Service Routine，即中断时候处理的函数， ICSR 是 Interrupt Control and State Register，上下文切换是用<strong>pendsv</strong>进行切换，pendsv是一种特殊中断，由rtos滴答中断和任务执行完毕触发。
-<strong>空闲任务</strong>指的是rtos调度时候必须有一个在运行的任务，平时都没有任务的时候就是空闲任务来担任了。freertos的使用也是移植加自己修改的。<strong>LTS</strong>是 Long-Term Support，不带lts的版本资料更全。第11节有下载源码后的结构介绍。MDK是 Microcontroller Development Kit，通常指的是keil的。</p>
+<p><strong>嵌入式</strong>: 依旧速刷设备树；</p>
 </li>
 <li>
-<p><strong>力扣</strong>:<strong>两两交换链表中的节点</strong>：依旧用dummy head，因为必须操作交换节点的前一个节点。注意cur-&gt;next-&gt;next可能导致空指针问题。注意修改顺序，从而明白tmp保存的中间变量。</p>
-</li>
-<li>
-<p><strong>八股</strong>:至1.10：<strong>数组的存储位置</strong>：<strong>bbs和data</strong>都在静态区。<strong>静态动态数组的生命周期区别</strong>：手动和自动释放的区别。<strong>二维数组的访问</strong>：按行存储的，所以指针访问时候要注意。<strong>extern的作用</strong>：声明一个其他地方的变量或者函数（函数一般默认了extern），不能和static一起用。不分配内存，只做外部链接。<strong>数组大小</strong>：必须在定义时候确定，sizeof获取大小，使用时其实是操作数组的指针，字符数组用sizeof和sizelen结果不一样。<strong>函数参数压栈的顺序</strong>：现有一个概念，以及知道cdecl和stdcall这两个东西的存在即可。即他们规定了函数参数如何传递以及栈谁来清理，这两各有用处。</p>
-</li>
-<li>
-<p><strong>粉笔学习</strong>:<strong>常识判断</strong>：台基主要是为了防潮。<strong>推理判断</strong>：三视图要动手画，元素和属性很重要很好用。<strong>数量关系</strong>：<strong>插板法</strong>要会，同于同素分堆，每堆至少一个的情况。例如三十天完成的效率问题，可把效率设置成某个具体数，比如5。总量即5*30。</p>
+<p><strong>雅思</strong>：完成了一题阅读，只能说阅读到瓶颈了，慢慢练，不精听听力了，先吧20刷完；</p>
 </li>
 </ul>
-<hr>
-<h4 id="-每日完成">✅ 每日完成
-</h4><ul>
-<li><input checked="" disabled="" type="checkbox"> 口语打卡</li>
-<li><input checked="" disabled="" type="checkbox"> 力扣刷一题</li>
-<li><input checked="" disabled="" type="checkbox"> 八股学习</li>
-<li><input checked="" disabled="" type="checkbox"> RTOS看三节课</li>
-<li><input checked="" disabled="" type="checkbox"> 粉笔学习</li>
+<h2 id="一核心概念梳理">一、核心概念梳理
+</h2><h3 id="1-lpddr低功耗双倍数据率内存">1. LPDDR（低功耗双倍数据率内存）
+</h3><ul>
+<li>专为移动/低功耗设备设计，和普通DDR是两条技术路线</li>
+<li>RK3568/3588的LPDDR都是焊死在核心板上的，后期无法升级</li>
+<li>容量永远优先于代际，8G LPDDR4 &gt; 4G LPDDR5</li>
+</ul>
+<h3 id="2-vlms视觉语言大模型">2. VLMs（视觉语言大模型）
+</h3><ul>
+<li>把图像/视频的视觉理解能力和大语言模型的文本推理/生成能力结合</li>
+<li>10B = 100亿参数量，INT4量化后约5-6GB，刚好适配RK3588 8G内存</li>
+<li>综合前景远好于单一赛道的纯LLM和纯CV</li>
+</ul>
+<h3 id="3-多模态方向">3. 多模态方向
+</h3><ul>
+<li>音视语三模态模型真实存在，MiniCPM-V-2.6是首选入门款</li>
+<li>端侧部署不是模态越多越好，最多到3个模态就完全满足需求</li>
+<li>核心原则：只加能解决核心需求的模态，能少加就少加</li>
+</ul>
+<h3 id="4-端侧部署竞争力">4. 端侧部署竞争力
+</h3><ul>
+<li>让端侧跑通、跑稳、跑快模型，本身就是AI Infra的核心工作</li>
+<li>核心竞争力在于全链路工程化能力、端侧模型深度优化能力、软硬结合能力</li>
+<li>不要做只会一键跑demo的模型搬运工</li>
+</ul>
+<h2 id="二硬件拓扑与设备树">二、硬件拓扑与设备树
+</h2><h3 id="1-cpu拓扑">1. CPU拓扑
+</h3><ul>
+<li>物理插槽（Socket）：整颗芯片</li>
+<li>集群（Cluster）：多个CPU核心组成的硬件分组，共享L2缓存、电源域、时钟域</li>
+<li>物理CPU核心（Core）：最小独立运算硬件单元</li>
+<li>硬件线程/逻辑核（Thread/SMT/超线程）：1个物理核模拟出2个逻辑核心</li>
+<li>RK3588有2个集群（4个A76大核+4个A55小核），无超线程</li>
+</ul>
+<h3 id="2-设备树核心概念">2. 设备树核心概念
+</h3><ul>
+<li><code>gpio-controller</code>/<code>interrupt-controller</code>：设备树的标准身份声明标签，能力提供方</li>
+<li>pinctrl服务端（provider）：提前写好的引脚配置模板</li>
+<li>pinctrl客户端（consumer）：真正要用引脚的外设，引用服务端的配置</li>
+<li>dts（设备树源码，人类可读文本）→ dtc编译 → dtb（设备树二进制文件，内核可识别）</li>
+<li>一块开发板整个系统只有一个主dtb文件，不是每个驱动对应一个</li>
+</ul>
+<h3 id="3-dtb文件结构">3. dtb文件结构
+</h3><ul>
+<li>memory reservation block（内存预留块）：⭐⭐⭐⭐⭐ 唯一必须搞懂、会用的核心内容</li>
+<li>small header（头部）：仅需扫一眼了解</li>
+<li>structure block（结构块）：仅需懂核心逻辑</li>
+<li>strings block（字符串块）：仅需扫一眼了解</li>
+</ul>
+<h2 id="三硬件选型与学习边界">三、硬件选型与学习边界
+</h2><h3 id="1-rk3588-8g64g">1. RK3588 8G+64G
+</h3><ul>
+<li>完全足够完成95%以上的端侧多模态部署学习、全链路项目开发</li>
+<li>能流畅跑通主流7B级视觉-语言-音频三模态大模型</li>
+<li>64G板载存储完全够用，不够可通过TF卡或NVMe SSD扩展</li>
+</ul>
+<h3 id="2-驱动学习边界">2. 驱动学习边界
+</h3><ul>
+<li>不需要达到纯Linux驱动工程师级别的全栈精通</li>
+<li>必须学透：字符设备驱动、platform总线+设备树、GPIO/I2C/SPI/UART/V4L2/ALSA、驱动内存管理与零拷贝、驱动调试排错</li>
+<li>仅需了解：复杂总线底层驱动、Linux内核底层源码、工业级小众驱动、GPU/NPU底层原厂驱动</li>
+</ul>
+<h3 id="3-设备树学习边界">3. 设备树学习边界
+</h3><ul>
+<li>必须掌握：会在主dts里增删改节点、会编译dts生成dtb、会替换板子上的dtb文件、懂<code>compatible</code>匹配逻辑、懂<code>memreserve</code>的用法</li>
+<li>完全不用深钻：dtb二进制的底层编码格式、内核解析dtb的底层源码实现</li>
 </ul>
 
 </section>
@@ -413,25 +486,6 @@
 
         <div class="article-details">
             <h2 class="article-title">[自学]2026-05-07 </h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/%E8%87%AA%E5%AD%A62026-05-06/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">[自学]2026-05-06 </h2>
         </div>
     </a>
 </article>
@@ -489,6 +543,25 @@
 
         <div class="article-details">
             <h2 class="article-title">[自学]2026-05-03 </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E8%87%AA%E5%AD%A62026-05-02/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[自学]2026-05-02 </h2>
         </div>
     </a>
 </article>
