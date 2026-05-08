@@ -7,7 +7,130 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Thu, 07 May 2026 10:30:55 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 08 May 2026 08:58:21 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-05-08 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-08/</link>
+        <pubDate>Fri, 08 May 2026 08:58:21 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-08/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-05-08 " /&gt;&lt;h4 id=&#34;-主线任务注意要从实践出发在实践中完善理论知识做好资料整理&#34;&gt;📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代码随想录以及完善项目；英语继续精听，后续继续刷剑桥雅思，研二上必须考完；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 学到gpio了，继续速通；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;：做了一题阅读；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;一核心概念吃透&#34;&gt;一、核心概念吃透
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;DTS&lt;/strong&gt;：设备树源文件，硬件配置说明书，编译后生成DTB给内核使用；&lt;code&gt;.dtsi&lt;/code&gt; 是设备树头文件，存放芯片通用配置。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;reg&lt;/strong&gt;：设备树里填写&lt;strong&gt;硬件寄存器物理地址 + 占用大小&lt;/strong&gt;，驱动通过 ioremap 映射后直接操作寄存器。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GPIO &amp;amp; 串口(UART)&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;GPIO：芯片基础物理引脚，只做高低电平输入/输出；&lt;/li&gt;
+&lt;li&gt;串口 = UART，属于引脚复用功能，专门用来收发数据；&lt;/li&gt;
+&lt;li&gt;同一物理引脚依靠 &lt;strong&gt;pinctrl 子系统&lt;/strong&gt; 切换复用模式，同一时刻只能生效一种功能。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;&lt;strong&gt;sysfs&lt;/strong&gt;：内核虚拟文件系统，挂载在 &lt;code&gt;/sys&lt;/code&gt; 目录；把内核硬件、驱动以虚拟文件形式暴露，&lt;strong&gt;无需写内核驱动，命令行 / C语言 即可操控硬件&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;属性文件&lt;/strong&gt;：sysfs 下的虚拟文件，作用是&lt;strong&gt;用户态与内核驱动交互&lt;/strong&gt;，用于读取硬件状态、动态修改配置参数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内核空间 &amp;amp; 用户空间&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;内核空间：最高权限，直接管控寄存器、中断、底层硬件，普通应用无权直接访问；&lt;/li&gt;
+&lt;li&gt;用户空间：应用程序运行环境，权限低，不能直接操作硬件；&lt;/li&gt;
+&lt;li&gt;内核导出到用户空间：内核通过 &lt;code&gt;/dev&lt;/code&gt; &lt;code&gt;/sys&lt;/code&gt; &lt;code&gt;/proc&lt;/code&gt; 开放接口，让上层安全调用硬件能力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;&lt;strong&gt;设备模型&lt;/strong&gt;：内核总线/设备/驱动统一管理框架，自动生成 sysfs、完成设备驱动匹配、电源管理、热插拔；只需了解原理，不用深挖源码。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;二驱动模块学习分级&#34;&gt;二、驱动模块学习分级
+&lt;/h2&gt;&lt;h3 id=&#34;-现在必须学&#34;&gt;✅ 现在必须学
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;并发与竞争（内核锁）&lt;/li&gt;
+&lt;li&gt;高阶字符设备进阶&lt;/li&gt;
+&lt;li&gt;中断子系统&lt;/li&gt;
+&lt;li&gt;pinctrl 子系统&lt;/li&gt;
+&lt;li&gt;Platform / GPIO / I2C / SPI 基础驱动&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-了解作用即可不用敲代码&#34;&gt;⚠️ 了解作用即可，不用敲代码
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;RTC 实时时钟&lt;/li&gt;
+&lt;li&gt;看门狗&lt;/li&gt;
+&lt;li&gt;设备模型&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-做项目后期再学&#34;&gt;⏳ 做项目后期再学
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;输入子系统&lt;/li&gt;
+&lt;li&gt;IIO 子系统&lt;/li&gt;
+&lt;li&gt;单总线&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;-暂时直接跳过&#34;&gt;❌ 暂时直接跳过
+&lt;/h3&gt;&lt;p&gt;热插拔、CAN、网络设备、USB、PCIe、动态设备树 Overlay&lt;/p&gt;
+&lt;h2 id=&#34;三岗位定位明确&#34;&gt;三、岗位定位明确
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Linux 应用工程师&lt;/strong&gt;：只写用户态业务C代码，调用驱动接口，不改设备树、不碰内核。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;纯 Linux 驱动工程师&lt;/strong&gt;：深耕内核态，写驱动、改设备树、板级适配，基本不做上层应用。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;个人目标定位&lt;/strong&gt;
+嵌入式Linux底层 + 端侧多模态AI部署 复合型工程师。
+既懂设备树/基础驱动/板级适配，也会用户态C开发、多模态模型部署；可走驱动研发，也可走AI平台/底层FAE，双向互通。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;四实操重点&#34;&gt;四、实操重点
+&lt;/h2&gt;&lt;p&gt;可通过两种方式纯用户态控制 LED 等硬件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;命令行操作 sysfs&lt;/li&gt;
+&lt;li&gt;C语言读写 sysfs 虚拟文件
+无需编写内核驱动即可完成硬件控制。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;五下一步计划&#34;&gt;五、下一步计划
+&lt;/h2&gt;&lt;p&gt;学完剩余必学驱动子系统，立刻动手做嵌入式实战项目，采用「项目驱动补缺」方式，不用学完所有知识点再开工。&lt;/p&gt;
+&lt;h1 id=&#34;今日雅思阅读-拖延症篇章-完整词汇短语总结&#34;&gt;今日雅思阅读 拖延症篇章 完整词汇短语总结
+&lt;/h1&gt;&lt;h2 id=&#34;一核心生词&#34;&gt;一、核心生词
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;psychologist /saɪˈkɒlədʒɪst/ n. 心理学家&lt;/li&gt;
+&lt;li&gt;chronic /ˈkrɒnɪk/ adj. 长期的；习惯性的；慢性的&lt;/li&gt;
+&lt;li&gt;inferior /ɪnˈfɪəriə(r)/ adj. 较差的；不如别人的；自卑的&lt;/li&gt;
+&lt;li&gt;digestive /dɪˈdʒestɪv/ adj. 消化的&lt;/li&gt;
+&lt;li&gt;fraudulent /ˈfrɔːdjələnt/ adj. 虚假的；欺诈的；骗人的&lt;/li&gt;
+&lt;li&gt;trait /treɪt/ n. 性格特质；特征&lt;/li&gt;
+&lt;li&gt;demographic /ˌdeməˈɡræfɪk/ n. 人口统计特征（复数 demographics）&lt;/li&gt;
+&lt;li&gt;vicious /ˈvɪʃəs/ adj. 恶性的&lt;/li&gt;
+&lt;li&gt;self-esteem /ˌself ɪˈstiːm/ n. 自尊；自尊心&lt;/li&gt;
+&lt;li&gt;toll /təʊl/ n. 损害；代价&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;二高频固定短语&#34;&gt;二、高频固定短语
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;deep down 内心深处；骨子里&lt;/li&gt;
+&lt;li&gt;berating ourselves 自责；严厉自我责备&lt;/li&gt;
+&lt;li&gt;putting off 拖延；推迟&lt;/li&gt;
+&lt;li&gt;let down 辜负；使失望&lt;/li&gt;
+&lt;li&gt;job at hand 手头的工作；当下该做的事&lt;/li&gt;
+&lt;li&gt;composing a message 撰写/编辑消息&lt;/li&gt;
+&lt;li&gt;putting together 整理；撰写（报告）&lt;/li&gt;
+&lt;li&gt;home repairs 家庭维修&lt;/li&gt;
+&lt;li&gt;afterwards 之后；随后&lt;/li&gt;
+&lt;li&gt;destructive coping strategies 破坏性情绪应对方式&lt;/li&gt;
+&lt;li&gt;fend off 避开；抵挡；排除干扰&lt;/li&gt;
+&lt;li&gt;feeling compassion 自我体谅；心怀共情&lt;/li&gt;
+&lt;li&gt;take the edge off 缓解（负面情绪、压力）&lt;/li&gt;
+&lt;li&gt;vicious cycle 恶性循环&lt;/li&gt;
+&lt;li&gt;for as long 长久地；长期地&lt;/li&gt;
+&lt;li&gt;keep their jobs 保住工作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;三重点句型易错语法&#34;&gt;三、重点句型&amp;amp;易错语法
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;inferior 固定搭配：be inferior to 比……差（只用to，不用than）&lt;/li&gt;
+&lt;li&gt;put off + doing sth 推迟做某事（后接动名词，不接不定式）&lt;/li&gt;
+&lt;li&gt;for as long 句尾省略用法 = for as long as possible 尽可能长久&lt;/li&gt;
+&lt;li&gt;compose 熟词僻义：不是“作曲”，常考「撰写、编辑文字」&lt;/li&gt;
+&lt;li&gt;toll 熟词僻义：不是“过路费”，常考「损害、付出代价」&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-05-07 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-07/</link>
         <pubDate>Thu, 07 May 2026 10:30:55 +0800</pubDate>
