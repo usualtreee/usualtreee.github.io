@@ -7,7 +7,77 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Fri, 08 May 2026 08:58:21 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 09 May 2026 08:59:12 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-05-09 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-09/</link>
+        <pubDate>Sat, 09 May 2026 08:59:12 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-09/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-05-09 " /&gt;&lt;h4 id=&#34;-主线任务注意要从实践出发在实践中完善理论知识做好资料整理&#34;&gt;📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代码随想录以及完善项目；英语继续精听，后续继续刷剑桥雅思，研二上必须考完；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 把gpio速通了，还是想从项目来，后续买八股和项目继续完善；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;：做了一题阅读，这篇有点难度，后续需要精读一遍；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;一重点词汇&#34;&gt;一、重点词汇
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;pedantic：迂腐的、咬文嚼字、拘泥细节&lt;/li&gt;
+&lt;li&gt;legalistic：拘泥法条的、死板照规则不讲情理&lt;/li&gt;
+&lt;li&gt;delineated：清晰界定的、划定边界的、详述的&lt;/li&gt;
+&lt;li&gt;dissent：n./v. 异议、持反对意见&lt;/li&gt;
+&lt;li&gt;stance：立场态度；（棒球）击球预备姿势&lt;/li&gt;
+&lt;li&gt;potential fixes：潜在修复方案、备选解决办法&lt;/li&gt;
+&lt;li&gt;base running：棒球 跑垒&lt;/li&gt;
+&lt;li&gt;strikeouts：棒球 三振出局&lt;/li&gt;
+&lt;li&gt;profoundly consistent：高度一致、极其吻合&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;二经典句型&#34;&gt;二、经典句型
+&lt;/h2&gt;&lt;p&gt;Hardly a day goes by that I don’t + 动词
+双重否定表肯定，意为：&lt;strong&gt;几乎每天都做某事&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;三核心语法&#34;&gt;三、核心语法
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;consider sth necessary 结构
+用宾补用法，&lt;strong&gt;不能加 is&lt;/strong&gt;，简单句禁止双谓语。&lt;/li&gt;
+&lt;li&gt;若要加 is，必须接宾语从句：
+consider that sth is necessary&lt;/li&gt;
+&lt;li&gt;万能句式：consider it necessary to do sth
+释义：认为有必要做某事&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;一关键概念区分&#34;&gt;一、关键概念区分
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;echo：Linux写文件的基础命令，嵌入式用来操作/sys接口控制硬件，是应用层操作硬件的入口&lt;/li&gt;
+&lt;li&gt;内核态驱动(.ko)：底层硬件控制，芯片厂商已写好，普通工程师基本不用开发&lt;/li&gt;
+&lt;li&gt;用户态驱动(.so)：内核驱动上层封装（如RKNN的librknnrt.so），NPU部署工程师直接调用&lt;/li&gt;
+&lt;li&gt;驱动vs应用：驱动负责让硬件能用，应用负责让硬件实现业务；你无需写驱动，懂原理用于排查问题即可&lt;/li&gt;
+&lt;li&gt;camera/ffmpeg/rtsp/display/NPU：全是&lt;strong&gt;应用层工具库&lt;/strong&gt;，不用写底层驱动，直接调用即可&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;二学长路线避坑&#34;&gt;二、学长路线避坑
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;学长是传统纯驱动路线，过时且不匹配你投递的小米Miclaw端侧AI岗位&lt;/li&gt;
+&lt;li&gt;可跳过：MCU/RTOS、复杂内核驱动、ARM启动、网络八股，仅了解DTS/驱动子系统原理&lt;/li&gt;
+&lt;li&gt;刷题：只刷C++基础、LeetCode简单题，难题不用学&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;三应用层真相&#34;&gt;三、应用层真相
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;入门简单（调库跑Demo），精通极难（做稳定产品）&lt;/li&gt;
+&lt;li&gt;能力层级：跑通Demo → 稳定无崩溃 → 性能功耗优化 → 架构设计，岗位要求至少后2层&lt;/li&gt;
+&lt;li&gt;核心难点：异常处理、内存泄漏、多线程、功耗/帧率优化，无现成库可解决&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;四你的专属学习路线适配小米岗位&#34;&gt;四、你的专属学习路线（适配小米岗位）
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;1周：补应用基础（C、Makefile、Linux系统编程），做按键控制LED完整程序&lt;/li&gt;
+&lt;li&gt;2周：NPU部署入门，跑通RKNN YOLOv5，实现摄像头实时推理+硬件联动&lt;/li&gt;
+&lt;li&gt;1-2个月：完成核心简历项目，首选【RK3588本地可穿戴AI助手】，匹配岗位需求&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;五最终定位&#34;&gt;五、最终定位
+&lt;/h2&gt;&lt;p&gt;懂底层驱动原理的&lt;strong&gt;端侧AI软硬结合应用工程师&lt;/strong&gt;，是大厂最稀缺的人才，完全适配小米岗位&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-05-08 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-08/</link>
         <pubDate>Fri, 08 May 2026 08:58:21 +0800</pubDate>
