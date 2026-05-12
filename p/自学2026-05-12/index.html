@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="📅 今日学习了啥 RTOS: 静态方式创建任务（与动态不同，空间得自己申请，其实是数组）。任务的挂起和恢复API介绍。挂起任务和挂起调度器是两码事情。可以">
-<title>[自学]2026-03-07 </title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理） 近期目标：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代">
+<title>[自学]2026-05-12 </title>
 
-<link rel='canonical' href='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-07/'>
+<link rel='canonical' href='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-12/'>
 
-<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="[自学]2026-03-07 ">
-<meta property='og:description' content="📅 今日学习了啥 RTOS: 静态方式创建任务（与动态不同，空间得自己申请，其实是数组）。任务的挂起和恢复API介绍。挂起任务和挂起调度器是两码事情。可以">
-<meta property='og:url' content='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-03-07/'>
+<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="[自学]2026-05-12 ">
+<meta property='og:description' content="📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理） 近期目标：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代">
+<meta property='og:url' content='https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-12/'>
 <meta property='og:site_name' content='Usualtree'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-03-07T09:16:39&#43;08:00'/><meta property='article:modified_time' content='2026-03-07T09:16:39&#43;08:00'/><meta property='og:image' content='https://usualtreee.github.io/img/cover.jpg' />
-<meta name="twitter:title" content="[自学]2026-03-07 ">
-<meta name="twitter:description" content="📅 今日学习了啥 RTOS: 静态方式创建任务（与动态不同，空间得自己申请，其实是数组）。任务的挂起和恢复API介绍。挂起任务和挂起调度器是两码事情。可以"><meta name="twitter:card" content="summary_large_image">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-05-12T09:01:04&#43;08:00'/><meta property='article:modified_time' content='2026-05-12T09:01:04&#43;08:00'/><meta property='og:image' content='https://usualtreee.github.io/img/cover.jpg' />
+<meta name="twitter:title" content="[自学]2026-05-12 ">
+<meta name="twitter:description" content="📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理） 近期目标：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://usualtreee.github.io/img/cover.jpg' />
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -273,12 +273,28 @@
       <ol>
         <li>
           <ol>
-            <li><a href="#-今日学习了啥">📅 今日学习了啥</a></li>
-            <li><a href="#-每日完成">✅ 每日完成</a></li>
+            <li><a href="#-主线任务注意要从实践出发在实践中完善理论知识做好资料整理">📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）</a></li>
           </ol>
         </li>
       </ol>
     </li>
+  </ol>
+
+  <ol>
+    <li><a href="#一核心单词语境专属释义">一、核心单词（语境专属释义）</a></li>
+    <li><a href="#二高频短语固定表达">二、高频短语&amp;固定表达</a></li>
+    <li><a href="#三语法句式重点">三、语法&amp;句式重点</a></li>
+    <li><a href="#四文章核心观点">四、文章核心观点</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#一git-与-github-相关">一、Git 与 GitHub 相关</a></li>
+    <li><a href="#二ai推理框架-tensorrtllm">二、AI推理框架 TensorRT‑LLM</a></li>
+    <li><a href="#三rk3588-嵌入式全栈技术">三、RK3588 嵌入式全栈技术</a></li>
+    <li><a href="#四嵌入式硬件对比">四、嵌入式硬件对比</a></li>
+    <li><a href="#五编程语言-rust-vs-c">五、编程语言 Rust vs C++</a></li>
+    <li><a href="#六vibe-coding">六、Vibe Coding</a></li>
+    <li><a href="#七实战项目-tarschat">七、实战项目 TARS‑chat</a></li>
   </ol>
 </nav>
         </div>
@@ -293,9 +309,9 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/%E8%87%AA%E5%AD%A62026-03-07/">
+            <a href="/p/%E8%87%AA%E5%AD%A62026-05-12/">
                 
-                    <img src="/img/cover.jpg" loading="lazy" alt="Featured image of post [自学]2026-03-07 " />
+                    <img src="/img/cover.jpg" loading="lazy" alt="Featured image of post [自学]2026-05-12 " />
                 
             </a>
         </div>
@@ -314,7 +330,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E8%87%AA%E5%AD%A62026-03-07/">[自学]2026-03-07 </a>
+            <a href="/p/%E8%87%AA%E5%AD%A62026-05-12/">[自学]2026-05-12 </a>
         </h2>
     
         
@@ -336,7 +352,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2026-03-07</time>
+                <time class="article-time--published">2026-05-12</time>
             </div>
         
 
@@ -352,29 +368,101 @@
     <section class="article-content">
     
     
-    <h4 id="-今日学习了啥">📅 今日学习了啥
-</h4><ul>
+    <h4 id="-主线任务注意要从实践出发在实践中完善理论知识做好资料整理">📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+</h4><p><strong>近期目标</strong>：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代码随想录以及完善项目；英语继续精听，后续继续刷剑桥雅思，研二上必须考完；</p>
+<ul>
 <li>
-<p><strong>RTOS</strong>: 静态方式创建任务（与动态不同，空间得自己申请，其实是数组）。任务的挂起和恢复API介绍。挂起任务和挂起调度器是两码事情。可以查看演示。</p>
+<p><strong>嵌入式</strong>: 研究了一下项目，如何部署啥的，准备下单板子，马上就下单！！</p>
 </li>
 <li>
-<p><strong>力扣</strong>:  <strong>两个数组的交集</strong>：哈希表的使用场景：给元素判断是否在集合中出现过。set数据结构cpp自动有了。</p>
-</li>
-<li>
-<p><strong>八股</strong>:至：1.32。<strong>内存泄露</strong>：申请内存后不释放；<strong>内存碎片</strong>：频繁申请和释放内存，导致无较大的连续空间，解决方案也要会；<strong>内存池</strong>是一种预先分配一大块内存，并按固定规则进行管理和复用的内存管理机制；<strong>递归函数的弊端</strong>：空间有可能不足；<strong>volatile</strong>：表明一个易变的变量，让程序直接访问原始地址；<strong>联合体</strong>：所有成员共享一个地址，节省空间，但成员互相有关联。 <strong>指向常量指针</strong>和<strong>常量指针</strong>：前者指向内容不能变，后者指针不能变。</p>
-</li>
-<li>
-<p><strong>粉笔学习</strong>:<strong>常识判断</strong>：红曲红是天然色素。<strong>推理判断</strong>：横线可以考虑移动；3d图如果不简单可以跳；</p>
+<p><strong>雅思</strong>：精读了那篇阅读；</p>
 </li>
 </ul>
-<h4 id="-每日完成">✅ 每日完成
-</h4><ul>
-<li><input checked="" disabled="" type="checkbox"> 口语打卡</li>
-<li><input checked="" disabled="" type="checkbox"> 力扣刷一题</li>
-<li><input checked="" disabled="" type="checkbox"> 八股学习</li>
-<li><input checked="" disabled="" type="checkbox"> RTOS看三节课</li>
-<li><input checked="" disabled="" type="checkbox"> 粉笔学习</li>
-</ul>
+<h1 id="今日英语学习总结棒球主题阅读">今日英语学习总结（棒球主题阅读）
+</h1><h2 id="一核心单词语境专属释义">一、核心单词（语境专属释义）
+</h2><ol>
+<li>pitcher n.（棒球）投手</li>
+<li>umpire n.（棒球）裁判</li>
+<li>tweak v. 微调（小幅修改细节，不改动整体）</li>
+<li>consistent adj.（判罚）标准统一、前后一致</li>
+<li>discretion n. 自由裁量权；主观灵活度（裁判判罚的酌情空间，棒球传统认可）</li>
+<li>movement n. 社会趋势、思潮（非字面“移动”）</li>
+<li>dissenting adj. 反对的，持异议的</li>
+</ol>
+<h2 id="二高频短语固定表达">二、高频短语&amp;固定表达
+</h2><ol>
+<li>or so 大约，左右（置于数字/时间后）</li>
+<li>judgment call 【体育术语】主观判罚（裁判凭经验肉眼裁定）</li>
+<li>potential fixes 潜在解决方案、改进措施</li>
+<li>be ruled out 被排除；被否决</li>
+<li>sign of a human hand 人为主观判罚的体现</li>
+<li>dialogue between pitcher and umpire 投手与裁判的口角、争执</li>
+<li>part of a movement 一种社会潮流/趋势</li>
+<li>take the hard choices of living out of life 用算法剥离生活中需要主观权衡的艰难抉择</li>
+</ol>
+<h2 id="三语法句式重点">三、语法&amp;句式重点
+</h2><ol>
+<li>
+<p>宾语前置（非倒装）
+Any rule that existed, they talked about changing.
+将宾语any rule前置表强调，主谓顺序不变，不属于倒装。</p>
+</li>
+<li>
+<p>双重否定句式
+Hardly a day goes by that I don’t…
+双重否定表肯定，意为“我几乎每天都……”</p>
+</li>
+</ol>
+<h2 id="四文章核心观点">四、文章核心观点
+</h2><ol>
+<li>机器裁判ABS：判罚精准统一，但缺失主观灵活度；</li>
+<li>人工裁判：有主观裁量空间，存在争议但保留人情味；</li>
+<li>足球VAR、网球鹰眼判定客观边界，适配机器；棒球好球带偏主观，机器绝对精准违背传统；</li>
+<li>深层立意：算法替代人类主观判断的社会趋势下，生活需要不确定性，极致完美反而脱离现实。</li>
+</ol>
+<h1 id="今日学习总结">今日学习总结
+</h1><h2 id="一git-与-github-相关">一、Git 与 GitHub 相关
+</h2><ol>
+<li>存储原理：本地 <code>.git</code> 文件夹仅保存文件改动差异，不复制完整文件，长期提交不会造成内存占用激增；GitHub 为云端同步备份。</li>
+<li>版本回退：新版 GitHub 网页端移除了 commit 详情页的 Revert 按钮，可下载历史版本源码本地覆盖推送；也可使用命令行回退。</li>
+<li>分支模式：分支为平行测试环境，<code>main</code> 为主稳定分支；无冲突时 Git 自动合并，仅修改同一文件同一行时需手动解决冲突。</li>
+</ol>
+<h2 id="二ai推理框架-tensorrtllm">二、AI推理框架 TensorRT‑LLM
+</h2><ol>
+<li>定位：NVIDIA 专为 LLM 大模型设计的推理加速库，核心面向云端高性能 GPU。</li>
+<li>硬件适配：老款 Jetson Nano 不支持，Orin Nano 可适配轻量模型；树莓派、RK3588 无法使用。</li>
+</ol>
+<h2 id="三rk3588-嵌入式全栈技术">三、RK3588 嵌入式全栈技术
+</h2><ol>
+<li>DTB 设备树：编译后的硬件配置二进制文件，存于 <code>/boot</code> 目录，用于 Linux 内核识别 GPIO、摄像头、NPU 等硬件。</li>
+<li>核心硬件单元：RGA 图像硬件加速、MPP 多媒体编解码、NPU AI 推理。</li>
+<li>多媒体相关：H264 硬编解码、比特率对视频画质与带宽的影响；基于 RGA+H264 的视频流开发，搭配 RTSP/RTMP 等流媒体协议。</li>
+<li>RKNN 部署：瑞芯微 NPU 专属推理框架，支持模型量化实现端侧 AI 加速。</li>
+<li>脚本：<code>.sh</code> 为 Linux 自动化脚本，用于 RK3588 项目一键部署、环境配置、启动程序。</li>
+<li>通信协议：I2C、SPI、串口等硬件通信协议。</li>
+</ol>
+<h2 id="四嵌入式硬件对比">四、嵌入式硬件对比
+</h2><ol>
+<li>树莓派4B：英国树莓派基金会出品，通用卡片电脑，无 NPU/GPU，适合硬件控制。</li>
+<li>RK3588：国产 AI 开发板，自带 NPU、RGA、H264 硬解，为端侧多模态部署主力硬件。</li>
+<li>Jetson Nano：NVIDIA 边缘设备，适配 TensorRT‑LLM。</li>
+</ol>
+<h2 id="五编程语言-rust-vs-c">五、编程语言 Rust vs C++
+</h2><ol>
+<li>C++：性能强、生态成熟，手动管理内存，易出现崩溃、内存泄漏。</li>
+<li>Rust：高性能、内存安全，适合机器人底层硬件驱动开发。</li>
+</ol>
+<h2 id="六vibe-coding">六、Vibe Coding
+</h2><ol>
+<li>基础概念：AI辅助下快速迭代、快速试错的编码模式。</li>
+<li>结合方向：适配个人嵌入式、端侧部署原型项目开发。</li>
+</ol>
+<h2 id="七实战项目-tarschat">七、实战项目 TARS‑chat
+</h2><ol>
+<li>硬件：主控为树莓派4B。</li>
+<li>架构：Rust 负责底层硬件控制，Python 实现上层 LLM 语音对话。</li>
+<li>功能：迷你桌面本地 AI 聊天机器人。</li>
+</ol>
 
 </section>
 
@@ -396,25 +484,6 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="has-image">
-    <a href="/p/%E8%87%AA%E5%AD%A62026-05-12/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">[自学]2026-05-12 </h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="has-image">
@@ -487,6 +556,25 @@
 
         <div class="article-details">
             <h2 class="article-title">[自学]2026-05-07 </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/%E8%87%AA%E5%AD%A62026-05-06/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="/img/cover.jpg" loading="lazy" data-key="" data-hash="/img/cover.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[自学]2026-05-06 </h2>
         </div>
     </a>
 </article>
