@@ -7,7 +7,489 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Tue, 12 May 2026 09:01:04 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 13 May 2026 09:00:58 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-05-13 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-13/</link>
+        <pubDate>Wed, 13 May 2026 09:00:58 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-13/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-05-13 " /&gt;&lt;h4 id=&#34;-主线任务注意要从实践出发在实践中完善理论知识做好资料整理&#34;&gt;📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代码随想录以及完善项目；英语继续精听，后续继续刷剑桥雅思，研二上必须考完；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 速看了一下ffmpeg和rknn；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;：一题阅读；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;c20-test-3-passage-1-frozen-food-学习笔记&#34;&gt;C20 Test 3 Passage 1: Frozen Food 学习笔记
+&lt;/h1&gt;&lt;h2 id=&#34;标题与核心词汇&#34;&gt;标题与核心词汇
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;frozen&lt;/strong&gt; (freeze 的过去分词) = 冷冻的；结冰的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;frozen food&lt;/strong&gt; = 冷冻食品 / 速冻食品&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第一段古代冷冻技术&#34;&gt;第一段：古代冷冻技术
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;inhabitants&lt;/strong&gt; = 居民；居住者；栖息动物
+&lt;ul&gt;
+&lt;li&gt;词根：in-（在…里）+ habitare（居住）+ -ant（人）&lt;/li&gt;
+&lt;li&gt;同义替换：residents / dwellers / population&lt;/li&gt;
+&lt;li&gt;与 &lt;strong&gt;habitat&lt;/strong&gt;（栖息地，地方）同源，都来自拉丁语 habitare&lt;/li&gt;
+&lt;li&gt;与 &lt;strong&gt;habit&lt;/strong&gt;（习惯）也有远亲关系，都来自&amp;quot;保持、居住&amp;quot;的概念&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;trampled&lt;/strong&gt; (trample 的过去分词) = 被踩踏的；被踩坏的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nutritional&lt;/strong&gt; (nutrition + -al) = 营养的；与营养相关的
+&lt;ul&gt;
+&lt;li&gt;常见搭配：nutritional value（营养价值）/ nutritional loss（营养流失）&lt;/li&gt;
+&lt;li&gt;区分：&lt;strong&gt;nutrition&lt;/strong&gt;（营养，抽象）/ &lt;strong&gt;nutrient&lt;/strong&gt;（营养素，具体）/ &lt;strong&gt;nutritious&lt;/strong&gt;（有营养的）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;aesthetic appeal&lt;/strong&gt; = 审美吸引力；美观度；视觉吸引力
+&lt;ul&gt;
+&lt;li&gt;aesthetic = 美学的、审美的&lt;/li&gt;
+&lt;li&gt;appeal = 吸引力&lt;/li&gt;
+&lt;li&gt;同义替换：visual appeal / attractiveness / appearance&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第二段冰块运输与机械制冷&#34;&gt;第二段：冰块运输与机械制冷
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;towed&lt;/strong&gt; (tow 的过去式/过去分词) = 被拖运的；被牵引的
+&lt;ul&gt;
+&lt;li&gt;原文：&lt;em&gt;ship owners&amp;hellip; had enormous blocks of Arctic ice &lt;strong&gt;towed&lt;/strong&gt; all over the Atlantic&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;语法：have sth done（让某事被做）&lt;/li&gt;
+&lt;li&gt;船主安排船只把巨大冰块拖运到大西洋各地&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;enormous&lt;/strong&gt; = 巨大的；庞大的（强调尺寸/体积大，不是数量多）
+&lt;ul&gt;
+&lt;li&gt;❌ 不等于 many / numerous&lt;/li&gt;
+&lt;li&gt;✅ 同义：huge / gigantic / massive&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;butter&lt;/strong&gt;（黄油） vs &lt;strong&gt;butterfly&lt;/strong&gt;（蝴蝶）= 拼写巧合，现代英语中无实际关系&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;compressor&lt;/strong&gt; = 压缩机（压缩气体，使其高压高温）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;condenser&lt;/strong&gt; = 冷凝器（让热气体散热，凝结成液体）
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;condense&lt;/strong&gt; = （气体）凝结成液体；（内容）浓缩&lt;/li&gt;
+&lt;li&gt;区分：compress（压缩，还是气体）→ condense（冷凝，变成液体）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;evaporator&lt;/strong&gt; = 蒸发器（液体快速蒸发，吸热变冷）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第三段birdseye-与速冻技术&#34;&gt;第三段：Birdseye 与速冻技术
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;mutton&lt;/strong&gt; = 羊肉（成年绵羊的肉，区别于 lamb 羔羊肉）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;palatable&lt;/strong&gt; = 美味的；可口的
+&lt;ul&gt;
+&lt;li&gt;引申义：可接受的、合意的（如 proposal was not palatable）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deterioration&lt;/strong&gt; (deteriorate 的名词) = 恶化；变质；退化&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;burst&lt;/strong&gt; = 爆裂；破裂
+&lt;ul&gt;
+&lt;li&gt;冷冻语境：水结冰膨胀导致细胞 &lt;strong&gt;burst&lt;/strong&gt;（破裂），影响口感&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;spoilt&lt;/strong&gt;（英式）/ &lt;strong&gt;spoiled&lt;/strong&gt;（美式）= 变质的；腐坏的；被宠坏的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;indigenous&lt;/strong&gt; = 本土的；原产的；土著的
+&lt;ul&gt;
+&lt;li&gt;同义替换：native / local / original&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ran out of&lt;/strong&gt; = 用完了；耗尽了（run out of 的过去式）
+&lt;ul&gt;
+&lt;li&gt;主语是人：&lt;em&gt;We ran out of ice.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;区分：run out（主语是物）&lt;em&gt;The ice ran out.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第四段包装与市场推广&#34;&gt;第四段：包装与市场推广
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;as well as&lt;/strong&gt; = 也；和……一样；除……之外还
+&lt;ul&gt;
+&lt;li&gt;⚠️ 主谓一致：谓语动词跟 as well as &lt;strong&gt;前面&lt;/strong&gt;的词一致&lt;/li&gt;
+&lt;li&gt;强调前面的，后面是附加信息&lt;/li&gt;
+&lt;li&gt;原文连接两个 technique：quick-freezing techniques &lt;strong&gt;as well as&lt;/strong&gt; the technique of freezing&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;cellophane&lt;/strong&gt; = 玻璃纸；赛璐玢（透明包装材料）
+&lt;ul&gt;
+&lt;li&gt;原文：the first transparent material for food packaging&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;came in&lt;/strong&gt; = 以……形式/规格出售
+&lt;ul&gt;
+&lt;li&gt;原文：&lt;em&gt;Birdseye products also &lt;strong&gt;came in&lt;/strong&gt; convenient size packages&amp;hellip;&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;= 产品以方便规格推出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;with a minimum of effort&lt;/strong&gt; = 只需简单准备；最省事&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;grocery&lt;/strong&gt; = 食品杂货；杂货店
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;grocery stores&lt;/strong&gt; = 食品杂货店&lt;/li&gt;
+&lt;li&gt;与足球词汇无关（注意区分 goalie / grassroots 等发音相近词）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第五段二战与-tv-dinner&#34;&gt;第五段：二战与 TV Dinner
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;munitions&lt;/strong&gt; = 军火；弹药；军需品&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ration&lt;/strong&gt; = 配给；定量供应（动词/名词）
+&lt;ul&gt;
+&lt;li&gt;原文：&lt;em&gt;Canned foods were &lt;strong&gt;rationed&lt;/strong&gt;&amp;hellip;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;tin&lt;/strong&gt; = 锡；马口铁（制造罐头和弹药的金属原材料）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;compartment&lt;/strong&gt; = 隔间；舱室；分隔空间（如冰箱冷冻舱、火车车厢）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TV-dinner&lt;/strong&gt; = 电视餐；速冻即食餐（托盘装，可边看电视边吃）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;trusted brand name&lt;/strong&gt; = 值得信赖的品牌；可靠的品牌名称&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;poultry&lt;/strong&gt; = 家禽；家禽肉（鸡、鸭、鹅、火鸡等，区别于 livestock 牲畜）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第六段swanson-与-tv-dinner-成功&#34;&gt;第六段：Swanson 与 TV Dinner 成功
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;clever name&lt;/strong&gt; = 巧妙的名称
+&lt;ul&gt;
+&lt;li&gt;指&amp;quot;TV Dinner&amp;quot;蹭了当时电视普及的热度，起名很聪明&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;segmented&lt;/strong&gt; = 分格的；分隔的
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;segmented aluminium tray&lt;/strong&gt; = 分格铝制托盘（像飞机餐一样，一格一格分开装不同食物）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;关键长难句翻译参考&#34;&gt;关键长难句翻译参考
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;He developed quick-freezing techniques that reduced the damage that crystals caused, as well as the technique of freezing the product in the package it was to be sold in.&lt;/em&gt;
+→ 他开发了能减少冰晶损害的速冻技术，以及将产品直接在其销售包装中进行冷冻的技术。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;Birdseye products also came in convenient size packages that could be prepared with a minimum of effort.&lt;/em&gt;
+→ Birdseye 的产品还采用方便规格的包装，只需简单准备即可食用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;In 1954, the company adapted some of Birdseye&amp;rsquo;s freezing techniques, and with the help of a clever name and a huge advertising budget, it launched the first &amp;lsquo;TV Dinner&amp;rsquo;.&lt;/em&gt;
+→ 1954年，该公司采用了 Birdseye 的一些冷冻技术，并借助一个巧妙的名称和巨额广告预算，推出了第一款&amp;quot;电视晚餐&amp;quot;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;This consisted of frozen turkey, potatoes and vegetables served in the same segmented aluminium tray that was used by airlines.&lt;/em&gt;
+→ 这款电视晚餐由冷冻火鸡肉、土豆和蔬菜组成，盛放在与航空公司使用的相同的分格铝制托盘之中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;今日对话总结2026-05-12--2026-05-13&#34;&gt;今日对话总结（2026-05-12 ~ 2026-05-13）
+&lt;/h1&gt;&lt;h2 id=&#34;一求职方向半导体--嵌入式--模型部署&#34;&gt;一、求职方向：半导体 + 嵌入式 + 模型部署
+&lt;/h2&gt;&lt;h3 id=&#34;你的核心优势&#34;&gt;你的核心优势
+&lt;/h3&gt;&lt;p&gt;「半导体 + 嵌入式 + 模型部署」三重背景属于&lt;strong&gt;极度稀缺的交叉型人才&lt;/strong&gt;。不要写&amp;quot;两边都懂一点&amp;quot;，要定位成：
+&amp;gt; &lt;strong&gt;&amp;ldquo;专门解决 AI 模型在半导体设备里落地的那个人&amp;rdquo;&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;推荐岗位类型按匹配度&#34;&gt;推荐岗位类型（按匹配度）
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;嵌入式AI工程师 / 端侧推理工程师&lt;/strong&gt;（芯片/设备公司）— 最对口&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ATE测试开发工程师（智能化方向）&lt;/strong&gt; — 用模型部署能力做测试数据实时诊断&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;半导体设备固件工程师（AI升级方向）&lt;/strong&gt; — 嵌入式为主，AI为差异化武器&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;边缘AI部署工程师（工业视觉/半导体检测）&lt;/strong&gt; — 半导体缺陷检测大量引入深度学习&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;目标公司&#34;&gt;目标公司
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;芯片公司&lt;/strong&gt;：地平线、晶晨半导体、恒玄科技、华大半导体、三星半导体西安研究所&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;设备公司&lt;/strong&gt;：联讯仪器、华屹半导体、华芯半导体装备、长川科技、华峰测控、精测电子&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;通用仪器厂商&lt;/strong&gt;：Keysight、普源精电、鼎阳科技（仪器正在智能化转型，急需嵌入式+AI）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;国产DLTS&lt;/strong&gt;：索相科技（LT-8000，唯一自主研发），其他多为代理进口品牌&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;二技术问答速查&#34;&gt;二、技术问答速查
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;问题&lt;/th&gt;
+&lt;th&gt;答案&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;FFmpeg是Java的吗？&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;不是，C语言写的。Java项目通过命令行或JNI调用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Android是Java的吗？&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;应用层是Kotlin/Java，系统底层是C/C++，内核是Linux（C）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;iOS是基于Linux吗？&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;不是，内核是XNU（Mach+BSD），和Linux是两条路&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Demuxer/Muxer&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Demux=拆包（把容器里的音视频流分离），Mux=打包（把多路流合成一个文件）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;SDL是什么&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Simple DirectMedia Layer，负责音视频解码后的播放和渲染输出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;RKNN Toolkit2 vs Lite2&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Toolkit2在PC上做模型转换+量化；Lite2在板子上做推理（Python封装）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;RKNN Runtime&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;librknnrt.so&lt;/code&gt;，板端真正执行推理的C++运行时库&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;NPU是华为的吗？&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;不是，NPU是通用术语。瑞芯微NPU（RK3588）定位嵌入式低功耗，华为昇腾定位云端/高端&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;RKNN支持ONNX为何还要转换？&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;ONNX是通用格式，NPU只认&lt;code&gt;.rknn&lt;/code&gt;。转换过程做量化、算子适配、图优化&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;RK3588 6 TOPS怎么算&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;1024 MAC/cycle × 3核 × 1GHz × 2（1MAC=2次运算）≈ 6 TOPS&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Jetson Orin Nano Super&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;官方超频版，硬件不变，软件解锁更高频率，67 TOPS，$249&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;RKNN模拟器 vs 连板&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;模拟器是Toolkit2内置的调试工具（PC端）；Runtime只能连真板运行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;三学习路径建议&#34;&gt;三、学习路径建议
+&lt;/h2&gt;&lt;h3 id=&#34;已有-rtx-2060先别急着买板子&#34;&gt;已有 RTX 2060，先别急着买板子
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;2060足够学会80%的模型部署技能&lt;/strong&gt;：ONNX导出、TensorRT转换、INT8量化、推理优化&lt;/li&gt;
+&lt;li&gt;等要投简历前1&lt;del&gt;2个月，再买 &lt;strong&gt;Jetson Orin Nano Super&lt;/strong&gt;（¥2070&lt;/del&gt;2300）做端侧迁移验证&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;rknn-vs-jetson-优先级&#34;&gt;RKNN vs Jetson 优先级
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;先死磕Jetson + TensorRT&lt;/strong&gt;（行业通用，简历值钱）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RKNN作为补充&lt;/strong&gt;：花3~5天快速跑通转换和部署流程，简历多一条&amp;quot;熟悉国产NPU&amp;quot;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;端侧-vs-云端-ai-infra-技术栈对比&#34;&gt;端侧 vs 云端 AI Infra 技术栈对比
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;层级&lt;/th&gt;
+&lt;th&gt;端侧（RK/Jetson）&lt;/th&gt;
+&lt;th&gt;云端（A100/H100）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;推理框架&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;RKNN Runtime、TFLite、ONNX Runtime ARM、MNN、NCNN&lt;/td&gt;
+&lt;td&gt;TensorRT、vLLM、Triton Inference Server、ONNX Runtime CUDA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;编译优化&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;RKNN Toolkit2、INT8量化、算子回退&lt;/td&gt;
+&lt;td&gt;TensorRT Builder、XLA、TVM、Layer Fusion、Kernel Auto-Tuning&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;算子开发&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Runtime Custom Op C++插件、CPU回退实现&lt;/td&gt;
+&lt;td&gt;CUDA Kernel、TensorRT Plugin、Triton Kernel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;部署形态&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;交叉编译、固件烧录、OTA&lt;/td&gt;
+&lt;td&gt;Docker + K8s、微服务、Serverless&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;硬件抽象&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;librknnrt.so&lt;/code&gt;、NPU驱动、OpenCL/Vulkan&lt;/td&gt;
+&lt;td&gt;CUDA Runtime、cuDNN、cuBLAS、NCCL、NVLink&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;监控指标&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Latency、FPS、CPU/NPU占用、温度、功耗(mW)&lt;/td&gt;
+&lt;td&gt;QPS、TTFT、TPOT、GPU利用率、显存占用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;核心矛盾&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;latency vs 功耗 vs 内存&lt;/td&gt;
+&lt;td&gt;吞吐量 vs 成本&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;四工程思维从零做项目&#34;&gt;四、工程思维：从零做项目
+&lt;/h2&gt;&lt;h3 id=&#34;工程项目--手敲每一行代码&#34;&gt;工程项目 ≠ 手敲每一行代码
+&lt;/h3&gt;&lt;p&gt;真实项目是**&amp;ldquo;站在巨人肩膀上搭积木&amp;rdquo;**：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;需求分析&lt;/strong&gt; → 2. &lt;strong&gt;技术选型&lt;/strong&gt;（clone LVGL、FFmpeg等库） → 3. &lt;strong&gt;搭骨架&lt;/strong&gt;（写main.c胶水代码）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;移植集成&lt;/strong&gt;（交叉编译、解决链接/内存问题） → 5. &lt;strong&gt;增量开发&lt;/strong&gt;（业务逻辑）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;调试优化&lt;/strong&gt;（不同步、卡顿、内存泄漏）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;你真正需要手写的&#34;&gt;你真正需要手写的
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;主框架和状态机&lt;/li&gt;
+&lt;li&gt;模块间胶水层（UI点击怎么触发解码）&lt;/li&gt;
+&lt;li&gt;错误处理和边界条件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;建议补一个从零开始的项目&#34;&gt;建议补一个&amp;quot;从零开始&amp;quot;的项目
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;RK3588 智能相机/检测终端&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;V4L2取流 → RKNN跑YOLO → LVGL显示结果框&lt;/li&gt;
+&lt;li&gt;重点练：多线程同步、内存零拷贝、端侧完整pipeline&lt;/li&gt;
+&lt;li&gt;写在简历上比&amp;quot;copy播放器&amp;quot;更能打动面试官&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;五实习岗位链接汇总&#34;&gt;五、实习岗位链接汇总
+&lt;/h2&gt;&lt;h3 id=&#34;-最对口端侧ai--推理引擎--芯片工具链&#34;&gt;🎯 最对口：端侧AI / 推理引擎 / 芯片工具链
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;公司&lt;/th&gt;
+&lt;th&gt;岗位&lt;/th&gt;
+&lt;th&gt;链接&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;奕斯伟计算&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;AI算法实习生（&lt;strong&gt;明确要RKNN/AX650N&lt;/strong&gt;）&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://eswinchipch.zhiye.com/internxq?jobId=311050929&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;地平线&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;日常实习（芯片工具链/模型量化/芯片OS）&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.wondercv.com/xiaozhao/horizon-2026-ai-chip-robotics-intern-7250-d04df3/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;全志科技&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;嵌入式软件/应用软件（&lt;strong&gt;NPU评测/AI SDK&lt;/strong&gt;）&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://campus.allwinnertech.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;字节跳动&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;端侧AI Infra开发实习生-音视频技术&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://jobs.bytedance.com/campus/m/position/detail/7594472672476760325&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;小米&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;端侧推理优化工程师-实习&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.nowcoder.com/jobs/detail/392730&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;小米&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;AI算法分析员实习生（端侧AI/编译器/推理框架）&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://xiaomi.jobs.f.mioffice.cn/internship/position/7478938889877635180/detail&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;阿里巴巴&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;移动端AI推理引擎优化工程师&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.nowcoder.com/jobs/detail/439580&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;大疆&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;AI实习生专项（工具链/端侧轻量化）&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.wondercv.com/xiaozhao/dji-ai-intern-2027-shenzhen-shanghai-5817-11310b/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;海康威视&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;2027超新星实习生（AI加速算法/嵌入式软件）&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://hr.hikvision.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;商汤&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;自动驾驶实习-推理引擎开发&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.zhipin.com/zhaopin/5c3169910828932533B62dS4/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;蔚来&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;端侧大模型算法实习&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://nio.jobs.feishu.cn/s/iDkpAWHs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;-半导体设备嵌入式进去后可转ai智能化&#34;&gt;🏭 半导体设备/嵌入式（进去后可转AI智能化）
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;公司&lt;/th&gt;
+&lt;th&gt;岗位&lt;/th&gt;
+&lt;th&gt;链接&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;长川科技&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;实习生（软件/驱动/自动化）&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://career.hzcctech.com&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;精测电子&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;嵌入式工程师（实习生）&lt;/td&gt;
+&lt;td&gt;BOSS直聘/猎聘搜&amp;quot;精测电子 嵌入式 实习&amp;quot;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;中科飞测&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;嵌入式软件工程师/系统工程师&lt;/td&gt;
+&lt;td&gt;BOSS直聘搜&amp;quot;中科飞测 嵌入式&amp;quot;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;-其他&#34;&gt;📮 其他
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;公司/机构&lt;/th&gt;
+&lt;th&gt;岗位&lt;/th&gt;
+&lt;th&gt;方式&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;具身智能创新中心&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;多模态AI Infra+推理加速&lt;/td&gt;
+&lt;td&gt;发邮件至 &lt;code&gt;vito.dai@x-humanoid.com&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;复旦大学AI³院&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;AI INFRA工程师实习生&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;https://ai3.fudan.edu.cn/info/1050/2414.htm&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;投递&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;投递策略&#34;&gt;投递策略
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;第一优先级&lt;/strong&gt;：奕斯伟（JD直接写RKNN，命中率最高）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;第二优先级&lt;/strong&gt;：地平线/全志/海康（芯片工具链/端侧SDK）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;第三优先级&lt;/strong&gt;：字节/小米/阿里（端侧Infra，竞争激烈）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;保底&lt;/strong&gt;：长川/精测/中科飞测（嵌入式进去后内部转AI）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;避坑&lt;/strong&gt;：看到&amp;quot;LLM训练&amp;quot;、&amp;ldquo;分布式&amp;rdquo;、&amp;ldquo;GPU集群&amp;rdquo;→云端；看到&amp;quot;模型转换&amp;quot;、&amp;ldquo;量化&amp;rdquo;、&amp;ldquo;NPU&amp;rdquo;、&amp;ldquo;SDK&amp;rdquo;、&amp;ldquo;工具链&amp;rdquo;→端侧。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-05-12 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-12/</link>
         <pubDate>Tue, 12 May 2026 09:01:04 +0800</pubDate>
