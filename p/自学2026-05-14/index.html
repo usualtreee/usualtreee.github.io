@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[自学]2026-05-14  — Usualtree</title>
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    <link rel="icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/scss/custom.min.4cffc4d5550560d504ffd73a240dff9eb8a4fb06fefa1b9c675f7880b8070d62.css">
+</head>
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <a href="javascript:history.back()" class="postlist-back"><span data-zh="← 返回" data-en="← Back"></span></a>
+
+        <article class="card glass-card single-card">
+            
+            <div class="single-cover-wrap">
+                <img class="single-cover" src="/img/cover.jpg" alt="cover">
+            </div>
+            
+
+            <div class="single-body-content">
+                <h1 class="single-title">[自学]2026-05-14 </h1>
+
+                <div class="single-meta">
+                    <span class="single-date">📅 2026-05-14</span>
+                    
+                    <span class="single-cat">📂 学习笔记</span>
+                    
+                    
+                </div>
+
+                <div class="single-content">
+                    <h4 id="-主线任务注意要从实践出发在实践中完善理论知识做好资料整理">📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+</h4><p><strong>近期目标</strong>：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代码随想录以及完善项目；英语继续精听，后续继续刷剑桥雅思，研二上必须考完；</p>
+<ul>
+<li>
+<p><strong>嵌入式</strong>: 今天了解了很多概念；</p>
+</li>
+<li>
+<p><strong>雅思</strong>：做了一题阅读；</p>
+</li>
+</ul>
+<h1 id="今日总结2026-05-13-晚--2026-05-14">今日总结（2026-05-13 晚 ~ 2026-05-14）
+</h1><h2 id="一求职与项目策略">一、求职与项目策略
+</h2><h3 id="项目必须贴合目标公司">项目必须贴合目标公司
+</h3><ul>
+<li><strong>核心原则</strong>：做什么项目取决于投哪家公司。投大疆就做无人机目标追踪+RK3588部署；投具身智能就做目标检测/跟踪，而不是U-Net分割。</li>
+<li><strong>YOLO+RKNN是基础</strong>，但只做这个不够。要在基础之上叠加企业需要的场景（多路视频、实时推理、硬件加速）。</li>
+</ul>
+<h3 id="实习岗位重点">实习岗位重点
+</h3><ul>
+<li><strong>字节跳动 PICO 端侧AI Infra</strong>：设计NPU推理框架、XR端侧模型部署、FW/Runtime开发。JD要求C/C++、ARM、Linux/RTOS、端侧AI部署经验，和你的背景高度对口。</li>
+<li><strong>其他端侧岗</strong>：奕斯伟（明确要RKNN）、地平线（工具链/量化）、全志（NPU SDK）、海康（AI加速算法/嵌入式）。</li>
+<li><strong>小米工程师训练营</strong>：校企合作定向项目，非公开招募，主流是Android/C++开发，不完全对口嵌入式AI。</li>
+</ul>
+<hr>
+<h2 id="二cuda-与底层软件栈">二、CUDA 与底层软件栈
+</h2><h3 id="cuda-本质">CUDA 本质
+</h3><ul>
+<li><strong>不是独立语言</strong>，是C/C++的GPU扩展方言，通过<code>nvcc</code>编译。</li>
+<li><strong>CUDA Kernel</strong>：<code>__global__</code>标记的函数，由CPU通过<code>&amp;lt;&amp;lt;&amp;lt;grid, block&amp;gt;&amp;gt;&amp;gt;</code>启动，在GPU上并行执行。</li>
+<li><code>&amp;lt;&amp;lt;&amp;lt;2, 2&amp;gt;&amp;gt;&amp;gt;</code>表示2个block×2个thread，共4个线程并行。</li>
+</ul>
+<h3 id="驱动与库的分层">驱动与库的分层
+</h3><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>Linux</th>
+<th>Windows</th>
+<th>谁写的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内核驱动</td>
+<td><code>.ko</code> (nvidia.ko)</td>
+<td><code>.sys</code></td>
+<td>GPU驱动工程师</td>
+</tr>
+<tr>
+<td>用户态Driver API</td>
+<td><code>libcuda.so</code></td>
+<td><code>nvcuda.dll</code></td>
+<td>CUDA驱动团队</td>
+</tr>
+<tr>
+<td>用户态Runtime</td>
+<td><code>libcudart.so</code></td>
+<td><code>cudart64_xxx.dll</code></td>
+<td>CUDA Runtime团队</td>
+</tr>
+<tr>
+<td>推理框架</td>
+<td><code>libnvinfer.so</code></td>
+<td><code>nvinfer.dll</code></td>
+<td>TensorRT/AI Infra团队</td>
+</tr>
+<tr>
+<td>你的Plugin</td>
+<td><code>libplugin.so</code></td>
+<td><code>.dll</code></td>
+<td>你（算法部署工程师）</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong><code>.so</code></strong>：用户态共享库，封装函数/变量/数据，通过系统调用(<code>ioctl</code>/<code>mmap</code>)间接访问内核驱动，不能直接调用内核函数。</li>
+<li><strong><code>.ko</code></strong>：内核模块，直接操作硬件寄存器，用<code>insmod</code>加载。</li>
+</ul>
+<hr>
+<h2 id="三rknn-项目技术栈补充">三、RKNN 项目技术栈补充
+</h2><h3 id="4路视频项目完整技术链">4路视频项目完整技术链
+</h3><table>
+<thead>
+<tr>
+<th>模块</th>
+<th>技术</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>视频拉流</td>
+<td>FFmpeg + RTSP/RTMP</td>
+<td>RTSP拉流（<code>avformat_open_input</code>），RTMP推流（<code>avformat_alloc_output_context2</code>）</td>
+</tr>
+<tr>
+<td>硬件解码</td>
+<td><strong>瑞芯微MPP</strong></td>
+<td>4路H.264/H.265硬解，输出NV12。不能用FFmpeg软解，CPU会爆炸</td>
+</tr>
+<tr>
+<td>图像处理</td>
+<td><strong>OpenCV C++</strong></td>
+<td>NV12→BGR→RGB、resize、多路拼图。注意OpenCV原生是C++库，Python只是封装</td>
+</tr>
+<tr>
+<td>推理</td>
+<td>RKNN Runtime</td>
+<td>加载<code>.rknn</code>，<code>rknn_init</code>/<code>rknn_run</code>/<code>rknn_outputs_get</code></td>
+</tr>
+<tr>
+<td>后处理</td>
+<td><strong>NMS</strong></td>
+<td>非极大值抑制，去重检测框，保留置信度最高的</td>
+</tr>
+<tr>
+<td>显示/推流</td>
+<td>RTMP + 多线程</td>
+<td>编码后推流到服务器</td>
+</tr>
+</tbody>
+</table>
+<h3 id="嵌入式ai-infra优化五大方向量化之后的进阶">嵌入式AI Infra优化五大方向（量化之后的进阶）
+</h3><ol>
+<li><strong>零拷贝（Zero-Copy）</strong>：MPP解码的<code>MppFrame</code>通过<code>dma_buf</code>直接共享给RKNN输入， eliminate <code>memcpy</code>。RK3588是UMA架构，CPU/NPU共享物理内存。</li>
+<li><strong>内存池（Memory Pool）</strong>：预先<code>rknn_create_mem</code>申请固定buffer循环复用，避免每帧<code>malloc/free</code>的碎片和锁竞争。配合双缓冲/三缓冲。</li>
+<li><strong>多线程流水线（Pipeline）</strong>：解码→预处理→推理→后处理四阶段用生产者-消费者模型并行。用<code>std::mutex</code>+<code>condition_variable</code>或原子无锁队列。绑核到big.LITTLE特定核心。</li>
+<li><strong>RGA硬件加速</strong>：用<code>librga.so</code>替代OpenCV CPU做YUV→RGB转换和resize，速度提升5~10倍。</li>
+<li><strong>异步推理+Batch策略</strong>：<code>rknn_run</code>异步化（或双线程模拟），4路同分辨率可尝试Batch=4推理提升NPU利用率。</li>
+</ol>
+<hr>
+<h2 id="四量化深入理解">四、量化深入理解
+</h2><h3 id="核心概念">核心概念
+</h3><ul>
+<li><strong>量化</strong>：把FP32浮点数映射到INT8/INT16整数，缩小模型体积、加速推理、降低功耗。</li>
+<li><strong>PTQ（训练后量化）</strong>：模型训练完后用校准数据集统计范围，直接转INT8。边缘部署最常用，不需要训练环境。</li>
+<li><strong>QAT（量化感知训练）</strong>：训练时模拟INT8前向传播，精度更高但需重新训练。边缘团队通常没条件做。</li>
+<li><strong>对称/非对称</strong>：对称量化<code>zero_point=0</code>，硬件更友好；非对称有偏移，精度略高。</li>
+<li><strong>per-tensor / per-channel / per-layer</strong>：全局一个scale太粗暴，按通道/按层独立统计精度更好。</li>
+</ul>
+<h3 id="量化调试">量化调试
+</h3><ul>
+<li>精度掉了怎么办：逐层对比FP32 vs INT8输出、换校准数据集、用per-channel、敏感层保留FP16（混合精度）。</li>
+<li><strong>和金融量化完全无关</strong>：金融量化是数学建模投资，模型量化是数值压缩。</li>
+</ul>
+<hr>
+<h2 id="五硬件架构认知">五、硬件架构认知
+</h2><h3 id="npu-vs-gpu">NPU vs GPU
+</h3><ul>
+<li><strong>GPU</strong>：通用并行处理器（SIMT），CUDA Core/Tensor Core，完全可编程，功耗高（几百瓦）。</li>
+<li><strong>NPU</strong>：专用DSA（领域专用架构），MAC乘加阵列+大容量片上SRAM，硬连线控制，不可编程，功耗极低（几瓦~十几瓦）。</li>
+<li><strong>性能瓶颈都是内存墙</strong>：算力再强，DDR带宽跟不上也是白搭。优化核心是减少访存、提高数据复用。</li>
+</ul>
+<h3 id="华为昇腾达芬奇架构">华为昇腾达芬奇架构
+</h3><ul>
+<li><strong>Scalar Unit</strong>：标量控制单元，管循环/分支/地址计算/调度。</li>
+<li><strong>Vector Unit</strong>：向量运算单元，SIMD逐元素操作（ReLU/Add/Norm）。</li>
+<li><strong>Cube Unit</strong>：矩阵乘加单元，专门干Conv/FC的MAC阵列。</li>
+</ul>
+<h3 id="mac与算力">MAC与算力
+</h3><ul>
+<li><strong>MAC = 1次乘法 + 1次加法</strong>，是NPU最小硬件单元和最小运算单位。</li>
+<li><strong>算力换算</strong>：1024 MAC/cycle × 3核 × 1GHz × 2 = 6 TOPS（乘2是因为1MAC=2次基本运算）。</li>
+</ul>
+<hr>
+<h2 id="六其他">六、其他
+</h2><ul>
+<li><strong>TVM</strong>：模型编译器（Apache开源），输入ONNX/TensorFlow计算图，输出多硬件优化代码。和nvcc（GPU C++编译器）不同层级。</li>
+<li><strong>OpenAI Triton</strong>：Python DSL写GPU算子，底层自动生成CUDA。NVIDIA Triton Inference Server是云端推理服务框架，两者同名无关。</li>
+<li><strong>GaN器件</strong>：功率半导体，适合做电源开关（数据中心PSU、机器人关节驱动），不适合做数字MAC/AI计算。抗辐射加固CMOS FPGA已覆盖绝大多数恶劣环境数字控制需求。</li>
+</ul>
+<hr>
+<h2 id="七明日行动建议">七、明日行动建议
+</h2><ol>
+<li><strong>本周主攻</strong>：RKNN项目零拷贝改造 + 内存池实现，帧率应有20%~40%提升。</li>
+<li><strong>下周引入</strong>：多线程流水线 + RGA硬件预处理。</li>
+<li><strong>量化实践</strong>：用RKNN Toolkit2对YOLO模型做PTQ INT8，对比FP32和INT8的逐层精度差异。</li>
+<li><strong>简历话术</strong>：准备&quot;4路视频实时检测 + 零拷贝 + 内存池 + RGA加速 + 多线程流水线&quot;的完整闭环描述。</li>
+</ol>
+<h1 id="c20-test-3-passage-2-can-the-planets-coral-reefs-be-saved-学习笔记">C20 Test 3 Passage 2: Can the planet&rsquo;s coral reefs be saved? 学习笔记
+</h1><h2 id="一list-of-headings-选项翻译">一、List of Headings 选项翻译
+</h2><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>英文</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>Tried and tested solutions</td>
+<td>久经考验的解决方案</td>
+</tr>
+<tr>
+<td>ii</td>
+<td>Cooperation beneath the waves</td>
+<td>海面下的合作</td>
+</tr>
+<tr>
+<td>iii</td>
+<td>Working to lessen the problems</td>
+<td>努力减轻问题</td>
+</tr>
+<tr>
+<td>iv</td>
+<td>Disagreement about the accuracy of a certain phrase</td>
+<td>对某个说法准确性的争议</td>
+</tr>
+<tr>
+<td>v</td>
+<td>Two clear educational goals</td>
+<td>两个明确的教育目标</td>
+</tr>
+<tr>
+<td>vi</td>
+<td>Promoting hope</td>
+<td>传递希望</td>
+</tr>
+<tr>
+<td>vii</td>
+<td>A warning of further trouble ahead</td>
+<td>对未来更多麻烦的预警</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="二教育类词汇课前问题">二、教育类词汇（课前问题）
+</h2><ul>
+<li><strong>undergraduate</strong> = 本科生（在读或刚完成学士学位）</li>
+<li><strong>postgraduate</strong> = 研究生（英国说法；美国常用 graduate student）</li>
+<li><strong>graduate</strong> (v.) = 毕业；(n. 英国) 大学毕业生；(n. 美国) 研究生</li>
+<li><strong>graduate school</strong> = 研究生院</li>
+</ul>
+<hr>
+<h2 id="三珊瑚礁文章核心词汇">三、珊瑚礁文章核心词汇
+</h2><h3 id="文章标题与主题">文章标题与主题
+</h3><ul>
+<li><strong>coral reef</strong> = 珊瑚礁（coral 珊瑚 + reef 礁）</li>
+<li><strong>bleaching</strong> = 白化（珊瑚因环境压力排出共生藻类而变白死亡）</li>
+</ul>
+<h3 id="第一段伦敦动物园人工礁">第一段：伦敦动物园人工礁
+</h3><ul>
+<li><strong>final touches</strong> = 最后的润色；收尾工作（put the final touches to 给…做最后完善）</li>
+<li><strong>assembling</strong> = 组装；装配（assemble 的现在分词）</li>
+<li><strong>world-renowned</strong> = 世界闻名的（renown 名望 + -ed）</li>
+<li><strong>renown</strong> = 名望；声誉（名词）</li>
+<li><strong>renowned</strong> = 著名的（形容词）</li>
+<li><strong>spectacular</strong> = 壮观的；令人惊叹的</li>
+<li><strong>scroll</strong> = 卷轴；卷形物（scroll coral = 卷轴珊瑚）</li>
+<li><strong>branch</strong> = 树枝；分支（branching coral = 分枝珊瑚）</li>
+<li><strong>thrive</strong> = 茁壮成长；繁衍生息（= flourish / prosper）</li>
+<li><strong>presence</strong> = 存在；出现（in their presence = 在它们周围/存在的情况下）</li>
+<li><strong>dedicated to</strong> = 致力于；专门用于</li>
+<li><strong>sustain</strong> = 维持；支撑；供养（= maintain / support）</li>
+<li><strong>seven-metre-wide</strong> = 七米宽的（合成形容词）</li>
+<li><strong>minuscule</strong> = 极小的；微小的（注意拼写，不是 miniuscule）</li>
+<li><strong>invertebrate</strong> = 无脊椎动物（in- 无 + vertebrate 脊椎动物）</li>
+<li><strong>curator</strong> = 馆长；策展人</li>
+</ul>
+<h3 id="第二段珊瑚生物学">第二段：珊瑚生物学
+</h3><ul>
+<li><strong>wonder</strong> (n.) = 奇观；奇迹（these wonders = 这些自然奇观）</li>
+<li><strong>polyp</strong> = 珊瑚虫；水螅体（构成珊瑚的微小生物个体）</li>
+<li><strong>tentacle</strong> = 触手（珊瑚虫用触手捕捉浮游生物）</li>
+<li><strong>algae</strong> = 藻类（复数，alga 的复数；与珊瑚虫共生，提供颜色和营养）</li>
+<li><strong>nutrient</strong> = 营养素（具体物质，如蛋白质、维生素）</li>
+<li><strong>nutrition</strong> = 营养（抽象概念）</li>
+<li><strong>in turn</strong> = 反过来；相应地；作为回报（表双向互惠关系，不是&quot;轮流&quot;）</li>
+<li><strong>symbiotic relationship</strong> = 共生关系</li>
+<li><strong>photosynthesising</strong> = 光合作用的（photo- 光 + synthesis 合成）</li>
+</ul>
+<h3 id="第三段威胁与保护">第三段：威胁与保护
+</h3><ul>
+<li><strong>disease</strong> = 疾病</li>
+<li><strong>death</strong> (n.) / <strong>die</strong> (v.) / <strong>mortality</strong> = 死亡/死亡率</li>
+<li><strong>mind-blowing</strong> = 令人震撼的；难以置信的（= astonishing / amazing）</li>
+<li><strong>majestic</strong> = 雄伟的；壮丽的（= magnificent / grand）</li>
+<li><strong>bleach</strong> = 漂白；使变白（coral bleaching 珊瑚白化）</li>
+<li><strong>menace</strong> = 威胁；危险（= threat / danger）</li>
+<li><strong>acidification</strong> = 酸化（ocean acidification 海洋酸化）</li>
+<li><strong>deoxygenation</strong> = 脱氧；缺氧</li>
+<li><strong>erosion</strong> = 侵蚀；腐蚀（coastal erosion 海岸侵蚀）</li>
+<li><strong>spawn</strong> = 产卵；大量繁殖（珊瑚集体释放卵子精子进行繁殖）</li>
+<li><strong>aquarium</strong> = 水族馆；水族箱；鱼缸</li>
+<li><strong>aquarium-based</strong> = 以水族馆为基础的；在水族馆里进行的</li>
+<li><strong>restore</strong> = 恢复；修复（动词）</li>
+<li><strong>restoration effort</strong> = 修复工作；恢复努力</li>
+</ul>
+<hr>
+<h2 id="四易混淆点总结">四、易混淆点总结
+</h2><ol>
+<li><strong>nutrient vs nutrition</strong>：nutrient 是具体的营养素（可数）；nutrition 是抽象的&quot;营养&quot;概念。</li>
+<li><strong>in turn 双重含义</strong>：① 轮流（they answered in turn）；② 反过来/作为回报（A helps B, which in turn helps A）。珊瑚文章里是第二种。</li>
+<li><strong>renown / renowned / world-renowned</strong>：renown（名望，名词）→ renowned（著名的，形容词）→ world-renowned（举世闻名的）。</li>
+<li><strong>minuscule 拼写</strong>：不是 miniuscule，u 在 s 前面。</li>
+<li><strong>undergraduate vs postgraduate</strong>：under（之下）= 本科；post（之后）= 研究生。</li>
+</ol>
+<hr>
+<h2 id="五重点长难句参考">五、重点长难句参考
+</h2><p>&gt; <em>These polyps are transparent but get their pink, orange, blue, green, etc. from algae that live within them, which in turn get protection and a stable home within the coral tissues.</em>
+&gt;
+&gt; 这些珊瑚虫是透明的，但它们呈现粉红、橙、蓝、绿等颜色是因为体内共生的藻类，而这些藻类反过来在珊瑚组织中获得保护和稳定的栖息环境。</p>
+
+                </div>
+            </div>
+        </article>
+    </div>
+<button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+</html>

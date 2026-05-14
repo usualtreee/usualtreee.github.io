@@ -7,7 +7,319 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Wed, 13 May 2026 09:00:58 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 14 May 2026 20:55:37 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[自学]2026-05-14 </title>
+        <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-14/</link>
+        <pubDate>Thu, 14 May 2026 20:55:37 +0800</pubDate>
+        
+        <guid>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-14/</guid>
+        <description>&lt;img src="https://usualtreee.github.io/img/cover.jpg" alt="Featured image of post [自学]2026-05-14 " /&gt;&lt;h4 id=&#34;-主线任务注意要从实践出发在实践中完善理论知识做好资料整理&#34;&gt;📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代码随想录以及完善项目；英语继续精听，后续继续刷剑桥雅思，研二上必须考完；&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 今天了解了很多概念；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;：做了一题阅读；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;今日总结2026-05-13-晚--2026-05-14&#34;&gt;今日总结（2026-05-13 晚 ~ 2026-05-14）
+&lt;/h1&gt;&lt;h2 id=&#34;一求职与项目策略&#34;&gt;一、求职与项目策略
+&lt;/h2&gt;&lt;h3 id=&#34;项目必须贴合目标公司&#34;&gt;项目必须贴合目标公司
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心原则&lt;/strong&gt;：做什么项目取决于投哪家公司。投大疆就做无人机目标追踪+RK3588部署；投具身智能就做目标检测/跟踪，而不是U-Net分割。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;YOLO+RKNN是基础&lt;/strong&gt;，但只做这个不够。要在基础之上叠加企业需要的场景（多路视频、实时推理、硬件加速）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;实习岗位重点&#34;&gt;实习岗位重点
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;字节跳动 PICO 端侧AI Infra&lt;/strong&gt;：设计NPU推理框架、XR端侧模型部署、FW/Runtime开发。JD要求C/C++、ARM、Linux/RTOS、端侧AI部署经验，和你的背景高度对口。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;其他端侧岗&lt;/strong&gt;：奕斯伟（明确要RKNN）、地平线（工具链/量化）、全志（NPU SDK）、海康（AI加速算法/嵌入式）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;小米工程师训练营&lt;/strong&gt;：校企合作定向项目，非公开招募，主流是Android/C++开发，不完全对口嵌入式AI。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;二cuda-与底层软件栈&#34;&gt;二、CUDA 与底层软件栈
+&lt;/h2&gt;&lt;h3 id=&#34;cuda-本质&#34;&gt;CUDA 本质
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;不是独立语言&lt;/strong&gt;，是C/C++的GPU扩展方言，通过&lt;code&gt;nvcc&lt;/code&gt;编译。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CUDA Kernel&lt;/strong&gt;：&lt;code&gt;__global__&lt;/code&gt;标记的函数，由CPU通过&lt;code&gt;&amp;amp;lt;&amp;amp;lt;&amp;amp;lt;grid, block&amp;amp;gt;&amp;amp;gt;&amp;amp;gt;&lt;/code&gt;启动，在GPU上并行执行。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;amp;lt;&amp;amp;lt;&amp;amp;lt;2, 2&amp;amp;gt;&amp;amp;gt;&amp;amp;gt;&lt;/code&gt;表示2个block×2个thread，共4个线程并行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;驱动与库的分层&#34;&gt;驱动与库的分层
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;层级&lt;/th&gt;
+&lt;th&gt;Linux&lt;/th&gt;
+&lt;th&gt;Windows&lt;/th&gt;
+&lt;th&gt;谁写的&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;内核驱动&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;.ko&lt;/code&gt; (nvidia.ko)&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;.sys&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;GPU驱动工程师&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;用户态Driver API&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;libcuda.so&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;nvcuda.dll&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;CUDA驱动团队&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;用户态Runtime&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;libcudart.so&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;cudart64_xxx.dll&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;CUDA Runtime团队&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;推理框架&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;libnvinfer.so&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;nvinfer.dll&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;TensorRT/AI Infra团队&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;你的Plugin&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;libplugin.so&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;.dll&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;你（算法部署工程师）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;.so&lt;/code&gt;&lt;/strong&gt;：用户态共享库，封装函数/变量/数据，通过系统调用(&lt;code&gt;ioctl&lt;/code&gt;/&lt;code&gt;mmap&lt;/code&gt;)间接访问内核驱动，不能直接调用内核函数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;.ko&lt;/code&gt;&lt;/strong&gt;：内核模块，直接操作硬件寄存器，用&lt;code&gt;insmod&lt;/code&gt;加载。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;三rknn-项目技术栈补充&#34;&gt;三、RKNN 项目技术栈补充
+&lt;/h2&gt;&lt;h3 id=&#34;4路视频项目完整技术链&#34;&gt;4路视频项目完整技术链
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;模块&lt;/th&gt;
+&lt;th&gt;技术&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;视频拉流&lt;/td&gt;
+&lt;td&gt;FFmpeg + RTSP/RTMP&lt;/td&gt;
+&lt;td&gt;RTSP拉流（&lt;code&gt;avformat_open_input&lt;/code&gt;），RTMP推流（&lt;code&gt;avformat_alloc_output_context2&lt;/code&gt;）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;硬件解码&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;瑞芯微MPP&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;4路H.264/H.265硬解，输出NV12。不能用FFmpeg软解，CPU会爆炸&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;图像处理&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;OpenCV C++&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;NV12→BGR→RGB、resize、多路拼图。注意OpenCV原生是C++库，Python只是封装&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;推理&lt;/td&gt;
+&lt;td&gt;RKNN Runtime&lt;/td&gt;
+&lt;td&gt;加载&lt;code&gt;.rknn&lt;/code&gt;，&lt;code&gt;rknn_init&lt;/code&gt;/&lt;code&gt;rknn_run&lt;/code&gt;/&lt;code&gt;rknn_outputs_get&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;后处理&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;NMS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;非极大值抑制，去重检测框，保留置信度最高的&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;显示/推流&lt;/td&gt;
+&lt;td&gt;RTMP + 多线程&lt;/td&gt;
+&lt;td&gt;编码后推流到服务器&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;嵌入式ai-infra优化五大方向量化之后的进阶&#34;&gt;嵌入式AI Infra优化五大方向（量化之后的进阶）
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;零拷贝（Zero-Copy）&lt;/strong&gt;：MPP解码的&lt;code&gt;MppFrame&lt;/code&gt;通过&lt;code&gt;dma_buf&lt;/code&gt;直接共享给RKNN输入， eliminate &lt;code&gt;memcpy&lt;/code&gt;。RK3588是UMA架构，CPU/NPU共享物理内存。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存池（Memory Pool）&lt;/strong&gt;：预先&lt;code&gt;rknn_create_mem&lt;/code&gt;申请固定buffer循环复用，避免每帧&lt;code&gt;malloc/free&lt;/code&gt;的碎片和锁竞争。配合双缓冲/三缓冲。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多线程流水线（Pipeline）&lt;/strong&gt;：解码→预处理→推理→后处理四阶段用生产者-消费者模型并行。用&lt;code&gt;std::mutex&lt;/code&gt;+&lt;code&gt;condition_variable&lt;/code&gt;或原子无锁队列。绑核到big.LITTLE特定核心。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RGA硬件加速&lt;/strong&gt;：用&lt;code&gt;librga.so&lt;/code&gt;替代OpenCV CPU做YUV→RGB转换和resize，速度提升5~10倍。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;异步推理+Batch策略&lt;/strong&gt;：&lt;code&gt;rknn_run&lt;/code&gt;异步化（或双线程模拟），4路同分辨率可尝试Batch=4推理提升NPU利用率。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;四量化深入理解&#34;&gt;四、量化深入理解
+&lt;/h2&gt;&lt;h3 id=&#34;核心概念&#34;&gt;核心概念
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;量化&lt;/strong&gt;：把FP32浮点数映射到INT8/INT16整数，缩小模型体积、加速推理、降低功耗。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PTQ（训练后量化）&lt;/strong&gt;：模型训练完后用校准数据集统计范围，直接转INT8。边缘部署最常用，不需要训练环境。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;QAT（量化感知训练）&lt;/strong&gt;：训练时模拟INT8前向传播，精度更高但需重新训练。边缘团队通常没条件做。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;对称/非对称&lt;/strong&gt;：对称量化&lt;code&gt;zero_point=0&lt;/code&gt;，硬件更友好；非对称有偏移，精度略高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;per-tensor / per-channel / per-layer&lt;/strong&gt;：全局一个scale太粗暴，按通道/按层独立统计精度更好。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;量化调试&#34;&gt;量化调试
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;精度掉了怎么办：逐层对比FP32 vs INT8输出、换校准数据集、用per-channel、敏感层保留FP16（混合精度）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;和金融量化完全无关&lt;/strong&gt;：金融量化是数学建模投资，模型量化是数值压缩。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;五硬件架构认知&#34;&gt;五、硬件架构认知
+&lt;/h2&gt;&lt;h3 id=&#34;npu-vs-gpu&#34;&gt;NPU vs GPU
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GPU&lt;/strong&gt;：通用并行处理器（SIMT），CUDA Core/Tensor Core，完全可编程，功耗高（几百瓦）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;NPU&lt;/strong&gt;：专用DSA（领域专用架构），MAC乘加阵列+大容量片上SRAM，硬连线控制，不可编程，功耗极低（几瓦~十几瓦）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;性能瓶颈都是内存墙&lt;/strong&gt;：算力再强，DDR带宽跟不上也是白搭。优化核心是减少访存、提高数据复用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;华为昇腾达芬奇架构&#34;&gt;华为昇腾达芬奇架构
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Scalar Unit&lt;/strong&gt;：标量控制单元，管循环/分支/地址计算/调度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Vector Unit&lt;/strong&gt;：向量运算单元，SIMD逐元素操作（ReLU/Add/Norm）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cube Unit&lt;/strong&gt;：矩阵乘加单元，专门干Conv/FC的MAC阵列。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;mac与算力&#34;&gt;MAC与算力
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;MAC = 1次乘法 + 1次加法&lt;/strong&gt;，是NPU最小硬件单元和最小运算单位。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;算力换算&lt;/strong&gt;：1024 MAC/cycle × 3核 × 1GHz × 2 = 6 TOPS（乘2是因为1MAC=2次基本运算）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;六其他&#34;&gt;六、其他
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;TVM&lt;/strong&gt;：模型编译器（Apache开源），输入ONNX/TensorFlow计算图，输出多硬件优化代码。和nvcc（GPU C++编译器）不同层级。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OpenAI Triton&lt;/strong&gt;：Python DSL写GPU算子，底层自动生成CUDA。NVIDIA Triton Inference Server是云端推理服务框架，两者同名无关。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GaN器件&lt;/strong&gt;：功率半导体，适合做电源开关（数据中心PSU、机器人关节驱动），不适合做数字MAC/AI计算。抗辐射加固CMOS FPGA已覆盖绝大多数恶劣环境数字控制需求。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;七明日行动建议&#34;&gt;七、明日行动建议
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;本周主攻&lt;/strong&gt;：RKNN项目零拷贝改造 + 内存池实现，帧率应有20%~40%提升。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;下周引入&lt;/strong&gt;：多线程流水线 + RGA硬件预处理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;量化实践&lt;/strong&gt;：用RKNN Toolkit2对YOLO模型做PTQ INT8，对比FP32和INT8的逐层精度差异。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;简历话术&lt;/strong&gt;：准备&amp;quot;4路视频实时检测 + 零拷贝 + 内存池 + RGA加速 + 多线程流水线&amp;quot;的完整闭环描述。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;c20-test-3-passage-2-can-the-planets-coral-reefs-be-saved-学习笔记&#34;&gt;C20 Test 3 Passage 2: Can the planet&amp;rsquo;s coral reefs be saved? 学习笔记
+&lt;/h1&gt;&lt;h2 id=&#34;一list-of-headings-选项翻译&#34;&gt;一、List of Headings 选项翻译
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;选项&lt;/th&gt;
+&lt;th&gt;英文&lt;/th&gt;
+&lt;th&gt;中文&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;i&lt;/td&gt;
+&lt;td&gt;Tried and tested solutions&lt;/td&gt;
+&lt;td&gt;久经考验的解决方案&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ii&lt;/td&gt;
+&lt;td&gt;Cooperation beneath the waves&lt;/td&gt;
+&lt;td&gt;海面下的合作&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;iii&lt;/td&gt;
+&lt;td&gt;Working to lessen the problems&lt;/td&gt;
+&lt;td&gt;努力减轻问题&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;iv&lt;/td&gt;
+&lt;td&gt;Disagreement about the accuracy of a certain phrase&lt;/td&gt;
+&lt;td&gt;对某个说法准确性的争议&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;v&lt;/td&gt;
+&lt;td&gt;Two clear educational goals&lt;/td&gt;
+&lt;td&gt;两个明确的教育目标&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;vi&lt;/td&gt;
+&lt;td&gt;Promoting hope&lt;/td&gt;
+&lt;td&gt;传递希望&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;vii&lt;/td&gt;
+&lt;td&gt;A warning of further trouble ahead&lt;/td&gt;
+&lt;td&gt;对未来更多麻烦的预警&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;二教育类词汇课前问题&#34;&gt;二、教育类词汇（课前问题）
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;undergraduate&lt;/strong&gt; = 本科生（在读或刚完成学士学位）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;postgraduate&lt;/strong&gt; = 研究生（英国说法；美国常用 graduate student）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;graduate&lt;/strong&gt; (v.) = 毕业；(n. 英国) 大学毕业生；(n. 美国) 研究生&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;graduate school&lt;/strong&gt; = 研究生院&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;三珊瑚礁文章核心词汇&#34;&gt;三、珊瑚礁文章核心词汇
+&lt;/h2&gt;&lt;h3 id=&#34;文章标题与主题&#34;&gt;文章标题与主题
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;coral reef&lt;/strong&gt; = 珊瑚礁（coral 珊瑚 + reef 礁）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bleaching&lt;/strong&gt; = 白化（珊瑚因环境压力排出共生藻类而变白死亡）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;第一段伦敦动物园人工礁&#34;&gt;第一段：伦敦动物园人工礁
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;final touches&lt;/strong&gt; = 最后的润色；收尾工作（put the final touches to 给…做最后完善）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;assembling&lt;/strong&gt; = 组装；装配（assemble 的现在分词）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;world-renowned&lt;/strong&gt; = 世界闻名的（renown 名望 + -ed）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;renown&lt;/strong&gt; = 名望；声誉（名词）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;renowned&lt;/strong&gt; = 著名的（形容词）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;spectacular&lt;/strong&gt; = 壮观的；令人惊叹的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;scroll&lt;/strong&gt; = 卷轴；卷形物（scroll coral = 卷轴珊瑚）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;branch&lt;/strong&gt; = 树枝；分支（branching coral = 分枝珊瑚）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;thrive&lt;/strong&gt; = 茁壮成长；繁衍生息（= flourish / prosper）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;presence&lt;/strong&gt; = 存在；出现（in their presence = 在它们周围/存在的情况下）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;dedicated to&lt;/strong&gt; = 致力于；专门用于&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;sustain&lt;/strong&gt; = 维持；支撑；供养（= maintain / support）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;seven-metre-wide&lt;/strong&gt; = 七米宽的（合成形容词）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;minuscule&lt;/strong&gt; = 极小的；微小的（注意拼写，不是 miniuscule）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;invertebrate&lt;/strong&gt; = 无脊椎动物（in- 无 + vertebrate 脊椎动物）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;curator&lt;/strong&gt; = 馆长；策展人&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;第二段珊瑚生物学&#34;&gt;第二段：珊瑚生物学
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;wonder&lt;/strong&gt; (n.) = 奇观；奇迹（these wonders = 这些自然奇观）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;polyp&lt;/strong&gt; = 珊瑚虫；水螅体（构成珊瑚的微小生物个体）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;tentacle&lt;/strong&gt; = 触手（珊瑚虫用触手捕捉浮游生物）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;algae&lt;/strong&gt; = 藻类（复数，alga 的复数；与珊瑚虫共生，提供颜色和营养）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nutrient&lt;/strong&gt; = 营养素（具体物质，如蛋白质、维生素）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;nutrition&lt;/strong&gt; = 营养（抽象概念）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;in turn&lt;/strong&gt; = 反过来；相应地；作为回报（表双向互惠关系，不是&amp;quot;轮流&amp;quot;）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;symbiotic relationship&lt;/strong&gt; = 共生关系&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;photosynthesising&lt;/strong&gt; = 光合作用的（photo- 光 + synthesis 合成）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;第三段威胁与保护&#34;&gt;第三段：威胁与保护
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;disease&lt;/strong&gt; = 疾病&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;death&lt;/strong&gt; (n.) / &lt;strong&gt;die&lt;/strong&gt; (v.) / &lt;strong&gt;mortality&lt;/strong&gt; = 死亡/死亡率&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;mind-blowing&lt;/strong&gt; = 令人震撼的；难以置信的（= astonishing / amazing）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;majestic&lt;/strong&gt; = 雄伟的；壮丽的（= magnificent / grand）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bleach&lt;/strong&gt; = 漂白；使变白（coral bleaching 珊瑚白化）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;menace&lt;/strong&gt; = 威胁；危险（= threat / danger）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;acidification&lt;/strong&gt; = 酸化（ocean acidification 海洋酸化）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;deoxygenation&lt;/strong&gt; = 脱氧；缺氧&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;erosion&lt;/strong&gt; = 侵蚀；腐蚀（coastal erosion 海岸侵蚀）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;spawn&lt;/strong&gt; = 产卵；大量繁殖（珊瑚集体释放卵子精子进行繁殖）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;aquarium&lt;/strong&gt; = 水族馆；水族箱；鱼缸&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;aquarium-based&lt;/strong&gt; = 以水族馆为基础的；在水族馆里进行的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;restore&lt;/strong&gt; = 恢复；修复（动词）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;restoration effort&lt;/strong&gt; = 修复工作；恢复努力&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;四易混淆点总结&#34;&gt;四、易混淆点总结
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;nutrient vs nutrition&lt;/strong&gt;：nutrient 是具体的营养素（可数）；nutrition 是抽象的&amp;quot;营养&amp;quot;概念。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;in turn 双重含义&lt;/strong&gt;：① 轮流（they answered in turn）；② 反过来/作为回报（A helps B, which in turn helps A）。珊瑚文章里是第二种。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;renown / renowned / world-renowned&lt;/strong&gt;：renown（名望，名词）→ renowned（著名的，形容词）→ world-renowned（举世闻名的）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;minuscule 拼写&lt;/strong&gt;：不是 miniuscule，u 在 s 前面。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;undergraduate vs postgraduate&lt;/strong&gt;：under（之下）= 本科；post（之后）= 研究生。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;五重点长难句参考&#34;&gt;五、重点长难句参考
+&lt;/h2&gt;&lt;p&gt;&amp;gt; &lt;em&gt;These polyps are transparent but get their pink, orange, blue, green, etc. from algae that live within them, which in turn get protection and a stable home within the coral tissues.&lt;/em&gt;
+&amp;gt;
+&amp;gt; 这些珊瑚虫是透明的，但它们呈现粉红、橙、蓝、绿等颜色是因为体内共生的藻类，而这些藻类反过来在珊瑚组织中获得保护和稳定的栖息环境。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-05-13 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-13/</link>
         <pubDate>Wed, 13 May 2026 09:00:58 +0800</pubDate>
@@ -17,7 +329,7 @@
 &lt;/h4&gt;&lt;p&gt;&lt;strong&gt;近期目标&lt;/strong&gt;：计划六月前完成linux学习和项目，七月边做简历边复习八股和刷代码随想录以及完善项目；英语继续精听，后续继续刷剑桥雅思，研二上必须考完；&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 速看了一下ffmpeg和rknn；&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;嵌入式&lt;/strong&gt;: 速看了一下ffmpeg和rknn，网页用claude code 优化了一下；&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;雅思&lt;/strong&gt;：一题阅读；&lt;/p&gt;

@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usualtree</title>
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
     <link rel="icon" href="/favicon.ico">
     
-    <link rel="stylesheet" href="/scss/custom.min.c20280a15ac73a035070642d0d332f4f742e5ccd9903739a73130895290c41a3.css">
+    <link rel="stylesheet" href="/scss/custom.min.4cffc4d5550560d504ffd73a240dff9eb8a4fb06fefa1b9c675f7880b8070d62.css">
 </head>
 <body>
+    <canvas id="clickCanvas"></canvas>
     <div class="home-bg"></div>
     <div class="home-container">
 
@@ -23,42 +25,42 @@
                     <div class="nav-avatar-fallback">🌲</div>
                     <div class="nav-user-info">
                         <span class="nav-username">Usualtree</span>
-                        <span class="nav-badge">开发中</span>
+                        <span class="nav-badge" data-zh="开发中" data-en="WIP"></span>
                     </div>
                 </div>
-                <div class="nav-section-title">GENERAL</div>
+                <div class="nav-section-title" data-zh="导航" data-en="NAV"></div>
                 <nav class="nav-menu">
                     
                     <a href="/post" class="nav-item ">
-                        <span class="nav-icon">📄</span> 近期文章
+                        <span class="nav-icon">📄</span> <span data-zh="近期文章" data-en="Posts"></span>
                     </a>
                     <a href="/project" class="nav-item">
-                        <span class="nav-icon">⊞</span> 我的项目
+                        <span class="nav-icon">⊞</span> <span data-zh="我的项目" data-en="Projects"></span>
                     </a>
                     <a href="/about" class="nav-item">
-                        <span class="nav-icon">😊</span> 关于网站
+                        <span class="nav-icon">😊</span> <span data-zh="关于网站" data-en="About"></span>
                     </a>
                     <a href="/recommend" class="nav-item">
-                        <span class="nav-icon">⭐</span> 推荐分享
+                        <span class="nav-icon">⭐</span> <span data-zh="推荐分享" data-en="Share"></span>
                     </a>
                     <a href="/blogs" class="nav-item">
-                        <span class="nav-icon">🌐</span> 优秀博客
+                        <span class="nav-icon">🌐</span> <span data-zh="优秀博客" data-en="Blogs"></span>
                     </a>
                 </nav>
             </div>
 
             
             <div class="card glass-card latest-card">
-                <div class="card-title">最新文章</div>
+                <div class="card-title" data-zh="最新文章" data-en="Latest"></div>
                 
                 
                 
-                <a href="/p/%E8%87%AA%E5%AD%A62026-05-13/" class="latest-article">
+                <a href="/p/%E8%87%AA%E5%AD%A62026-05-14/" class="latest-article">
                     <img class="latest-thumb" src="img/cover.jpg" alt="thumbnail" onerror="this.style.background='#e0e0e0'">
                     <div class="latest-info">
-                        <div class="latest-title">[自学]2026-05-13 </div>
+                        <div class="latest-title">[自学]2026-05-14 </div>
                         
-                        <div class="latest-date">2026/5/13</div>
+                        <div class="latest-date">2026/5/14</div>
                     </div>
                 </a>
                 
@@ -70,11 +72,17 @@
         <div class="col-center">
 
             
-            <div class="card solid-card mascot-card">
-                <img class="mascot-img" src="/img/custom/mascot.png" alt="mascot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" onload="this.nextElementSibling.style.display='none'">
-                <div class="mascot-placeholder">
-                    <div class="mascot-cat">🐱</div>
-                    <div class="mascot-play">▶</div>
+            <div class="card solid-card mascot-card" id="mascotCard">
+                <div class="mascot-front" id="mascotFront">
+                    <img class="mascot-img" src="/img/custom/mascot.png" alt="mascot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" onload="this.nextElementSibling.style.display='none'">
+                    <div class="mascot-placeholder">
+                        <div class="mascot-cat">🐱</div>
+                        <div class="mascot-play" id="mascotPlay">▶</div>
+                    </div>
+                </div>
+                <div class="mascot-player" id="mascotPlayer" style="display:none">
+                    <button class="mascot-back" id="mascotBack">✕</button>
+                    <iframe id="mascotIframe" src="" frameborder="0" allowfullscreen allow="autoplay"></iframe>
                 </div>
             </div>
 
@@ -86,7 +94,7 @@
                 </div>
                 <div class="welcome-greeting" id="greeting">Good Afternoon</div>
                 <div class="welcome-text">
-                    I'm <span class="welcome-name">Usualtree</span>, Nice to meet you!
+                    <span data-zh="我是" data-en="I'm"></span> <span class="welcome-name">Usualtree</span><span data-zh="，很高兴认识你！" data-en=", Nice to meet you!"></span>
                 </div>
                 <div class="welcome-social">
                     
@@ -106,21 +114,21 @@
                         <span class="social-name">GitHub</span>
                     </a>
                     
-                    <a href="mailto:" class="social-btn email">
+                    <button class="social-btn email" id="btnEmail" title="点击复制邮箱">
                         <span class="social-icon">✉️</span>
-                    </a>
+                    </button>
                 </div>
             </div>
 
             
             <a href="/random" class="card glass-card recommend-card" style="text-decoration:none;display:block;">
-                <div class="card-title">随机推荐</div>
+                <div class="card-title" data-zh="随机推荐" data-en="Random Pick"></div>
                 <div class="recommend-content">
                     <div class="recommend-cover">🎰</div>
                     <div class="recommend-info">
-                        <div class="recommend-title">来看看有什么好东西</div>
-                        <div class="recommend-desc">每次刷新都有小惊喜</div>
-                        <div class="recommend-stats">点我试试 ✨</div>
+                        <div class="recommend-title" data-zh="来看看有什么好东西" data-en="Discover something cool"></div>
+                        <div class="recommend-desc" data-zh="每次刷新都有小惊喜" data-en="A surprise every refresh"></div>
+                        <div class="recommend-stats" data-zh="点我试试 ✨" data-en="Try me ✨"></div>
                     </div>
                 </div>
             </a>
@@ -131,10 +139,9 @@
 
             
             <div class="action-row">
-                <a href="/post" class="btn-write">
-                    <span class="btn-write-icon">✒️</span> 写文章
+                <a href="/categories" class="btn-write">
+                    <span class="btn-write-icon">📂</span> <span data-zh="所有文章" data-en="All Posts"></span>
                 </a>
-                <span class="dots-more">⋯</span>
             </div>
 
             
@@ -150,7 +157,7 @@
 
             
             <div class="card glass-card music-card" id="musicCard">
-                <div class="music-loading">🎵 加载中...</div>
+                <div class="music-loading" data-zh="🎵 加载中..." data-en="🎵 Loading..."></div>
                 <div class="music-main" style="display:none">
                     <img class="music-cover" src="" alt="cover">
                     <div class="music-body">
@@ -200,8 +207,13 @@
         </div>
     </div>
 
+    <div class="toast" id="toast" data-zh="✅ 邮箱已复制" data-en="✅ Email copied"></div>
+
     
-    <script src="/js/custom.min.6dc78fd7c8362009167d5705242aac9f5e818bbe9603afb4e82893ebad09584f.js"></script>
+    <div id="bgmBox" style="position:fixed;left:-9999px;top:0;width:0;height:0;opacity:0;pointer-events:none"></div>
+
+    
+    <script src="/js/custom.min.335834c48934ec6df28817d9c7de3aadd16d58ea2fd79b53d3f23eb0d247bd0b.js"></script>
     <script>
     (function() {
         var NET_ID = '5122782239';
@@ -242,7 +254,9 @@
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (!data || data.length === 0) {
-                    els.loading.textContent = '🎵 歌单为空';
+                    els.loading.setAttribute('data-zh', '🎵 歌单为空');
+                    els.loading.setAttribute('data-en', '🎵 Playlist empty');
+                    els.loading.textContent = (localStorage.getItem('lang')!=='zh'?'🎵 Playlist empty':'🎵 歌单为空');
                     return;
                 }
                 playlist = data;
@@ -252,7 +266,9 @@
                 loadTrack(0);
             })
             .catch(function() {
-                els.loading.textContent = '🎵 音乐加载失败';
+                els.loading.setAttribute('data-zh', '🎵 音乐加载失败');
+                els.loading.setAttribute('data-en', '🎵 Failed to load');
+                els.loading.textContent = (localStorage.getItem('lang')!=='zh'?'🎵 Failed to load':'🎵 音乐加载失败');
             });
 
         function loadTrack(i) {
@@ -400,6 +416,617 @@
 
         audio.volume = 0.5;
     })();
+
+    
+    (function() {
+        var canvas = document.getElementById('clickCanvas');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var lightColors = ['#81c784','#a5d6a7','#c8e6c9','#fb7299','#f8bbd0','#fff176','#ffcc80'];
+        var darkColors = ['#69f0ae','#00e676','#ffeb3b','#ff6e40','#ff4081','#40c4ff','#ffab40','#ffffff'];
+
+        function isDark() { return document.documentElement.getAttribute('data-theme') === 'dark'; }
+
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resize(); window.addEventListener('resize', resize);
+
+        function spawn(x, y) {
+            var dark = isDark();
+            var colors = dark ? darkColors : lightColors;
+            var count = dark ? 30 : 28;
+            count += Math.floor(Math.random() * (dark ? 20 : 16));
+            for (var i = 0; i < count; i++) {
+                var angle = Math.random() * Math.PI * 2;
+                var speed = dark ? (2.0 + Math.random() * 0.8) : (2.5 + Math.random() * 5);
+                particles.push({
+                    x: x, y: y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed - (dark ? 1.2 : 2),
+                    life: 1,
+                    decay: dark ? (0.003 + Math.random() * 0.005) : (0.012 + Math.random() * 0.018),
+                    size: dark ? (2 + Math.random() * 4) : (3 + Math.random() * 5),
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    isRibbon: !dark && Math.random() < 0.25,
+                    ribbonWave: Math.random() * 2 - 1
+                });
+            }
+        }
+
+        
+        var rockets = [];
+        var animating = false;
+        var clickTimes = [];
+
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.card') || e.target.closest('button') || e.target.closest('a') || e.target.closest('nav')) return;
+            spawn(e.clientX, e.clientY);
+            if (!animating) { animating = true; requestAnimationFrame(tick); }
+
+            if (!isDark()) return;
+            var now = Date.now();
+            clickTimes.push(now);
+            while (clickTimes.length > 0 && clickTimes[0] < now - 10000) clickTimes.shift();
+            if (clickTimes.length >= 10) {
+                clickTimes = [];
+                grandFinale();
+                spawnScenery();
+            }
+        });
+
+        
+        var scenery = [];
+        var sceneryActive = false;
+        var sceneryLocked = false;
+        var sceneryFadeOut = false;
+        var sceneryTimer = 0;
+
+        function spawnScenery() {
+            if (sceneryActive) return;
+            sceneryActive = true;
+            sceneryLocked = false;
+            sceneryFadeOut = false;
+            sceneryTimer = 0;
+            scenery = [];
+            var h = canvas.height;
+            var w = canvas.width;
+            var groundY = h - 5; 
+            
+            scenery.push({type:'mountain', x: w*0.22, y: groundY, alpha:0, layer:'far'});
+            scenery.push({type:'mountain', x: w*0.75, y: groundY, alpha:0, layer:'far'});
+            
+            scenery.push({type:'pagoda', x: w*0.07, y: groundY, alpha:0, layer:'mid'});
+            
+            scenery.push({type:'palace', x: w*0.28, y: groundY, alpha:0, layer:'mid'});
+            
+            scenery.push({type:'bridge', x: w*0.52, y: groundY, alpha:0, layer:'mid'});
+            
+            scenery.push({type:'pavilion', x: w*0.87, y: groundY, alpha:0, layer:'mid'});
+            
+            for (var lo = 0; lo < 5; lo++) {
+                scenery.push({type:'lotus', x: w*(0.12+lo*0.18), y: groundY-1+Math.random()*3, alpha:0, sway: Math.random()*Math.PI*2, layer:'water'});
+            }
+            
+            for (var l = 0; l < 6; l++) {
+                scenery.push({type:'lantern', x: w*(0.05+l*0.17), y: groundY-55-Math.random()*50, alpha:0, swing: Math.random()*Math.PI*2, layer:'near'});
+            }
+        }
+
+        function drawScenery(ctx) {
+            var h = canvas.height, w = canvas.width;
+
+            
+            var allDone = true;
+            for (var s = 0; s < scenery.length; s++) {
+                var sc = scenery[s];
+                if (sc.alpha < 1 && !sceneryLocked) sc.alpha += 0.04;
+                if (sc.alpha >= 1) sc.alpha = 1;
+                if (sc.alpha < 1) allDone = false;
+            }
+            if (allDone && !sceneryLocked) { sceneryLocked = true; sceneryTimer = 0; }
+            if (sceneryLocked) sceneryTimer++;
+            if (sceneryTimer > 500) sceneryFadeOut = true;
+            if (sceneryFadeOut) {
+                var anyVisible = false;
+                for (var s = 0; s < scenery.length; s++) {
+                    scenery[s].alpha -= 0.01;
+                    if (scenery[s].alpha > 0) anyVisible = true;
+                }
+                if (!anyVisible) { scenery = []; sceneryActive = false; return; }
+            }
+
+            var alphaMul = sceneryFadeOut ? Math.max(0, 1 - (sceneryTimer-500)/150) : 1;
+
+            
+            var fogGrad = ctx.createLinearGradient(0, h*0.35, 0, h);
+            fogGrad.addColorStop(0, 'transparent');
+            fogGrad.addColorStop(0.6, 'rgba(255,160,80,'+(0.04*alphaMul)+')');
+            fogGrad.addColorStop(0.85, 'rgba(255,140,60,'+(0.07*alphaMul)+')');
+            fogGrad.addColorStop(1, 'transparent');
+            ctx.fillStyle = fogGrad;
+            ctx.fillRect(0, h*0.35, w, h*0.65);
+
+            
+            ctx.save(); ctx.globalAlpha = alphaMul;
+            for (var i = 0; i < scenery.length; i++) {
+                var sc = scenery[i]; if (sc.alpha <= 0 || sc.layer !== 'far' || sc.type !== 'mountain') continue;
+                ctx.globalAlpha = sc.alpha * alphaMul * 0.3;
+                var mx = sc.x, my = sc.y;
+                ctx.fillStyle = '#0a1525';
+                ctx.strokeStyle = 'rgba(255,180,120,0.18)'; ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.moveTo(mx-160, my); ctx.quadraticCurveTo(mx-80, my-55, mx-30, my-30);
+                ctx.quadraticCurveTo(mx+15, my-40, mx+40, my-20);
+                ctx.quadraticCurveTo(mx+100, my-35, mx+160, my);
+                ctx.closePath(); ctx.fill(); ctx.stroke();
+            }
+            ctx.restore();
+
+            
+            ctx.save(); ctx.globalAlpha = alphaMul;
+            for (var i = 0; i < scenery.length; i++) {
+                var sc = scenery[i]; if (sc.alpha <= 0 || sc.layer !== 'mid') continue;
+                ctx.globalAlpha = sc.alpha * alphaMul * 0.85;
+                var S = '#0c1528'; 
+                var G = 'rgba(255,220,140,0.6)'; 
+                var Gw = 2.2;
+
+                
+                if (sc.type === 'pagoda') {
+                    var px = sc.x, py = sc.y;
+                    var pGlow = ctx.createRadialGradient(px, py-70, 20, px, py, 160);
+                    pGlow.addColorStop(0, 'rgba(255,200,100,0.25)'); pGlow.addColorStop(1, 'transparent');
+                    ctx.fillStyle = pGlow; ctx.fillRect(px-160, py-200, 320, 220);
+                    ctx.fillStyle = S; ctx.strokeStyle = G; ctx.lineWidth = Gw;
+                    ctx.beginPath();
+                    ctx.moveTo(px-50, py); ctx.lineTo(px-34, py-95); ctx.lineTo(px-8, py-130);
+                    ctx.lineTo(px+8, py-130); ctx.lineTo(px+34, py-95); ctx.lineTo(px+50, py);
+                    ctx.closePath(); ctx.fill(); ctx.stroke();
+                    ctx.strokeStyle = 'rgba(255,220,140,0.5)';
+                    for (var f = 0; f < 7; f++) {
+                        var fy = py - 85 + f*14;
+                        ctx.beginPath(); ctx.moveTo(px-38+f*3, fy+2);
+                        ctx.quadraticCurveTo(px, fy-4, px+38-f*3, fy+2); ctx.stroke();
+                    }
+                    ctx.strokeStyle = 'rgba(255,190,90,0.48)';
+                    ctx.beginPath(); ctx.moveTo(px, py-132); ctx.lineTo(px, py-170); ctx.stroke();
+                }
+
+                
+                if (sc.type === 'palace') {
+                    var qx = sc.x, qy = sc.y;
+                    var qGlow = ctx.createRadialGradient(qx+5, qy-50, 25, qx, qy, 200);
+                    qGlow.addColorStop(0, 'rgba(255,200,100,0.22)'); qGlow.addColorStop(1, 'transparent');
+                    ctx.fillStyle = qGlow; ctx.fillRect(qx-120, qy-160, 250, 180);
+                    
+                    ctx.fillStyle = S; ctx.strokeStyle = G; ctx.lineWidth = Gw;
+                    ctx.fillRect(qx-50, qy-80, 100, 80); ctx.strokeRect(qx-50, qy-80, 100, 80);
+                    
+                    ctx.strokeStyle = 'rgba(255,220,140,0.45)';
+                    for (var c = -35; c <= 35; c += 17) {
+                        ctx.beginPath(); ctx.moveTo(qx+c, qy-80); ctx.lineTo(qx+c, qy); ctx.stroke();
+                    }
+                    
+                    ctx.strokeStyle = G; ctx.fillStyle = S;
+                    ctx.beginPath();
+                    ctx.moveTo(qx-65, qy-75); ctx.quadraticCurveTo(qx, qy-120, qx+65, qy-75);
+                    ctx.lineTo(qx+55, qy-80); ctx.quadraticCurveTo(qx, qy-105, qx-55, qy-80);
+                    ctx.closePath(); ctx.fill(); ctx.stroke();
+                    
+                    ctx.beginPath(); ctx.moveTo(qx-63, qy-77); ctx.quadraticCurveTo(qx-68, qy-90, qx-55, qy-100); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(qx+63, qy-77); ctx.quadraticCurveTo(qx+68, qy-90, qx+55, qy-100); ctx.stroke();
+                }
+
+                
+                if (sc.type === 'bridge') {
+                    var bx = sc.x, by = sc.y;
+                    var bGlow = ctx.createRadialGradient(bx, by-35, 20, bx, by, 170);
+                    bGlow.addColorStop(0, 'rgba(255,200,100,0.2)'); bGlow.addColorStop(1, 'transparent');
+                    ctx.fillStyle = bGlow; ctx.fillRect(bx-170, by-120, 340, 140);
+                    
+                    ctx.fillStyle = S; ctx.strokeStyle = G; ctx.lineWidth = Gw;
+                    ctx.beginPath();
+                    ctx.moveTo(bx-110, by); ctx.quadraticCurveTo(bx, by-55, bx+110, by);
+                    ctx.lineTo(bx+110, by+8); ctx.quadraticCurveTo(bx, by-40, bx-110, by+8);
+                    ctx.closePath(); ctx.fill(); ctx.stroke();
+                    
+                    ctx.strokeStyle = 'rgba(255,220,140,0.48)'; ctx.lineWidth = 1;
+                    for (var p = bx-70; p <= bx+70; p += 13) {
+                        var by2 = by - 22 - Math.abs(p-bx)*0.3;
+                        ctx.beginPath(); ctx.moveTo(p, by2); ctx.lineTo(p, by2-20); ctx.stroke();
+                        if (p < bx+65) {
+                            ctx.beginPath(); ctx.moveTo(p, by2-20);
+                            ctx.quadraticCurveTo(p+6, by2-18, p+13, (-22-Math.abs(p+13-bx)*0.3)+by-22); ctx.stroke();
+                        }
+                    }
+                    
+                    var wx = bx - 20, wy = by - 52;
+                    
+                    ctx.fillStyle = S; ctx.strokeStyle = 'rgba(255,220,140,0.5)'; ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(wx-4, wy-20); ctx.lineTo(wx-4, wy);
+                    ctx.lineTo(wx-10, wy+6); ctx.moveTo(wx-4, wy+3); ctx.lineTo(wx+3, wy+6);
+                    ctx.stroke();
+                    
+                    ctx.fillStyle = S;
+                    ctx.beginPath();
+                    ctx.arc(wx-1, wy-26, 14, Math.PI*0.8, Math.PI*0.2, true);
+                    ctx.closePath(); ctx.fill(); ctx.stroke();
+                    
+                    ctx.beginPath(); ctx.moveTo(wx-2, wy-26); ctx.lineTo(wx-2, wy-8); ctx.stroke();
+                }
+
+                
+                if (sc.type === 'pavilion') {
+                    var tx = sc.x, ty = sc.y;
+                    var tGlow = ctx.createRadialGradient(tx, ty-60, 20, tx, ty, 140);
+                    tGlow.addColorStop(0, 'rgba(255,200,100,0.2)'); tGlow.addColorStop(1, 'transparent');
+                    ctx.fillStyle = tGlow; ctx.fillRect(tx-120, ty-150, 240, 170);
+                    
+                    ctx.strokeStyle = 'rgba(255,190,90,0.32)'; ctx.lineWidth = 1.2;
+                    var colPos = [-30, 30];
+                    for (var ci = 0; ci < 2; ci++) {
+                        ctx.beginPath(); ctx.moveTo(tx+colPos[ci], ty-70); ctx.lineTo(tx+colPos[ci], ty); ctx.stroke();
+                    }
+                    
+                    ctx.fillStyle = S; ctx.strokeStyle = G; ctx.lineWidth = 1.2;
+                    ctx.fillRect(tx-45, ty-4, 90, 8); ctx.strokeRect(tx-45, ty-4, 90, 8);
+                    
+                    ctx.fillStyle = S; ctx.strokeStyle = G; ctx.lineWidth = Gw;
+                    ctx.beginPath();
+                    ctx.moveTo(tx-50, ty-68); ctx.quadraticCurveTo(tx, ty-120, tx+50, ty-68);
+                    ctx.lineTo(tx+40, ty-72); ctx.quadraticCurveTo(tx, ty-105, tx-40, ty-72);
+                    ctx.closePath(); ctx.fill(); ctx.stroke();
+                    
+                    ctx.beginPath(); ctx.moveTo(tx-50, ty-68); ctx.quadraticCurveTo(tx-55, ty-80, tx-42, ty-88); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(tx+50, ty-68); ctx.quadraticCurveTo(tx+55, ty-80, tx+42, ty-88); ctx.stroke();
+                    
+                    ctx.beginPath(); ctx.arc(tx, ty-115, 5, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+                }
+            }
+            ctx.restore();
+
+            
+            ctx.save(); ctx.globalAlpha = alphaMul;
+            for (var i = 0; i < scenery.length; i++) {
+                var sc = scenery[i]; if (sc.alpha <= 0 || sc.layer !== 'water') continue;
+                ctx.globalAlpha = sc.alpha * alphaMul * 0.5;
+                sc.sway += 0.02;
+                var lx = sc.x + Math.sin(sc.sway)*3;
+                var ly = sc.y;
+                
+                ctx.fillStyle = '#0f1f18';
+                ctx.strokeStyle = 'rgba(255,220,140,0.35)'; ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.ellipse(lx, ly, 16, 7, 0, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+                
+                ctx.fillStyle = 'rgba(255,200,170,0.6)';
+                ctx.shadowColor = 'rgba(255,160,120,0.5)'; ctx.shadowBlur = 12;
+                ctx.beginPath();
+                ctx.arc(lx+5, ly-2, 6, 0, Math.PI*2); ctx.fill();
+                
+                ctx.fillStyle = 'rgba(255,200,150,0.3)';
+                ctx.beginPath(); ctx.arc(lx+6, ly-3, 2, 0, Math.PI*2); ctx.fill();
+            }
+            ctx.restore();
+
+            
+            ctx.save(); ctx.globalAlpha = alphaMul;
+            for (var i = 0; i < scenery.length; i++) {
+                var sc = scenery[i]; if (sc.alpha <= 0 || sc.layer !== 'near') continue;
+                ctx.globalAlpha = sc.alpha * alphaMul * 0.85;
+                sc.swing += 0.03;
+                var lx = sc.x + Math.sin(sc.swing)*14; 
+                var ly = sc.y;
+                ctx.strokeStyle = 'rgba(255,200,120,0.28)'; ctx.lineWidth = 0.6;
+                ctx.beginPath(); ctx.moveTo(lx, ly-70); ctx.lineTo(lx, ly-14); ctx.stroke();
+                ctx.fillStyle = '#0d0505';
+                ctx.strokeStyle = 'rgba(255,150,80,0.7)'; ctx.lineWidth = 1.3;
+                ctx.beginPath(); ctx.ellipse(lx, ly, 10, 13, 0, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+                ctx.fillStyle = '#1a0800';
+                ctx.strokeStyle = 'rgba(255,180,100,0.6)';
+                ctx.beginPath(); ctx.moveTo(lx-8, ly-12); ctx.lineTo(lx+8, ly-12);
+                ctx.lineTo(lx+6, ly-16); ctx.lineTo(lx-6, ly-16);
+                ctx.closePath(); ctx.fill(); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(lx-7, ly+12); ctx.lineTo(lx+7, ly+12);
+                ctx.lineTo(lx+5, ly+16); ctx.lineTo(lx-5, ly+16);
+                ctx.closePath(); ctx.fill(); ctx.stroke();
+                ctx.strokeStyle = 'rgba(255,150,80,0.4)'; ctx.lineWidth = 0.7;
+                ctx.beginPath(); ctx.moveTo(lx, ly+16); ctx.lineTo(lx+Math.sin(sc.swing*3)*8, ly+28); ctx.stroke();
+                var lbGlow = ctx.createRadialGradient(lx, ly, 1, lx, ly, 10);
+                lbGlow.addColorStop(0, 'rgba(255,200,100,0.7)');
+                lbGlow.addColorStop(0.5, 'rgba(255,100,50,0.4)');
+                lbGlow.addColorStop(1, 'transparent');
+                ctx.fillStyle = lbGlow;
+                ctx.shadowColor = '#ff6e40'; ctx.shadowBlur = 18;
+                ctx.beginPath(); ctx.ellipse(lx, ly, 9, 11.5, 0, 0, Math.PI*2); ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        function grandFinale() {
+            
+            var bgmBox = document.getElementById('bgmBox');
+            if (bgmBox && !bgmBox._played) {
+                bgmBox._played = true;
+                var bv = 'BV1nCzeBbEi5';
+                fetch('https://api.bilibili.com/x/player/pagelist?bvid=' + bv)
+                    .then(function(r) { return r.json(); })
+                    .then(function(d) {
+                        if (d.data && d.data[0]) {
+                            var cid = d.data[0].cid;
+                            return fetch('https://api.bilibili.com/x/player/playurl?bvid=' + bv + '&cid=' + cid + '&fnval=80&fourk=1');
+                        }
+                        throw new Error('no cid');
+                    })
+                    .then(function(r) { return r.json(); })
+                    .then(function(d) {
+                        var audio = d.data.dash ? d.data.dash.audio : null;
+                        if (audio && audio[0]) {
+                            var a = new Audio(audio[0].baseUrl || audio[0].base_url);
+                            a.volume = 0.5;
+                            a.play().catch(function(){});
+                        }
+                    })
+                    .catch(function() {
+                        
+                        bgmBox.innerHTML = '<iframe src="https://player.bilibili.com/player.html?bvid=' + bv + '&page=1&autoplay=1" style="width:1px;height:1px" allow="autoplay"></iframe>';
+                    });
+            }
+            var w = canvas.width;
+            var h = canvas.height;
+            var count = 14 + Math.floor(Math.random() * 10);
+            for (var i = 0; i < count; i++) {
+                (function(idx) {
+                    rockets.push({
+                        x: w * 0.08 + Math.random() * w * 0.84,
+                        startY: h,
+                        burstY: h * 0.08 + Math.random() * h * 0.5,
+                        progress: 0,
+                        speed: 0.012 + Math.random() * 0.014,
+                        trail: [],
+                        alive: true,
+                        delay: idx * 12 + Math.random() * 8
+                    });
+                })(i);
+            }
+            
+            var afterCount = 8 + Math.floor(Math.random() * 6);
+            for (var j = 0; j < afterCount; j++) {
+                (function(idx) {
+                    setTimeout(function() {
+                        rockets.push({
+                            x: w * 0.05 + Math.random() * w * 0.9,
+                            startY: h,
+                            burstY: h * 0.1 + Math.random() * h * 0.4,
+                            progress: 0,
+                            speed: 0.015 + Math.random() * 0.02,
+                            trail: [],
+                            alive: true,
+                            delay: 0
+                        });
+                        if (!animating) { animating = true; requestAnimationFrame(tick); }
+                    }, 2500 + Math.random() * 6000);
+                })(j);
+            }
+            if (!animating) { animating = true; requestAnimationFrame(tick); }
+        }
+
+        function tick() {
+            var dark = isDark();
+            if (particles.length === 0 && rockets.length === 0 && scenery.length === 0) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                animating = false; sceneryActive = false;
+                return;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            
+            for (var i = particles.length - 1; i >= 0; i--) {
+                var p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += isDark() ? 0.015 : 0.06;
+                p.life -= p.decay;
+                if (p.life <= 0) { particles.splice(i, 1); continue; }
+                ctx.save();
+                ctx.globalAlpha = p.life;
+                if (dark) {
+                    var len = p.size * 6;
+                    var endX = p.x - p.vx * 0.35 * len;
+                    var endY = p.y - p.vy * 0.35 * len;
+                    var grad = ctx.createLinearGradient(p.x, p.y, endX, endY);
+                    grad.addColorStop(0, p.color);
+                    grad.addColorStop(1, 'transparent');
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = p.size * 0.7;
+                    ctx.lineCap = 'round';
+                    ctx.shadowColor = p.color;
+                    ctx.shadowBlur = 14;
+                    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(endX, endY); ctx.stroke();
+                    ctx.fillStyle = '#fff'; ctx.shadowColor = '#fff'; ctx.shadowBlur = 6;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size*0.35, 0, Math.PI*2); ctx.fill();
+                } else if (p.isRibbon) {
+                    var rLen = p.size * 5;
+                    var dx = p.vx * 0.5, dy = p.vy * 0.5;
+                    var cp1x = p.x - dx*rLen*0.4 + p.ribbonWave*20;
+                    var cp1y = p.y - dy*rLen*0.4 - 12;
+                    var cp2x = p.x - dx*rLen*0.7 - p.ribbonWave*15;
+                    var cp2y = p.y - dy*rLen*0.7 - 8;
+                    var endRX = p.x - dx*rLen, endRY = p.y - dy*rLen;
+                    var rGrad = ctx.createLinearGradient(p.x,p.y,endRX,endRY);
+                    rGrad.addColorStop(0,p.color); rGrad.addColorStop(0.5,p.color); rGrad.addColorStop(1,'transparent');
+                    ctx.strokeStyle=rGrad; ctx.lineWidth=p.size*0.6; ctx.lineCap='round'; ctx.shadowColor=p.color; ctx.shadowBlur=8;
+                    ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,endRX,endRY); ctx.stroke();
+                } else {
+                    ctx.fillStyle=p.color; ctx.shadowColor=p.color; ctx.shadowBlur=10;
+                    ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
+                }
+                ctx.restore();
+            }
+
+            
+            for (var j = rockets.length - 1; j >= 0; j--) {
+                var r = rockets[j];
+                if (r.delay > 0) { r.delay--; continue; }
+                r.progress += r.speed;
+                if (r.progress >= 1) {
+                    spawn(r.x, r.burstY);
+                    rockets.splice(j, 1);
+                    continue;
+                }
+                var ry = r.startY - (r.startY - r.burstY) * r.progress;
+                r.trail.push({x: r.x, y: ry, life: 1});
+                for (var t = r.trail.length - 1; t >= 0; t--) {
+                    r.trail[t].life -= 0.12;
+                    if (r.trail[t].life <= 0) { r.trail.splice(t, 1); }
+                }
+
+                
+                if (r.trail.length > 1) {
+                    for (var t = 1; t < r.trail.length; t++) {
+                        var tl = r.trail[t], tp = r.trail[t-1];
+                        var alpha = t / r.trail.length;
+                        var w = 1 + alpha * 3;
+                        ctx.save();
+                        ctx.globalAlpha = alpha * 0.8;
+                        ctx.strokeStyle = '#ffeb3b';
+                        ctx.lineWidth = w;
+                        ctx.lineCap = 'round';
+                        ctx.shadowColor = '#ffeb3b';
+                        ctx.shadowBlur = 4;
+                        ctx.beginPath();
+                        ctx.moveTo(tp.x, tp.y);
+                        ctx.lineTo(tl.x, tl.y);
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+
+                
+                ctx.save();
+                var hGrad = ctx.createRadialGradient(r.x, ry, 0, r.x, ry, 6);
+                hGrad.addColorStop(0, '#fff');
+                hGrad.addColorStop(0.4, '#ffeb3b');
+                hGrad.addColorStop(1, 'transparent');
+                ctx.fillStyle = hGrad;
+                ctx.shadowColor = '#ffeb3b';
+                ctx.shadowBlur = 12;
+                ctx.beginPath(); ctx.arc(r.x, ry, 6, 0, Math.PI*2); ctx.fill();
+                ctx.restore();
+            }
+
+            
+            if (sceneryActive) drawScenery(ctx);
+
+            if (particles.length > 0 || rockets.length > 0 || scenery.length > 0) {
+                requestAnimationFrame(tick);
+            } else {
+                animating = false;
+            }
+        }
+
+        
+        function animate() { if (!animating) { animating = true; requestAnimationFrame(tick); } }
+    })();
+
+    
+    (function() {
+        var BILIBILI_BV = '';  
+        var playBtn = document.getElementById('mascotPlay');
+        var front = document.getElementById('mascotFront');
+        var player = document.getElementById('mascotPlayer');
+        var iframe = document.getElementById('mascotIframe');
+        var backBtn = document.getElementById('mascotBack');
+        if (!playBtn) return;
+
+        playBtn.addEventListener('click', function() {
+            if (BILIBILI_BV) {
+                iframe.src = '//player.bilibili.com/player.html?bvid=' + BILIBILI_BV + '&page=1&autoplay=1';
+            } else {
+                iframe.src = 'https://player.bilibili.com/player.html?bvid=BV1GJ411x7h7&page=1&autoplay=1';
+            }
+            front.style.display = 'none';
+            player.style.display = 'flex';
+        });
+
+        backBtn.addEventListener('click', function() {
+            iframe.src = '';
+            player.style.display = 'none';
+            front.style.display = '';
+        });
+    })();
+
+    
+    (function() {
+        var EMAIL = 'liuchsh2025@shanghaitech.edu.cn';
+        var btn = document.getElementById('btnEmail');
+        var toast = document.getElementById('toast');
+        var timer;
+        btn.addEventListener('click', function() {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(EMAIL).then(function() {
+                    var lang = localStorage.getItem('lang') || 'zh';
+                    toast.textContent = toast.getAttribute('data-' + lang);
+                    toast.classList.add('show');
+                    clearTimeout(timer);
+                    timer = setTimeout(function() { toast.classList.remove('show'); }, 2000);
+                });
+            }
+        });
+    })();
     </script>
+<button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
 </body>
 </html>
