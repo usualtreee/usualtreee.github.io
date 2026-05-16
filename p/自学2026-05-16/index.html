@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[自学]2026-05-16  — Usualtree</title>
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    <link rel="icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/scss/custom.min.4cffc4d5550560d504ffd73a240dff9eb8a4fb06fefa1b9c675f7880b8070d62.css">
+</head>
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <a href="javascript:history.back()" class="postlist-back"><span data-zh="← 返回" data-en="← Back"></span></a>
+
+        <article class="card glass-card single-card">
+            
+            <div class="single-cover-wrap">
+                <img class="single-cover" src="/img/cover.jpg" alt="cover">
+            </div>
+            
+
+            <div class="single-body-content">
+                <h1 class="single-title">[自学]2026-05-16 </h1>
+
+                <div class="single-meta">
+                    <span class="single-date">📅 2026-05-16</span>
+                    
+                    <span class="single-cat">📂 学习笔记</span>
+                    
+                    
+                </div>
+
+                <div class="single-content">
+                    <h4 id="-主线任务注意要从实践出发在实践中完善理论知识做好资料整理">📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+</h4><p><strong>近期目标</strong>：速通rk部署项目，然后做简历，复习八股力扣，不断投递中训练，后续计划是往nv部署上走，主要学和云端交叉的部分的知识；雅思阅读弄完，做一下自己的口语语料库；</p>
+<ul>
+<li>
+<p><strong>嵌入式</strong>: 板子到了，计划16号开始部署；</p>
+</li>
+<li>
+<p><strong>雅思</strong>：做了一题阅读；</p>
+</li>
+</ul>
+<h1 id="总结2026-05-14-晚--2026-05-16">总结（2026-05-14 晚 ~ 2026-05-16）
+</h1><h2 id="一求职与实习策略">一、求职与实习策略
+</h2><h3 id="商汤科技岗位分析">商汤科技岗位分析
+</h3><ul>
+<li><strong>最对口</strong>：嵌入式软件开发工程师（教育硬件）— 明确要 Jetson 经验；嵌入式开发实习生（四足机器狗）— 明确要 STM32/Jetson</li>
+<li><strong>AI 先锋（精英级）</strong>：只有&quot;极致计算优化&quot;方向对口，但门槛极高（顶会/竞赛），普通背景建议曲线救国</li>
+<li><strong>深圳商汤业务</strong>：智能汽车（绝影）、智慧城市、智算中心、大模型研究院</li>
+<li><strong>投递建议</strong>：优先普通实习岗（嵌入式/算法优化），内部再转</li>
+</ul>
+<h3 id="实习选择策略">实习选择策略
+</h3><ul>
+<li><strong>优先 NVIDIA（Tier 2：Jetson/嵌入式/边缘 AI）</strong>，而非纯云端岗</li>
+<li><strong>瑞芯微/地平线作为保底</strong>：先进去攒经验，再冲击 NVIDIA</li>
+<li><strong>Tier 概念</strong>：Tier 1 = CUDA 核心/编译器（门槛极高）；Tier 2 = Jetson 应用/边缘部署（现实目标）；Tier 3 = 技术支持（门槛低，成长慢）</li>
+<li><strong>终极目标</strong>：Tier 1.5（嵌入式 AI Infra 工程师）— 懂芯片边界 + 能写 CUDA Kernel + 知道业务痛点</li>
+</ul>
+<h3 id="同学建议的启示">同学建议的启示
+</h3><ul>
+<li>项目必须贴合目标公司：投大疆做无人机追踪，投具身智能做目标检测/跟踪</li>
+<li>制造业低端用 RK，高端（具身智能、车载）用 NVIDIA GPU</li>
+<li>先实习参与实际工作链路，再补 TensorRT 和 PyTorch 图优化（<code>torch.compile</code>）</li>
+</ul>
+<hr>
+<h2 id="二rknn-vs-nvidia-量化与优化深度对比">二、RKNN vs NVIDIA 量化与优化深度对比
+</h2><h3 id="核心结论">核心结论
+</h3><ul>
+<li><strong>RKNN 量化</strong>：几乎只有 PTQ（训练后量化），QAT 支持极弱且不稳定，调试工具几乎为零</li>
+<li><strong>TensorRT 量化</strong>：PTQ + QAT + Explicit Quantization（带 Q/DQ 节点）全栈开放，逐层可控</li>
+<li><strong>共通点极少</strong>：只有&quot;PTQ 概念&quot;和&quot;校准数据集&quot;是共通的，具体实现、调试、控制手段完全不同</li>
+</ul>
+<h3 id="rknn-黑盒环节">RKNN 黑盒环节
+</h3><ul>
+<li>图优化策略不可见</li>
+<li>校准算法固定（只有 normal/mmse），不可自定义</li>
+<li>每层 scale/zero_point 不可查看</li>
+<li>算子映射与调度不可干预</li>
+<li>内存管理策略不可见</li>
+<li>精度崩了只能换数据集或祈祷</li>
+</ul>
+<h3 id="nvidia-开放环节">NVIDIA 开放环节
+</h3><ul>
+<li><code>polygraphy</code> 逐层对比 ONNX vs TensorRT 输出</li>
+<li>自定义 <code>IInt8Calibrator</code></li>
+<li>逐层设精度（FP32/FP16/INT8）</li>
+<li>手写 TensorRT Plugin / CUDA Kernel 替换任意算子</li>
+<li><code>Nsight Systems</code> / Profiler 完整性能分析</li>
+</ul>
+<hr>
+<h2 id="三优化方法全景除量化外">三、优化方法全景（除量化外）
+</h2><table>
+<thead>
+<tr>
+<th>优化手段</th>
+<th>说明</th>
+<th>边缘部署适用性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>算子融合</strong></td>
+<td>Conv+BN+ReLU 合并，减少访存和 Kernel Launch</td>
+<td>⭐⭐⭐ 通用</td>
+</tr>
+<tr>
+<td><strong>剪枝</strong></td>
+<td>非结构化/结构化剪枝，删掉不重要连接</td>
+<td>⭐⭐ 需训练资源，边缘少用</td>
+</tr>
+<tr>
+<td><strong>知识蒸馏</strong></td>
+<td>小模型模仿大模型输出分布</td>
+<td>⭐⭐ 需训练资源</td>
+</tr>
+<tr>
+<td><strong>内存优化</strong></td>
+<td>内存池、零拷贝、对齐、激活复用</td>
+<td>⭐⭐⭐ 边缘核心</td>
+</tr>
+<tr>
+<td><strong>编译器优化</strong></td>
+<td>AutoTVM、Kernel Auto-Tuning、Layout 转换</td>
+<td>⭐⭐⭐ TensorRT 自动做</td>
+</tr>
+<tr>
+<td><strong>并行与流水线</strong></td>
+<td>多线程、多 Stream、Continuous Batching</td>
+<td>⭐⭐⭐ 边缘核心</td>
+</tr>
+<tr>
+<td><strong>缓存/Tiling</strong></td>
+<td>分块计算，数据留在片上 SRAM 复用</td>
+<td>⭐⭐⭐ NPU/GPU 核心</td>
+</tr>
+<tr>
+<td><strong>架构设计</strong></td>
+<td>MobileNet、RepVGG、Mamba 等轻量结构</td>
+<td>⭐⭐ 训练阶段决定</td>
+</tr>
+<tr>
+<td><strong>动态优化</strong></td>
+<td>Early Exit、Dynamic Shape、Adaptive Batch</td>
+<td>⭐⭐ 部分场景</td>
+</tr>
+<tr>
+<td><strong>低秩分解</strong></td>
+<td>SVD、权重共享、哈希 trick</td>
+<td>⭐ 较少用</td>
+</tr>
+</tbody>
+</table>
+<p><strong>边缘部署重点</strong>：算子融合 + 内存优化 + 并行流水线 + Tiling。剪枝/蒸馏/架构设计需要训练资源，边缘团队通常做不了。</p>
+<hr>
+<h2 id="四图优化与-torchcompile">四、图优化与 torch.compile
+</h2><ul>
+<li><strong>图优化（Graph Optimization）</strong>：重排计算图结构，合并算子、常量折叠、死代码消除。训练框架和部署编译器都做。</li>
+<li><strong>torch.compile</strong>：PyTorch 2.0 特性，把 Python 模型编译成高效底层代码，自动算子融合、生成优化 CUDA Kernel。主要加速训练，也能用于推理。</li>
+<li><strong>与量化的关系</strong>：图优化和量化是两个独立维度。图优化改&quot;怎么算&quot;，量化改&quot;用什么精度算&quot;。转换时通常两者一起做。</li>
+</ul>
+<hr>
+<h2 id="五硬件与底层认知">五、硬件与底层认知
+</h2><h3 id="npu-vs-gpu-架构差异">NPU vs GPU 架构差异
+</h3><ul>
+<li><strong>GPU</strong>：通用并行（SIMT），CUDA Core/Tensor Core，完全可编程，功耗高</li>
+<li><strong>NPU</strong>：专用 DSA，MAC 乘加阵列 + 大容量片上 SRAM，硬连线控制，不可编程，功耗极低</li>
+<li><strong>性能瓶颈都是内存墙</strong>：优化终极敌人是访存带宽，不是纯算力</li>
+</ul>
+<h3 id="华为昇腾达芬奇架构">华为昇腾达芬奇架构
+</h3><ul>
+<li><strong>Scalar Unit</strong>：标量控制，管循环/分支/地址/调度</li>
+<li><strong>Vector Unit</strong>：SIMD 向量运算，逐元素操作（ReLU/Add/Norm）</li>
+<li><strong>Cube Unit</strong>：矩阵乘加，专门干 Conv/FC</li>
+</ul>
+<h3 id="mac-与算力">MAC 与算力
+</h3><ul>
+<li><strong>1 MAC = 1 次乘法 + 1 次加法</strong></li>
+<li>算力换算：MAC 数 × 核数 × 频率 × 2 = TOPS（×2 因为 1 MAC = 2 次基本运算）</li>
+</ul>
+<h3 id="gan-器件定位">GaN 器件定位
+</h3><ul>
+<li><strong>GaN 是功率半导体</strong>，适合做电源开关（数据中心 PSU、机器人关节驱动、车载 OBC）</li>
+<li><strong>不适合做数字 MAC/AI 计算</strong>：工艺节点微米级、功耗高、密度低、无 EDA 生态</li>
+<li><strong>抗辐射 FPGA</strong> 已覆盖绝大多数恶劣环境数字控制需求</li>
+<li><strong>蹭 AI 的正确姿势</strong>：给 AI 芯片/数据中心做电源优化，而不是替代计算芯片</li>
+</ul>
+<hr>
+<h2 id="六m5sticks3-认知">六、M5StickS3 认知
+</h2><ul>
+<li><strong>ESP32-S3 物联网开发板</strong>，拇指大小，0.85 英寸 LCD，集成 IMU</li>
+<li>可跑 TensorFlow Lite Micro 轻量模型（语音唤醒、手势识别）</li>
+<li><strong>和你的路线无关</strong>：你是工业级边缘 AI（RK3588/Jetson），M5StickS3 是超低功耗 IoT 玩具</li>
+</ul>
+<hr>
+<h2 id="七学习路径最终版">七、学习路径最终版
+</h2><h3 id="rk-侧现在-2周收尾">RK 侧（现在-2周收尾）
+</h3><p><strong>只学通用技能，不钻 RK 独有黑盒：</strong></p>
+<ul>
+<li>✅ 多线程流水线（生产者-消费者、绑核）— 完全通用</li>
+<li>✅ 内存池（预分配、循环复用、双缓冲）— 完全通用</li>
+<li>✅ 零拷贝思想（dma_buf / UMA）— 思想通用</li>
+<li>✅ PTQ 概念（校准数据、per-tensor/channel、精度对比）— 概念通用</li>
+<li>⚠️ RGA 浅尝辄止（知道&quot;硬件预处理替代 CPU&quot;即可，API 到 NV 就作废）</li>
+<li>❌ 不要学 RKNN QAT、NPU 微架构、手写 NPU 算子</li>
+</ul>
+<h3 id="nv-侧买-jetson-后80-精力">NV 侧（买 Jetson 后，80% 精力）
+</h3><p><strong>建立核心竞争力：</strong></p>
+<ul>
+<li>TensorRT Explicit Quantization、逐层精度控制</li>
+<li>自定义 <code>IInt8Calibrator</code></li>
+<li>CUDA Kernel 编写 + TensorRT Plugin 开发</li>
+<li>Jetson UMA、GStreamer、VPI、功耗模式</li>
+<li><code>polygraphy</code> / <code>Nsight</code> 调试与性能分析</li>
+</ul>
+<h3 id="时间分配">时间分配
+</h3><ul>
+<li><strong>20% 收尾 RK</strong>（只练通用技能，记录性能数据）</li>
+<li><strong>80% 死磕 TensorRT/CUDA</strong>（精细量化 + 算子级优化）</li>
+</ul>
+<p><strong>核心逻辑</strong>：RK 经验证明&quot;能在端侧把模型跑通&quot;，NV 经验证明&quot;能精细控制模型怎么跑&quot;。两者组合 = 嵌入式 AI Infra 的稀缺交叉背景。</p>
+<h1 id="c20-test-3-学习笔记passage-2-补充--passage-3--口语表达">C20 Test 3 学习笔记（Passage 2 补充 + Passage 3 + 口语表达）
+</h1><hr>
+<h2 id="一教育类词汇课前问题">一、教育类词汇（课前问题）
+</h2><table>
+<thead>
+<tr>
+<th>单词</th>
+<th>含义</th>
+<th>补充</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>undergraduate</strong></td>
+<td>本科生</td>
+<td>正在读或刚完成学士学位</td>
+</tr>
+<tr>
+<td><strong>postgraduate</strong></td>
+<td>研究生</td>
+<td>英国说法；美国常用 <strong>graduate student</strong></td>
+</tr>
+<tr>
+<td><strong>graduate</strong> (v.)</td>
+<td>毕业</td>
+<td><em>I graduated from&hellip;</em></td>
+</tr>
+<tr>
+<td><strong>graduate</strong> (n. 英)</td>
+<td>大学毕业生</td>
+<td><em>recent graduates</em></td>
+</tr>
+<tr>
+<td><strong>graduate</strong> (n. 美)</td>
+<td>研究生</td>
+<td><em>a graduate program</em> = 研究生项目</td>
+</tr>
+<tr>
+<td><strong>graduate school</strong></td>
+<td>研究生院</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>易混点：</strong></p>
+<ul>
+<li><strong>success</strong> = 成功；成功者</li>
+<li><strong>successor</strong> = 继任者；后继者（-or 表人）</li>
+<li><strong>successful</strong>（形容词）= 成功的</li>
+</ul>
+<hr>
+<h2 id="二c20-test-3-passage-2-can-the-planets-coral-reefs-be-saved">二、C20 Test 3 Passage 2: Can the planet&rsquo;s coral reefs be saved?
+</h2><h3 id="1-list-of-headings-选项翻译">1. List of Headings 选项翻译
+</h3><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>英文</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>Tried and tested solutions</td>
+<td>久经考验的解决方案</td>
+</tr>
+<tr>
+<td>ii</td>
+<td>Cooperation beneath the waves</td>
+<td>海面下的合作</td>
+</tr>
+<tr>
+<td>iii</td>
+<td>Working to lessen the problems</td>
+<td>努力减轻问题</td>
+</tr>
+<tr>
+<td>iv</td>
+<td>Disagreement about the accuracy of a certain phrase</td>
+<td>对某个说法准确性的争议</td>
+</tr>
+<tr>
+<td>v</td>
+<td>Two clear educational goals</td>
+<td>两个明确的教育目标</td>
+</tr>
+<tr>
+<td>vi</td>
+<td>Promoting hope</td>
+<td>传递希望</td>
+</tr>
+<tr>
+<td>vii</td>
+<td>A warning of further trouble ahead</td>
+<td>对未来更多麻烦的预警</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-选项重点词汇">2. 选项重点词汇
+</h3><ul>
+<li><strong>lessen</strong> = 减少；减轻（= reduce / decrease / alleviate）</li>
+<li><strong>accuracy</strong> = 准确性</li>
+<li><strong>a certain phrase</strong> = 某个说法/表述</li>
+<li><strong>ahead</strong> = 即将到来的</li>
+</ul>
+<h3 id="3-文章核心词汇section-a-f">3. 文章核心词汇（Section A-F）
+</h3><ul>
+<li><strong>final touches</strong> = 最后的润色；收尾工作</li>
+<li><strong>assembling</strong> = 组装；装配</li>
+<li><strong>world-renowned</strong> = 世界闻名的（renown 名望 + -ed）</li>
+<li><strong>renown</strong> = 名望；声誉（名词）</li>
+<li><strong>renowned</strong> = 著名的（形容词）</li>
+<li><strong>spectacular</strong> = 壮观的；令人惊叹的</li>
+<li><strong>scroll</strong> = 卷轴；卷形物（scroll coral = 卷轴珊瑚）</li>
+<li><strong>branch</strong> = 树枝；分支（branching coral = 分枝珊瑚）</li>
+<li><strong>thrive</strong> = 茁壮成长；繁衍生息（= flourish / prosper）</li>
+<li><strong>presence</strong> = 存在；出现（in their presence = 在它们周围）</li>
+<li><strong>dedicated to</strong> = 致力于；专门用于</li>
+<li><strong>sustain</strong> = 维持；支撑；供养</li>
+<li><strong>seven-metre-wide</strong> = 七米宽的（合成形容词）</li>
+<li><strong>minuscule</strong> = 极小的；微小的（注意拼写，不是 miniuscule）</li>
+<li><strong>invertebrate</strong> = 无脊椎动物（in- 无 + vertebrate 脊椎动物）</li>
+<li><strong>curator</strong> = 馆长；策展人</li>
+<li><strong>wonder</strong> (n.) = 奇观；奇迹（these wonders = 这些自然奇观）</li>
+<li><strong>polyp</strong> = 珊瑚虫；水螅体</li>
+<li><strong>tentacle</strong> = 触手</li>
+<li><strong>algae</strong> = 藻类（复数，alga 的复数）</li>
+<li><strong>nutrient</strong> = 营养素（具体物质，可数）</li>
+<li><strong>nutrition</strong> = 营养（抽象概念，不可数）</li>
+<li><strong>in turn</strong> = 反过来；相应地；作为回报（表双向互惠，不是&quot;轮流&quot;）</li>
+<li><strong>symbiotic relationship</strong> = 共生关系</li>
+<li><strong>photosynthesising</strong> = 光合作用的</li>
+<li><strong>disease</strong> = 疾病</li>
+<li><strong>death</strong> (n.) / <strong>die</strong> (v.) / <strong>mortality</strong> = 死亡/死亡率</li>
+<li><strong>mind-blowing</strong> = 令人震撼的；难以置信的（= astonishing / amazing）</li>
+<li><strong>majestic</strong> = 雄伟的；壮丽的</li>
+<li><strong>bleach</strong> = 漂白；使变白（coral bleaching 珊瑚白化）</li>
+<li><strong>menace</strong> = 威胁；危险（= threat / danger）</li>
+<li><strong>acidification</strong> = 酸化（ocean acidification 海洋酸化）</li>
+<li><strong>deoxygenation</strong> = 脱氧；缺氧</li>
+<li><strong>erosion</strong> = 侵蚀；腐蚀（coastal erosion 海岸侵蚀）</li>
+<li><strong>spawn</strong> = 产卵；大量繁殖</li>
+<li><strong>aquarium</strong> = 水族馆；水族箱；鱼缸</li>
+<li><strong>aquarium-based</strong> = 以水族馆为基础的</li>
+<li><strong>restore</strong> = 恢复；修复（动词）</li>
+<li><strong>restoration effort</strong> = 修复工作；恢复努力</li>
+</ul>
+<h3 id="4-重点长难句">4. 重点长难句
+</h3><p>&gt; <em>These polyps are transparent but get their pink, orange, blue, green, etc. from algae that live within them, which in turn get protection and a stable home within the coral tissues.</em>
+&gt;
+&gt; 这些珊瑚虫是透明的，但它们呈现粉红、橙、蓝、绿等颜色是因为体内共生的藻类，而这些藻类反过来在珊瑚组织中获得保护和稳定的栖息环境。</p>
+<hr>
+<h2 id="三c20-test-3-passage-3-robots-and-us">三、C20 Test 3 Passage 3: Robots and us
+</h2><h3 id="1-学科与主题词汇">1. 学科与主题词汇
+</h3><table>
+<thead>
+<tr>
+<th>单词</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>colonise / colonize</strong></td>
+<td>殖民；定居于；（生物）占据繁衍</td>
+</tr>
+<tr>
+<td><strong>clone</strong></td>
+<td>克隆（无性繁殖出基因完全相同的副本）</td>
+</tr>
+<tr>
+<td><strong>cosmology</strong></td>
+<td>宇宙学（研究宇宙起源、结构、演化）</td>
+</tr>
+<tr>
+<td><strong>astrophysics</strong></td>
+<td>天体物理学（用物理学研究天体）</td>
+</tr>
+<tr>
+<td><strong>futurologist</strong></td>
+<td>未来学家</td>
+</tr>
+<tr>
+<td><strong>singularity</strong></td>
+<td>奇点（AI 超越人类智能的临界点）</td>
+</tr>
+<tr>
+<td><strong>anthropologist</strong></td>
+<td>人类学家</td>
+</tr>
+<tr>
+<td><strong>science fiction</strong></td>
+<td>科幻小说</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2-第一段核心词汇冷冻食品早期技术类词汇回顾--rees观点">2. 第一段核心词汇（冷冻食品/早期技术类词汇回顾 &amp; Rees观点）
+</h3><ul>
+<li><strong>enormous</strong> = 巨大的（强调尺寸大，不是数量多）</li>
+<li><strong>towed</strong> = 被拖运的；被牵引的（have sth done 结构）</li>
+<li><strong>butter</strong>（黄油） vs <strong>butterfly</strong>（蝴蝶）= 拼写巧合，无实际关系</li>
+<li><strong>compressor</strong> = 压缩机（压缩气体，使其高压高温）</li>
+<li><strong>condenser</strong> = 冷凝器（让热气体散热凝结成液体）</li>
+<li><strong>condense</strong> = （气体）凝结成液体；（内容）浓缩</li>
+<li><strong>evaporator</strong> = 蒸发器（液体快速蒸发，吸热变冷）</li>
+<li><strong>mutton</strong> = 羊肉（成年绵羊的肉，区别于 lamb 羔羊肉）</li>
+<li><strong>palatable</strong> = 美味的；可口的；可接受的</li>
+<li><strong>deterioration</strong> = 恶化；变质；退化（deteriorate 的名词）</li>
+<li><strong>burst</strong> = 爆裂；破裂</li>
+<li><strong>spoilt</strong>（英式）/ <strong>spoiled</strong>（美式）= 变质的；腐坏的；被宠坏的</li>
+<li><strong>indigenous</strong> = 本土的；原产的；土著的</li>
+<li><strong>ran out of</strong> = 用完了；耗尽了（run out of 的过去式）</li>
+<li><strong>as well as</strong> = 也；和……一样（注意主谓一致：谓语跟前面的词）</li>
+<li><strong>cellophane</strong> = 玻璃纸；赛璐玢（透明包装材料）</li>
+<li><strong>came in</strong> = 以……形式/规格出售</li>
+<li><strong>with a minimum of effort</strong> = 只需简单准备；最省事</li>
+<li><strong>grocery</strong> = 食品杂货；杂货店（grocery stores = 食品杂货店）</li>
+<li><strong>munitions</strong> = 军火；弹药；军需品</li>
+<li><strong>ration</strong> = 配给；定量供应</li>
+<li><strong>tin</strong> = 锡；马口铁（制造罐头和弹药的金属原材料）</li>
+<li><strong>compartment</strong> = 隔间；舱室；分隔空间</li>
+<li><strong>TV-dinner</strong> = 电视餐；速冻即食餐</li>
+<li><strong>trusted brand name</strong> = 值得信赖的品牌</li>
+<li><strong>poultry</strong> = 家禽；家禽肉（鸡、鸭、鹅、火鸡等）</li>
+<li><strong>clever name</strong> = 巧妙的名称</li>
+<li><strong>segmented</strong> = 分格的；分隔的（segmented aluminium tray = 分格铝制托盘）</li>
+</ul>
+<h3 id="3-专家观点核心词汇rees--wolpert--richardson">3. 专家观点核心词汇（Rees / Wolpert / Richardson）
+</h3><h4 id="martin-rees-a-相关">Martin Rees (A) 相关
+</h4><ul>
+<li><strong>maintain</strong> = 坚持认为；主张（= argue / insist，不是&quot;维持&quot;）</li>
+<li><strong>pressing need</strong> = 迫切需要；紧迫的需求（pressing = 紧迫的）</li>
+<li><strong>press</strong> = 按压；新闻界（the press = 新闻媒体）</li>
+<li><strong>benign</strong> = 温和的；良性的（vs malignant 恶性的）</li>
+<li><strong>analogous</strong> = 类似的；可比拟的（常搭配 analogous to）</li>
+<li><strong>Antarctica</strong> = 南极洲</li>
+<li><strong>preserve</strong> = 保护；保存（preserve with a status = 以某种地位加以保护）</li>
+<li><strong>status</strong> = 地位；身份；法律地位</li>
+<li><strong>exploit</strong> = 开发；利用；剥削</li>
+<li><strong>inaccessible</strong> = 无法到达的；难以接近的</li>
+<li><strong>robotic tools</strong> = 机器人工具</li>
+<li><strong>first-rate</strong> = 一流的；最高质量的</li>
+<li><strong>second-rate</strong> = 二流的；次等的</li>
+<li><strong>mediocre</strong> = 平庸的；普通的；中等偏下的（= average / ordinary）</li>
+<li><strong>stimulating</strong> = 令人兴奋的；激发思考的；刺激智力的</li>
+<li><strong>simulate</strong> = 模拟（simulate vs stimulate 注意区分）</li>
+<li><strong>simulation</strong> = 模拟；仿真</li>
+<li><strong>spectrum</strong> = 范围；光谱；系列（a vivid spectrum of possible futures = 各种可能未来的生动系列）</li>
+<li><strong>dystopian</strong> = 反乌托邦的（黑暗压迫的未来，vs utopian 乌托邦的）</li>
+<li><strong>envisage</strong> = 设想；展望</li>
+</ul>
+<h4 id="kathleen-richardson-c-相关">Kathleen Richardson (C) 相关
+</h4><ul>
+<li><strong>anthropologist</strong> = 人类学家</li>
+<li><strong>morally dubious</strong> = 道德上可疑的（dubious = 可疑的）</li>
+<li><strong>genuine interest</strong> = 真诚的兴趣；发自内心的兴趣（genuine = 真正的）</li>
+<li><strong>the Other</strong> = &ldquo;他者&rdquo;（哲学/人类学概念，指不同于&quot;我们&quot;的异质存在）</li>
+<li><strong>impose</strong> = 强加；施加（impose a particular model = 强加某种特定模式）</li>
+<li><strong>meet</strong> = 遇见；平等接触（meet &ldquo;the Other&rdquo; = 平等接触&quot;他者&quot;，与 impose 相对）</li>
+<li><strong>autonomous</strong> = 自主的；自治的（auto- 自己 + -nomous 管理）</li>
+<li><strong>autonomous threat</strong> = 自主性威胁（机器自主决策后对人类构成的威胁）</li>
+<li><strong>personify</strong> = 拟人化；赋予…以人的特征</li>
+<li><strong>inanimate</strong> = 无生命的（in- 无 + animate 有生命的）</li>
+<li><strong>intrinsic</strong> = 内在的；固有的（vs extrinsic 外在的）</li>
+<li><strong>lie with</strong> = 在于；归咎于（the problem lies with&hellip; = 问题出在…）</li>
+<li><strong>tend to</strong> = 倾向于；往往会</li>
+<li><strong>subsequently</strong> = 随后；接着；结果（= as a result）</li>
+<li><strong>supremacy</strong> = 至高无上；霸权；统治地位（human supremacy = 人类霸权）</li>
+</ul>
+<h4 id="daniel-wolpert-b-相关">Daniel Wolpert (B) 相关
+</h4><ul>
+<li><strong>outwit</strong> = 智胜；在智力上胜过（out- 超过 + wit 机智）</li>
+<li><strong>savant</strong> = 博学之士；（特定领域）天才</li>
+<li><strong>idiot savant</strong> = 白痴天才（某方面极强但整体受限的人，Wolpert 用来比喻机器人）</li>
+<li><strong>viruses</strong> = 病毒（computer viruses = 计算机病毒）</li>
+<li><strong>malicious</strong> = 恶意的；蓄意的（malicious designer = 恶意的设计者）</li>
+<li><strong>designer</strong> = 设计者</li>
+<li><strong>outweigh</strong> = 超过；重于；胜过（利大于弊：benefits outweigh risks）</li>
+<li><strong>persist</strong> = 持续存在；坚持（persistent adj. / persistence n.）</li>
+<li><strong>read</strong> = 阅读（这里指&quot;读科幻/读科学&quot;）</li>
+<li><strong>collide</strong> = 冲突；碰撞（比喻现实与虚构两个领域相互抵触）</li>
+<li><strong>carve out</strong> = 开辟；开拓</li>
+<li><strong>sphere</strong> = 领域；范围；球体（the sphere of their worlds = 他们的领域范围）</li>
+<li><strong>clear cut</strong> = 清晰的；明确的（the divide is not so clear cut = 界限不那么清晰）</li>
+<li><strong>bring together</strong> = 整合；使…结合</li>
+<li><strong>understanding</strong> = 理解</li>
+<li><strong>perspective</strong> = 视角；观点</li>
+<li><strong>extent</strong> = 程度；范围；限度（to some extent = 在某种程度上）</li>
+<li><strong>outnumber</strong> = 在数量上超过（A outnumbers B = A 的数量超过 B）</li>
+<li><strong>content</strong> = 内容（n.）</li>
+</ul>
+<h3 id="4-重点长难句翻译参考">4. 重点长难句翻译参考
+</h3><p>&gt; <em>He maintains that colonised planets &lsquo;should be preserved with a status that is analogous to Antarctica on Earth.&rsquo;</em>
+&gt;
+&gt; 他坚持认为，已被殖民的星球&quot;应该以一种类似于地球上南极洲的地位来加以保护。&quot;</p>
+<p>&gt; <em>I think whether we do something on Earth or on Mars we should always do it in the spirit of a genuine interest in &ldquo;the Other&rdquo;, not to impose a particular model, but to meet &ldquo;the Other&rdquo;.</em>
+&gt;
+&gt; 我认为，无论我们在地球上还是在火星上做事，都应该始终本着对&quot;他者&quot;真诚的兴趣去做，而不是强加某种特定模式，而是去平等接触&quot;他者&quot;。</p>
+<p>&gt; <em>One of the consequences of thinking that the problem lies with machines is that we tend to imagine they are greater and more powerful than they really are and subsequently they become so.</em>
+&gt;
+&gt; 认为问题出在机器身上的后果之一，就是我们往往会把它们想象得比实际更强大、更有威力，而随后它们就真的变得如此了。（自我实现的预言）</p>
+<p>&gt; <em>I sometimes advise students that it&rsquo;s better to read first-rate science fiction than second-rate science – more stimulating, and perhaps no more likely to be wrong.</em>
+&gt;
+&gt; 我有时建议学生们，读一流的科幻小说比读二流的科学著作更好——前者更能激发思考，而且也许出错的可能性并不比后者更大。</p>
+<p>&gt; <em>Science fiction has painted a vivid spectrum of possible futures, from cute and helpful robots to dystopian robotic societies. Interestingly, almost no science fiction envisages a future without robots.</em>
+&gt;
+&gt; 科幻小说描绘了各种可能未来的生动图景，从可爱 helpful 的机器人到反乌托邦的机器人社会。有趣的是，几乎没有科幻小说设想一个没有机器人的未来。</p>
+<p>&gt; <em>&hellip;the divide is not so clear cut, and that is why the worlds seem to collide at times&hellip;</em>
+&gt;
+&gt; 但这种划分并不是那么清晰明确，这就是为什么这两个世界（现实与虚构）有时会发生冲突/相互抵触。</p>
+<hr>
+<h2 id="四雅思口语表达考完后回顾版">四、雅思口语表达（考完后回顾版）
+</h2><h3 id="1-核心句型时态正确">1. 核心句型（时态正确）
+</h3><p>&gt; <strong>&ldquo;I took the IELTS for two reasons. First, I was hoping to apply for a PhD overseas if things worked out. And second, I think — and still think — that English matters a lot in our line of work.&rdquo;</strong></p>
+<h3 id="2-句中时态逻辑">2. 句中时态逻辑
+</h3><table>
+<thead>
+<tr>
+<th>部分</th>
+<th>时态</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>took</strong> the IELTS</td>
+<td>过去时</td>
+<td>考试已结束</td>
+</tr>
+<tr>
+<td><strong>was hoping</strong> to apply</td>
+<td>过去进行时</td>
+<td>当时的打算</td>
+</tr>
+<tr>
+<td>if things <strong>worked</strong> out</td>
+<td>过去时</td>
+<td>过去语境中的条件从句</td>
+</tr>
+<tr>
+<td><strong>think</strong> — and <strong>still think</strong></td>
+<td>现在时</td>
+<td>想法持续至今</td>
+</tr>
+<tr>
+<td><strong>matters</strong> a lot</td>
+<td>现在时</td>
+<td>现在的看法</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-口语地道表达">3. 口语地道表达
+</h3><table>
+<thead>
+<tr>
+<th>表达</th>
+<th>含义</th>
+<th>例句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>line of work</strong></td>
+<td>行业；职业领域（超口语）</td>
+<td><em>What line of work are you in?</em></td>
+</tr>
+<tr>
+<td><strong>matters a lot</strong></td>
+<td>很重要（动词，口语）</td>
+<td><em>English matters a lot.</em></td>
+</tr>
+<tr>
+<td><strong>apply for</strong></td>
+<td>申请</td>
+<td><em>apply for a PhD</em></td>
+</tr>
+<tr>
+<td><strong>overseas if things worked out</strong></td>
+<td>出国如果顺利的话</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>do a PhD</strong></td>
+<td>读博（更宽泛）</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>to some extent</strong></td>
+<td>在某种程度上</td>
+<td>雅思口语写作万能短语</td>
+</tr>
+<tr>
+<td><strong>first-rate / second-rate / mediocre</strong></td>
+<td>一流/二流/平庸的</td>
+<td>可用来评价事物质量</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="五易混淆点总结">五、易混淆点总结
+</h2><table>
+<thead>
+<tr>
+<th>易混词/短语</th>
+<th>区别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>success</strong> vs <strong>successor</strong></td>
+<td>success = 成功；successor = 继任者</td>
+</tr>
+<tr>
+<td><strong>maintain</strong>（维持） vs <strong>maintain</strong>（坚持认为）</td>
+<td><em>maintain order</em> 维持秩序；<em>He maintains that&hellip;</em> 他坚持认为…</td>
+</tr>
+<tr>
+<td><strong>press</strong>（按压）/ <strong>press</strong>（新闻界）/ <strong>pressing</strong>（紧迫的）</td>
+<td>the press = 新闻界；pressing need = 迫切需要</td>
+</tr>
+<tr>
+<td><strong>nutrient</strong> vs <strong>nutrition</strong></td>
+<td>nutrient = 营养素（具体物质）；nutrition = 营养（抽象概念）</td>
+</tr>
+<tr>
+<td><strong>in turn</strong>（反过来） vs <strong>in turn</strong>（轮流）</td>
+<td>表互惠关系时 = 反过来；表顺序时 = 轮流</td>
+</tr>
+<tr>
+<td><strong>first-rate</strong> vs <strong>second-rate</strong> vs <strong>mediocre</strong></td>
+<td>一流 vs 二流 vs 平庸</td>
+</tr>
+<tr>
+<td><strong>simulate</strong> vs <strong>stimulate</strong></td>
+<td>simulate = 模拟；stimulate = 刺激</td>
+</tr>
+<tr>
+<td><strong>extent</strong>（程度） vs <strong>extend</strong>（延伸/扩展）</td>
+<td>extent = 名词，范围；extend = 动词，扩展</td>
+</tr>
+<tr>
+<td><strong>undergraduate</strong> vs <strong>postgraduate</strong></td>
+<td>under = 本科；post = 研究生</td>
+</tr>
+<tr>
+<td><strong>renown</strong> / <strong>renowned</strong> / <strong>world-renowned</strong></td>
+<td>名望（n.）/ 著名的（adj.）/ 举世闻名的</td>
+</tr>
+<tr>
+<td><strong>genuine</strong>（真诚的） vs <strong>genius</strong>（天才）</td>
+<td>拼写相近，意思不同</td>
+</tr>
+<tr>
+<td><strong>impose</strong>（强加） vs <strong>meet</strong>（平等接触）</td>
+<td>文中形成对比</td>
+</tr>
+<tr>
+<td><strong>outstrip</strong> / <strong>outweigh</strong> / <strong>outwit</strong> / <strong>outnumber</strong></td>
+<td>out- = 超过：超越/重于/智胜/数量超过</td>
+</tr>
+</tbody>
+</table>
+
+                </div>
+            </div>
+        </article>
+    </div>
+<button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+</html>
