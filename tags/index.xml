@@ -6,6 +6,55 @@
         <description>Recent content in Tags on Usualtree</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>Usualtree</copyright><atom:link href="https://usualtreee.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+        <copyright>Usualtree</copyright>
+        <lastBuildDate>Wed, 20 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://usualtreee.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>English</title>
+        <link>https://usualtreee.github.io/tags/english/</link>
+        <pubDate>Wed, 20 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/tags/english/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>IELTS</title>
+        <link>https://usualtreee.github.io/tags/ielts/</link>
+        <pubDate>Wed, 20 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/tags/ielts/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>C&#43;&#43;</title>
+        <link>https://usualtreee.github.io/tags/c&#43;&#43;/</link>
+        <pubDate>Tue, 19 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/tags/c&#43;&#43;/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>NPU</title>
+        <link>https://usualtreee.github.io/tags/npu/</link>
+        <pubDate>Tue, 19 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/tags/npu/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>RK3588</title>
+        <link>https://usualtreee.github.io/tags/rk3588/</link>
+        <pubDate>Tue, 19 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/tags/rk3588/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>RTMP</title>
+        <link>https://usualtreee.github.io/tags/rtmp/</link>
+        <pubDate>Tue, 19 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/tags/rtmp/</guid>
+        <description></description>
+        </item>
+        
     </channel>
 </rss>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RK3588 多线程解码 &#43; NPU 推理 &#43; RTMP 推流 — Usualtree</title>
+    <link rel="icon" href="/favicon.ico">
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    
+    <link rel="stylesheet" href="/scss/custom.min.4cffc4d5550560d504ffd73a240dff9eb8a4fb06fefa1b9c675f7880b8070d62.css">
+</head>
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <a href="javascript:history.back()" class="postlist-back"><span data-zh="← 返回" data-en="← Back"></span></a>
+
+        <article class="card glass-card single-card">
+            <div class="single-body-content">
+                <h1 class="single-title">RK3588 多线程解码 &#43; NPU 推理 &#43; RTMP 推流</h1>
+                <div class="single-content">
+                    <h1 id="第一部分项目概况">第一部分：项目概况
+</h1><h2 id="项目是什么">项目是什么
+</h2><p>这是一个基于 <strong>瑞芯微 RK3588</strong> 的<strong>多路视频 AI 智能分析系统</strong>。功能是：</p>
+<blockquote>
+<p>4 路视频流 → 硬件解码 → NPU 并行跑 3 个 AI 模型检测 → 画面拼接 → 编码推流 → 远程观看</p>
+</blockquote>
+<p>具体检测内容：</p>
+<ul>
+<li>人员检测（person）</li>
+<li>安全帽佩戴检测（helmet）</li>
+<li>打电话行为检测（callplay）</li>
+</ul>
+<p>4 路画面拼接成 2×2 的合成画面，通过 RTMP/RTSP/GB28181 推流到外部平台，用 VLC 或网页实时观看。</p>
+<h2 id="技术栈">技术栈
+</h2><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rockchip MPP</td>
+<td>芯片内置硬件视频解码 + 编码</td>
+</tr>
+<tr>
+<td>RKNN (NPU)</td>
+<td>芯片内置 6TOPS AI 推理单元</td>
+</tr>
+<tr>
+<td>RGA</td>
+<td>芯片内置硬件图像缩放/格式转换</td>
+</tr>
+<tr>
+<td>OpenCV</td>
+<td>软件图像处理、绘制检测框</td>
+</tr>
+<tr>
+<td>FFmpeg</td>
+<td>视频文件解封装、RTMP/RTSP 推流</td>
+</tr>
+<tr>
+<td>eXosip2/osip2</td>
+<td>GB28181 国标 SIP 协议栈</td>
+</tr>
+<tr>
+<td>C++17 / CMake</td>
+<td>构建系统</td>
+</tr>
+</tbody>
+</table>
+<h2 id="项目文件结构">项目文件结构
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">demo_multhread_decode_infer_mulmodel</span><span class="o">/</span>       <span class="err">←</span> <span class="err">项目根目录</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">main</span><span class="o">.</span><span class="n">cpp</span>                                <span class="err">←</span> <span class="err">主入口，管理多路流的线程调度</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">CMakeLists</span><span class="o">.</span><span class="n">txt</span>                          <span class="err">←</span> <span class="n">CMake</span> <span class="err">构建配置</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">build</span><span class="o">.</span><span class="n">sh</span>                                <span class="err">←</span> <span class="err">一键编译脚本</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">run_demo</span><span class="o">.</span><span class="n">sh</span>                             <span class="err">←</span> <span class="err">本地运行脚本</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">run_streams</span><span class="o">.</span><span class="n">sh</span>                          <span class="err">←</span> <span class="err">推流运行脚本</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">gb28181</span><span class="o">.</span><span class="n">conf</span>                            <span class="err">←</span> <span class="n">GB28181</span> <span class="err">国标平台参数配置</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">assets</span><span class="o">/</span>                                 <span class="err">←</span> <span class="err">运行时资源</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">models</span><span class="o">/</span>                             <span class="err">←</span> <span class="n">NPU</span> <span class="err">模型文件（</span><span class="o">.</span><span class="n">rknn</span> <span class="err">格式）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">person_relu</span><span class="o">.</span><span class="n">rknn</span>               <span class="err">←</span> <span class="err">人员检测模型</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">helmet_relu</span><span class="o">.</span><span class="n">rknn</span>               <span class="err">←</span> <span class="err">安全帽检测模型</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">callplay_relu</span><span class="o">.</span><span class="n">rknn</span>             <span class="err">←</span> <span class="err">打电话检测模型</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">coco_80_labels_list</span><span class="o">.</span><span class="n">txt</span>        <span class="err">←</span> <span class="mi">80</span> <span class="err">类标签名</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">videos</span><span class="o">/</span>                             <span class="err">←</span> <span class="err">测试视频文件（</span><span class="mi">4</span> <span class="err">个</span> <span class="o">.</span><span class="n">mp4</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">include</span><span class="o">/</span>                                <span class="err">←</span> <span class="err">头文件</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">rknn_api</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">rknnPool</span><span class="o">.</span><span class="n">hpp</span>          <span class="err">←</span> <span class="n">NPU</span> <span class="err">运行时</span> <span class="n">API</span> <span class="o">+</span> <span class="err">推理线程池</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">mpp_decoder</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">mpp_encoder</span><span class="o">.</span><span class="n">h</span>      <span class="err">←</span> <span class="n">MPP</span> <span class="err">硬件编解码接口</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">rga_func</span><span class="o">.</span><span class="n">h</span>                         <span class="err">←</span> <span class="n">RGA</span> <span class="err">硬件缩放接口</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">postprocess</span><span class="o">.</span><span class="n">h</span>                      <span class="err">←</span> <span class="n">YOLO</span> <span class="err">后处理（</span><span class="n">NMS</span><span class="o">/</span><span class="err">解码）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">stream_loader</span><span class="o">.</span><span class="n">h</span>                    <span class="err">←</span> <span class="err">视频流加载（文件</span><span class="o">/</span><span class="n">RTSP</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">streaming_manager</span><span class="o">.</span><span class="n">h</span>               <span class="err">←</span> <span class="n">RTMP</span><span class="o">/</span><span class="n">RTSP</span> <span class="err">推流管理</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">detection_fusion_manager</span><span class="o">.</span><span class="n">h</span>         <span class="err">←</span> <span class="err">多模型检测结果融合</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">ThreadPool</span><span class="o">.</span><span class="n">hpp</span>                     <span class="err">←</span> <span class="err">全局线程池</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">performance_monitor</span><span class="o">.</span><span class="n">hpp</span>            <span class="err">←</span> <span class="err">帧率</span><span class="o">/</span><span class="err">耗时统计</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">dma_alloc</span><span class="o">.</span><span class="n">hpp</span> <span class="o">/</span> <span class="n">rga_dma32_helper</span><span class="o">.</span><span class="n">hpp</span> <span class="err">←</span> <span class="n">DMA</span> <span class="err">内存管理</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">gb28181</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">ps_rtp</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">push</span><span class="o">.</span><span class="n">h</span>      <span class="err">←</span> <span class="n">GB28181</span> <span class="err">国标推流</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">lib</span><span class="o">/</span>                                    <span class="err">←</span> <span class="err">源文件实现</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">stream_loader</span><span class="o">.</span><span class="n">cpp</span>                  <span class="err">←</span> <span class="n">FFmpeg</span> <span class="err">解封装，提取</span> <span class="n">H</span><span class="o">.</span><span class="mi">264</span> <span class="err">裸流</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">mpp_decoder</span><span class="o">.</span><span class="n">cpp</span>                    <span class="err">←</span> <span class="err">调用</span> <span class="n">MPP</span> <span class="err">硬件解码</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">mpp_encoder</span><span class="o">.</span><span class="n">cpp</span>                    <span class="err">←</span> <span class="err">调用</span> <span class="n">MPP</span> <span class="err">硬件编码（推流用）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">postprocess</span><span class="o">.</span><span class="n">cpp</span>                    <span class="err">←</span> <span class="n">YOLOv5</span> <span class="err">检测框解码</span> <span class="o">+</span> <span class="n">NMS</span> <span class="err">去重</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">detection_fusion_manager</span><span class="o">.</span><span class="n">cpp</span>       <span class="err">←</span> <span class="mi">3</span> <span class="err">个模型结果合并去重</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">streaming_manager</span><span class="o">.</span><span class="n">cpp</span>              <span class="err">←</span> <span class="err">管理推流会话生命周期</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">gb28181</span><span class="o">.</span><span class="n">cc</span> <span class="o">/</span> <span class="n">ps_rtp</span><span class="o">.</span><span class="n">cc</span> <span class="o">/</span> <span class="n">push</span><span class="o">.</span><span class="n">cc</span>   <span class="err">←</span> <span class="n">GB28181</span> <span class="n">SIP</span><span class="o">/</span><span class="n">RTP</span> <span class="err">推流实现</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">third_party</span><span class="o">/</span>                            <span class="err">←</span> <span class="err">第三方预编译依赖（全</span> <span class="n">aarch64</span> <span class="err">架构）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">rknn</span><span class="o">/</span>                              <span class="err">←</span> <span class="n">NPU</span> <span class="err">运行时</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">bin</span><span class="o">/</span><span class="n">rknn_server</span>                <span class="err">←</span> <span class="n">NPU</span> <span class="err">管理服务（必须后台运行！）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">lib</span><span class="o">/</span><span class="n">librknnrt</span><span class="o">.</span><span class="n">so</span>               <span class="err">←</span> <span class="n">NPU</span> <span class="err">推理运行时库</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">include</span><span class="o">/</span><span class="n">rknn_api</span><span class="o">.</span><span class="n">h</span>             <span class="err">←</span> <span class="n">C</span> <span class="n">API</span> <span class="err">头文件</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">mpp</span><span class="o">/</span>                               <span class="err">←</span> <span class="err">媒体处理平台（硬件编解码库）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">lib</span><span class="o">/</span><span class="n">librockchip_mpp</span><span class="o">.</span><span class="n">so</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">rga</span><span class="o">/</span>                               <span class="err">←</span> <span class="err">图形加速（硬件缩放库）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">lib</span><span class="o">/</span><span class="n">librga</span><span class="o">.</span><span class="n">so</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">ffmpeg</span><span class="o">-</span><span class="n">lite</span><span class="o">/</span>                        <span class="err">←</span> <span class="err">精简</span> <span class="n">FFmpeg</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">opencv4</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span>                          <span class="err">←</span> <span class="n">OpenCV</span> <span class="mf">4.</span><span class="n">x</span><span class="err">（</span><span class="mi">51</span> <span class="err">个</span> <span class="o">.</span><span class="n">so</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">gb28181</span><span class="o">/</span>                            <span class="err">←</span> <span class="n">GB28181</span> <span class="err">国标依赖</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">└──</span> <span class="n">build</span><span class="o">/</span>                                  <span class="err">←</span> <span class="err">编译产物</span>
+</span></span><span class="line"><span class="cl">    <span class="err">└──</span> <span class="n">myDemo</span>                             <span class="err">←</span> <span class="err">最终可执行文件</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="数据流运行时">数据流（运行时）
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">assets</span><span class="o">/</span><span class="n">videos</span><span class="o">/</span><span class="mi">1</span><span class="o">~</span><span class="mf">4.</span><span class="n">mp4</span>                     <span class="err">←</span> <span class="mi">4</span> <span class="err">路本地视频文件（或</span> <span class="n">RTSP</span> <span class="err">摄像头）</span>
+</span></span><span class="line"><span class="cl">        <span class="err">│</span>
+</span></span><span class="line"><span class="cl">        <span class="err">▼</span>
+</span></span><span class="line"><span class="cl"><span class="n">stream_loader</span><span class="o">.</span><span class="n">cpp</span>                          <span class="err">←</span> <span class="n">FFmpeg</span> <span class="err">解封装，提取</span> <span class="n">H</span><span class="o">.</span><span class="mi">264</span> <span class="err">裸流</span>
+</span></span><span class="line"><span class="cl">        <span class="err">│</span>
+</span></span><span class="line"><span class="cl">        <span class="err">▼</span>
+</span></span><span class="line"><span class="cl"><span class="n">mpp_decoder</span><span class="o">.</span><span class="n">cpp</span> <span class="o">+</span> <span class="n">librockchip_mpp</span><span class="o">.</span><span class="n">so</span>       <span class="err">←</span> <span class="n">MPP</span> <span class="err">硬件解码</span> <span class="err">→</span> <span class="n">YUV</span> <span class="err">帧</span>
+</span></span><span class="line"><span class="cl">        <span class="err">│</span>
+</span></span><span class="line"><span class="cl">        <span class="err">▼</span>
+</span></span><span class="line"><span class="cl"><span class="n">rknnPool</span><span class="o">.</span><span class="n">hpp</span> <span class="o">+</span> <span class="n">librknnrt</span><span class="o">.</span><span class="n">so</span>                <span class="err">←</span> <span class="mi">3</span> <span class="err">个</span> <span class="n">NPU</span> <span class="err">模型并行推理</span>
+</span></span><span class="line"><span class="cl">  <span class="err">┌──────────────────────────────────┐</span>
+</span></span><span class="line"><span class="cl">  <span class="err">│</span> <span class="n">person_relu</span><span class="o">.</span><span class="n">rknn</span>  <span class="err">→</span> <span class="err">人员检测</span>     <span class="err">│</span>
+</span></span><span class="line"><span class="cl">  <span class="err">│</span> <span class="n">helmet_relu</span><span class="o">.</span><span class="n">rknn</span>  <span class="err">→</span> <span class="err">安全帽检测</span>   <span class="err">│</span> <span class="err">←</span> <span class="n">rknn_server</span> <span class="err">调度</span> <span class="err">→</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">rknpu</span>
+</span></span><span class="line"><span class="cl">  <span class="err">│</span> <span class="n">callplay_relu</span><span class="o">.</span><span class="n">rknn</span> <span class="err">→</span> <span class="err">打电话检测</span>  <span class="err">│</span>
+</span></span><span class="line"><span class="cl">  <span class="err">└──────────────────────────────────┘</span>
+</span></span><span class="line"><span class="cl">        <span class="err">│</span>
+</span></span><span class="line"><span class="cl">        <span class="err">▼</span>
+</span></span><span class="line"><span class="cl"><span class="n">detection_fusion_manager</span><span class="o">.</span><span class="n">cpp</span>               <span class="err">←</span> <span class="mi">3</span> <span class="err">个模型结果合并去重</span>
+</span></span><span class="line"><span class="cl">        <span class="err">│</span>
+</span></span><span class="line"><span class="cl">        <span class="err">▼</span>
+</span></span><span class="line"><span class="cl"><span class="n">rga_func</span><span class="o">.</span><span class="n">h</span> <span class="o">+</span> <span class="n">librga</span><span class="o">.</span><span class="n">so</span> <span class="o">+</span> <span class="n">OpenCV</span>            <span class="err">←</span> <span class="n">RGA</span> <span class="err">硬件缩放</span> <span class="o">+</span> <span class="err">绘制检测框</span>
+</span></span><span class="line"><span class="cl">        <span class="err">│</span>
+</span></span><span class="line"><span class="cl">        <span class="err">▼</span>
+</span></span><span class="line"><span class="cl"><span class="n">streaming_manager</span><span class="o">.</span><span class="n">cpp</span> <span class="o">+</span> <span class="n">mpp_encoder</span><span class="o">.</span><span class="n">cpp</span>    <span class="err">←</span> <span class="n">MPP</span> <span class="err">硬件编码</span> <span class="err">→</span> <span class="n">H</span><span class="o">.</span><span class="mi">264</span> <span class="err">码流</span>
+</span></span><span class="line"><span class="cl">        <span class="err">│</span>
+</span></span><span class="line"><span class="cl">        <span class="err">▼</span>
+</span></span><span class="line"><span class="cl"><span class="n">FFmpeg</span> <span class="n">RTMP</span> <span class="err">推流</span> <span class="err">──────────────────────→</span> <span class="n">MediaMTX</span> <span class="p">(</span><span class="n">PC</span><span class="p">)</span> <span class="err">─→</span> <span class="n">VLC</span><span class="o">/</span><span class="err">网页</span> <span class="err">观看</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h1 id="第二部分实际部署过程">第二部分：实际部署过程
+</h1><h2 id="环境">环境
+</h2><ul>
+<li>硬件：迅为 iTOP-3588 + MIPI 屏幕 + USB 键鼠</li>
+<li>系统：Ubuntu 20.04（从出厂 Android 刷写）</li>
+<li>PC 端：Windows + MediaMTX（推流接收）+ VLC（观看）</li>
+</ul>
+<h2 id="一烧写系统">一、烧写系统
+</h2><ol>
+<li>PC 安装 <code>DriverAssitant_v5.1.1</code>（USB 驱动）和 <code>RKDevTool_Release_v3.15</code></li>
+<li>Type-C 数据线连接：PC USB 口 ↔ 板子 OTG 口，板子接 12V 电源</li>
+<li>按住板子 VOL+ 键 → 上电 → RKDevTool 检测到&quot;Loader 模式&quot; → 松手</li>
+<li>导入 Ubuntu 的 <code>update.img</code> → 点「执行」烧写</li>
+<li>烧完板子自动重启，进入 Ubuntu 桌面</li>
+</ol>
+<h2 id="二板子联网">二、板子联网
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ping baidu.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="三传项目到板子">三、传项目到板子
+</h2><h3 id="方式-aadb">方式 A：ADB
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">adb push demo_multhread_decode_infer_mulmodel /opt/
+</span></span><span class="line"><span class="cl">adb shell
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="方式-bu-盘">方式 B：U 盘
+</h3><p>U 盘拷入 → 插板子 USB → 自动挂载 → 拖到 <code>/opt/</code></p>
+<h3 id="方式-cssh">方式 C：SSH
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install openssh-server -y
+</span></span><span class="line"><span class="cl">sudo systemctl start ssh
+</span></span><span class="line"><span class="cl">ip addr <span class="p">|</span> grep inet
+</span></span><span class="line"><span class="cl">scp -r demo_multhread_decode_infer_mulmodel root@板子IP:/opt/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="四编译">四、编译
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /opt/demo_multhread_decode_infer_mulmodel/demo_multhread_decode_infer_mulmodel
+</span></span><span class="line"><span class="cl">sudo apt install cmake g++ make gdb -y
+</span></span><span class="line"><span class="cl">rm -rf build
+</span></span><span class="line"><span class="cl">chmod +x build.sh run_demo.sh run_streams.sh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ⚠️ 补 MPP .so 版本软链接（否则段错误）</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> third_party/mpp/lib
+</span></span><span class="line"><span class="cl">sudo ln -sf librockchip_mpp.so librockchip_mpp.so.1
+</span></span><span class="line"><span class="cl">sudo ln -sf librockchip_mpp.so librockchip_mpp.so.0
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /opt/demo_multhread_decode_infer_mulmodel/demo_multhread_decode_infer_mulmodel
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">./build.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="五启动-rknn_server">五、启动 rknn_server
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cp third_party/rknn/bin/rknn_server /usr/bin/
+</span></span><span class="line"><span class="cl">sudo rknn_server <span class="p">&amp;</span>
+</span></span><span class="line"><span class="cl">ps aux <span class="p">|</span> grep rknn_server
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="六pc-端启动推流接收端">六、PC 端启动推流接收端
+</h2><ol>
+<li>下载 <a class="link" href="https://github.com/bluenviron/mediamtx/releases"  target="_blank" rel="noopener"
+    >MediaMTX</a> Windows 版</li>
+<li>解压，双击 <code>mediamtx.exe</code>，窗口保持不关</li>
+<li>PC 上查 IP：<code>ipconfig</code></li>
+</ol>
+<h2 id="七运行项目">七、运行项目
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 1 路测试</span>
+</span></span><span class="line"><span class="cl">sudo su -c <span class="s1">&#39;MYDEMO_RTMP_URL=&#34;rtmp://PC的IP:1935/livestream&#34; ./build/myDemo 1 ./assets/videos/1.mp4&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4 路运行</span>
+</span></span><span class="line"><span class="cl">sudo su -c <span class="s1">&#39;MYDEMO_RTMP_URL=&#34;rtmp://PC的IP:1935/livestream&#34; ./build/myDemo 4 ./assets/videos/1.mp4 ./assets/videos/2.mp4 ./assets/videos/3.mp4 ./assets/videos/4.mp4&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="八观看结果">八、观看结果
+</h2><ul>
+<li><strong>VLC</strong>：媒体 → 打开网络流 → <code>rtmp://PC的IP:1935/livestream</code></li>
+<li><strong>浏览器</strong>：<code>http://PC的IP:8889/</code> → 点击 <code>livestream</code></li>
+</ul>
+<hr>
+<h1 id="第三部分踩坑记录与解决方案">第三部分：踩坑记录与解决方案
+</h1><h2 id="踩坑-1npu-推理段错误rknn_server-未启动">踩坑 1：NPU 推理段错误（rknn_server 未启动）
+</h2><h3 id="现象">现象
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ./build/myDemo <span class="m">1</span> ./assets/videos/1.mp4
+</span></span><span class="line"><span class="cl">段错误 <span class="o">(</span>核心已转储<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="排查">排查
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls -la /dev/rknpu*        <span class="c1"># 不存在</span>
+</span></span><span class="line"><span class="cl">dmesg <span class="p">|</span> grep -i npu       <span class="c1"># 内核驱动已初始化，但设备节点没创建</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="根因">根因
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">程序 → librknnrt.so → rknn_server（常驻进程）→ /dev/rknpu → NPU 硬件
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>rknn_server</code> 是用户空间的后台服务进程，没有它，后续任何 NPU 调用都是空指针 → 段错误。</p>
+<h3 id="解决">解决
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo cp third_party/rknn/bin/rknn_server /usr/bin/
+</span></span><span class="line"><span class="cl">sudo rknn_server <span class="p">&amp;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="踩坑-2mpp-硬件解码段错误库版本不匹配">踩坑 2：MPP 硬件解码段错误（库版本不匹配）
+</h2><h3 id="现象-1">现象
+</h3><p>GDB 定位到 <code>hal_h264e_vepu580_init</code> → <code>mpp_init</code> → <code>MppEncoder::Init</code> 崩溃。</p>
+<h3 id="排查-1">排查
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ldd ./build/myDemo <span class="p">|</span> grep mpp
+</span></span><span class="line"><span class="cl"><span class="c1"># → librockchip_mpp.so.1 =&gt; /usr/lib/aarch64-linux-gnu/librockchip_mpp.so.1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 但 third_party 里只有 librockchip_mpp.so，没有 .so.1！</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="根因-1">根因
+</h3><p>程序链接 <code>librockchip_mpp.so.1</code>，但 third_party 里没有版本后缀，动态链接器跳过去找系统旧版 → API 不兼容 → 段错误。</p>
+<h3 id="解决-1">解决
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> third_party/mpp/lib
+</span></span><span class="line"><span class="cl">sudo ln -sf librockchip_mpp.so librockchip_mpp.so.1
+</span></span><span class="line"><span class="cl">sudo ln -sf librockchip_mpp.so librockchip_mpp.so.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="踩坑-3权限问题">踩坑 3：权限问题
+</h2><p>普通用户无法与 root 启动的 rknn_server 通信 → <code>sudo su -c</code> 解决。</p>
+<h2 id="踩坑-4rga-dma-物理地址为空不致命">踩坑 4：RGA DMA 物理地址为空（不致命）
+</h2><h3 id="现象-2">现象
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">RgaBlit(1513) RGA_BLIT fail: Invalid argument
+</span></span><span class="line"><span class="cl">buffer[handle,fd,va,pa] = [0, 0, 0x..., 0]   ← pa 全是 0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="根因-2">根因
+</h3><p>RGA 库版本跟板子内核驱动 ioctl 接口不完全匹配，DMA buffer 分配失败。</p>
+<h3 id="解决-2">解决
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 替换为系统自带的匹配 RGA 库</span>
+</span></span><span class="line"><span class="cl">mv third_party/rga/lib/librga.so third_party/rga/lib/librga.so.bak
+</span></span><span class="line"><span class="cl">sudo cp /usr/lib/aarch64-linux-gnu/librga.so.2.1.0 third_party/rga/lib/librga.so
+</span></span><span class="line"><span class="cl"><span class="c1"># 放权 DMA heap 设备</span>
+</span></span><span class="line"><span class="cl">sudo chmod <span class="m">666</span> /dev/dma_heap/*
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>当前状态</strong>：RGA 偶尔失败时回退到 CPU 处理，不影响数据通路，视频正常推流。</p>
+<h2 id="踩坑总结">踩坑总结
+</h2><table>
+<thead>
+<tr>
+<th>#</th>
+<th>问题</th>
+<th>症状</th>
+<th>根因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>rknn_server 未启动</td>
+<td>段错误</td>
+<td>NPU 用户态服务缺失</td>
+<td>拷贝 + 后台启动</td>
+</tr>
+<tr>
+<td>2</td>
+<td>MPP 库版本不匹配</td>
+<td>段错误</td>
+<td>.so 缺版本后缀</td>
+<td><code>ln -sf</code> 补软链接</td>
+</tr>
+<tr>
+<td>3</td>
+<td>权限问题</td>
+<td>偶尔段错误</td>
+<td>普通用户无法访问 rknn_server</td>
+<td><code>sudo</code> 运行</td>
+</tr>
+<tr>
+<td>4</td>
+<td>RGA DMA 物理地址为空</td>
+<td>Invalid argument</td>
+<td>RGA 库/驱动 ioctl 不匹配 + CMA 边界</td>
+<td>换系统 RGA 库 + 放权 dma_heap</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="第四部分永久性环境修改">第四部分：永久性环境修改
+</h1><table>
+<thead>
+<tr>
+<th>#</th>
+<th>改动</th>
+<th>路径</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>安装软件包</td>
+<td>系统 apt</td>
+<td>新增</td>
+</tr>
+<tr>
+<td>2</td>
+<td>部署 rknn_server</td>
+<td><code>/usr/bin/rknn_server</code></td>
+<td>新增文件</td>
+</tr>
+<tr>
+<td>3</td>
+<td>MPP 版本软链接</td>
+<td><code>third_party/mpp/lib/*.so.1/.so.0</code></td>
+<td>新增链接</td>
+</tr>
+<tr>
+<td>4</td>
+<td>替换 RGA 库</td>
+<td><code>third_party/rga/lib/librga.so</code></td>
+<td>覆盖文件（原文件备份）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>放权 DMA heap</td>
+<td><code>/dev/dma_heap/*</code> 权限 666</td>
+<td>临时（重启失效）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>所有改动均在项目 <code>third_party/</code> 或系统 <code>/usr/bin/</code> 下，<strong>项目源码一字未改</strong>。</p>
+</blockquote>
+
+                </div>
+            </div>
+        </article>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+</html>
