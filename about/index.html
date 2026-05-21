@@ -7,28 +7,102 @@
     <link rel="icon" href="/favicon.ico">
     <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
     
-    <link rel="stylesheet" href="/scss/custom.min.4cffc4d5550560d504ffd73a240dff9eb8a4fb06fefa1b9c675f7880b8070d62.css">
+    <link rel="stylesheet" href="/scss/custom.min.29170b40b16fbb93e1dd1978888d15690b44e947c00521c40570bb6b383ce17a.css">
 </head>
 <body class="single-body">
     <div class="home-bg"></div>
     <div class="single-container">
         <a href="javascript:history.back()" class="postlist-back"><span data-zh="← 返回" data-en="← Back"></span></a>
-
         <article class="card glass-card single-card">
             <div class="single-body-content">
                 <h1 class="single-title">关于网站</h1>
-                <div class="single-content">
-                    <div style="text-align:center;padding:60px 20px">
+                <div class="single-content" id="ttsContent"><div style="text-align:center;padding:60px 20px">
 <p>🛠️</p>
 <h3 id="正在开发中">正在开发中&hellip;
 </h3><p>这里将来会写一些关于这个网站的故事</p>
 <p>现在是空的，就像凌晨四点的马路一样安静</p>
 </div>
-
-                </div>
+</div>
             </div>
         </article>
     </div>
+
+    
+
+    <div class="tts-bar" id="ttsBar" style="padding:8px 24px">
+        <div class="tts-controls" style="justify-content:center">
+            <span style="font-size:12px;color:#aaa" data-zh="💡 点击任意单词重复朗读两遍" data-en="💡 Click any word to hear it twice"></span>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        var synth = window.speechSynthesis;
+        if (!synth) return;
+        var content = document.getElementById('ttsContent');
+
+        
+        var selectedVoice = null;
+        function loadVoices() {
+            var voices = synth.getVoices();
+            for (var i = 0; i < voices.length; i++) {
+                var n = voices[i].name.toLowerCase(), l = voices[i].lang;
+                if ((l === 'en-GB' || l === 'en-US') && n.indexOf('google') !== -1) { selectedVoice = voices[i]; return; }
+            }
+            for (var i = 0; i < voices.length; i++) {
+                if (voices[i].lang.indexOf('en') === 0) { selectedVoice = voices[i]; return; }
+            }
+        }
+        loadVoices(); synth.onvoiceschanged = loadVoices;
+
+        
+        var wordSpans = [];
+        var tw = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, null, false);
+        var textNodes = [];
+        while (tw.nextNode()) {
+            if (!tw.currentNode.parentElement.closest('pre,code,script,style,a,button,select,input'))
+                textNodes.push(tw.currentNode);
+        }
+        for (var i = 0; i < textNodes.length; i++) {
+            var text = textNodes[i].textContent;
+            var tokens = text.match(/[a-zA-Z0-9']+|[一-鿿]|[^a-zA-Z0-9'一-鿿]+/g) || [text];
+            var frag = document.createDocumentFragment();
+            for (var t = 0; t < tokens.length; t++) {
+                var span = document.createElement('span');
+                span.className = 'tts-word';
+                span.textContent = tokens[t];
+                frag.appendChild(span);
+                wordSpans.push(span);
+            }
+            textNodes[i].parentNode.replaceChild(frag, textNodes[i]);
+        }
+
+        
+        var currentWord = null;
+        content.addEventListener('click', function(e) {
+            var span = e.target.closest('.tts-word');
+            if (!span) return;
+            var word = span.textContent.trim();
+            if (!word || /^[一-鿿]+$/.test(word)) return;
+
+            synth.cancel();
+            if (currentWord) currentWord.classList.remove('tts-active');
+            currentWord = span;
+            span.classList.add('tts-active');
+
+            var count = 0;
+            function speakTwice() {
+                if (count >= 2) return;
+                var u = new SpeechSynthesisUtterance(word);
+                u.rate = 0.85; u.lang = 'en-US';
+                if (selectedVoice) u.voice = selectedVoice;
+                u.onend = function() { count++; if (count < 2) speakTwice(); };
+                synth.speak(u);
+            }
+            speakTwice();
+        });
+    })();
+    </script>
     <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
     <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
     <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
