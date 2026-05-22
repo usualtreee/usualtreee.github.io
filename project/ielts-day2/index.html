@@ -7,7 +7,7 @@
     <link rel="icon" href="/favicon.ico">
     <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
     
-    <link rel="stylesheet" href="/scss/custom.min.29170b40b16fbb93e1dd1978888d15690b44e947c00521c40570bb6b383ce17a.css">
+    <link rel="stylesheet" href="/scss/custom.min.9c6c1523640040dd59a6781ae7f930a4ac99a9086db321fe3b7ba054d57ff9ed.css">
 </head>
 <body class="single-body">
     <div class="home-bg"></div>
@@ -116,10 +116,16 @@
         var selectedVoice = null;
         function loadVoices() {
             var voices = synth.getVoices();
+            
             for (var i = 0; i < voices.length; i++) {
                 var n = voices[i].name.toLowerCase(), l = voices[i].lang;
-                if ((l === 'en-GB' || l === 'en-US') && n.indexOf('google') !== -1) { selectedVoice = voices[i]; return; }
+                if (l === 'en-GB' && n.indexOf('google') !== -1) { selectedVoice = voices[i]; return; }
             }
+            
+            for (var i = 0; i < voices.length; i++) {
+                if (voices[i].lang === 'en-GB') { selectedVoice = voices[i]; return; }
+            }
+            
             for (var i = 0; i < voices.length; i++) {
                 if (voices[i].lang.indexOf('en') === 0) { selectedVoice = voices[i]; return; }
             }
@@ -165,7 +171,7 @@
             function speakTwice() {
                 if (count >= 2) return;
                 var u = new SpeechSynthesisUtterance(word);
-                u.rate = 0.85; u.lang = 'en-US';
+                u.rate = 0.85; u.lang = 'en-GB';
                 if (selectedVoice) u.voice = selectedVoice;
                 u.onend = function() { count++; if (count < 2) speakTwice(); };
                 synth.speak(u);
