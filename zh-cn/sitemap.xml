@@ -49,9 +49,6 @@
     <loc>https://usualtreee.github.io/tags/rk3588/</loc>
     <lastmod>2026-05-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://usualtreee.github.io/project/rk3588/day2/</loc>
-    <lastmod>2026-05-25T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://usualtreee.github.io/tags/rtmp/</loc>
     <lastmod>2026-05-25T00:00:00+00:00</lastmod>
   </url><url>
@@ -67,6 +64,9 @@
                 hreflang="zh-cn"
                 href="https://usualtreee.github.io/tags/"
                 />
+  </url><url>
+    <loc>https://usualtreee.github.io/project/rk3588/day2/</loc>
+    <lastmod>2026-05-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://usualtreee.github.io/tags/english/</loc>
     <lastmod>2026-05-22T00:00:00+00:00</lastmod>

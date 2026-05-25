@@ -8,13 +8,12 @@
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
         <lastBuildDate>Mon, 25 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://usualtreee.github.io/tags/rtmp/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>RK3588 项目 — 学习路径</title>
+        <title>学习指南</title>
         <link>https://usualtreee.github.io/project/rk3588/day2/</link>
         <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
         
         <guid>https://usualtreee.github.io/project/rk3588/day2/</guid>
-        <description>&lt;h1 id=&#34;rk3588-多线程解码多模型推理-项目学习指南&#34;&gt;RK3588 多线程解码+多模型推理 项目学习指南
-&lt;/h1&gt;&lt;h1 id=&#34;第一阶段你需要什么基础&#34;&gt;第一阶段：你需要什么基础
+        <description>&lt;h1 id=&#34;第一阶段你需要什么基础&#34;&gt;第一阶段：你需要什么基础
 &lt;/h1&gt;&lt;p&gt;在打开代码之前，先把这 5 件事搞懂（每一件都不需要精通，但要知道它在干什么）：&lt;/p&gt;
 &lt;h3 id=&#34;1-c-多线程基础2-天&#34;&gt;1. C++ 多线程基础（2 天）
 &lt;/h3&gt;&lt;p&gt;你需要理解 3 个概念：&lt;/p&gt;
@@ -358,7 +357,7 @@
 </description>
         </item>
         <item>
-        <title>RK3588 多线程解码 &#43; NPU 推理 &#43; RTMP 推流</title>
+        <title>项目概况以及复现问题解决</title>
         <link>https://usualtreee.github.io/project/rk3588/</link>
         <pubDate>Tue, 19 May 2026 00:00:00 +0000</pubDate>
         
