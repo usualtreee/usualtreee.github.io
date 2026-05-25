@@ -7,7 +7,357 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Tue, 19 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://usualtreee.github.io/tags/rk3588/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 25 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://usualtreee.github.io/tags/rk3588/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>RK3588 项目 — 学习路径</title>
+        <link>https://usualtreee.github.io/project/rk3588/day2/</link>
+        <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/project/rk3588/day2/</guid>
+        <description>&lt;h1 id=&#34;rk3588-多线程解码多模型推理-项目学习指南&#34;&gt;RK3588 多线程解码+多模型推理 项目学习指南
+&lt;/h1&gt;&lt;h1 id=&#34;第一阶段你需要什么基础&#34;&gt;第一阶段：你需要什么基础
+&lt;/h1&gt;&lt;p&gt;在打开代码之前，先把这 5 件事搞懂（每一件都不需要精通，但要知道它在干什么）：&lt;/p&gt;
+&lt;h3 id=&#34;1-c-多线程基础2-天&#34;&gt;1. C++ 多线程基础（2 天）
+&lt;/h3&gt;&lt;p&gt;你需要理解 3 个概念：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;std::thread&lt;/code&gt; — 怎么开一个线程&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;std::mutex&lt;/code&gt; + &lt;code&gt;std::lock_guard&lt;/code&gt; — 多个线程抢同一个变量怎么办&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;std::condition_variable&lt;/code&gt; — 生产者通知消费者&amp;quot;有货了&amp;quot;，消费者等待&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;这个项目的核心代码就是用这三样东西写的&lt;/strong&gt;，FrameQueue、线程池、推理线程全是。&lt;/p&gt;
+&lt;h3 id=&#34;2-ffmpeg-基本概念1-天&#34;&gt;2. FFmpeg 基本概念（1 天）
+&lt;/h3&gt;&lt;p&gt;不需要会写代码，但要明白 4 个术语：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;解封装（Demux）&lt;/strong&gt; — 把 RTSP/MP4 文件拆成视频流 + 音频流&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AVPacket&lt;/strong&gt; — 一包压缩后的视频数据（H.264 的码流片）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AVFormatContext&lt;/strong&gt; — 代表&amp;quot;一个视频文件或一个流地址&amp;quot;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AVBSFContext&lt;/strong&gt; — 码流格式转换器（比如把封装格式转成纯 AnnexB 格式）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-视频编解码常识半天&#34;&gt;3. 视频编解码常识（半天）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;H.264/H.265 是什么&lt;/li&gt;
+&lt;li&gt;解码 = 压缩数据 → 原始像素（YUV/RGB）&lt;/li&gt;
+&lt;li&gt;编码 = 原始像素 → 压缩数据&lt;/li&gt;
+&lt;li&gt;关键帧（I 帧）vs 非关键帧（P/B 帧）：解码必须从 I 帧开始&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-边缘计算-npu-概念半天&#34;&gt;4. 边缘计算 NPU 概念（半天）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;CPU/GPU/NPU 的区别：NPU 是专门跑神经网络的硬件，不占 CPU&lt;/li&gt;
+&lt;li&gt;模型推理 = 输入图片 → 神经网络计算 → 输出检测框坐标 + 置信度&lt;/li&gt;
+&lt;li&gt;量化：把浮点模型（Float32）转成定点模型（INT8），牺牲一点精度换速度，RK3588 NPU 要求 INT8 格式的 .rknn 文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;5-rk3588-硬件模块认知半天&#34;&gt;5. RK3588 硬件模块认知（半天）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;MPP&lt;/strong&gt; — 瑞芯微的媒体处理框架，硬件编解码（比软解快 10 倍）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RGA&lt;/strong&gt; — 瑞芯微的图像加速模块，硬件做缩放/旋转/色彩转换（比 OpenCV 快 3-5 倍）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;RKNN&lt;/strong&gt; — 瑞芯微的 NPU 推理框架，加载 .rknn 模型文件跑推理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;第二阶段理解架构先看图再看代码&#34;&gt;第二阶段：理解架构（先看图，再看代码）
+&lt;/h1&gt;&lt;p&gt;先把代码放一边，理解数据是怎么流动的：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;┌──────────┐    AVPacket     ┌──────────┐    解码帧     ┌──────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│ FFmpeg   │ ──────────────→ │ MPP 硬解  │ ────────────→ │ FrameQueue   │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│ 拉流/拆包 │    (压缩数据)   │  H.264→YUV │  (原始像素)   │  有界阻塞队列  │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└──────────┘                └──────────┘              └──────┬───────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                                             │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                            ┌────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                            ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     ┌──────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     │ 推理线程(×4路) │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     │ 每路跑4个模型   │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     │ 提交到线程池    │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     └──────┬───────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                            │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                      ┌─────────────────────┼─────────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                      ▼                     ▼                     ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              ┌────────────┐       ┌────────────┐       ┌────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              │ RGA 前处理  │  →   │ rknn_run   │  →   │ NMS 后处理  │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              │(Resize+CSC)│       │  NPU推理    │       │ 框过滤+坐标 │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              └────────────┘       └────────────┘       └──────┬─────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                                                │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                              ┌─────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                              ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     ┌──────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     │ DetectionFusion  │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     │ IoU/IoM 多模型融合│
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                     └────────┬─────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                              │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                          ┌───────────────────┼───────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                          ▼                   ▼                   ▼
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  │ 4路画面 2×2  │    │ MPP 硬编 H.264│    │ GB28181      │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  │ 拼接 + OSD   │ →  │ → RTMP/RTSP   │    │ SIP+PS+RTP   │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                  └──────────────┘    └──────────────┘    └──────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;一句话总结&lt;/strong&gt;：FFmpeg 拉流拆包 → MPP 硬解成像素 → 线程池并行跑 4 个 AI 模型（RGA 加速预处理 + NPU 推理 + NMS 后处理）→ 融合多模型结果 → 画面拼接 + 硬编码 → 多协议推流出去。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;第三阶段编译流程先跑起来再说&#34;&gt;第三阶段：编译流程（先跑起来再说）
+&lt;/h1&gt;&lt;h3 id=&#34;目录结构&#34;&gt;目录结构
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;demo_multhread_decode_infer_mulmodel&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cpp&lt;/span&gt;              &lt;span class=&#34;c1&#34;&gt;# 程序入口，管线编排&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CMakeLists&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;txt&lt;/span&gt;         &lt;span class=&#34;c1&#34;&gt;# 构建配置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sh&lt;/span&gt;               &lt;span class=&#34;c1&#34;&gt;# 一键编译脚本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;include&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;               &lt;span class=&#34;c1&#34;&gt;# 所有头文件（类定义都在这里）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rknnPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hpp&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;# ★ RKNN 推理封装（核心）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stream_loader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;# ★ 拉流+解码管理&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;detection_fusion_manager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 检测融合&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;streaming_manager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;# 推流管理&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mpp_decoder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;# MPP 硬解封装&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mpp_encoder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;# MPP 硬编封装&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ThreadPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hpp&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;# 线程池&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;frame_queue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;# 线程安全队列&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;memory_pool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hpp&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;# 内存池&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;performance_monitor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hpp&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;# 性能监控&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rga_func&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;         &lt;span class=&#34;c1&#34;&gt;# RGA 硬件加速接口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;             &lt;span class=&#34;c1&#34;&gt;# GB28181 推流接口&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;   &lt;span class=&#34;err&#34;&gt;└──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;postprocess&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;# 后处理(NMS)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lib&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;                   &lt;span class=&#34;c1&#34;&gt;# 各 .cc 实现文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;├──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;third_party&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;           &lt;span class=&#34;c1&#34;&gt;# 预编译的三方库&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;└──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;                 &lt;span class=&#34;c1&#34;&gt;# 编译输出&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;编译需要哪些库&#34;&gt;编译需要哪些库
+&lt;/h3&gt;&lt;p&gt;编译这个项目需要在 RK3588 板子上准备好 6 个库：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;库&lt;/th&gt;
+&lt;th&gt;作用&lt;/th&gt;
+&lt;th&gt;对应路径&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;RKNN&lt;/td&gt;
+&lt;td&gt;NPU 推理运行时&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;third_party/rknn/&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MPP&lt;/td&gt;
+&lt;td&gt;硬件编解码&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;third_party/mpp/&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;RGA&lt;/td&gt;
+&lt;td&gt;硬件图像加速&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;third_party/rga/&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;FFmpeg&lt;/td&gt;
+&lt;td&gt;拉流/推流/拆包&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;third_party/ffmpeg-lite/&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;OpenCV&lt;/td&gt;
+&lt;td&gt;图像数据结构 + fallback&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;third_party/opencv4-1/&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;eXosip2/osip2&lt;/td&gt;
+&lt;td&gt;GB28181 SIP 信令（可选）&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;third_party/gb28181/&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;编译命令&#34;&gt;编译命令
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 最简单：一键编译&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./build.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 带 GB28181 支持&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;ENABLE_GB28181&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;ON ./build.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 指定自定义库路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;RKNN_API_PATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/opt/rknn &lt;span class=&#34;nv&#34;&gt;MPP_PATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/opt/mpp ./build.sh
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;编译完成后可执行文件在 &lt;code&gt;build/myDemo&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;运行&#34;&gt;运行
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 4 路本地文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./build/myDemo &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; assets/videos/1.mp4 assets/videos/2.mp4 assets/videos/3.mp4 assets/videos/4.mp4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 带 RTMP 推流&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;MYDEMO_RTMP_URL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;rtmp://192.168.1.100/live/stream ./build/myDemo &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; a.mp4 b.mp4 c.mp4 d.mp4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 开启 GB28181&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;MYDEMO_ENABLE_GB28181&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; ./build/myDemo &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt; a.mp4 b.mp4 c.mp4 d.mp4
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h1 id=&#34;第四阶段按依赖关系读源码从底到顶&#34;&gt;第四阶段：按依赖关系读源码（从底到顶）
+&lt;/h1&gt;&lt;p&gt;不要从 &lt;code&gt;main.cpp&lt;/code&gt; 开始看！按下面这个顺序，每一步都只需要理解上一个步骤的内容：&lt;/p&gt;
+&lt;h3 id=&#34;第-1-步线程安全队列-frame_queueh20-分钟&#34;&gt;第 1 步：线程安全队列 &lt;code&gt;frame_queue.h&lt;/code&gt;（20 分钟）
+&lt;/h3&gt;&lt;p&gt;这是整个项目最底层的轮子。只看 3 个方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;push()&lt;/code&gt; — 生产者放数据，队列满了就阻塞等待&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;wait_and_pop()&lt;/code&gt; — 消费者取数据，队列空了就阻塞等待&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;shutdown()&lt;/code&gt; — 通知所有人下班&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;验收&lt;/strong&gt;：能画出 push 和 wait_and_pop 的互斥流程图。&lt;/p&gt;
+&lt;h3 id=&#34;第-2-步线程池-threadpoolhpp30-分钟&#34;&gt;第 2 步：线程池 &lt;code&gt;ThreadPool.hpp&lt;/code&gt;（30 分钟）
+&lt;/h3&gt;&lt;p&gt;只看 &lt;code&gt;submit()&lt;/code&gt; 和 &lt;code&gt;worker()&lt;/code&gt; 两个方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;submit()&lt;/code&gt; — 把任务打包 + 放进队列 + 通知工作线程&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;worker()&lt;/code&gt; — 死循环等任务 → 取任务 → 执行 → 如果 2 秒没活就退出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;验收&lt;/strong&gt;：能说清楚一个任务从 submit 到执行完的完整路径。&lt;/p&gt;
+&lt;h3 id=&#34;第-3-步性能监控-performance_monitorhpp5-分钟&#34;&gt;第 3 步：性能监控 &lt;code&gt;performance_monitor.hpp&lt;/code&gt;（5 分钟）
+&lt;/h3&gt;&lt;p&gt;就是 start/end 记录耗时，最后 printStats 打平均值。纯工具类。&lt;/p&gt;
+&lt;h3 id=&#34;第-4-步mpp-硬解码-mpp_decoderh40-分钟&#34;&gt;第 4 步：MPP 硬解码 &lt;code&gt;mpp_decoder.h&lt;/code&gt;（40 分钟）
+&lt;/h3&gt;&lt;p&gt;这是 RGB→YUV 领域的核心。理解：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Init()&lt;/code&gt; — 初始化 MPP 解码器，指定 H.264/H.265 类型&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Decode()&lt;/code&gt; — 喂一包压缩数据（AVPacket），MPP 内部解码后回调通知&lt;/li&gt;
+&lt;li&gt;回调机制：解码完成 → 调用外部注册的函数，把帧数据传出去&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;验收&lt;/strong&gt;：能说清楚&amp;quot;一个 AVPacket 怎么变成一个解码后的帧&amp;quot;。&lt;/p&gt;
+&lt;h3 id=&#34;第-5-步拉流封装-stream_loaderh40-分钟&#34;&gt;第 5 步：拉流封装 &lt;code&gt;stream_loader.h&lt;/code&gt;（40 分钟）
+&lt;/h3&gt;&lt;p&gt;把 FFmpeg 拉流和 MPP 解码串起来：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;open()&lt;/code&gt; — FFmpeg 打开 RTSP/MP4，找到视频流索引，初始化 MPP 解码器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;read_frame()&lt;/code&gt; — FFmpeg &lt;code&gt;av_read_frame()&lt;/code&gt; 读一包 → 塞进 MPP 解码器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;operator()()&lt;/code&gt; — 死循环 read_frame，实现持续解码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;验收&lt;/strong&gt;：能画出一路流的完整数据管道。&lt;/p&gt;
+&lt;h3 id=&#34;第-6-步rknn-推理封装-rknnpoolhpp1-小时&#34;&gt;第 6 步：RKNN 推理封装 &lt;code&gt;rknnPool.hpp&lt;/code&gt;（1 小时）
+&lt;/h3&gt;&lt;p&gt;这是核心中的核心：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;构造函数：加载 .rknn 模型文件 → &lt;code&gt;rknn_init()&lt;/code&gt; 初始化 → &lt;code&gt;rknn_set_core_mask()&lt;/code&gt; 绑 NPU 核心 → 查询输入输出属性&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;interf()&lt;/code&gt;：完整推理管线
+&lt;ol&gt;
+&lt;li&gt;RGA 硬件 Resize + BGR→RGB（带 OpenCV fallback）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rknn_inputs_set()&lt;/code&gt; 喂数据&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rknn_run()&lt;/code&gt; 跑推理&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rknn_outputs_get()&lt;/code&gt; 取结果&lt;/li&gt;
+&lt;li&gt;后处理 NMS + 坐标反算&lt;/li&gt;
+&lt;li&gt;在图上画框&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;验收&lt;/strong&gt;：能说清楚 interf() 里的 6 个步骤和每一步用了什么硬件。&lt;/p&gt;
+&lt;h3 id=&#34;第-7-步多模型融合-detection_fusion_managerh30-分钟&#34;&gt;第 7 步：多模型融合 &lt;code&gt;detection_fusion_manager.h&lt;/code&gt;（30 分钟）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;fuseDetections()&lt;/code&gt; — 把 4 个模型的检测结果融合成 1 份，IoU 去重 + IoM 处理嵌套&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;drawFusedDetections()&lt;/code&gt; — 在图上画出融合后的框&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;第-8-步推流管理-streaming_managerh30-分钟&#34;&gt;第 8 步：推流管理 &lt;code&gt;streaming_manager.h&lt;/code&gt;（30 分钟）
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;生产者-消费者：合成线程往里塞帧，推流线程往外掏 → MPP 编码 → FFmpeg 封包发送&lt;/li&gt;
+&lt;li&gt;支持 RTMP 和 RTSP 两种输出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;第-9-步入口-maincpp30-分钟&#34;&gt;第 9 步：入口 &lt;code&gt;main.cpp&lt;/code&gt;（30 分钟）
+&lt;/h3&gt;&lt;p&gt;现在才看 main.cpp，你会觉得一目了然：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;解析命令行参数（几路流、流地址）&lt;/li&gt;
+&lt;li&gt;初始化模型路径 + 推流配置&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;核心循环&lt;/strong&gt;：给每路流创建解码线程 + 4 个模型推理线程 → 提交到线程池&lt;/li&gt;
+&lt;li&gt;combineImage 线程：4 路画面合成 2×2 → 推流&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;学习路线总结&#34;&gt;学习路线总结
+&lt;/h1&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;frame_queue&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;──→&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ThreadPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hpp&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;──→&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mpp_decoder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;──→&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stream_loader&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                                              &lt;span class=&#34;err&#34;&gt;│&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                                              &lt;span class=&#34;err&#34;&gt;▼&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cpp&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;←──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;streaming_manager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;←──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;detection_fusion_manager&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;h&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;←──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rknnPool&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hpp&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;建议节奏&lt;/strong&gt;：每天看 2 步，5 天看完。每步看完后自己画一张流程图，画不出来就说明没真懂。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>RK3588 多线程解码 &#43; NPU 推理 &#43; RTMP 推流</title>
         <link>https://usualtreee.github.io/project/rk3588/</link>
         <pubDate>Tue, 19 May 2026 00:00:00 +0000</pubDate>
