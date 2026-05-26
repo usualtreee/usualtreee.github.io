@@ -7,7 +7,638 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Mon, 25 May 2026 09:00:55 +0800</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 26 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://usualtreee.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>学习总结 - Day 1</title>
+        <link>https://usualtreee.github.io/project/rk3588/study-day1/</link>
+        <pubDate>Tue, 26 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/project/rk3588/study-day1/</guid>
+        <description>&lt;h2 id=&#34;一核心概念扫盲&#34;&gt;一、核心概念扫盲
+&lt;/h2&gt;&lt;h3 id=&#34;1-h--so--cpp-的关系&#34;&gt;1. .h / .so / .cpp 的关系
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;.h（头文件）     →  函数声明，告诉编译器&amp;#34;有这个函数&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;.cpp/.cc（源文件）→  函数实现，具体代码
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;.so（动态库）    →  .cpp 提前编译好的二进制，运行时加载
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;.h&lt;/th&gt;
+&lt;th&gt;.cpp&lt;/th&gt;
+&lt;th&gt;.so&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;谁写&lt;/td&gt;
+&lt;td&gt;库作者&lt;/td&gt;
+&lt;td&gt;库作者&lt;/td&gt;
+&lt;td&gt;库作者编译产出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;你需要干嘛&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;#include&lt;/code&gt; 进来&lt;/td&gt;
+&lt;td&gt;跟项目一起编译，或拿 .so 代替&lt;/td&gt;
+&lt;td&gt;运行时加载&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;编译时需要&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;是（或 .so）&lt;/td&gt;
+&lt;td&gt;链接时需要&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;一句话&lt;/strong&gt;：&lt;code&gt;.h&lt;/code&gt; 是菜单，&lt;code&gt;.so&lt;/code&gt; 是后厨。你拿着菜单点菜（编译），后厨负责做（运行），缺一个都吃不上饭。&lt;/p&gt;
+&lt;h3 id=&#34;2-编译-vs-链接&#34;&gt;2. 编译 vs 链接
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;编译：.cpp → .o（目标文件）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;链接：.o + .so → 可执行文件
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;3-静态库-vs-动态库&#34;&gt;3. 静态库 vs 动态库
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;静态库 &lt;code&gt;.a&lt;/code&gt;&lt;/th&gt;
+&lt;th&gt;动态库 &lt;code&gt;.so&lt;/code&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;链接时机&lt;/td&gt;
+&lt;td&gt;编译时塞进可执行文件&lt;/td&gt;
+&lt;td&gt;运行时临时加载&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;可执行文件大小&lt;/td&gt;
+&lt;td&gt;大&lt;/td&gt;
+&lt;td&gt;小&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;升级库&lt;/td&gt;
+&lt;td&gt;要重新编译&lt;/td&gt;
+&lt;td&gt;替换 .so 就行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;4-h-vs-hpp--cpp-vs-cc&#34;&gt;4. .h vs .hpp / .cpp vs .cc
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.hpp&lt;/code&gt; = 纯 C++ 头文件（有 class/template），&lt;code&gt;.h&lt;/code&gt; = C/C++ 通用&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.cc&lt;/code&gt; = &lt;code&gt;.cpp&lt;/code&gt;，同一个东西，Google 代码规范喜欢用 &lt;code&gt;.cc&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;5-编译命令参数&#34;&gt;5. 编译命令参数
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;g++ main.cpp -I/opt/rknn/include -L/opt/rknn/lib -lrknn_api -o &lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;-I&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;头文件搜索路径（找 .h）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;-L&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;库搜索路径（找 .so 的目录）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;-l&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;链接哪个库（找 lib + 名字 + .so）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;-o&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;输出文件名&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;二两套-mpp-库冲突问题&#34;&gt;二、两套 MPP 库冲突问题
+&lt;/h2&gt;&lt;h3 id=&#34;soname-机制&#34;&gt;SONAME 机制
+&lt;/h3&gt;&lt;p&gt;每个 &lt;code&gt;.so&lt;/code&gt; 内部有 SONAME 字段：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;编译时：链接器读到 SONAME = librockchip_mpp.so.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        → 写进可执行文件：&amp;#34;我需要 librockchip_mpp.so.1&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;运行时：系统按 SONAME 找文件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        → 找不到 .so.1 → 退到 /usr/lib/ 找
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        → 找到系统旧版 → 版本不匹配 → 段错误
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;你的板子有两套&#34;&gt;你的板子有两套
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;third_party/mpp/lib/librockchip_mpp.so  ← SDK 新版（跟项目匹配）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/usr/lib/.../librockchip_mpp.so.1       ← 系统旧版（刷固件时自带的）
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;程序优先找 &lt;code&gt;.so.1&lt;/code&gt;，在 third_party 里找不到，落到系统路径 → 加载旧版 → 崩。&lt;/p&gt;
+&lt;h3 id=&#34;解决&#34;&gt;解决
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; third_party/mpp/lib
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ln -sf librockchip_mpp.so librockchip_mpp.so.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ln -sf librockchip_mpp.so librockchip_mpp.so.0
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;创建软链接，让程序找 &lt;code&gt;.so.1&lt;/code&gt; 时自动指向正确的 &lt;code&gt;.so&lt;/code&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;三rk3588-npu-工作机制&#34;&gt;三、RK3588 NPU 工作机制
+&lt;/h2&gt;&lt;h3 id=&#34;npu-需要-rknn_server-后台服务&#34;&gt;NPU 需要 rknn_server 后台服务
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;程序 → librknnrt.so → rknn_server（常驻进程）→ /dev/rknpu → NPU 硬件
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;rknn_server&lt;/code&gt; 是用户态后台服务，负责统一调度多程序对 NPU 的访问。不启动 = 段错误。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo cp third_party/rknn/bin/rknn_server /usr/bin/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo rknn_server &lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;rk3588-npu-架构&#34;&gt;RK3588 NPU 架构
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;3 个 NPU 核心（Core 0/1/2），每个 2 TOPs&lt;/li&gt;
+&lt;li&gt;本项目：人员检测 → Core 0，安全帽 → Core 1，打电话 → Core 2&lt;/li&gt;
+&lt;li&gt;同一帧 3 个模型真正并行（3 核同时算）&lt;/li&gt;
+&lt;li&gt;4 路流同类模型排队串行（时分复用同一个核）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;多核绑定方式&#34;&gt;多核绑定方式
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;rknn_set_core_mask&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rkModel&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;RKNN_NPU_CORE_0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// 绑到 Core 0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;四rga-硬件加速与-fallback&#34;&gt;四、RGA 硬件加速与 fallback
+&lt;/h2&gt;&lt;h3 id=&#34;rga-为什么需要物理地址&#34;&gt;RGA 为什么需要物理地址
+&lt;/h3&gt;&lt;p&gt;CPU 用虚拟地址，MMU 自动翻译。RGA 是硬件模块，不经过 MMU，必须拿物理地址。&lt;/p&gt;
+&lt;p&gt;物理地址 = 0 → 分配 DMA buffer 失败 → Invalid argument。&lt;/p&gt;
+&lt;h3 id=&#34;问题原因&#34;&gt;问题原因
+&lt;/h3&gt;&lt;p&gt;SDK 自带的 RGA 库跟板子内核驱动 ioctl 接口版本不匹配。&lt;/p&gt;
+&lt;h3 id=&#34;解决-1&#34;&gt;解决
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 换系统自带的 RGA 库（跟内核一起编译的，版本匹配）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mv third_party/rga/lib/librga.so third_party/rga/lib/librga.so.bak
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp /usr/lib/aarch64-linux-gnu/librga.so.2.1.0 third_party/rga/lib/librga.so
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 放权 DMA heap 设备&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod &lt;span class=&#34;m&#34;&gt;666&lt;/span&gt; /dev/dma_heap/*
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;为什么不换也能跑&#34;&gt;为什么不换也能跑
+&lt;/h3&gt;&lt;p&gt;代码里有 fallback：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rga_done&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;cv&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cvtColor&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ori_img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;COLOR_BGR2RGB&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// CPU 替代
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;cv&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;resize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;img&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cv&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Size&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;height&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;RGA 是加速手段，不是必须路径。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;五项目目录结构理解&#34;&gt;五、项目目录结构理解
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;demo_multhread_decode_infer_mulmodel/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── main.cpp              ← 主入口，管线编排
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── CMakeLists.txt         ← 构建配置（学习阶段复制粘贴就行）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── build.sh               ← 一键编译（永远那两行命令）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── run_demo.sh            ← 本地运行（RTMP 推流）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── run_streams.sh         ← 推流运行（可控 RTMP/RTSP/GB28181 开关）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── include/               ← 项目自己的头文件（.h/.hpp，函数声明）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── lib/                   ← 项目自己的源文件（.cpp/.cc，函数实现）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── third_party/           ← 第三方预编译库（.h + .so）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── rknn/              ← NPU 推理运行时
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── mpp/               ← 硬件编解码
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── rga/               ← 硬件图像加速
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── ffmpeg-lite/       ← 拉流推流
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── opencv4-1/         ← 图像处理 + fallback
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   └── gb28181/           ← 国标协议栈
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── assets/                ← 运行时数据
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── models/            ← .rknn 模型文件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   └── videos/            ← 测试用 MP4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└── build/                 ← 编译产物
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    └── myDemo             ← 最终可执行文件（唯一需要关心的）
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;include-vs-lib-vs-third_party&#34;&gt;include/ vs lib/ vs third_party/
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;include/ + lib/&lt;/th&gt;
+&lt;th&gt;third_party/&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;谁写的&lt;/td&gt;
+&lt;td&gt;项目作者&lt;/td&gt;
+&lt;td&gt;瑞芯微/FFmpeg/OpenCV&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;文件&lt;/td&gt;
+&lt;td&gt;.h + .cpp（源码）&lt;/td&gt;
+&lt;td&gt;.h + .so（已编译）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;需要编译吗&lt;/td&gt;
+&lt;td&gt;需要&lt;/td&gt;
+&lt;td&gt;不需要，直接链接&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;六四个部署踩坑总结&#34;&gt;六、四个部署踩坑总结
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;#&lt;/th&gt;
+&lt;th&gt;问题&lt;/th&gt;
+&lt;th&gt;现象&lt;/th&gt;
+&lt;th&gt;根因&lt;/th&gt;
+&lt;th&gt;解决&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;rknn_server 未启动&lt;/td&gt;
+&lt;td&gt;段错误&lt;/td&gt;
+&lt;td&gt;NPU 用户态服务缺失&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;sudo rknn_server &amp;amp;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;MPP .so 版本后缀缺失&lt;/td&gt;
+&lt;td&gt;段错误&lt;/td&gt;
+&lt;td&gt;SONAME 跟文件名不匹配&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ln -sf&lt;/code&gt; 补软链接&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;权限问题&lt;/td&gt;
+&lt;td&gt;偶尔段错误&lt;/td&gt;
+&lt;td&gt;普通用户不能访问 NPU 设备&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;sudo&lt;/code&gt; 运行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;RGA DMA 物理地址为空&lt;/td&gt;
+&lt;td&gt;Invalid argument&lt;/td&gt;
+&lt;td&gt;RGA 库/驱动版本不匹配&lt;/td&gt;
+&lt;td&gt;换系统 RGA 库 + chmod&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;七cmakeliststxt-学习阶段态度&#34;&gt;七、CMakeLists.txt 学习阶段态度
+&lt;/h2&gt;&lt;p&gt;学习阶段不需要学 CMake，只需要知道这 4 行语法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmake&#34; data-lang=&#34;cmake&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;include_directories&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;        &lt;span class=&#34;c&#34;&gt;# 加头文件路径
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;add_executable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;demo&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;main.cpp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;   &lt;span class=&#34;c&#34;&gt;# 加源文件
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;target_link_libraries&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;demo&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# 链接 .so
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;CMAKE_CXX_STANDARD&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;      &lt;span class=&#34;c&#34;&gt;# 设 C++ 标准
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这个项目 CMakeLists.txt 300+ 行是因为做了路径自动发现 + 条件编译 + 兼容性检查，是给多环境分享用的。你自己写 demo 只需要 25 行。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;八关键技术知识点索引&#34;&gt;八、关键技术知识点索引
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;概念&lt;/th&gt;
+&lt;th&gt;一句话解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;.rknn 文件&lt;/td&gt;
+&lt;td&gt;架构+权重+量化参数 三合一，&lt;code&gt;rknn_init()&lt;/code&gt; 一次全解析&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;量化（PTQ/QAT）&lt;/td&gt;
+&lt;td&gt;PTQ = 训练后量化，部署工程师必须会；QAT = 训练中量化，算法工程师的事&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;FrameQueue&lt;/td&gt;
+&lt;td&gt;有界阻塞队列，生产者-消费者模式，自动背压&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;RGA fallback&lt;/td&gt;
+&lt;td&gt;RGA 失败 → OpenCV CPU 处理 → 慢但能用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;跳帧推理&lt;/td&gt;
+&lt;td&gt;每 2 帧推理 1 次，另一帧复用结果重绘，缓解 NPU 压力&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;融合&lt;/td&gt;
+&lt;td&gt;IoU（去重）+ IoM（嵌套）+ 加权置信度&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;RPATH&lt;/td&gt;
+&lt;td&gt;编译时写进程序的 .so 搜索路径&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LD_LIBRARY_PATH&lt;/td&gt;
+&lt;td&gt;运行时临时指定 .so 搜索路径&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;-kimi总结&#34;&gt;📋 kimi总结
+&lt;/h2&gt;&lt;h3 id=&#34;一简历致命问题&#34;&gt;一、简历致命问题
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;求职意向&amp;quot;xxx&amp;quot; → 必须填具体岗位或删除&lt;/li&gt;
+&lt;li&gt;RK3588 NPU只有3核（不是4核）→ 4模型需&amp;quot;核心绑定+分时复用&amp;quot;&lt;/li&gt;
+&lt;li&gt;缺少量化指标：必须补充FPS/ms/mW/MB等数字&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;自研8线程池&amp;rdquo; → 面试必被追问调度策略/拒绝策略&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;STOP模式~1mA&amp;rdquo; → 必须说明测量条件（BLE广播间隔）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;二c多线程三件套&#34;&gt;二、C++多线程三件套
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;【std::thread】&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;std::thread t1(func);   // 创建对象，传入函数
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;t1.join();              // 主线程等子线程结束
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;t1.detach();            // 子线程独立运行（守护线程）
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;【std::mutex + std::lock_guard】&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;std::mutex 是类（互斥锁本体）&lt;/li&gt;
+&lt;li&gt;std::lock_guard 是类模板实例化出的对象&lt;/li&gt;
+&lt;li&gt;RAII：构造时lock()，析构时自动unlock()，防止死锁&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;【std::condition_variable】&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;类，对象调用wait()/notify_one()&lt;/li&gt;
+&lt;li&gt;必须用std::unique_lock（支持中途解锁），不能用lock_guard&lt;/li&gt;
+&lt;li&gt;wait(lock, lambda)：lambda返回true才真正醒来，防虚假唤醒&lt;/li&gt;
+&lt;li&gt;有界阻塞队列 = mutex + condition_variable(not_full/not_empty) + while循环&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;【Lambda [this]】&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;匿名函数，[this]捕获列表表示&amp;quot;把当前对象抓进来，能用成员变量&amp;quot;&lt;/li&gt;
+&lt;li&gt;传给wait()作为&amp;quot;醒来条件判断函数&amp;quot;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;三ffmpeg四大术语&#34;&gt;三、FFmpeg四大术语
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;术语&lt;/th&gt;
+&lt;th&gt;一句话解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Demux&lt;/td&gt;
+&lt;td&gt;操作（不是类）：拆封装，把MP4/RTSP拆成视频+音频流&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;AVFormatContext&lt;/td&gt;
+&lt;td&gt;结构体（类）：记录流信息/格式/时长&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;AVPacket&lt;/td&gt;
+&lt;td&gt;结构体（类）：一包压缩后的视频碎片（H.264码流片段）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;AVBSFContext&lt;/td&gt;
+&lt;td&gt;结构体（类）：码流格式转换器（AVCC → AnnexB）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;关键代码流：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;AVFormatContext&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fmt_ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;avformat_open_input&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fmt_ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;rtsp://...&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;AVPacket&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;packet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;av_read_frame&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fmt_ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;packet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;AVBitStreamFilter&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bsf&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;av_bsf_get_by_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;h264_mp4toannexb&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;AVBSFContext&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bsf_ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;av_bsf_alloc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bsf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bsf_ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;av_bsf_send_packet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bsf_ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;packet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;av_bsf_receive_packet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bsf_ctx&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_pkt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;四视频编解码常识&#34;&gt;四、视频编解码常识
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;H.264/H.265：视频压缩标准；H.265同画质省50%带宽，解码更累&lt;/li&gt;
+&lt;li&gt;解码 = 压缩数据→原始像素（YUV）；编码 = 原始像素→压缩数据&lt;/li&gt;
+&lt;li&gt;I帧：完整图像，不依赖任何帧&lt;/li&gt;
+&lt;li&gt;P帧：依赖前面帧；B帧：依赖前后帧&lt;/li&gt;
+&lt;li&gt;解码必须从I帧开始，否则残差帧无参考基准会花屏&lt;/li&gt;
+&lt;li&gt;直播推流通常关闭B帧（增加延迟），GOP设15~30&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;五嵌入式ai核心八股&#34;&gt;五、嵌入式/AI核心八股
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;【DMA vs MMU】&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;DMA&lt;/th&gt;
+&lt;th&gt;MMU&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;干啥的&lt;/td&gt;
+&lt;td&gt;硬件搬运数据（不经CPU）&lt;/td&gt;
+&lt;td&gt;CPU虚拟地址→物理地址翻译&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;为谁服务&lt;/td&gt;
+&lt;td&gt;外设（RGA/NPU/解码器）&lt;/td&gt;
+&lt;td&gt;CPU&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;地址&lt;/td&gt;
+&lt;td&gt;只认物理地址&lt;/td&gt;
+&lt;td&gt;处理虚拟地址&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;RK3588&lt;/td&gt;
+&lt;td&gt;两者都有&lt;/td&gt;
+&lt;td&gt;两者都有&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;STM32F411&lt;/td&gt;
+&lt;td&gt;有DMA&lt;/td&gt;
+&lt;td&gt;无MMU，只有MPU&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Cache一致性：CPU写Cache后DMA读DDR可能读到旧值 → 用dma_alloc_coherent()分配非缓存内存，或手动sync&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;【PTQ（训练后量化）】&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只做一次：FP32模型→校准集统计→生成INT8 .rknn文件&lt;/li&gt;
+&lt;li&gt;推理时每帧实时查预存Scale/Zero-Point，PTQ本身不重复做&lt;/li&gt;
+&lt;li&gt;不能再二次量化INT8→INT4；精度不够时回退FP16或混合精度&lt;/li&gt;
+&lt;li&gt;对称量化（ZP=0，适合权重）vs 非对称量化（ZP偏移，适合ReLU激活值）&lt;/li&gt;
+&lt;li&gt;Per-Tensor（整个层一个Scale）vs Per-Channel（每通道独立Scale，精度更高）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;【RGA】&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;硬件版OpenCV imgproc：只做resize、旋转、格式转换、裁剪&lt;/li&gt;
+&lt;li&gt;不是完整OpenCV，不支持滤波/神经网络/绘图/读文件&lt;/li&gt;
+&lt;li&gt;调用方式：填结构体(rga_info_t)→发命令→硬件异步执行→CPU零占用&lt;/li&gt;
+&lt;li&gt;必须用dmabuf fd + 物理连续内存，不能用cv::Mat虚拟地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;【NMS / 多模型融合】&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;NMS：同一模型内去重，IoU&amp;gt;阈值只留置信度最高的框&lt;/li&gt;
+&lt;li&gt;IoU = 交集/并集；IoM = 交集/最小框面积（处理人帽嵌套）&lt;/li&gt;
+&lt;li&gt;多模型融合：跨模型IoU去重 + IoM处理嵌套 + 加权置信度融合（按mAP分配权重）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;六为什么生产部署用c而不是python&#34;&gt;六、为什么生产部署用C++而不是Python？
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;RKNN/MPP/RGA板端API只有C/C++，Python绑定性能差、延迟高&lt;/li&gt;
+&lt;li&gt;视频硬解码（MPP）无Python接口，必须C/C++&lt;/li&gt;
+&lt;li&gt;Python GIL假并行，实时视频帧率上不去&lt;/li&gt;
+&lt;li&gt;C++编译后单二进制，启动快、内存小&lt;/li&gt;
+&lt;li&gt;Python仅用于：PC端训练（PyTorch）、模型转换（RKNN-Toolkit2）、精度验证&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;七今日最高频面试必死题&#34;&gt;七、今日最高频面试必死题
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;RK3588 NPU只有3核，4模型怎么调度？（分时复用）&lt;/li&gt;
+&lt;li&gt;跳帧推理精度损失怎么补偿？（检测-跟踪分离/SORT/mAP数据）&lt;/li&gt;
+&lt;li&gt;RGA DMA32对齐具体含义？（stride必须是32字节倍数）&lt;/li&gt;
+&lt;li&gt;STOP模式1mA怎么测、正常吗？（看条件，BLE广播下正常）&lt;/li&gt;
+&lt;li&gt;std::lock_guard的RAII机制是什么？（构造加锁，析构解锁）&lt;/li&gt;
+&lt;li&gt;condition_variable为什么用unique_lock不用lock_guard？（wait()需要中途解锁）&lt;/li&gt;
+&lt;li&gt;FFmpeg Demux后AVPacket是什么？（一包压缩碎片，不是图像）&lt;/li&gt;
+&lt;li&gt;PTQ校准集怎么选？（100~500张，覆盖场景，与测试集不重叠）&lt;/li&gt;
+&lt;li&gt;DMA和MMU区别？（搬运工vs翻译官）&lt;/li&gt;
+&lt;li&gt;为什么嵌入式用C++？（API限制+性能+实时性）&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
         <title>[自学]2026-05-25 </title>
         <link>https://usualtreee.github.io/p/%E8%87%AA%E5%AD%A62026-05-25/</link>
         <pubDate>Mon, 25 May 2026 09:00:55 +0800</pubDate>
@@ -34,37 +665,37 @@
         <guid>https://usualtreee.github.io/project/rk3588/day2/</guid>
         <description>&lt;h1 id=&#34;第一阶段你需要什么基础&#34;&gt;第一阶段：你需要什么基础
 &lt;/h1&gt;&lt;p&gt;在打开代码之前，先把这 5 件事搞懂（每一件都不需要精通，但要知道它在干什么）：&lt;/p&gt;
-&lt;h3 id=&#34;1-c-多线程基础2-天&#34;&gt;1. C++ 多线程基础（2 天）
-&lt;/h3&gt;&lt;p&gt;你需要理解 3 个概念：&lt;/p&gt;
+&lt;h2 id=&#34;1-c-多线程基础2-天&#34;&gt;1. C++ 多线程基础（2 天）
+&lt;/h2&gt;&lt;p&gt;你需要理解 3 个概念：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;std::thread&lt;/code&gt; — 怎么开一个线程&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;std::mutex&lt;/code&gt; + &lt;code&gt;std::lock_guard&lt;/code&gt; — 多个线程抢同一个变量怎么办&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;std::condition_variable&lt;/code&gt; — 生产者通知消费者&amp;quot;有货了&amp;quot;，消费者等待&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;这个项目的核心代码就是用这三样东西写的&lt;/strong&gt;，FrameQueue、线程池、推理线程全是。&lt;/p&gt;
-&lt;h3 id=&#34;2-ffmpeg-基本概念1-天&#34;&gt;2. FFmpeg 基本概念（1 天）
-&lt;/h3&gt;&lt;p&gt;不需要会写代码，但要明白 4 个术语：&lt;/p&gt;
+&lt;h2 id=&#34;2-ffmpeg-基本概念1-天&#34;&gt;2. FFmpeg 基本概念（1 天）
+&lt;/h2&gt;&lt;p&gt;不需要会写代码，但要明白 4 个术语：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;解封装（Demux）&lt;/strong&gt; — 把 RTSP/MP4 文件拆成视频流 + 音频流&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;AVPacket&lt;/strong&gt; — 一包压缩后的视频数据（H.264 的码流片）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;AVFormatContext&lt;/strong&gt; — 代表&amp;quot;一个视频文件或一个流地址&amp;quot;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;AVBSFContext&lt;/strong&gt; — 码流格式转换器（比如把封装格式转成纯 AnnexB 格式）&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;3-视频编解码常识半天&#34;&gt;3. 视频编解码常识（半天）
-&lt;/h3&gt;&lt;ul&gt;
+&lt;h2 id=&#34;3-视频编解码常识半天&#34;&gt;3. 视频编解码常识（半天）
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;H.264/H.265 是什么&lt;/li&gt;
 &lt;li&gt;解码 = 压缩数据 → 原始像素（YUV/RGB）&lt;/li&gt;
 &lt;li&gt;编码 = 原始像素 → 压缩数据&lt;/li&gt;
 &lt;li&gt;关键帧（I 帧）vs 非关键帧（P/B 帧）：解码必须从 I 帧开始&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;4-边缘计算-npu-概念半天&#34;&gt;4. 边缘计算 NPU 概念（半天）
-&lt;/h3&gt;&lt;ul&gt;
+&lt;h2 id=&#34;4-边缘计算-npu-概念半天&#34;&gt;4. 边缘计算 NPU 概念（半天）
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;CPU/GPU/NPU 的区别：NPU 是专门跑神经网络的硬件，不占 CPU&lt;/li&gt;
 &lt;li&gt;模型推理 = 输入图片 → 神经网络计算 → 输出检测框坐标 + 置信度&lt;/li&gt;
 &lt;li&gt;量化：把浮点模型（Float32）转成定点模型（INT8），牺牲一点精度换速度，RK3588 NPU 要求 INT8 格式的 .rknn 文件&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;5-rk3588-硬件模块认知半天&#34;&gt;5. RK3588 硬件模块认知（半天）
-&lt;/h3&gt;&lt;ul&gt;
+&lt;h2 id=&#34;5-rk3588-硬件模块认知半天&#34;&gt;5. RK3588 硬件模块认知（半天）
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;MPP&lt;/strong&gt; — 瑞芯微的媒体处理框架，硬件编解码（比软解快 10 倍）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;RGA&lt;/strong&gt; — 瑞芯微的图像加速模块，硬件做缩放/旋转/色彩转换（比 OpenCV 快 3-5 倍）&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;RKNN&lt;/strong&gt; — 瑞芯微的 NPU 推理框架，加载 .rknn 模型文件跑推理&lt;/li&gt;
@@ -147,8 +778,8 @@
 &lt;/div&gt;&lt;p&gt;&lt;strong&gt;一句话总结&lt;/strong&gt;：FFmpeg 拉流拆包 → MPP 硬解成像素 → 线程池并行跑 4 个 AI 模型（RGA 加速预处理 + NPU 推理 + NMS 后处理）→ 融合多模型结果 → 画面拼接 + 硬编码 → 多协议推流出去。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;第三阶段编译流程先跑起来再说&#34;&gt;第三阶段：编译流程（先跑起来再说）
-&lt;/h1&gt;&lt;h3 id=&#34;目录结构&#34;&gt;目录结构
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;目录结构&#34;&gt;目录结构
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
@@ -196,8 +827,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;└──&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;                 &lt;span class=&#34;c1&#34;&gt;# 编译输出&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;编译需要哪些库&#34;&gt;编译需要哪些库
-&lt;/h3&gt;&lt;p&gt;编译这个项目需要在 RK3588 板子上准备好 6 个库：&lt;/p&gt;
+&lt;/div&gt;&lt;h2 id=&#34;编译需要哪些库&#34;&gt;编译需要哪些库
+&lt;/h2&gt;&lt;p&gt;编译这个项目需要在 RK3588 板子上准备好 6 个库：&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -239,8 +870,8 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3 id=&#34;编译命令&#34;&gt;编译命令
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;h2 id=&#34;编译命令&#34;&gt;编译命令
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
@@ -263,8 +894,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;编译完成后可执行文件在 &lt;code&gt;build/myDemo&lt;/code&gt;。&lt;/p&gt;
-&lt;h3 id=&#34;运行&#34;&gt;运行
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;h2 id=&#34;运行&#34;&gt;运行
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
@@ -289,41 +920,41 @@
 &lt;/div&gt;&lt;hr&gt;
 &lt;h1 id=&#34;第四阶段按依赖关系读源码从底到顶&#34;&gt;第四阶段：按依赖关系读源码（从底到顶）
 &lt;/h1&gt;&lt;p&gt;不要从 &lt;code&gt;main.cpp&lt;/code&gt; 开始看！按下面这个顺序，每一步都只需要理解上一个步骤的内容：&lt;/p&gt;
-&lt;h3 id=&#34;第-1-步线程安全队列-frame_queueh20-分钟&#34;&gt;第 1 步：线程安全队列 &lt;code&gt;frame_queue.h&lt;/code&gt;（20 分钟）
-&lt;/h3&gt;&lt;p&gt;这是整个项目最底层的轮子。只看 3 个方法：&lt;/p&gt;
+&lt;h2 id=&#34;第-1-步线程安全队列-frame_queueh20-分钟&#34;&gt;第 1 步：线程安全队列 &lt;code&gt;frame_queue.h&lt;/code&gt;（20 分钟）
+&lt;/h2&gt;&lt;p&gt;这是整个项目最底层的轮子。只看 3 个方法：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;push()&lt;/code&gt; — 生产者放数据，队列满了就阻塞等待&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;wait_and_pop()&lt;/code&gt; — 消费者取数据，队列空了就阻塞等待&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;shutdown()&lt;/code&gt; — 通知所有人下班&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;验收&lt;/strong&gt;：能画出 push 和 wait_and_pop 的互斥流程图。&lt;/p&gt;
-&lt;h3 id=&#34;第-2-步线程池-threadpoolhpp30-分钟&#34;&gt;第 2 步：线程池 &lt;code&gt;ThreadPool.hpp&lt;/code&gt;（30 分钟）
-&lt;/h3&gt;&lt;p&gt;只看 &lt;code&gt;submit()&lt;/code&gt; 和 &lt;code&gt;worker()&lt;/code&gt; 两个方法：&lt;/p&gt;
+&lt;h2 id=&#34;第-2-步线程池-threadpoolhpp30-分钟&#34;&gt;第 2 步：线程池 &lt;code&gt;ThreadPool.hpp&lt;/code&gt;（30 分钟）
+&lt;/h2&gt;&lt;p&gt;只看 &lt;code&gt;submit()&lt;/code&gt; 和 &lt;code&gt;worker()&lt;/code&gt; 两个方法：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;submit()&lt;/code&gt; — 把任务打包 + 放进队列 + 通知工作线程&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;worker()&lt;/code&gt; — 死循环等任务 → 取任务 → 执行 → 如果 2 秒没活就退出&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;验收&lt;/strong&gt;：能说清楚一个任务从 submit 到执行完的完整路径。&lt;/p&gt;
-&lt;h3 id=&#34;第-3-步性能监控-performance_monitorhpp5-分钟&#34;&gt;第 3 步：性能监控 &lt;code&gt;performance_monitor.hpp&lt;/code&gt;（5 分钟）
-&lt;/h3&gt;&lt;p&gt;就是 start/end 记录耗时，最后 printStats 打平均值。纯工具类。&lt;/p&gt;
-&lt;h3 id=&#34;第-4-步mpp-硬解码-mpp_decoderh40-分钟&#34;&gt;第 4 步：MPP 硬解码 &lt;code&gt;mpp_decoder.h&lt;/code&gt;（40 分钟）
-&lt;/h3&gt;&lt;p&gt;这是 RGB→YUV 领域的核心。理解：&lt;/p&gt;
+&lt;h2 id=&#34;第-3-步性能监控-performance_monitorhpp5-分钟&#34;&gt;第 3 步：性能监控 &lt;code&gt;performance_monitor.hpp&lt;/code&gt;（5 分钟）
+&lt;/h2&gt;&lt;p&gt;就是 start/end 记录耗时，最后 printStats 打平均值。纯工具类。&lt;/p&gt;
+&lt;h2 id=&#34;第-4-步mpp-硬解码-mpp_decoderh40-分钟&#34;&gt;第 4 步：MPP 硬解码 &lt;code&gt;mpp_decoder.h&lt;/code&gt;（40 分钟）
+&lt;/h2&gt;&lt;p&gt;这是 RGB→YUV 领域的核心。理解：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;Init()&lt;/code&gt; — 初始化 MPP 解码器，指定 H.264/H.265 类型&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;Decode()&lt;/code&gt; — 喂一包压缩数据（AVPacket），MPP 内部解码后回调通知&lt;/li&gt;
 &lt;li&gt;回调机制：解码完成 → 调用外部注册的函数，把帧数据传出去&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;验收&lt;/strong&gt;：能说清楚&amp;quot;一个 AVPacket 怎么变成一个解码后的帧&amp;quot;。&lt;/p&gt;
-&lt;h3 id=&#34;第-5-步拉流封装-stream_loaderh40-分钟&#34;&gt;第 5 步：拉流封装 &lt;code&gt;stream_loader.h&lt;/code&gt;（40 分钟）
-&lt;/h3&gt;&lt;p&gt;把 FFmpeg 拉流和 MPP 解码串起来：&lt;/p&gt;
+&lt;h2 id=&#34;第-5-步拉流封装-stream_loaderh40-分钟&#34;&gt;第 5 步：拉流封装 &lt;code&gt;stream_loader.h&lt;/code&gt;（40 分钟）
+&lt;/h2&gt;&lt;p&gt;把 FFmpeg 拉流和 MPP 解码串起来：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;open()&lt;/code&gt; — FFmpeg 打开 RTSP/MP4，找到视频流索引，初始化 MPP 解码器&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;read_frame()&lt;/code&gt; — FFmpeg &lt;code&gt;av_read_frame()&lt;/code&gt; 读一包 → 塞进 MPP 解码器&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;operator()()&lt;/code&gt; — 死循环 read_frame，实现持续解码&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;验收&lt;/strong&gt;：能画出一路流的完整数据管道。&lt;/p&gt;
-&lt;h3 id=&#34;第-6-步rknn-推理封装-rknnpoolhpp1-小时&#34;&gt;第 6 步：RKNN 推理封装 &lt;code&gt;rknnPool.hpp&lt;/code&gt;（1 小时）
-&lt;/h3&gt;&lt;p&gt;这是核心中的核心：&lt;/p&gt;
+&lt;h2 id=&#34;第-6-步rknn-推理封装-rknnpoolhpp1-小时&#34;&gt;第 6 步：RKNN 推理封装 &lt;code&gt;rknnPool.hpp&lt;/code&gt;（1 小时）
+&lt;/h2&gt;&lt;p&gt;这是核心中的核心：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;构造函数：加载 .rknn 模型文件 → &lt;code&gt;rknn_init()&lt;/code&gt; 初始化 → &lt;code&gt;rknn_set_core_mask()&lt;/code&gt; 绑 NPU 核心 → 查询输入输出属性&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;interf()&lt;/code&gt;：完整推理管线
@@ -338,18 +969,18 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;验收&lt;/strong&gt;：能说清楚 interf() 里的 6 个步骤和每一步用了什么硬件。&lt;/p&gt;
-&lt;h3 id=&#34;第-7-步多模型融合-detection_fusion_managerh30-分钟&#34;&gt;第 7 步：多模型融合 &lt;code&gt;detection_fusion_manager.h&lt;/code&gt;（30 分钟）
-&lt;/h3&gt;&lt;ul&gt;
+&lt;h2 id=&#34;第-7-步多模型融合-detection_fusion_managerh30-分钟&#34;&gt;第 7 步：多模型融合 &lt;code&gt;detection_fusion_manager.h&lt;/code&gt;（30 分钟）
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;code&gt;fuseDetections()&lt;/code&gt; — 把 4 个模型的检测结果融合成 1 份，IoU 去重 + IoM 处理嵌套&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;drawFusedDetections()&lt;/code&gt; — 在图上画出融合后的框&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;第-8-步推流管理-streaming_managerh30-分钟&#34;&gt;第 8 步：推流管理 &lt;code&gt;streaming_manager.h&lt;/code&gt;（30 分钟）
-&lt;/h3&gt;&lt;ul&gt;
+&lt;h2 id=&#34;第-8-步推流管理-streaming_managerh30-分钟&#34;&gt;第 8 步：推流管理 &lt;code&gt;streaming_manager.h&lt;/code&gt;（30 分钟）
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;生产者-消费者：合成线程往里塞帧，推流线程往外掏 → MPP 编码 → FFmpeg 封包发送&lt;/li&gt;
 &lt;li&gt;支持 RTMP 和 RTSP 两种输出&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;第-9-步入口-maincpp30-分钟&#34;&gt;第 9 步：入口 &lt;code&gt;main.cpp&lt;/code&gt;（30 分钟）
-&lt;/h3&gt;&lt;p&gt;现在才看 main.cpp，你会觉得一目了然：&lt;/p&gt;
+&lt;h2 id=&#34;第-9-步入口-maincpp30-分钟&#34;&gt;第 9 步：入口 &lt;code&gt;main.cpp&lt;/code&gt;（30 分钟）
+&lt;/h2&gt;&lt;p&gt;现在才看 main.cpp，你会觉得一目了然：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;解析命令行参数（几路流、流地址）&lt;/li&gt;
 &lt;li&gt;初始化模型路径 + 推流配置&lt;/li&gt;
@@ -4415,12 +5046,13 @@
         <pubDate>Wed, 13 May 2026 00:00:00 +0000</pubDate>
         
         <guid>https://usualtreee.github.io/blogs/</guid>
-        <description>&lt;div style=&#34;text-align:center;padding:60px 20px&#34;&gt;
-&lt;p&gt;🌍&lt;/p&gt;
-&lt;h3 id=&#34;正在四处搜罗中&#34;&gt;正在四处搜罗中&amp;hellip;
-&lt;/h3&gt;&lt;p&gt;发现好博客就放上来&lt;/p&gt;
-&lt;p&gt;先收藏，后分享 📚&lt;/p&gt;
-&lt;/div&gt;
+        <description>&lt;h2 id=&#34;推荐列表&#34;&gt;推荐列表
+&lt;/h2&gt;&lt;h3 id=&#34;-苏丙榅--linux-多线程编程httpssubingwencnlinuxthread&#34;&gt;🐧 &lt;a class=&#34;link&#34; href=&#34;https://subingwen.cn/linux/thread/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;苏丙榅 — Linux 多线程编程&lt;/a&gt;
+&lt;/h3&gt;&lt;p&gt;Linux 多线程编程教程，从基础概念到高级用法，讲解清晰透彻。适合 C/C++ 开发者系统学习 pthread 和 C++11 线程库。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;更多好博客陆续添加中&amp;hellip;&lt;/p&gt;
+&lt;/blockquote&gt;
 </description>
         </item>
         <item>

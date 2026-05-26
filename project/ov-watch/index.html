@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OV-Watch-项目概况 — Usualtree</title>
+    <link rel="icon" href="/favicon.ico">
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    
+    <link rel="stylesheet" href="/scss/custom.min.a05bf14e9e6e2b7b4146c2c690766361d75731b59eaa8c9cf4be118189d4d2c3.css">
+</head>
+
+
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <div class="single-top-bar">
+            <a href="/project/" class="postlist-back"><span data-zh="← 返回项目" data-en="← Projects"></span></a>
+            <div class="single-page-nav">
+                
+                
+            </div>
+        </div>
+        
+        
+        
+        <article class="card glass-card single-card">
+        
+            <div class="single-body-content">
+                <h1 class="single-title">OV-Watch-项目概况</h1>
+                <div class="single-content" id="ttsContent"><h1 id="第一部分项目概况">第一部分：项目概况
+</h1><h2 id="项目是什么">项目是什么
+</h2><p>基于 <strong>OV-Watch 开源项目</strong>，在 <strong>STM32F411CEU6</strong>（ARM Cortex-M4，100MHz）平台上完成智能手表嵌入式软件系统的开发与调试。功能如下：</p>
+<blockquote>
+<p>硬件初始化 → 多传感器数据采集 → FreeRTOS 多任务调度 → LVGL 渲染 UI → 触摸/按键交互</p>
+</blockquote>
+<p>具体功能：</p>
+<ul>
+<li>心率监测（PPG 信号 + 峰值检测算法）</li>
+<li>环境感知（温湿度 + 气压高度 + 电子罗盘）</li>
+<li>运动追踪（IMU 计步 + 抬腕唤醒）</li>
+<li>蓝牙 OTA 无线升级（独立 BootLoader + Ymodem 协议）</li>
+<li>工具应用（计算器、秒表/倒计时、日历）</li>
+<li>休闲游戏（2048、记忆翻牌）</li>
+</ul>
+<p>支持 PC 仿真调试（SDL2 + CMake），无需真实硬件即可开发 UI。</p>
+<h2 id="技术栈">技术栈
+</h2><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STM32F411CEU6</td>
+<td>MCU，ARM Cortex-M4，100MHz</td>
+</tr>
+<tr>
+<td>FreeRTOS (CMSIS-RTOS v2)</td>
+<td>实时操作系统，多任务调度</td>
+</tr>
+<tr>
+<td>LVGL v8.2</td>
+<td>嵌入式 GUI 图形框架</td>
+</tr>
+<tr>
+<td>SquareLine Studio</td>
+<td>LVGL UI 可视化编辑</td>
+</tr>
+<tr>
+<td>Keil MDK-ARM</td>
+<td>ARM 编译/调试 IDE</td>
+</tr>
+<tr>
+<td>SDL2 + CMake + VS Code</td>
+<td>PC 端 LVGL 仿真器</td>
+</tr>
+<tr>
+<td>KT6368A（蓝牙 SPP）</td>
+<td>蓝牙通信 + OTA 无线升级</td>
+</tr>
+<tr>
+<td>EM7028</td>
+<td>PPG 心率传感器</td>
+</tr>
+<tr>
+<td>MPU6050（DMP 库）</td>
+<td>6 轴 IMU，计步 + 抬腕检测</td>
+</tr>
+<tr>
+<td>LSM303DLH</td>
+<td>地磁电子罗盘</td>
+</tr>
+<tr>
+<td>SPL06-001</td>
+<td>气压/高度传感器</td>
+</tr>
+<tr>
+<td>AHT21</td>
+<td>温湿度传感器</td>
+</tr>
+<tr>
+<td>CST816</td>
+<td>电容触摸驱动</td>
+</tr>
+<tr>
+<td>ST7789（SPI）</td>
+<td>1.69 寸 LCD 屏幕</td>
+</tr>
+<tr>
+<td>BL24C02（I2C EEPROM）</td>
+<td>外部存储，持久化设置</td>
+</tr>
+<tr>
+<td>Ymodem 协议</td>
+<td>BootLoader 固件传输</td>
+</tr>
+</tbody>
+</table>
+<h2 id="项目文件结构">项目文件结构
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OV-Watch-main/
+</span></span><span class="line"><span class="cl">│
+</span></span><span class="line"><span class="cl">├── Software/
+</span></span><span class="line"><span class="cl">│   ├── IAP_F411/                            ← BootLoader 工程（Keil）
+</span></span><span class="line"><span class="cl">│   │   ├── Ymodem/
+</span></span><span class="line"><span class="cl">│   │   │   ├── ymodem.c / ymodem.h          ← Ymodem 传输协议
+</span></span><span class="line"><span class="cl">│   │   │   ├── flash_if.c / flash_if.h      ← Flash 读写接口
+</span></span><span class="line"><span class="cl">│   │   │   └── menu.c / menu.h              ← 升级菜单
+</span></span><span class="line"><span class="cl">│   │   ├── BSP/                             ← BootLoader 板级驱动
+</span></span><span class="line"><span class="cl">│   │   │   ├── KEY/                         ← 按键
+</span></span><span class="line"><span class="cl">│   │   │   ├── KT6328/                      ← 蓝牙
+</span></span><span class="line"><span class="cl">│   │   │   ├── LCD/                         ← 屏幕
+</span></span><span class="line"><span class="cl">│   │   │   └── POWER/                       ← 电源
+</span></span><span class="line"><span class="cl">│   │   ├── Core/                            ← STM32 HAL 核心
+</span></span><span class="line"><span class="cl">│   │   └── SYSTEM/                          ← 系统时钟/delay
+</span></span><span class="line"><span class="cl">│   │
+</span></span><span class="line"><span class="cl">│   └── OV_Watch/                            ← APP 主工程（Keil）
+</span></span><span class="line"><span class="cl">│       ├── Core/Src/
+</span></span><span class="line"><span class="cl">│       │   ├── main.c                       ← 主入口（中断向量偏移 → HAL 初始化 → FreeRTOS 启动）
+</span></span><span class="line"><span class="cl">│       │   ├── freertos.c                   ← FreeRTOS 任务调度入口
+</span></span><span class="line"><span class="cl">│       │   ├── stm32f4xx_it.c               ← 中断服务
+</span></span><span class="line"><span class="cl">│       │   ├── rtc.c / spi.c / adc.c        ← 外设 HAL 配置
+</span></span><span class="line"><span class="cl">│       │   └── usart.c
+</span></span><span class="line"><span class="cl">│       │
+</span></span><span class="line"><span class="cl">│       ├── BSP/                             ← 板级支持包（所有外设驱动）
+</span></span><span class="line"><span class="cl">│       │   ├── EM7028/                      ← 心率传感器
+</span></span><span class="line"><span class="cl">│       │   │   ├── em70x8.c / em70x8.h      ← EM7028 驱动
+</span></span><span class="line"><span class="cl">│       │   │   ├── HrAlgorythm.c            ← 自研峰值检测心率算法
+</span></span><span class="line"><span class="cl">│       │   │   └── user_Queue.c             ← 环形队列（PPG 数据缓冲）
+</span></span><span class="line"><span class="cl">│       │   ├── MPU6050/                     ← 6 轴 IMU
+</span></span><span class="line"><span class="cl">│       │   │   └── eMPL/                    ← 官方 DMP 姿态解算库（inv_mpu*.c）
+</span></span><span class="line"><span class="cl">│       │   ├── LSM303DLH/                   ← 地磁传感器驱动
+</span></span><span class="line"><span class="cl">│       │   ├── SPL06_001/                   ← 气压/高度传感器驱动
+</span></span><span class="line"><span class="cl">│       │   ├── AHT21/                       ← 温湿度传感器驱动
+</span></span><span class="line"><span class="cl">│       │   ├── TOUCH/                       ← 触摸屏驱动（CST816）
+</span></span><span class="line"><span class="cl">│       │   ├── LCD/                         ← LCD 屏幕驱动（ST7789）
+</span></span><span class="line"><span class="cl">│       │   ├── KT6328/                      ← 蓝牙驱动
+</span></span><span class="line"><span class="cl">│       │   ├── BL24C02/                     ← EEPROM 驱动
+</span></span><span class="line"><span class="cl">│       │   │   └── DataSave.c               ← 设置持久化存储
+</span></span><span class="line"><span class="cl">│       │   ├── KEY/                         ← 按键驱动
+</span></span><span class="line"><span class="cl">│       │   ├── POWER/                       ← 电源管理
+</span></span><span class="line"><span class="cl">│       │   ├── IIC/                         ← I2C 硬件抽象
+</span></span><span class="line"><span class="cl">│       │   └── OWDG/                        ← 独立看门狗
+</span></span><span class="line"><span class="cl">│       │
+</span></span><span class="line"><span class="cl">│       ├── Drivers/                         ← STM32 HAL 库
+</span></span><span class="line"><span class="cl">│       │   ├── CMSIS/
+</span></span><span class="line"><span class="cl">│       │   └── STM32F4xx_HAL_Driver/
+</span></span><span class="line"><span class="cl">│       │
+</span></span><span class="line"><span class="cl">│       ├── Middlewares/
+</span></span><span class="line"><span class="cl">│       │   ├── LVGL/                        ← LVGL v8.2 图形库
+</span></span><span class="line"><span class="cl">│       │   └── Third_Party/                 ← 其他第三方库
+</span></span><span class="line"><span class="cl">│       │
+</span></span><span class="line"><span class="cl">│       ├── User/                            ← 用户应用层
+</span></span><span class="line"><span class="cl">│       │   ├── Func/                        ← 核心功能模块
+</span></span><span class="line"><span class="cl">│       │   │   ├── Inc/
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── HWDataAccess.h       ← 硬件抽象层（宏隔离硬件/仿真）
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── PageManager.h        ← 页面栈管理器（深度 6 层）
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── StrCalculate.h       ← 字符串计算器（双栈算法）
+</span></span><span class="line"><span class="cl">│       │   │   │   └── pubsub.h             ← 发布-订阅模式
+</span></span><span class="line"><span class="cl">│       │   │   └── Src/
+</span></span><span class="line"><span class="cl">│       │   │       ├── HWDataAccess.c
+</span></span><span class="line"><span class="cl">│       │   │       ├── PageManager.c
+</span></span><span class="line"><span class="cl">│       │   │       ├── StrCalculate.c        ← 双栈计算器 + 小数处理
+</span></span><span class="line"><span class="cl">│       │   │       └── pubsub.c              ← 链表实现的订阅者通知
+</span></span><span class="line"><span class="cl">│       │   │
+</span></span><span class="line"><span class="cl">│       │   ├── GUI_App/                     ← LVGL UI 应用层
+</span></span><span class="line"><span class="cl">│       │   │   ├── ui.c / ui.h              ← UI 主初始化
+</span></span><span class="line"><span class="cl">│       │   │   ├── Screens/                 ← 19 个界面（33 个文件）
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_HomePage.*        ← 主表盘
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_MenuPage.*        ← 应用菜单
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_HRPage.*          ← 心率监测
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_SPO2Page.*        ← 血氧（待实现）
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_CompassPage.*     ← 电子指南针
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_EnvPage.*         ← 环境感知（温湿度/气压/高度）
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_ComputerPage.*    ← 计算器
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_CalendarPage.*    ← 日历
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_TimerPage.*       ← 倒计时/秒表
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_ChargPage.*       ← 充电动画
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_SetPage.*         ← 设置
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_DateTimeSetPage.* ← 日期时间设置
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_OffTimePage.*     ← 关机确认
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_Game2048Page.*    ← 2048 游戏
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_GameMemPage.*     ← 记忆翻牌游戏
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_GameSelectPage.*  ← 游戏选择
+</span></span><span class="line"><span class="cl">│       │   │   │   ├── ui_AboutPage.*       ← 关于页面
+</span></span><span class="line"><span class="cl">│       │   │   │   └── ui_Megboxes.*        ← 通用消息弹框
+</span></span><span class="line"><span class="cl">│       │   │   ├── Fonts/                   ← 醋园体字库 + 图标字库（14 个字号文件）
+</span></span><span class="line"><span class="cl">│       │   │   └── IMGs/                    ← 图片资源（指南针指针等）
+</span></span><span class="line"><span class="cl">│       │   │
+</span></span><span class="line"><span class="cl">│       │   └── Tasks/                       ← FreeRTOS 任务实现
+</span></span><span class="line"><span class="cl">│       │       ├── user_TasksInit.*         ← 13 个任务 + 6 个消息队列的创建
+</span></span><span class="line"><span class="cl">│       │       ├── user_HardwareInitTask.*  ← 硬件初始化任务
+</span></span><span class="line"><span class="cl">│       │       ├── user_KeyTask.*           ← 按键扫描任务
+</span></span><span class="line"><span class="cl">│       │       ├── user_RunModeTasks.*      ← 运行/睡眠/关机模式切换
+</span></span><span class="line"><span class="cl">│       │       ├── user_SensUpdateTask.*    ← 传感器数据刷新任务
+</span></span><span class="line"><span class="cl">│       │       ├── user_ScrRenewTask.*      ← 屏幕刷新（LVGL）任务
+</span></span><span class="line"><span class="cl">│       │       ├── user_ChargCheckTask.*    ← 充电检测任务
+</span></span><span class="line"><span class="cl">│       │       ├── user_DataSaveTask.*      ← EEPROM 数据存储任务
+</span></span><span class="line"><span class="cl">│       │       └── user_MessageSendTask.*   ← 蓝牙消息发送任务
+</span></span><span class="line"><span class="cl">│       │
+</span></span><span class="line"><span class="cl">│       └── version.h                       ← 版本定义（V2.4.4）
+</span></span><span class="line"><span class="cl">│
+</span></span><span class="line"><span class="cl">├── lv_sim_vscode_win/                       ← LVGL Windows 仿真器
+</span></span><span class="line"><span class="cl">│   ├── main.c                               ← 仿真器入口（SDL2 窗口 + 输入设备）
+</span></span><span class="line"><span class="cl">│   ├── CMakeLists.txt                       ← CMake 构建
+</span></span><span class="line"><span class="cl">│   ├── lv_conf.h                            ← LVGL 配置（分辨率/色深/内存）
+</span></span><span class="line"><span class="cl">│   ├── lv_drv_conf.h                        ← LVGL 驱动配置
+</span></span><span class="line"><span class="cl">│   ├── SDL2.dll                             ← SDL2 运行时
+</span></span><span class="line"><span class="cl">│   ├── lvgl/                                ← LVGL v8.2.0 源码
+</span></span><span class="line"><span class="cl">│   ├── lv_drivers/                          ← LVGL SDL2 显示/输入驱动
+</span></span><span class="line"><span class="cl">│   └── user_test/                           ← 与 User/ 同步的 UI 代码副本
+</span></span><span class="line"><span class="cl">│
+</span></span><span class="line"><span class="cl">├── Firmware/                                ← 预编译固件
+</span></span><span class="line"><span class="cl">│   ├── BootLoader_F411.hex                  ← BootLoader（48 KB）
+</span></span><span class="line"><span class="cl">│   ├── OV_Watch_V2_4_4.bin                  ← APP 固件（蓝牙 OTA 用）
+</span></span><span class="line"><span class="cl">│   └── OV_Watch_V2_4_4_NoBoot.hex           ← 含 BootLoader 的完整 HEX
+</span></span><span class="line"><span class="cl">│
+</span></span><span class="line"><span class="cl">└── Hardware/                                ← PCB 原理图 + Gerber（LCEDA）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="数据流运行时">数据流（运行时）
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">                ┌─────────────────────────────────────┐
+</span></span><span class="line"><span class="cl">                │          STM32F411CEU6              │
+</span></span><span class="line"><span class="cl">                │                                     │
+</span></span><span class="line"><span class="cl">  ┌─────────┐   │  ┌──────────┐    ┌───────────────┐  │
+</span></span><span class="line"><span class="cl">  │ 按键     │───▶│  KeyTask  │───▶│  PageManager  │  │
+</span></span><span class="line"><span class="cl">  │ KEY1/2  │   │  │  (扫描)   │    │  (页面栈导航)  │  │
+</span></span><span class="line"><span class="cl">  └─────────┘   │  └──────────┘    └───────┬───────┘  │
+</span></span><span class="line"><span class="cl">                │                          │          │
+</span></span><span class="line"><span class="cl">  ┌─────────┐   │  ┌──────────────────┐    │          │
+</span></span><span class="line"><span class="cl">  │ 触摸屏   │───▶│  CST816 驱动       │───▶│          │
+</span></span><span class="line"><span class="cl">  │ CST816  │   │  └──────────────────┘    │          │
+</span></span><span class="line"><span class="cl">  └─────────┘   │                          ▼          │
+</span></span><span class="line"><span class="cl">                │              ┌───────────────────┐   │
+</span></span><span class="line"><span class="cl">  ┌─────────┐   │  ┌──────────│  ScrRenewTask      │   │
+</span></span><span class="line"><span class="cl">  │ 心率     │───▶│ EM7028   │  (LVGL 渲染刷新)     │   │
+</span></span><span class="line"><span class="cl">  │ EM7028  │   │  + 峰值算法├─▶┌───────────────┐  │   │
+</span></span><span class="line"><span class="cl">  └─────────┘   │  └──────────┘ │  lv_task_handler│  │   │
+</span></span><span class="line"><span class="cl">                │               │  ↓              │  │   │
+</span></span><span class="line"><span class="cl">  ┌─────────┐   │  ┌──────────┐ │  19 个 UI 界面  │  │   │
+</span></span><span class="line"><span class="cl">  │ IMU     │───▶│ MPU6050  │ │  (LVGL Objects) │  │   │
+</span></span><span class="line"><span class="cl">  │ MPU6050 │   │  + DMP 库  │ └───────┬─────────┘  │   │
+</span></span><span class="line"><span class="cl">  └─────────┘   │  └──────────┘         │            │   │
+</span></span><span class="line"><span class="cl">                │                       ▼            │   │
+</span></span><span class="line"><span class="cl">  ┌─────────┐   │  ┌──────────┐  ┌───────────┐      │   │
+</span></span><span class="line"><span class="cl">  │ 罗盘     │───▶│ LSM303DLH│  │ ST7789    │      │   │
+</span></span><span class="line"><span class="cl">  │LSM303DLH│   │  └──────────┘  │ SPI LCD   │      │   │
+</span></span><span class="line"><span class="cl">  └─────────┘   │                └───────────┘      │   │
+</span></span><span class="line"><span class="cl">                │                                     │
+</span></span><span class="line"><span class="cl">  ┌─────────┐   │  ┌──────────┐                       │
+</span></span><span class="line"><span class="cl">  │ 气压     │───▶│ SPL06-001│                       │
+</span></span><span class="line"><span class="cl">  │SPL06-001│   │  └──────────┘                       │
+</span></span><span class="line"><span class="cl">  └─────────┘   │                                     │
+</span></span><span class="line"><span class="cl">                │  ┌──────────┐                       │
+</span></span><span class="line"><span class="cl">  ┌─────────┐   │  │ AHT21    │                       │
+</span></span><span class="line"><span class="cl">  │ 温湿度   │───▶│ (温湿度)  │                       │
+</span></span><span class="line"><span class="cl">  │ AHT21   │   │  └──────────┘                       │
+</span></span><span class="line"><span class="cl">  └─────────┘   │                                     │
+</span></span><span class="line"><span class="cl">                │  ┌──────────────────────────┐       │
+</span></span><span class="line"><span class="cl">  ┌─────────┐   │  │ 电源管理                   │       │
+</span></span><span class="line"><span class="cl">  │ 蓝牙     │◀──▶│ 运行(70mA) / 睡眠(1mA)     │       │
+</span></span><span class="line"><span class="cl">  │KT6368A  │   │  │ / 关机(仅RTC)              │       │
+</span></span><span class="line"><span class="cl">  └─────────┘   │  │ + 蓝牙 OTA 升级(BootLoader)│       │
+</span></span><span class="line"><span class="cl">                │  └──────────────────────────┘       │
+</span></span><span class="line"><span class="cl">                └─────────────────────────────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="核心数据通路说明">核心数据通路说明
+</h3><ol>
+<li><strong>按键/触摸输入</strong>：KeyTask 扫描按键 → 消息队列 → PageManager 页面栈（深度 6 层）→ 决定当前显示的 LVGL 页面</li>
+<li><strong>传感器采集</strong>：7 类传感器通过 I2C/SPI 总线采集 → SensorDataTask 定时轮询 → 通过发布-订阅（pubsub）通知 UI 刷新</li>
+<li><strong>LVGL 渲染</strong>：ScrRenewTask 周期性调用 <code>lv_task_handler()</code> → LVGL 计算脏区域 → 刷新 ST7789 LCD</li>
+<li><strong>低功耗</strong>：空闲计时器（100ms 周期）→ 无操作超时 → IdleEnterTask 触发 STOP 模式 → RTC 中断唤醒</li>
+<li><strong>蓝牙 OTA</strong>：手机通过 SPP 发送 .bin 固件 → BootLoader Ymodem 协议接收 → Flash 校验写入 → 跳转新 APP</li>
+</ol>
+<hr>
+<h1 id="第二部分关键设计要点">第二部分：关键设计要点
+</h1><h2 id="1-硬件抽象层hwdataaccess">1. 硬件抽象层（HWDataAccess）
+</h2><p><code>User/Func/Inc/HWDataAccess.h</code> 是整个项目移植性的核心。通过顶层宏 <code>HW_USE_HARDWARE</code> 一键切换编译模式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define HW_USE_HARDWARE 1   </span><span class="c1">// Keil 工程：访问真实硬件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define HW_USE_HARDWARE 0   </span><span class="c1">// VS Code 仿真：全部函数返回模拟数据
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>所有硬件接口通过结构体函数指针封装（<code>HW_InterfaceTypeDef</code>），UI 层完全不直接操作硬件寄存器。切换仿真模式时，所有 <code>HW_USE_*</code> 子宏被跳过，底层 BSP 代码不被编译，UI 代码零改动即可在 PC 上运行。</p>
+<h2 id="2-页面栈导航">2. 页面栈导航
+</h2><p><code>User/Func/Inc/PageManager.h</code> 使用栈结构管理页面跳转历史，深度 6 层：</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Page_Load(newPage)</code></td>
+<td>入栈新页面，加载并显示</td>
+</tr>
+<tr>
+<td><code>Page_Back()</code></td>
+<td>出栈当前页，回退到上一页</td>
+</tr>
+<tr>
+<td><code>Page_Back_Bottom()</code></td>
+<td>清栈，返回首页</td>
+</tr>
+</tbody>
+</table>
+<p>每个页面被抽象为 <code>Page_t</code> 结构体（<code>init</code> / <code>deinit</code> / <code>page_obj</code> 三个成员），新页面只需注册此结构体即可纳入导航体系。</p>
+<h2 id="3-发布-订阅模式">3. 发布-订阅模式
+</h2><p><code>User/Func/Src/pubsub.c</code> 用单向链表实现了轻量级发布-订阅机制，用于任务间解耦通信：</p>
+<ul>
+<li><code>Publisher_subscribe()</code> — 注册订阅者回调函数</li>
+<li><code>Publisher_publish()</code> — 遍历链表通知所有订阅者</li>
+<li><code>Publisher_unsubscribe()</code> — 移除订阅者</li>
+</ul>
+<p>典型用例：传感器数据更新后 → <code>Publisher_publish()</code> → UI 页面收到通知 → 刷新显示值。</p>
+<h2 id="4-双栈计算器">4. 双栈计算器
+</h2><p><code>StrCalculate.c</code> 实现了一个经典的双栈表达式求值器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">输入 &#34;1+2*6/3&#34; → 遍历字符
+</span></span><span class="line"><span class="cl">  ├─ 数字 → 压入操作数栈（支持小数：小数点后位逐位 ÷10 累加）
+</span></span><span class="line"><span class="cl">  ├─ 运算符 → 与符号栈顶比较优先级
+</span></span><span class="line"><span class="cl">  │    ├─ 当前优先级 ≤ 栈顶 → 弹出两数 + 一符号 → 计算 → 结果入栈
+</span></span><span class="line"><span class="cl">  │    └─ 当前优先级 &gt; 栈顶 → 直接入栈
+</span></span><span class="line"><span class="cl">  └─ 遍历结束 → 依次弹出栈内剩余运算 → 得到最终结果
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="5-三级电源管理">5. 三级电源管理
+</h2><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>状态</th>
+<th>功耗</th>
+<th>唤醒方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运行</td>
+<td>MCU 正常运行，所有外设供电</td>
+<td>70-80mA</td>
+<td>—</td>
+</tr>
+<tr>
+<td>睡眠</td>
+<td>MCU STOP 模式，MPU6050 保持计步，蓝牙断电</td>
+<td>~1mA</td>
+<td>RTC 定时中断 + 姿态检测</td>
+</tr>
+<tr>
+<td>关机</td>
+<td>TPS63020 断电，仅 VBAT 维持 RTC</td>
+<td>微安级</td>
+<td>长按 KEY1</td>
+</tr>
+</tbody>
+</table>
+<p>关键设计：抬腕唤醒并非使用 MPU6050 运动中断（抖动阈值过高，不灵敏），而是<strong>RTC 定时唤醒 + 软件读取当前姿态</strong>，灵敏度大幅提升。</p>
+<h2 id="6-蓝牙-ota-固件升级">6. 蓝牙 OTA 固件升级
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">APP 运行中 → 收到 OTA 指令 → 跳转 BootLoader（0x0000C000）
+</span></span><span class="line"><span class="cl">  → 蓝牙 SPP 连接手机
+</span></span><span class="line"><span class="cl">  → Ymodem 协议接收 .bin 文件包
+</span></span><span class="line"><span class="cl">  → Flash 擦写（APP 区，0x0000C000 起）
+</span></span><span class="line"><span class="cl">  → CRC 校验
+</span></span><span class="line"><span class="cl">  → 跳转新 APP 入口
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>BootLoader 和 APP 通过 FLASH 分区隔离（BootLoader 48KB，APP 从 0x0000C000 开始），中断向量表重映射由 <code>SCB-&gt;VTOR = 0x0000C000U</code> 完成（<a class="link" href="Software/OV_Watch/Core/Src/main.c#L75" >main.c:75</a>）。</p>
+<h2 id="7-pc-仿真器">7. PC 仿真器
+</h2><p><code>lv_sim_vscode_win/</code> 提供了完整的 Windows 仿真环境：</p>
+<ul>
+<li><strong>构建系统</strong>：CMake + SDL2，VS Code 一键构建</li>
+<li><strong>输入模拟</strong>：鼠标（触屏）、键盘（编码器）、滚轮</li>
+<li><strong>显示模拟</strong>：SDL2 窗口绘制 LVGL 渲染缓冲区</li>
+<li><strong>硬件隔离</strong>：<code>HW_USE_HARDWARE → 0</code>，所有传感器函数返回模拟数据</li>
+</ul>
+<p>含义：UI 开发 → 仿真器验证 → 拷贝 <code>Func/</code> 和 <code>GUI_App/</code> 到 Keil 工程 → 真机运行，零代码改动。</p>
+<hr>
+<h1 id="第三部分踩坑记录与解决方案">第三部分：踩坑记录与解决方案
+</h1><h2 id="踩坑-1程序启动后立即卡死中断向量表未重映射">踩坑 1：程序启动后立即卡死（中断向量表未重映射）
+</h2><h3 id="现象">现象
+</h3><p>不带 BootLoader 编译 APP 下载后正常运行；带 BootLoader 后，APP 启动即卡死在 <code>HAL_Init()</code> 中。</p>
+<h3 id="排查">排查
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 对比 BootLoader 和无 Boot 版本代码差异
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="根因">根因
+</h3><p>STM32F4 默认中断向量表基址在 <code>0x08000000</code>，但 BootLoader 占用前 48KB，APP 的向量表在 <code>0x0800C000</code>。APP 启动后发生中断时，CPU 仍去 <code>0x08000000</code> 取向量 → 取到已经跳走的 BootLoader 中断处理 → 行为不可预期。</p>
+<h3 id="解决">解决
+</h3><p>APP 的 <code>main()</code> 第一行必须设置中断向量表偏移：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">SCB</span><span class="o">-&gt;</span><span class="n">VTOR</span> <span class="o">=</span> <span class="mh">0x0000C000U</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="踩坑-2睡眠模式功耗异常偏高">踩坑 2：睡眠模式功耗异常偏高
+</h2><h3 id="现象-1">现象
+</h3><p>进入 STOP 模式后实测功耗远高于预期（几十 mA 而非 ~1mA）。</p>
+<h3 id="排查-1">排查
+</h3><p>逐个外设 DeInit，定位到 USART1（蓝牙串口）。</p>
+<h3 id="根因-1">根因
+</h3><p>进入睡眠前只是关了蓝牙使能，未将 USART1 的 TX/RX GPIO 重新配置为模拟输入（高阻态）。引脚浮空产生漏电流。</p>
+<h3 id="解决-1">解决
+</h3><p>进入 STOP 前 DeInit USART1，将 PA9/PA10 设为模拟输入模式。出 STOP 后重新 Init。</p>
+<hr>
+<h2 id="踩坑-3mpu6050-dmp-初始化后功耗高">踩坑 3：MPU6050 DMP 初始化后功耗高
+</h2><h3 id="现象-2">现象
+</h3><p>MPU6050 Init + DMP 启动后，整体功耗明显偏高。</p>
+<h3 id="根因-2">根因
+</h3><p>DMP 库默认配置使 MPU6050 一直处于全速采样模式，在睡眠模式下仍然如此。</p>
+<h3 id="解决-2">解决
+</h3><p>修改 MPU6050 初始化流程：仅在需要计步和姿态检测时使能 DMP，持续空闲后降低采样率。具体见 <code>BSP/MPU6050/</code> 中的配置改动。</p>
+<hr>
+<h2 id="踩坑-4页面栈弹出返回时偶发-ui-错误">踩坑 4：页面栈弹出返回时偶发 UI 错误
+</h2><h3 id="现象-3">现象
+</h3><p>从子页面返回时，偶尔显示白屏或上一次页面残留。</p>
+<h3 id="排查-2">排查
+</h3><p>检查 <code>PageManager.c</code> 中的栈弹出逻辑。</p>
+<h3 id="根因-3">根因
+</h3><p><code>PageStack</code> 中存储的是页面对象指针，但 LVGL 的 <code>lv_obj_t</code> 在 <code>lv_scr_load_anim()</code> 切换后可能被回收。栈中存储的指针变成了悬空指针。</p>
+<h3 id="解决-3">解决
+</h3><p>改为在栈中存储页面初始化和去初始化的函数地址（<code>Page_t</code> 结构体），返回时重新调用 <code>init()</code> 重建页面，而非直接复用旧对象指针。</p>
+<hr>
+<h2 id="踩坑-5lvgl-字体渲染导致编译固件过大">踩坑 5：LVGL 字体渲染导致编译固件过大
+</h2><h3 id="现象-4">现象
+</h3><p>勾选所有 UI 字体后，Keil 编译出的固件超出 FLASH 容量。</p>
+<h3 id="根因-4">根因
+</h3><p>醋园体中文字库每个字号都包含完整 GB2312 字集，多个字号叠加后远超 512KB。</p>
+<h3 id="解决-4">解决
+</h3><p>仅保留 UI 实际使用的字号（16/18/20/24/28/32/40/48），关闭不需要的字号宏。图标字库同理。</p>
+<hr>
+<h2 id="踩坑-6仿真器鼠标坐标映射偏移">踩坑 6：仿真器鼠标坐标映射偏移
+</h2><h3 id="现象-5">现象
+</h3><p>VS Code 仿真器中点击位置与实际 UI 位置有偏移。</p>
+<h3 id="根因-5">根因
+</h3><p>SDL2 窗口大小与 LVGL 显示分辨率不一致，触屏驱动没有做坐标缩放。</p>
+<h3 id="解决-5">解决
+</h3><p>在仿真器的输入驱动中添加 <code>zoom</code> 系数转换：<code>lv_x = SDL_x * LVGL_HOR_RES / SDL_WINDOW_W</code>。</p>
+<hr>
+<h2 id="踩坑-7eeprom-写入后立即断电导致数据丢失">踩坑 7：EEPROM 写入后立即断电导致数据丢失
+</h2><h3 id="现象-6">现象
+</h3><p>修改设置 → 关机 → 再开机，设置恢复默认值。</p>
+<h3 id="根因-6">根因
+</h3><p>EEPROM 写周期 ~5ms，如果在写完成前掉电，该字节写入不完整。Datasave 没有引入写延迟和校验。</p>
+<h3 id="解决-6">解决
+</h3><p>在 <code>DataSaveTask</code> 的消息队列处理中，写入后延时 10ms 确保 I2C 传输完成；读取时增加 magic number 校验，校验失败回退默认值。</p>
+<hr>
+<h2 id="踩坑总结">踩坑总结
+</h2><table>
+<thead>
+<tr>
+<th>#</th>
+<th>问题</th>
+<th>症状</th>
+<th>根因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>中断向量表未偏移</td>
+<td>BootLoader 后 APP 卡死</td>
+<td>VTOR 仍指向 0x08000000</td>
+<td><code>SCB-&gt;VTOR = 0x0000C000U</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>睡眠功耗高</td>
+<td>STOP 模式几十 mA</td>
+<td>UART GPIO 未设高阻态</td>
+<td>DeInit USART1 + GPIO 设模拟输入</td>
+</tr>
+<tr>
+<td>3</td>
+<td>MPU6050 功耗高</td>
+<td>DMP 初始化后整体功耗高</td>
+<td>全速采样未降频</td>
+<td>空闲时降低采样率</td>
+</tr>
+<tr>
+<td>4</td>
+<td>页面返回 UI 错乱</td>
+<td>返回时白屏或残留</td>
+<td>lv_obj 悬空指针</td>
+<td>返回时重调 init() 而非复用对象</td>
+</tr>
+<tr>
+<td>5</td>
+<td>固件超 FLASH</td>
+<td>Keil 编译不过</td>
+<td>过多字库</td>
+<td>仅保留实际使用的字号</td>
+</tr>
+<tr>
+<td>6</td>
+<td>仿真器点击偏移</td>
+<td>点击不准</td>
+<td>窗口与 LVGL 分辨率不匹配</td>
+<td>zoom 系数坐标转换</td>
+</tr>
+<tr>
+<td>7</td>
+<td>EEPROM 数据丢失</td>
+<td>断电后设置恢复</td>
+<td>写周期内掉电</td>
+<td>写入后延时 + magic number 校验</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="第四部分改动汇总">第四部分：改动汇总
+</h1><table>
+<thead>
+<tr>
+<th>#</th>
+<th>改动</th>
+<th>涉及文件</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>中断向量表偏移</td>
+<td><code>Core/Src/main.c</code></td>
+<td>配置</td>
+</tr>
+<tr>
+<td>2</td>
+<td>睡眠前 UART GPIO 处理</td>
+<td><code>BSP/POWER/</code>、<code>Core/Src/usart.c</code></td>
+<td>功耗修复</td>
+</tr>
+<tr>
+<td>3</td>
+<td>MPU6050 采样率优化</td>
+<td><code>BSP/MPU6050/</code></td>
+<td>功耗优化</td>
+</tr>
+<tr>
+<td>4</td>
+<td>页面栈存储方式修正</td>
+<td><code>User/Func/Src/PageManager.c</code></td>
+<td>Bug 修复</td>
+</tr>
+<tr>
+<td>5</td>
+<td>字库裁剪</td>
+<td><code>User/GUI_App/Fonts/</code></td>
+<td>编译优化</td>
+</tr>
+<tr>
+<td>6</td>
+<td>仿真器坐标转换</td>
+<td><code>lv_sim_vscode_win/main.c</code></td>
+<td>适配</td>
+</tr>
+<tr>
+<td>7</td>
+<td>EEPROM 写入保护</td>
+<td><code>BSP/BL24C02/DataSave.c</code></td>
+<td>可靠性修复</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="-开源地址">📦 开源地址
+</h2><p>本项目基于开源项目 <a class="link" href="https://github.com/No-Chicken/OV-Watch"  target="_blank" rel="noopener"
+    >OV-Watch</a>（作者 @No-Chicken，GPL-3.0），Stars 1400+。</p>
+<ul>
+<li>GitHub：<a class="link" href="https://github.com/No-Chicken/OV-Watch"  target="_blank" rel="noopener"
+    >https://github.com/No-Chicken/OV-Watch</a></li>
+<li>硬件开源：<a class="link" href="https://oshwhub.com/no_chicken/zhi-neng-shou-biao-OV-Watch_V2.2"  target="_blank" rel="noopener"
+    >https://oshwhub.com/no_chicken/zhi-neng-shou-biao-OV-Watch_V2.2</a></li>
+<li>B站演示：<a class="link" href="https://www.bilibili.com/video/BV1hh4y1J7TS/"  target="_blank" rel="noopener"
+    >https://www.bilibili.com/video/BV1hh4y1J7TS/</a></li>
+</ul>
+</div>
+            </div>
+        </article>
+        
+    </div>
+    
+    
+    <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+
+</html>

@@ -13,10 +13,12 @@
     <div class="home-bg"></div>
     <div class="single-container">
         <div class="single-top-bar">
+            
             <a href="/project/" class="postlist-back"><span data-zh="← 返回项目" data-en="← Projects"></span></a>
+            
             <div class="single-page-nav">
                 <a href="/project/rk3588/" class="single-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> <span data-zh="上一页" data-en="Prev"></span></a>
-                
+                <a href="/project/rk3588/study-day1/" class="single-nav-btn"><span data-zh="下一页" data-en="Next"></span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
             </div>
         </div>
         
@@ -34,6 +36,16 @@
         
             
         
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
             
         
             
@@ -228,6 +240,8 @@
                     
                     <li><a href="/project/rk3588/day2/" class="sidebar-link active">学习指南</a></li>
                     
+                    <li><a href="/project/rk3588/study-day1/" class="sidebar-link ">学习总结 - Day 1</a></li>
+                    
                 </ul>
             </nav>
             <article class="card glass-card single-card single-card-side">
@@ -236,37 +250,37 @@
                 <h1 class="single-title">学习指南</h1>
                 <div class="single-content" id="ttsContent"><h1 id="第一阶段你需要什么基础">第一阶段：你需要什么基础
 </h1><p>在打开代码之前，先把这 5 件事搞懂（每一件都不需要精通，但要知道它在干什么）：</p>
-<h3 id="1-c-多线程基础2-天">1. C++ 多线程基础（2 天）
-</h3><p>你需要理解 3 个概念：</p>
+<h2 id="1-c-多线程基础2-天">1. C++ 多线程基础（2 天）
+</h2><p>你需要理解 3 个概念：</p>
 <ul>
 <li><code>std::thread</code> — 怎么开一个线程</li>
 <li><code>std::mutex</code> + <code>std::lock_guard</code> — 多个线程抢同一个变量怎么办</li>
 <li><code>std::condition_variable</code> — 生产者通知消费者&quot;有货了&quot;，消费者等待</li>
 </ul>
 <p><strong>这个项目的核心代码就是用这三样东西写的</strong>，FrameQueue、线程池、推理线程全是。</p>
-<h3 id="2-ffmpeg-基本概念1-天">2. FFmpeg 基本概念（1 天）
-</h3><p>不需要会写代码，但要明白 4 个术语：</p>
+<h2 id="2-ffmpeg-基本概念1-天">2. FFmpeg 基本概念（1 天）
+</h2><p>不需要会写代码，但要明白 4 个术语：</p>
 <ul>
 <li><strong>解封装（Demux）</strong> — 把 RTSP/MP4 文件拆成视频流 + 音频流</li>
 <li><strong>AVPacket</strong> — 一包压缩后的视频数据（H.264 的码流片）</li>
 <li><strong>AVFormatContext</strong> — 代表&quot;一个视频文件或一个流地址&quot;</li>
 <li><strong>AVBSFContext</strong> — 码流格式转换器（比如把封装格式转成纯 AnnexB 格式）</li>
 </ul>
-<h3 id="3-视频编解码常识半天">3. 视频编解码常识（半天）
-</h3><ul>
+<h2 id="3-视频编解码常识半天">3. 视频编解码常识（半天）
+</h2><ul>
 <li>H.264/H.265 是什么</li>
 <li>解码 = 压缩数据 → 原始像素（YUV/RGB）</li>
 <li>编码 = 原始像素 → 压缩数据</li>
 <li>关键帧（I 帧）vs 非关键帧（P/B 帧）：解码必须从 I 帧开始</li>
 </ul>
-<h3 id="4-边缘计算-npu-概念半天">4. 边缘计算 NPU 概念（半天）
-</h3><ul>
+<h2 id="4-边缘计算-npu-概念半天">4. 边缘计算 NPU 概念（半天）
+</h2><ul>
 <li>CPU/GPU/NPU 的区别：NPU 是专门跑神经网络的硬件，不占 CPU</li>
 <li>模型推理 = 输入图片 → 神经网络计算 → 输出检测框坐标 + 置信度</li>
 <li>量化：把浮点模型（Float32）转成定点模型（INT8），牺牲一点精度换速度，RK3588 NPU 要求 INT8 格式的 .rknn 文件</li>
 </ul>
-<h3 id="5-rk3588-硬件模块认知半天">5. RK3588 硬件模块认知（半天）
-</h3><ul>
+<h2 id="5-rk3588-硬件模块认知半天">5. RK3588 硬件模块认知（半天）
+</h2><ul>
 <li><strong>MPP</strong> — 瑞芯微的媒体处理框架，硬件编解码（比软解快 10 倍）</li>
 <li><strong>RGA</strong> — 瑞芯微的图像加速模块，硬件做缩放/旋转/色彩转换（比 OpenCV 快 3-5 倍）</li>
 <li><strong>RKNN</strong> — 瑞芯微的 NPU 推理框架，加载 .rknn 模型文件跑推理</li>
@@ -349,8 +363,8 @@
 </div><p><strong>一句话总结</strong>：FFmpeg 拉流拆包 → MPP 硬解成像素 → 线程池并行跑 4 个 AI 模型（RGA 加速预处理 + NPU 推理 + NMS 后处理）→ 融合多模型结果 → 画面拼接 + 硬编码 → 多协议推流出去。</p>
 <hr>
 <h1 id="第三阶段编译流程先跑起来再说">第三阶段：编译流程（先跑起来再说）
-</h1><h3 id="目录结构">目录结构
-</h3><div class="highlight"><div class="chroma">
+</h1><h2 id="目录结构">目录结构
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -398,8 +412,8 @@
 </span></span><span class="line"><span class="cl"><span class="err">└──</span> <span class="n">build</span><span class="o">/</span>                 <span class="c1"># 编译输出</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="编译需要哪些库">编译需要哪些库
-</h3><p>编译这个项目需要在 RK3588 板子上准备好 6 个库：</p>
+</div><h2 id="编译需要哪些库">编译需要哪些库
+</h2><p>编译这个项目需要在 RK3588 板子上准备好 6 个库：</p>
 <table>
 <thead>
 <tr>
@@ -441,8 +455,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="编译命令">编译命令
-</h3><div class="highlight"><div class="chroma">
+<h2 id="编译命令">编译命令
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -465,8 +479,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>编译完成后可执行文件在 <code>build/myDemo</code>。</p>
-<h3 id="运行">运行
-</h3><div class="highlight"><div class="chroma">
+<h2 id="运行">运行
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -491,41 +505,41 @@
 </div><hr>
 <h1 id="第四阶段按依赖关系读源码从底到顶">第四阶段：按依赖关系读源码（从底到顶）
 </h1><p>不要从 <code>main.cpp</code> 开始看！按下面这个顺序，每一步都只需要理解上一个步骤的内容：</p>
-<h3 id="第-1-步线程安全队列-frame_queueh20-分钟">第 1 步：线程安全队列 <code>frame_queue.h</code>（20 分钟）
-</h3><p>这是整个项目最底层的轮子。只看 3 个方法：</p>
+<h2 id="第-1-步线程安全队列-frame_queueh20-分钟">第 1 步：线程安全队列 <code>frame_queue.h</code>（20 分钟）
+</h2><p>这是整个项目最底层的轮子。只看 3 个方法：</p>
 <ul>
 <li><code>push()</code> — 生产者放数据，队列满了就阻塞等待</li>
 <li><code>wait_and_pop()</code> — 消费者取数据，队列空了就阻塞等待</li>
 <li><code>shutdown()</code> — 通知所有人下班</li>
 </ul>
 <p><strong>验收</strong>：能画出 push 和 wait_and_pop 的互斥流程图。</p>
-<h3 id="第-2-步线程池-threadpoolhpp30-分钟">第 2 步：线程池 <code>ThreadPool.hpp</code>（30 分钟）
-</h3><p>只看 <code>submit()</code> 和 <code>worker()</code> 两个方法：</p>
+<h2 id="第-2-步线程池-threadpoolhpp30-分钟">第 2 步：线程池 <code>ThreadPool.hpp</code>（30 分钟）
+</h2><p>只看 <code>submit()</code> 和 <code>worker()</code> 两个方法：</p>
 <ul>
 <li><code>submit()</code> — 把任务打包 + 放进队列 + 通知工作线程</li>
 <li><code>worker()</code> — 死循环等任务 → 取任务 → 执行 → 如果 2 秒没活就退出</li>
 </ul>
 <p><strong>验收</strong>：能说清楚一个任务从 submit 到执行完的完整路径。</p>
-<h3 id="第-3-步性能监控-performance_monitorhpp5-分钟">第 3 步：性能监控 <code>performance_monitor.hpp</code>（5 分钟）
-</h3><p>就是 start/end 记录耗时，最后 printStats 打平均值。纯工具类。</p>
-<h3 id="第-4-步mpp-硬解码-mpp_decoderh40-分钟">第 4 步：MPP 硬解码 <code>mpp_decoder.h</code>（40 分钟）
-</h3><p>这是 RGB→YUV 领域的核心。理解：</p>
+<h2 id="第-3-步性能监控-performance_monitorhpp5-分钟">第 3 步：性能监控 <code>performance_monitor.hpp</code>（5 分钟）
+</h2><p>就是 start/end 记录耗时，最后 printStats 打平均值。纯工具类。</p>
+<h2 id="第-4-步mpp-硬解码-mpp_decoderh40-分钟">第 4 步：MPP 硬解码 <code>mpp_decoder.h</code>（40 分钟）
+</h2><p>这是 RGB→YUV 领域的核心。理解：</p>
 <ul>
 <li><code>Init()</code> — 初始化 MPP 解码器，指定 H.264/H.265 类型</li>
 <li><code>Decode()</code> — 喂一包压缩数据（AVPacket），MPP 内部解码后回调通知</li>
 <li>回调机制：解码完成 → 调用外部注册的函数，把帧数据传出去</li>
 </ul>
 <p><strong>验收</strong>：能说清楚&quot;一个 AVPacket 怎么变成一个解码后的帧&quot;。</p>
-<h3 id="第-5-步拉流封装-stream_loaderh40-分钟">第 5 步：拉流封装 <code>stream_loader.h</code>（40 分钟）
-</h3><p>把 FFmpeg 拉流和 MPP 解码串起来：</p>
+<h2 id="第-5-步拉流封装-stream_loaderh40-分钟">第 5 步：拉流封装 <code>stream_loader.h</code>（40 分钟）
+</h2><p>把 FFmpeg 拉流和 MPP 解码串起来：</p>
 <ul>
 <li><code>open()</code> — FFmpeg 打开 RTSP/MP4，找到视频流索引，初始化 MPP 解码器</li>
 <li><code>read_frame()</code> — FFmpeg <code>av_read_frame()</code> 读一包 → 塞进 MPP 解码器</li>
 <li><code>operator()()</code> — 死循环 read_frame，实现持续解码</li>
 </ul>
 <p><strong>验收</strong>：能画出一路流的完整数据管道。</p>
-<h3 id="第-6-步rknn-推理封装-rknnpoolhpp1-小时">第 6 步：RKNN 推理封装 <code>rknnPool.hpp</code>（1 小时）
-</h3><p>这是核心中的核心：</p>
+<h2 id="第-6-步rknn-推理封装-rknnpoolhpp1-小时">第 6 步：RKNN 推理封装 <code>rknnPool.hpp</code>（1 小时）
+</h2><p>这是核心中的核心：</p>
 <ul>
 <li>构造函数：加载 .rknn 模型文件 → <code>rknn_init()</code> 初始化 → <code>rknn_set_core_mask()</code> 绑 NPU 核心 → 查询输入输出属性</li>
 <li><code>interf()</code>：完整推理管线
@@ -540,18 +554,18 @@
 </li>
 </ul>
 <p><strong>验收</strong>：能说清楚 interf() 里的 6 个步骤和每一步用了什么硬件。</p>
-<h3 id="第-7-步多模型融合-detection_fusion_managerh30-分钟">第 7 步：多模型融合 <code>detection_fusion_manager.h</code>（30 分钟）
-</h3><ul>
+<h2 id="第-7-步多模型融合-detection_fusion_managerh30-分钟">第 7 步：多模型融合 <code>detection_fusion_manager.h</code>（30 分钟）
+</h2><ul>
 <li><code>fuseDetections()</code> — 把 4 个模型的检测结果融合成 1 份，IoU 去重 + IoM 处理嵌套</li>
 <li><code>drawFusedDetections()</code> — 在图上画出融合后的框</li>
 </ul>
-<h3 id="第-8-步推流管理-streaming_managerh30-分钟">第 8 步：推流管理 <code>streaming_manager.h</code>（30 分钟）
-</h3><ul>
+<h2 id="第-8-步推流管理-streaming_managerh30-分钟">第 8 步：推流管理 <code>streaming_manager.h</code>（30 分钟）
+</h2><ul>
 <li>生产者-消费者：合成线程往里塞帧，推流线程往外掏 → MPP 编码 → FFmpeg 封包发送</li>
 <li>支持 RTMP 和 RTSP 两种输出</li>
 </ul>
-<h3 id="第-9-步入口-maincpp30-分钟">第 9 步：入口 <code>main.cpp</code>（30 分钟）
-</h3><p>现在才看 main.cpp，你会觉得一目了然：</p>
+<h2 id="第-9-步入口-maincpp30-分钟">第 9 步：入口 <code>main.cpp</code>（30 分钟）
+</h2><p>现在才看 main.cpp，你会觉得一目了然：</p>
 <ol>
 <li>解析命令行参数（几路流、流地址）</li>
 <li>初始化模型路径 + 推流配置</li>
@@ -584,7 +598,7 @@
     
     <div class="page-nav-arrows">
         <a href="/project/rk3588/" class="page-nav-arrow page-nav-prev" title="上一页"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></a>
-        
+        <a href="/project/rk3588/study-day1/" class="page-nav-arrow page-nav-next" title="下一页"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
     </div>
     
 
