@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目概况 — Usualtree</title>
+    <link rel="icon" href="/favicon.ico">
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    
+    <link rel="stylesheet" href="/scss/custom.min.a05bf14e9e6e2b7b4146c2c690766361d75731b59eaa8c9cf4be118189d4d2c3.css">
+</head>
+
+
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <div class="single-top-bar">
+            <a href="/project/" class="postlist-back"><span data-zh="← 返回项目" data-en="← Projects"></span></a>
+            <div class="single-page-nav">
+                
+                
+            </div>
+        </div>
+        
+        
+        
+        <article class="card glass-card single-card">
+        
+            <div class="single-body-content">
+                <h1 class="single-title">项目概况</h1>
+                <div class="single-content" id="ttsContent"><h1 id="第一部分项目概况">第一部分：项目概况
+</h1><h2 id="项目是什么">项目是什么
+</h2><p>基于全志 T113（ARM Cortex-A7）平台，从零独立开发智能桌面助手终端固件。功能如下：</p>
+<blockquote>
+<p>HAL 硬件初始化 → WiFi/BLE 通信子系统启动 → HTTP 异步天气获取 → LVGL 多页面 GUI 渲染 → 触屏/按键交互</p>
+</blockquote>
+<p>具体功能：</p>
+<ul>
+<li>多表盘时钟主页（数字/大字/模拟表盘 3 种样式，天气显示，NTP 校时）</li>
+<li>闹钟提醒（倒计时 + 定时闹钟，弹窗 + WAV 音频播报）</li>
+<li>番茄钟学习计时器（学习/休息双阶段，暂停恢复，完成播报）</li>
+<li>场景联动（BLE 控制 5 类 IoT 子设备：RGB 灯、开关、人体传感器、杯垫、火焰传感器）</li>
+<li>语言学习游戏（14 种声音图标，点击播报中文发音）</li>
+<li>天气查询（心知天气 API，18 城市可选）</li>
+<li>WiFi 配置（wpa_supplicant 管理，SSID/密码输入，连接状态反馈）</li>
+<li>USB HID 键盘模拟（Ctrl+Alt 组合键，10 个快捷应用一键启动）</li>
+<li>系统设置（亮度/音量调节、横竖屏切换、重启）</li>
+<li>PC 仿真调试（SDL2 + CMake），无需真实硬件即可开发 UI</li>
+</ul>
+<h2 id="技术栈">技术栈
+</h2><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全志 T113</td>
+<td>SoC，ARM Cortex-A7</td>
+</tr>
+<tr>
+<td>LVGL v8.3.1</td>
+<td>嵌入式 GUI 图形框架</td>
+</tr>
+<tr>
+<td>FreeType</td>
+<td>矢量字体渲染</td>
+</tr>
+<tr>
+<td>cURL + cJSON</td>
+<td>HTTP 天气数据获取与 JSON 解析</td>
+</tr>
+<tr>
+<td>wpa_supplicant</td>
+<td>WiFi 连接管理</td>
+</tr>
+<tr>
+<td>ALSA (aplay/amixer)</td>
+<td>音频播放与音量控制</td>
+</tr>
+<tr>
+<td>System V 消息队列</td>
+<td>线程间异步通信</td>
+</tr>
+<tr>
+<td>pthread</td>
+<td>多线程（OSAL 封装层）</td>
+</tr>
+<tr>
+<td>CMake (&gt;= 3.15)</td>
+<td>跨平台构建系统</td>
+</tr>
+<tr>
+<td>SDL2</td>
+<td>x86 Linux 仿真器显示/输入</td>
+</tr>
+<tr>
+<td>BLE 透传模组（UART AT 指令）</td>
+<td>蓝牙设备通信</td>
+</tr>
+<tr>
+<td>GPIO34</td>
+<td>功放使能控制</td>
+</tr>
+<tr>
+<td>USB Gadget (hidg0)</td>
+<td>USB HID 键盘模拟</td>
+</tr>
+</tbody>
+</table>
+<h2 id="项目文件结构">项目文件结构
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">app_sdk</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">app</span><span class="o">/</span>                                     <span class="err">←</span> <span class="err">应用层</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">main</span><span class="o">.</span><span class="n">c</span>                               <span class="err">←</span> <span class="err">主入口（信号处理</span> <span class="err">→</span> <span class="err">子系统初始化</span> <span class="err">→</span> <span class="n">LVGL</span> <span class="err">主循环）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">CMakeLists</span><span class="o">.</span><span class="n">txt</span>                       <span class="err">←</span> <span class="err">应用</span> <span class="n">CMake</span><span class="err">（生成</span> <span class="n">demo</span> <span class="err">可执行文件）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">ui</span><span class="o">/</span>                                  <span class="err">←</span> <span class="n">LVGL</span> <span class="n">UI</span> <span class="err">层（</span><span class="mi">22</span> <span class="err">个页面文件）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_main</span><span class="o">.</span><span class="n">c</span>                      <span class="err">←</span> <span class="err">主页面（时钟</span> <span class="o">+</span> <span class="err">天气</span> <span class="o">+</span> <span class="mi">11</span> <span class="err">项菜单</span> <span class="o">+</span> <span class="err">状态栏）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_alarm_clock</span><span class="o">.</span><span class="n">c</span>               <span class="err">←</span> <span class="err">闹钟设置（倒计时</span><span class="o">/</span><span class="err">定时两种模式）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_alarm_remind</span><span class="o">.</span><span class="n">c</span>              <span class="err">←</span> <span class="err">闹钟提醒弹窗（</span><span class="n">layer_top</span> <span class="err">叠加层）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_tomato_learn</span><span class="o">.</span><span class="n">c</span>              <span class="err">←</span> <span class="err">番茄钟学习阶段（倒计时</span> <span class="o">+</span> <span class="err">暂停恢复）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_tomato_rest</span><span class="o">.</span><span class="n">c</span>               <span class="err">←</span> <span class="err">番茄钟休息阶段</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_tomato_time_setting</span><span class="o">.</span><span class="n">c</span>       <span class="err">←</span> <span class="err">番茄钟时间配置</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_tomato_finish</span><span class="o">.</span><span class="n">c</span>             <span class="err">←</span> <span class="err">番茄钟完成页</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_linkage</span><span class="o">.</span><span class="n">c</span>                   <span class="err">←</span> <span class="err">场景联动（</span><span class="mi">5</span> <span class="err">设备状态面板</span> <span class="o">+</span> <span class="err">控制开关）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_linkage_setting</span><span class="o">.</span><span class="n">c</span>           <span class="err">←</span> <span class="err">联动子设备配置（传感器阈值</span><span class="o">/</span><span class="err">间隔）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_language_game</span><span class="o">.</span><span class="n">c</span>             <span class="err">←</span> <span class="err">语言学习游戏（</span><span class="mi">14</span> <span class="err">音效按钮</span> <span class="o">+</span> <span class="err">缩放动画）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_city_setting</span><span class="o">.</span><span class="n">c</span>              <span class="err">←</span> <span class="err">天气城市选择（</span><span class="mi">18</span> <span class="err">城市滚轮）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_wifi_setting</span><span class="o">.</span><span class="n">c</span>              <span class="err">←</span> <span class="n">WiFi</span> <span class="err">配置（</span><span class="n">SSID</span> <span class="o">+</span> <span class="err">密码</span> <span class="o">+</span> <span class="err">虚拟键盘）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_connect_loading</span><span class="o">.</span><span class="n">c</span>           <span class="err">←</span> <span class="n">WiFi</span> <span class="err">连接加载（旋转动画</span> <span class="o">+</span> <span class="err">状态反馈）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_system_setting</span><span class="o">.</span><span class="n">c</span>            <span class="err">←</span> <span class="err">系统设置（亮度</span><span class="o">/</span><span class="err">音量滑杆</span> <span class="o">+</span> <span class="err">横竖屏</span> <span class="o">+</span> <span class="err">重启）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_time_setting</span><span class="o">.</span><span class="n">c</span>              <span class="err">←</span> <span class="err">表盘样式设置（数字</span><span class="o">/</span><span class="err">大字</span><span class="o">/</span><span class="err">模拟表盘）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_shortcutkey</span><span class="o">.</span><span class="n">c</span>               <span class="err">←</span> <span class="err">快捷键页（</span><span class="mi">10</span> <span class="err">应用图标，</span><span class="n">USB</span> <span class="n">HID</span> <span class="err">组合键）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_simulate_iphone</span><span class="o">.</span><span class="n">c</span>           <span class="err">←</span> <span class="n">iPhone</span> <span class="err">模拟界面（双页滑动切换）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_pulldown_view</span><span class="o">.</span><span class="n">c</span>             <span class="err">←</span> <span class="err">下拉控制面板（手势检测</span> <span class="o">+</span> <span class="err">亮度</span><span class="o">/</span><span class="err">音量快捷调节）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_sleep</span><span class="o">.</span><span class="n">c</span>                     <span class="err">←</span> <span class="err">屏保</span><span class="o">/</span><span class="err">睡眠页（</span><span class="mi">60</span><span class="n">s</span> <span class="err">无操作触发）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_warn</span><span class="o">.</span><span class="n">c</span>                      <span class="err">←</span> <span class="err">告警弹窗（入侵</span><span class="o">/</span><span class="err">喝水</span><span class="o">/</span><span class="err">关火三种提醒）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_about_us</span><span class="o">.</span><span class="n">c</span>                  <span class="err">←</span> <span class="err">关于页（二维码）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">page_conf</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">page_conf</span><span class="o">.</span><span class="n">c</span>        <span class="err">←</span> <span class="err">页面注册表</span> <span class="o">+</span> <span class="err">页面清理</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">data</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">device_data</span><span class="o">.</span><span class="n">h</span>                <span class="err">←</span> <span class="err">全局设备状态结构体（含所有连接</span><span class="o">/</span><span class="err">电量</span><span class="o">/</span><span class="err">设置</span><span class="o">/</span><span class="err">闹钟）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">device_data</span><span class="o">.</span><span class="n">c</span>                <span class="err">←</span> <span class="err">状态初始化、定时器、参数持久化读写</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">utils</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">├──</span> <span class="n">ble_mesh</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">ble_mesh</span><span class="o">.</span><span class="n">c</span>       <span class="err">←</span> <span class="n">BLE</span> <span class="err">模组</span> <span class="n">UART</span> <span class="err">通信</span> <span class="o">+</span> <span class="err">自定义二进制协议</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">├──</span> <span class="n">utils</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">utils</span><span class="o">.</span><span class="n">c</span>             <span class="err">←</span> <span class="err">时间格式化工具</span> <span class="o">+</span> <span class="err">信号处理</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">├──</span> <span class="n">clock</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">├──</span> <span class="n">lv_clock</span><span class="o">.</span><span class="n">h</span>                <span class="err">←</span> <span class="err">模拟时钟控件结构体定义</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">└──</span> <span class="n">lv_clock0</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="mf">2.</span><span class="n">c</span>          <span class="err">←</span> <span class="mi">3</span> <span class="err">种表盘样式（时针</span><span class="o">/</span><span class="err">分针</span><span class="o">/</span><span class="err">秒针旋转）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">├──</span> <span class="n">file</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">└──</span> <span class="n">file_save</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">file_save</span><span class="o">.</span><span class="n">c</span> <span class="err">←</span> <span class="err">原子化文件读写（</span><span class="n">temp</span> <span class="n">file</span> <span class="o">+</span> <span class="n">rename</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">└──</span> <span class="n">template</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>           <span class="err">└──</span> <span class="n">page_home</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">template</span>      <span class="err">←</span> <span class="err">新页面模板</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">res</span><span class="o">/</span>                                 <span class="err">←</span> <span class="err">资源目录</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>       <span class="err">├──</span> <span class="n">image</span><span class="o">/</span>                           <span class="err">←</span> <span class="err">图片资源（背景</span><span class="o">/</span><span class="err">图标</span><span class="o">/</span><span class="err">表盘</span><span class="o">/</span><span class="n">GIF</span><span class="o">/</span><span class="err">二维码）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>       <span class="err">├──</span> <span class="n">font</span><span class="o">/</span>                            <span class="err">←</span> <span class="err">字体文件（思源黑体</span> <span class="o">+</span> <span class="err">数字专用字体）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>       <span class="err">└──</span> <span class="n">music</span><span class="o">/</span>                           <span class="err">←</span> <span class="err">音频文件（</span><span class="mi">17</span> <span class="err">个</span> <span class="n">WAV</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">component</span><span class="o">/</span>                               <span class="err">←</span> <span class="err">组件层（可复用功能模块）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">osal</span><span class="o">/</span>                                <span class="err">←</span> <span class="err">操作系统抽象层</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">osal_conf</span><span class="o">.</span><span class="n">h</span>                      <span class="err">←</span> <span class="err">类型定义（句柄</span><span class="o">/</span><span class="err">返回值枚举）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">osal_thread</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">osal_thread</span><span class="o">.</span><span class="n">c</span>    <span class="err">←</span> <span class="err">线程封装（</span><span class="n">pthread</span> <span class="err">包装</span> <span class="o">+</span> <span class="err">内存管理）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">osal_queue</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">osal_queue</span><span class="o">.</span><span class="n">c</span>      <span class="err">←</span> <span class="err">消息队列封装（</span><span class="n">System</span> <span class="n">V</span> <span class="n">IPC</span> <span class="n">msgget</span><span class="o">/</span><span class="n">msgsnd</span><span class="o">/</span><span class="n">msgrcv</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">hal</span><span class="o">/</span>                                 <span class="err">←</span> <span class="err">硬件抽象层接口（</span><span class="mi">6</span> <span class="err">个头文件）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_audio</span><span class="o">.</span><span class="n">h</span>                   <span class="err">←</span> <span class="err">音频：播放</span><span class="o">/</span><span class="err">停止</span><span class="o">/</span><span class="err">音量</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_brightness</span><span class="o">.</span><span class="n">h</span>              <span class="err">←</span> <span class="err">亮度：读</span><span class="o">/</span><span class="err">写背光值</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_console</span><span class="o">.</span><span class="n">h</span>                 <span class="err">←</span> <span class="err">控制台：日志输出</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_system</span><span class="o">.</span><span class="n">h</span>                  <span class="err">←</span> <span class="err">系统：息屏</span><span class="o">/</span><span class="err">亮屏</span><span class="o">/</span><span class="n">CPU信息</span><span class="o">/</span><span class="err">重启</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_time</span><span class="o">.</span><span class="n">h</span>                    <span class="err">←</span> <span class="err">时间：</span><span class="n">NTP校时</span><span class="o">/</span><span class="err">系统时间读写</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">em_hal_uart</span><span class="o">.</span><span class="n">h</span>                    <span class="err">←</span> <span class="err">串口：打开</span><span class="o">/</span><span class="err">关闭</span><span class="o">/</span><span class="err">读写（</span><span class="n">termios</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">player</span><span class="o">/</span>                              <span class="err">←</span> <span class="err">异步音频播放器</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">audio_player_async</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="o">.</span><span class="n">c</span>        <span class="err">←</span> <span class="n">OSAL</span> <span class="err">线程</span><span class="o">+</span><span class="err">队列驱动的</span> <span class="n">aplay</span> <span class="err">异步播放</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">net</span><span class="o">/</span>                                 <span class="err">←</span> <span class="n">HTTP</span> <span class="err">异步请求管理器</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">http_manager</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">http_manager</span><span class="o">.</span><span class="n">c</span>   <span class="err">←</span> <span class="n">cURL</span> <span class="o">+</span> <span class="n">cJSON</span> <span class="o">+</span> <span class="n">OSAL</span> <span class="err">队列，心知天气</span> <span class="n">API</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">wifi</span><span class="o">/</span>                                <span class="err">←</span> <span class="n">WiFi</span> <span class="err">管理</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">wpa_manager</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">wpa_manager</span><span class="o">.</span><span class="n">c</span>     <span class="err">←</span> <span class="n">wpa_supplicant</span> <span class="err">控制接口封装</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">wpa_ctrl</span><span class="o">.</span><span class="n">h</span>                        <span class="err">←</span> <span class="n">wpa_supplicant</span> <span class="err">控制协议头文件</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">common</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">└──</span> <span class="n">base_utils</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">base_utils</span><span class="o">.</span><span class="n">c</span>   <span class="err">←</span> <span class="n">Shell</span> <span class="err">命令工具（</span><span class="n">system</span><span class="o">/</span><span class="n">popen</span><span class="o">/</span><span class="err">进程检测）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">usb_hid</span><span class="o">/</span>                             <span class="err">←</span> <span class="n">USB</span> <span class="n">HID</span> <span class="err">键盘模拟</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">usb_hid_async</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">usb_hid_async</span><span class="o">.</span><span class="n">c</span> <span class="err">←</span> <span class="err">异步</span> <span class="n">HID</span> <span class="err">命令线程</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">usb_hid_utils</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">usb_hid_utils</span><span class="o">.</span><span class="n">c</span> <span class="err">←</span> <span class="n">HID</span> <span class="err">报告生成</span> <span class="o">+</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">hidg0</span> <span class="err">写入</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">font</span><span class="o">/</span>                                <span class="err">←</span> <span class="err">字体管理</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>       <span class="err">└──</span> <span class="n">font_utils</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">font_utils</span><span class="o">.</span><span class="n">c</span>       <span class="err">←</span> <span class="n">FreeType</span> <span class="err">字体加载</span><span class="o">/</span><span class="err">缓存（</span><span class="n">LVGL</span> <span class="err">链表）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">platform</span><span class="o">/</span>                                <span class="err">←</span> <span class="err">平台层（硬件相关实现）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">├──</span> <span class="n">t113</span><span class="o">/</span>                                <span class="err">←</span> <span class="n">T113</span> <span class="n">ARM</span> <span class="err">真机</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">├──</span> <span class="n">t113</span><span class="o">.</span><span class="n">cmake</span>                       <span class="err">←</span> <span class="n">ARM</span> <span class="err">交叉编译工具链</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span> <span class="n">src</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">├──</span> <span class="n">CMakeLists</span><span class="o">.</span><span class="n">txt</span>                <span class="err">←</span> <span class="err">链接</span> <span class="n">sunxifb</span><span class="o">/</span><span class="n">G2D</span> <span class="err">加速库</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">├──</span> <span class="n">hal</span><span class="o">/</span>                          <span class="err">←</span> <span class="n">HAL</span> <span class="err">实现（</span><span class="mi">6</span> <span class="err">个</span> <span class="o">.</span><span class="n">c</span> <span class="err">文件，真机实现）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_audio</span><span class="o">.</span><span class="n">c</span>            <span class="err">←</span> <span class="n">amixer</span> <span class="err">音量</span> <span class="o">+</span> <span class="n">aplay</span> <span class="err">播放</span> <span class="o">+</span> <span class="n">GPIO34</span> <span class="err">功放</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_brightness</span><span class="o">.</span><span class="n">c</span>       <span class="err">←</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="k">class</span><span class="o">/</span><span class="n">backlight</span> <span class="err">读写</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_system</span><span class="o">.</span><span class="n">c</span>           <span class="err">←</span> <span class="err">息屏</span><span class="o">/</span><span class="err">亮屏</span><span class="o">/</span><span class="n">CPU温度频率</span><span class="o">/</span><span class="err">重启</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_time</span><span class="o">.</span><span class="n">c</span>             <span class="err">←</span> <span class="n">ntpd</span> <span class="n">NTP</span> <span class="o">+</span> <span class="n">settimeofday</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_uart</span><span class="o">.</span><span class="n">c</span>             <span class="err">←</span> <span class="n">termios</span> <span class="err">串口（</span><span class="n">select</span> <span class="err">超时读）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">└──</span> <span class="n">em_hal_console</span><span class="o">.</span><span class="n">c</span>          <span class="err">←</span> <span class="n">PTS</span> <span class="err">控制台输出</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">├──</span> <span class="n">porting</span><span class="o">/</span>                      <span class="err">←</span> <span class="n">LVGL</span> <span class="err">移植层</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">├──</span> <span class="n">sunxifb</span><span class="o">.</span><span class="n">c</span> <span class="o">/</span> <span class="n">sunxifb</span><span class="o">.</span><span class="n">h</span>     <span class="err">←</span> <span class="n">Sunxi</span> <span class="n">framebuffer</span> <span class="err">显示</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">├──</span> <span class="n">sunxig2d</span><span class="o">.</span><span class="n">c</span> <span class="o">/</span> <span class="n">sunxig2d</span><span class="o">.</span><span class="n">h</span>   <span class="err">←</span> <span class="n">G2D</span> <span class="err">硬件加速（</span><span class="n">fill</span><span class="o">/</span><span class="n">blend</span><span class="o">/</span><span class="n">blit</span><span class="o">/</span><span class="n">scale</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">├──</span> <span class="n">sunximem</span><span class="o">.</span><span class="n">c</span> <span class="o">/</span> <span class="n">sunximem</span><span class="o">.</span><span class="n">h</span>   <span class="err">←</span> <span class="err">内存管理</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">├──</span> <span class="n">lv_port_indev</span><span class="o">.</span><span class="n">c</span>           <span class="err">←</span> <span class="err">触摸输入</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">│</span>   <span class="err">└──</span> <span class="n">lv_port_tick</span><span class="o">.</span><span class="n">c</span>            <span class="err">←</span> <span class="err">时钟节拍（</span><span class="n">clock_gettime</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>       <span class="err">└──</span> <span class="n">utils</span><span class="o">/</span>                        <span class="err">←</span> <span class="err">工具函数</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>   <span class="err">└──</span> <span class="n">x86linux</span><span class="o">/</span>                            <span class="err">←</span> <span class="n">x86</span> <span class="n">Linux</span> <span class="err">仿真器</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>       <span class="err">├──</span> <span class="n">linux</span><span class="o">.</span><span class="n">cmake</span>                       <span class="err">←</span> <span class="err">原生</span> <span class="n">GCC</span> <span class="err">编译</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>       <span class="err">└──</span> <span class="n">src</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>           <span class="err">├──</span> <span class="n">CMakeLists</span><span class="o">.</span><span class="n">txt</span>                <span class="err">←</span> <span class="err">链接</span> <span class="n">SDL2</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>           <span class="err">├──</span> <span class="n">hal</span><span class="o">/</span>                          <span class="err">←</span> <span class="n">HAL</span> <span class="err">实现（</span><span class="n">stub</span> <span class="err">实现，仅音频</span><span class="o">/</span><span class="err">时间有功能）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>           <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_audio</span><span class="o">.</span><span class="n">c</span>            <span class="err">←</span> <span class="n">aplay</span> <span class="err">后台播放（无</span> <span class="n">GPIO</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>           <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_brightness</span><span class="o">.</span><span class="n">c</span>       <span class="err">←</span> <span class="err">空实现</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>           <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_system</span><span class="o">.</span><span class="n">c</span>           <span class="err">←</span> <span class="err">空实现</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>           <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_time</span><span class="o">.</span><span class="n">c</span>             <span class="err">←</span> <span class="n">NTP</span> <span class="o">+</span> <span class="n">settimeofday</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>           <span class="err">│</span>   <span class="err">├──</span> <span class="n">em_hal_uart</span><span class="o">.</span><span class="n">c</span>             <span class="err">←</span> <span class="n">termios</span> <span class="err">串口</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>           <span class="err">│</span>   <span class="err">└──</span> <span class="n">em_hal_console</span><span class="o">.</span><span class="n">c</span>          <span class="err">←</span> <span class="err">空实现</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>           <span class="err">└──</span> <span class="n">porting</span><span class="o">/</span>                      <span class="err">←</span> <span class="n">LVGL</span> <span class="err">移植层</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>               <span class="err">├──</span> <span class="n">simulator_init</span><span class="o">.</span><span class="n">c</span>           <span class="err">←</span> <span class="n">SDL2</span> <span class="err">窗口初始化（显示</span> <span class="o">+</span> <span class="err">鼠标</span><span class="o">/</span><span class="err">键盘</span><span class="o">/</span><span class="err">滚轮输入）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>               <span class="err">├──</span> <span class="n">monitor</span><span class="o">.</span><span class="n">c</span> <span class="o">/</span> <span class="n">monitor</span><span class="o">.</span><span class="n">h</span>      <span class="err">←</span> <span class="n">SDL2</span> <span class="err">显示驱动</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>               <span class="err">├──</span> <span class="n">lv_conf</span><span class="o">.</span><span class="n">h</span>                  <span class="err">←</span> <span class="n">LVGL</span> <span class="err">配置（</span><span class="mi">32</span><span class="err">位色深</span><span class="o">/</span><span class="mi">20</span><span class="n">MB内存</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>               <span class="err">└──</span> <span class="n">lv_drv_conf</span><span class="o">.</span><span class="n">h</span>              <span class="err">←</span> <span class="n">LVGL</span> <span class="err">驱动配置</span>
+</span></span><span class="line"><span class="cl"><span class="err">│</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">lvgl</span><span class="o">/</span>                                    <span class="err">←</span> <span class="n">LVGL</span> <span class="n">v8</span><span class="o">.</span><span class="mf">3.1</span> <span class="err">源码</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">CMakeLists</span><span class="o">.</span><span class="n">txt</span>                            <span class="err">←</span> <span class="err">根构建文件（条件编译平台选择）</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">build</span><span class="o">.</span><span class="n">sh</span>                                 <span class="err">←</span> <span class="err">编译脚本（</span><span class="o">-</span><span class="n">linux</span> <span class="o">/</span> <span class="o">-</span><span class="n">t113</span> <span class="o">/</span> <span class="o">-</span><span class="n">clean</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="err">└──</span> <span class="n">README</span><span class="o">.</span><span class="n">md</span>                                <span class="err">←</span> <span class="err">环境要求与编译说明</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="数据流运行时">数据流（运行时）
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">外部设备                  T113 内部处理                     UI 输出
+</span></span><span class="line"><span class="cl">══════════════════════   ═══════════════════════════════   ══════════════
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">BLE 模组 (UART) ──────→ ble_mesh.c ──────────→ device_state_t ──→ 页面刷新
+</span></span><span class="line"><span class="cl">WiFi (wlan0)    ──────→ wpa_manager (wpa_ctrl) ──→ 状态图标更新
+</span></span><span class="line"><span class="cl">心知天气 API    ──────→ http_manager (cURL+cJSON) ──→ 天气文字刷新
+</span></span><span class="line"><span class="cl">触摸屏          ──────→ lv_port_indev ───────→ UI 交互响应
+</span></span><span class="line"><span class="cl">                                                                │
+</span></span><span class="line"><span class="cl">                                                                ▼
+</span></span><span class="line"><span class="cl">LCD (FB)        ◀────── sunxifb + G2D ◀── lv_task_handler ◀── 22 个页面
+</span></span><span class="line"><span class="cl">功放喇叭        ◀────── GPIO34 + aplay ◀── audio_player (异步线程)
+</span></span><span class="line"><span class="cl">PC              ◀────── USB HID (/dev/hidg0) ◀── 快捷键页面
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="核心数据通路说明">核心数据通路说明
+</h3><ol>
+<li><strong>BLE 通信链路</strong>：BLE 模组 UART ↔ <code>ble_mesh.c</code>（AT 指令 + 自定义协议）→ 更新 <code>device_state_t</code> → UI 页面刷新设备状态/电量</li>
+<li><strong>WiFi 管理链路</strong>：<code>wpa_manager</code> 通过 wpa_ctrl socket 控制 <code>wpa_supplicant</code> → 状态回调 → 更新 <code>device_state_t.wifi_*</code> → UI 状态图标刷新；连接成功后自动触发 NTP 校时 + 天气获取</li>
+<li><strong>HTTP 天气获取</strong>：<code>http_manager</code> 异步线程 → cURL GET 心知天气 API → cJSON 解析 → 回调更新 <code>device_state_t.weather_*</code> → 主页天气文字刷新</li>
+<li><strong>UI 渲染</strong>：主循环 <code>lv_task_handler()</code> + <code>usleep</code> 按需调用 → LVGL 计算脏区域 → sunxifb 刷新 framebuffer → G2D 硬件加速混合</li>
+<li><strong>页面导航</strong>：调用目标页面的 <code>init_page_xxx()</code> → 内部先调 <code>delete_current_page()</code> 清理旧页面 → 在新 <code>lv_scr_act()</code> 上创建控件；弹窗类页面通过 <code>lv_layer_top()</code> 叠加显示</li>
+<li><strong>音频播放</strong>：UI 页面调 <code>start_play_audio_async()</code> → OSAL 消息队列 → 工作线程 → HAL <code>em_play_audio()</code> → T113 上 <code>fork</code> 子进程执行 <code>aplay</code> + GPIO34 控制功放</li>
+<li><strong>参数持久化</strong>：<code>device_param_write()</code> → 将整个 <code>device_state_t</code> 通过 <code>file_param_write()</code> 原子写入 <code>param.cfg</code>（先写 temp 文件再 rename）</li>
+</ol>
+<hr>
+<h1 id="第二部分关键设计要点">第二部分：关键设计要点
+</h1><h2 id="1-硬件抽象层hal">1. 硬件抽象层（HAL）
+</h2><p><code>component/hal/</code> 目录下 6 个头文件定义了所有硬件操作的统一接口。通过 CMake 条件编译 <code>#ifdef SIMULATOR_LINUX</code> 在平台层切换实现：</p>
+<table>
+<thead>
+<tr>
+<th>平台</th>
+<th>音频</th>
+<th>亮度</th>
+<th>系统</th>
+<th>时间</th>
+<th>串口</th>
+<th>控制台</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T113</td>
+<td>amixer + aplay + GPIO34</td>
+<td>sysfs backlight</td>
+<td>CPU信息/重启</td>
+<td>NTP + settimeofday</td>
+<td>termios</td>
+<td>PTS</td>
+</tr>
+<tr>
+<td>x86 Linux</td>
+<td>amixer + aplay 后台</td>
+<td>空实现</td>
+<td>空实现</td>
+<td>NTP + settimeofday</td>
+<td>termios</td>
+<td>空实现</td>
+</tr>
+</tbody>
+</table>
+<p>UI 层和组件层代码完全不接触硬件寄存器或 sysfs，实现了&quot;写一次 UI，双平台运行&quot;。</p>
+<h3 id="编译切换">编译切换
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// main.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#ifdef SIMULATOR_LINUX
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Running in Linux simulator mode.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#else
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="nf">wpa_manager_open</span><span class="p">();</span>      <span class="c1">// T113 真机才启动 WiFi
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">ble_mesh_init</span><span class="p">();</span>         <span class="c1">// T113 真机才启动 BLE
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#endif
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>构建命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./build.sh -linux    <span class="c1"># x86 仿真器（SDL2 窗口 + 鼠标/键盘输入）</span>
+</span></span><span class="line"><span class="cl">./build.sh -t113     <span class="c1"># T113 ARM 交叉编译（G2D 硬件加速 + framebuffer）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="2-统一异步组件模式">2. 统一异步组件模式
+</h2><p>Audio Player、HTTP Manager、USB HID 三个模块采用完全相同的异步架构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[调用方] → osal_queue_send(cmd) → [System V 消息队列(容量50)] → osal_queue_recv() → [工作线程] → HAL 接口
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以 Audio Player 为例：</p>
+<ul>
+<li><code>audio_obj</code> 结构体：<code>{AUDIO_COMM_ID id, char file_name[256]}</code></li>
+<li><code>start_play_audio_async(url)</code> — 调用方（任何 UI 页面）发消息到队列，立即返回不阻塞</li>
+<li>工作线程 <code>audio_thread_fun</code> — 循环收消息 → <code>em_stop_play_audio()</code> → <code>em_play_audio(file_name)</code></li>
+</ul>
+<p>三个模块的区别仅在于：</p>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>命令类型</th>
+<th>HAL 调用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>audio_player</td>
+<td>START / STOP</td>
+<td><code>em_play_audio()</code> / <code>em_stop_play_audio()</code></td>
+</tr>
+<tr>
+<td>http_manager</td>
+<td>GET_WEATHER / GET_TIME</td>
+<td>cURL GET + cJSON 解析</td>
+</tr>
+<tr>
+<td>usb_hid</td>
+<td>CTRL_ALT / CTRL</td>
+<td>HID report 写入 <code>/dev/hidg0</code></td>
+</tr>
+</tbody>
+</table>
+<p>线程数少——每个模块只开 1 个工作线程，不使用线程池，简洁够用。</p>
+<h2 id="3-ble-模组通信与自定义协议">3. BLE 模组通信与自定义协议
+</h2><h3 id="物理层">物理层
+</h3><p>BLE 透传模组通过 UART 与 T113 通信：</p>
+<ul>
+<li>T113 真机：<code>/dev/ttyS0</code>，115200 baud</li>
+<li>仿真器：<code>/dev/ttyUSB0</code></li>
+</ul>
+<h3 id="at-指令层">AT 指令层
+</h3><p>模组通过 AT 指令集控制：设置设备名（<code>AT+NAME</code>）、设置 MAC（<code>AT+MAC</code>）、自动重连（<code>AT+AUTO_CFG</code>）、扫描自定义广播（<code>AT+SCAN_MANU</code>）等。</p>
+<h3 id="自定义二进制协议透传通道">自定义二进制协议（透传通道）
+</h3><p>控制指令和状态上报使用统一帧格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0xAA [包长度] [设备类型] [数据...] 0x55
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>5 种设备类型：</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>类型</th>
+<th>方向</th>
+<th>控制帧</th>
+<th>上报帧</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>RGB灯+开关</td>
+<td>可控</td>
+<td><code>AA 06 01 R G B state 55</code></td>
+<td><code>AA 07 01 R G B state battery 55</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>舵机</td>
+<td>可控（已合并到类型1）</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>3</td>
+<td>火焰传感器</td>
+<td>仅上报</td>
+<td>—</td>
+<td><code>AA 04 03 status battery 55</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>人体传感器</td>
+<td>仅上报</td>
+<td>—</td>
+<td><code>AA 04 04 status battery 55</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>智能杯垫</td>
+<td>仅上报</td>
+<td>—</td>
+<td><code>AA 04 05 status battery 55</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="软件架构">软件架构
+</h3><p>双线程 + System V 消息队列：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">UART 读线程 → SysV msg queue (key=123) → 协议处理线程 → device_state_t → UI 刷新
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="4-全局设备状态管理">4. 全局设备状态管理
+</h2><p>所有设备状态集中在 <code>device_state_t</code> 结构体中（<a class="link" href="app_sdk_v2/app_sdk/app/ui/data/device_data.h" >device_data.h</a>），包含：</p>
+<ul>
+<li>5 设备连接状态 + 电量</li>
+<li>RGB 颜色值 + 开关状态</li>
+<li>传感器数据 + 告警配置（阈值/间隔）</li>
+<li>番茄钟时间配置 + 剩余时间</li>
+<li>天气信息 + 城市</li>
+<li>WiFi 连接状态</li>
+<li>系统设置（亮度/音量/横竖屏/表盘样式/闹钟）</li>
+<li>版本号</li>
+</ul>
+<p>状态通过 <code>get_device_state()</code> 全局访问，通过 <code>device_param_write()</code> 持久化到 <code>param.cfg</code>。</p>
+<h3 id="原子化持久化">原子化持久化
+</h3><p><code>file_param_write()</code> 采用&quot;先写 temp 再 rename&quot;策略防止写入中断导致配置文件损坏：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// file_save.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">fp</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="n">temp_path</span><span class="p">,</span> <span class="s">&#34;wb&#34;</span><span class="p">);</span>   <span class="c1">// 写到 param.cfg_copy
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">fwrite</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">fflush</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">fsync</span><span class="p">(</span><span class="nf">fileno</span><span class="p">(</span><span class="n">fp</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="nf">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">rename</span><span class="p">(</span><span class="n">temp_path</span><span class="p">,</span> <span class="n">real_path</span><span class="p">);</span>   <span class="c1">// 原子替换
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="5-页面导航与弹窗叠加">5. 页面导航与弹窗叠加
+</h2><h3 id="普通页面导航">普通页面导航
+</h3><p>导航通过函数调用实现，无显式页面栈：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">delete_current_page</span><span class="p">(</span><span class="n">style</span><span class="p">);</span>  <span class="c1">// 清理当前屏幕所有控件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">init_page_xxx</span><span class="p">();</span>             <span class="c1">// 在新屏幕上创建目标页面
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="弹窗叠加层">弹窗/叠加层
+</h3><p>闹钟提醒、告警、WiFi 加载、屏保等页面使用 <code>lv_layer_top()</code> 创建，覆盖在所有正常页面之上：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">lv_obj_t</span> <span class="o">*</span><span class="n">scr</span> <span class="o">=</span> <span class="nf">lv_obj_create</span><span class="p">(</span><span class="nf">lv_layer_top</span><span class="p">());</span>  <span class="c1">// 顶层叠加
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>弹窗通过<strong>单例守卫</strong>防止重复创建：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">lv_obj_t</span> <span class="o">*</span><span class="n">page</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">page</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>   <span class="c1">// 已存在，不重复创建
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">page</span> <span class="o">=</span> <span class="nf">lv_obj_create</span><span class="p">(</span><span class="nf">lv_layer_top</span><span class="p">());</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="6-下拉控制面板">6. 下拉控制面板
+</h2><p><code>page_pulldown_view.c</code> 实现了类似手机下拉通知栏的手势交互：</p>
+<ul>
+<li>通过 <code>lv_indev_get_act()</code> 获取当前输入设备，hook <code>feedback_cb</code> 回调检测下拉手势</li>
+<li>触发条件：触摸点在屏幕顶部 30px 区域内 + 向下拖拽</li>
+<li>面板内容：亮度滑杆 + 音量滑杆 + 收起图标</li>
+<li>面板打开时通过 <code>get_is_pull_down()</code> 屏蔽主页菜单交互</li>
+</ul>
+<h2 id="7-wifi-连接管理">7. WiFi 连接管理
+</h2><p><code>wpa_manager.c</code> 封装了 wpa_supplicant 的控制接口（基于 <code>wpa_ctrl.h</code> 协议）：</p>
+<ul>
+<li>启动流程：<code>ifconfig wlan0 up</code> → 启动 <code>wpa_supplicant -B</code> → 打开 wpa_ctrl socket → 创建事件监听线程</li>
+<li>连接流程：<code>ADD_NETWORK</code> → <code>SET_NETWORK ssid/psk</code> → <code>ENABLE_NETWORK</code> → <code>SELECT_NETWORK</code></li>
+<li>状态监控：事件线程解析 <code>CTRL-EVENT-CONNECTED</code>（触发 <code>udhcpc</code> 获取 IP）→ <code>CTRL-EVENT-DISCONNECTED</code> → <code>CTRL-EVENT-SSID-TEMP-DISABLED</code>（密码错误）→ 回调通知 UI</li>
+</ul>
+<h2 id="8-usb-hid-键盘模拟">8. USB HID 键盘模拟
+</h2><p>通过 Linux USB Gadget 的 HID 功能，模拟键盘组合键操控 PC：</p>
+<ul>
+<li>设备文件：<code>/dev/hidg0</code></li>
+<li>HID 报告格式：8 字节（1 字节修饰键 + 1 保留 + 6 键码）</li>
+<li>快捷键页 10 个应用映射：<code>Ctrl+Alt+A</code>(VSCode) / <code>B</code>(Keil) / <code>C</code>(VMware) / <code>D</code>(CubeMX) / <code>E</code>(微信) / <code>F</code>(Chrome) / <code>G</code>(音乐) / <code>H</code>(WPS) / <code>I</code>(PS) / <code>J</code>(Game)</li>
+<li>发送流程：写修饰键报告 → 写键码报告 → 写全零报告（释放）→ 需 USB 线连接 PC</li>
+</ul>
+<h2 id="9-三级时间显示">9. 三级时间显示
+</h2><p>主页支持 3 种表盘样式（<a class="link" href="app_sdk_v2/app_sdk/app/ui/page_main.c" >page_main.c</a> + <a class="link" href="app_sdk_v2/app_sdk/app/ui/page_time_setting.c" >page_time_setting.c</a>）：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>枚举值</th>
+<th>显示方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数字+天气</td>
+<td>TIME_TYPE_1</td>
+<td>60px 数字时钟 + 天气文字（&ldquo;城市 天气 温度℃&quot;）</td>
+</tr>
+<tr>
+<td>仅大字数字</td>
+<td>TIME_TYPE_2</td>
+<td>80px 大字时钟 + GIF 地球仪动画背景</td>
+</tr>
+<tr>
+<td>模拟表盘</td>
+<td>TIME_TYPE_3</td>
+<td>图片表盘 + 旋转时针/分针/秒针（3 种表盘可选）</td>
+</tr>
+</tbody>
+</table>
+<p>模拟表盘通过自定义 <code>lv_clock_t</code> 控件实现，每 1000ms 定时器刷新指针角度：</p>
+<ul>
+<li>时针角度 = <code>小时×300 + 分钟×5</code>（每小时 30°，每分钟 +0.5°）</li>
+<li>分针角度 = <code>分钟×60</code>（每分钟 6°）</li>
+<li>秒针角度 = <code>秒钟×60</code>（每秒 6°）</li>
+</ul>
+<h2 id="10-pc-仿真器">10. PC 仿真器
+</h2><p>x86 Linux 平台提供了完整的仿真开发环境：</p>
+<ul>
+<li><strong>构建系统</strong>：CMake + SDL2，<code>./build.sh -linux</code> 一键编译</li>
+<li><strong>显示模拟</strong>：SDL2 窗口绘制 LVGL 渲染缓冲区（<code>monitor.c</code>）</li>
+<li><strong>输入模拟</strong>：鼠标（触屏 pointer）、键盘（keypad）、滚轮（encoder）三种输入设备</li>
+<li><strong>时钟驱动</strong>：SDL 独立线程每 5ms 调用 <code>lv_tick_inc(5)</code></li>
+<li><strong>硬件隔离</strong>：<code>#ifdef SIMULATOR_LINUX</code> 跳过 BLE/WiFi，HAL stub 返回空值，UI 代码零改动</li>
+</ul>
+<p>开发流程：VS Code 编辑代码 → <code>./build.sh -linux</code> 编译 → 运行 <code>build/app/demo</code> 验证 UI → 拷贝到 T113 工程交叉编译 → 真机运行。</p>
+<hr>
+<h1 id="第三部分踩坑记录与解决方案">第三部分：踩坑记录与解决方案
+</h1><h2 id="踩坑-1ble-模组-uart-通信丢包与粘包">踩坑 1：BLE 模组 UART 通信丢包与粘包
+</h2><h3 id="现象">现象
+</h3><p>UART 接收 BLE 模组数据时，出现半包、粘包，导致协议解析错误，设备状态无法更新。</p>
+<h3 id="根因">根因
+</h3><p>BLE 模组通过 UART 输出 AT 指令响应 + 透传数据，两种数据混杂在同一串口。UART 读线程每次只读一段，可能读到不完整的帧。</p>
+<h3 id="解决">解决
+</h3><p>使用 System V 消息队列解耦：UART 读线程只管读原始数据并发送到消息队列，协议处理线程从队列取出数据，通过帧头 <code>0xAA</code> / 帧尾 <code>0x55</code> 边界检测进行拼包和拆包，确保每次处理的都是完整帧。</p>
+<hr>
+<h2 id="踩坑-2wifi-密码错误无-ui-反馈">踩坑 2：WiFi 密码错误无 UI 反馈
+</h2><h3 id="现象-1">现象
+</h3><p>输入错误密码后，WiFi 加载页面一直转圈，用户不知道发生了什么。</p>
+<h3 id="根因-1">根因
+</h3><p>wpa_supplicant 在密码错误时发出 <code>CTRL-EVENT-SSID-TEMP-DISABLED</code> 事件，但初始版本的事件处理未解析此消息。</p>
+<h3 id="解决-1">解决
+</h3><p>在 wpa_manager 事件线程中增加对该事件的解析，映射到 <code>WPA_WIFI_WRONG_KEY</code> 状态，回调 UI 显示&quot;密码错误&quot;提示。</p>
+<hr>
+<h2 id="踩坑-3lvgl-模拟器窗口坐标偏移">踩坑 3：LVGL 模拟器窗口坐标偏移
+</h2><h3 id="现象-2">现象
+</h3><p>SDL2 模拟器窗口中，鼠标点击位置与实际 UI 控件位置有偏移，无法正常交互。</p>
+<h3 id="根因-2">根因
+</h3><p>SDL2 窗口大小与 LVGL 配置的 <code>MONITOR_HOR_RES / MONITOR_VER_RES</code> 不匹配，输入驱动未做坐标缩放。</p>
+<h3 id="解决-2">解决
+</h3><p>在 <code>monitor.c</code> 的鼠标读取函数中添加 zoom 系数：<code>lv_x = SDL_x * LVGL_HOR_RES / SDL_window_width</code>。代码中的 <code>SDL_MAIN_HANDLED</code> 宏定义表明作者在 Windows 上遇到过 <code>WinMain</code> 链接问题并已修复。</p>
+<hr>
+<h2 id="踩坑-4闹钟弹窗重复创建导致界面混乱">踩坑 4：闹钟弹窗重复创建导致界面混乱
+</h2><h3 id="现象-3">现象
+</h3><p>闹钟触发时，弹窗偶尔出现多个叠加，关闭一个后底下还有。</p>
+<h3 id="根因-3">根因
+</h3><p>闹钟检测在定时器回调中执行，1 秒一次。弹窗未关闭期间定时器仍在触发，导致重复创建。</p>
+<h3 id="解决-3">解决
+</h3><p>弹窗函数加单例守卫——静态指针 <code>static lv_obj_t *page = NULL</code>，创建前置检查 <code>if (page != NULL) return</code>，关闭时置 <code>NULL</code>。告警弹窗、屏保页同样采用此模式。</p>
+<hr>
+<h2 id="踩坑-5配置文件断电损坏">踩坑 5：配置文件断电损坏
+</h2><h3 id="现象-4">现象
+</h3><p>设备异常断电后重新上电，所有设置恢复默认值，之前修改的亮度、音量、闹钟等全部丢失。</p>
+<h3 id="根因-4">根因
+</h3><p>直接 <code>fwrite</code> 到 <code>param.cfg</code>，写入过程中断电会导致文件内容不完整或损坏。</p>
+<h3 id="解决-4">解决
+</h3><p>改用&quot;先写临时文件再 rename&quot;的原子化写入：数据写入 <code>param.cfg_copy</code> → <code>fsync</code> 确保落盘 → <code>rename</code> 原子替换为目标文件。读取时增加数据有效性校验。</p>
+<hr>
+<h2 id="踩坑-6t113-音频播放多次触发导致进程僵尸">踩坑 6：T113 音频播放多次触发导致进程僵尸
+</h2><h3 id="现象-5">现象
+</h3><p>频繁触发音频播放后，系统出现僵尸进程（<code>aplay</code> defunct），最终无法播放。</p>
+<h3 id="根因-5">根因
+</h3><p>T113 上 <code>em_play_audio()</code> 通过 <code>fork()</code> 子进程执行 <code>aplay</code>，父进程未 <code>waitpid()</code> 回收子进程。多次播放产生多个僵尸。</p>
+<h3 id="解决-5">解决
+</h3><p>播放前先检查 <code>aplay_pid</code>，如果已有进程在播放则 <code>kill</code> + <code>waitpid</code> 回收后再 <code>fork</code> 新进程：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">aplay_pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">em_stop_play_audio</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">waitpid</span><span class="p">(</span><span class="n">aplay_pid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">aplay_pid</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">pid_t</span> <span class="n">pid</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">aplay_pid</span> <span class="o">=</span> <span class="n">pid</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="踩坑总结">踩坑总结
+</h2><table>
+<thead>
+<tr>
+<th>#</th>
+<th>问题</th>
+<th>症状</th>
+<th>根因</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>UART 粘包</td>
+<td>BLE 设备状态不准</td>
+<td>串口数据混杂未做帧同步</td>
+<td>System V 消息队列解耦 + 帧边界检测</td>
+</tr>
+<tr>
+<td>2</td>
+<td>WiFi 无错误提示</td>
+<td>密码错误一直转圈</td>
+<td>未解析 WRONG_KEY 事件</td>
+<td>增加 CTRL-EVENT-SSID-TEMP-DISABLED 解析</td>
+</tr>
+<tr>
+<td>3</td>
+<td>模拟器坐标偏移</td>
+<td>鼠标点击不准</td>
+<td>窗口分辨率与 LVGL 不匹配</td>
+<td>zoom 系数坐标映射</td>
+</tr>
+<tr>
+<td>4</td>
+<td>弹窗重复叠加</td>
+<td>多个弹窗同时显示</td>
+<td>定时器重复创建未做防重</td>
+<td>单例守卫（static 指针判空）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>配置文件损坏</td>
+<td>断电后设置丢失</td>
+<td>直接写入无原子保护</td>
+<td>temp 文件 + fsync + rename 原子写入</td>
+</tr>
+<tr>
+<td>6</td>
+<td>音频进程僵尸</td>
+<td>无法播放</td>
+<td>fork 后未 waitpid</td>
+<td>播放前 kill+waitpid 回收再 fork</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="第四部分模块汇总">第四部分：模块汇总
+</h1><table>
+<thead>
+<tr>
+<th>#</th>
+<th>模块</th>
+<th>文件</th>
+<th>代码量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>主入口</td>
+<td><code>app/main.c</code></td>
+<td>45 行</td>
+<td>信号处理 → 7 个子系统初始化 → LVGL 主循环</td>
+</tr>
+<tr>
+<td>2</td>
+<td>全局状态</td>
+<td><code>app/ui/data/device_data.c/h</code></td>
+<td>~300 行</td>
+<td>设备状态结构体 + 定时器 + 持久化</td>
+</tr>
+<tr>
+<td>3</td>
+<td>主页</td>
+<td><code>app/ui/page_main.c</code></td>
+<td>462 行</td>
+<td>3 种表盘 + 天气 + 状态栏 + 11 项菜单</td>
+</tr>
+<tr>
+<td>4</td>
+<td>场景联动</td>
+<td><code>app/ui/page_linkage.c</code></td>
+<td>526 行</td>
+<td>5 设备控制面板 + 状态刷新</td>
+</tr>
+<tr>
+<td>5</td>
+<td>闹钟系统</td>
+<td><code>page_alarm_clock.c + page_alarm_remind.c</code></td>
+<td>469 行</td>
+<td>倒计时/定时闹钟 + 弹窗提醒 + 音频</td>
+</tr>
+<tr>
+<td>6</td>
+<td>番茄钟</td>
+<td>4 个 page_tomato_*.c</td>
+<td>707 行</td>
+<td>学习→休息→完成循环 + 暂停恢复</td>
+</tr>
+<tr>
+<td>7</td>
+<td>BLE 通信</td>
+<td><code>app/ui/utils/ble_mesh.c/h</code></td>
+<td>~540 行</td>
+<td>UART AT 指令 + 自定义协议 + 双线程</td>
+</tr>
+<tr>
+<td>8</td>
+<td>模拟时钟控件</td>
+<td><code>app/ui/utils/clock/</code></td>
+<td>3 个 .c + 1 个 .h</td>
+<td>3 种表盘指针旋转动画</td>
+</tr>
+<tr>
+<td>9</td>
+<td>语言游戏</td>
+<td><code>app/ui/page_language_game.c</code></td>
+<td>203 行</td>
+<td>14 音效按钮 + 按下缩放动画</td>
+</tr>
+<tr>
+<td>10</td>
+<td>WiFi 配置</td>
+<td><code>page_wifi_setting.c + page_connect_loading.c</code></td>
+<td>387 行</td>
+<td>SSID/密码输入 + 连接动画 + 状态反馈</td>
+</tr>
+<tr>
+<td>11</td>
+<td>iPhone 模拟</td>
+<td><code>app/ui/page_simulate_iphone.c</code></td>
+<td>113 行</td>
+<td>双页滑动切换动画</td>
+</tr>
+<tr>
+<td>12</td>
+<td>下拉面板</td>
+<td><code>app/ui/page_pulldown_view.c</code></td>
+<td>252 行</td>
+<td>手势检测 + 亮度/音量快捷调节</td>
+</tr>
+<tr>
+<td>13</td>
+<td>快捷键</td>
+<td><code>app/ui/page_shortcutkey.c</code></td>
+<td>205 行</td>
+<td>10 应用 USB HID 一键启动</td>
+</tr>
+<tr>
+<td>14</td>
+<td>系统设置</td>
+<td><code>app/ui/page_system_setting.c</code></td>
+<td>256 行</td>
+<td>亮度/音量/横竖屏/重启</td>
+</tr>
+<tr>
+<td>15</td>
+<td>OSAL</td>
+<td><code>component/osal/</code></td>
+<td>~250 行</td>
+<td>pthread + System V 消息队列封装</td>
+</tr>
+<tr>
+<td>16</td>
+<td>HAL</td>
+<td><code>component/hal/</code></td>
+<td>6 个头文件</td>
+<td>音频/亮度/控制台/系统/时间/串口抽象接口</td>
+</tr>
+<tr>
+<td>17</td>
+<td>音频播放器</td>
+<td><code>component/player/</code></td>
+<td>84 行</td>
+<td>线程+队列异步 aplay 播放</td>
+</tr>
+<tr>
+<td>18</td>
+<td>HTTP 客户端</td>
+<td><code>component/net/</code></td>
+<td>237 行</td>
+<td>cURL + cJSON 异步天气获取</td>
+</tr>
+<tr>
+<td>19</td>
+<td>WiFi 管理</td>
+<td><code>component/wifi/</code></td>
+<td>~260 行</td>
+<td>wpa_supplicant 控制接口 + 事件监听</td>
+</tr>
+<tr>
+<td>20</td>
+<td>USB HID</td>
+<td><code>component/usb_hid/</code></td>
+<td>~310 行</td>
+<td>HID 报告生成 + 异步键盘模拟</td>
+</tr>
+<tr>
+<td>21</td>
+<td>字体管理</td>
+<td><code>component/font/</code></td>
+<td>~100 行</td>
+<td>FreeType 字体加载/缓存</td>
+</tr>
+<tr>
+<td>22</td>
+<td>文件存储</td>
+<td><code>app/ui/utils/file/file_save.c</code></td>
+<td>~60 行</td>
+<td>原子化参数持久化</td>
+</tr>
+<tr>
+<td>23</td>
+<td>T113 平台</td>
+<td><code>platform/t113/</code></td>
+<td>~650 行</td>
+<td>sunxifb/G2D/触摸/6 个 HAL 实现</td>
+</tr>
+<tr>
+<td>24</td>
+<td>x86 仿真器</td>
+<td><code>platform/x86linux/</code></td>
+<td>~400 行</td>
+<td>SDL2 窗口/鼠标/键盘/6 个 HAL 实现</td>
+</tr>
+</tbody>
+</table>
+</div>
+            </div>
+        </article>
+        
+    </div>
+    
+    
+    <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+
+</html>

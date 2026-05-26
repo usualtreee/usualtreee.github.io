@@ -37,10 +37,16 @@
     <loc>https://usualtreee.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2026-05-26T14:58:37+08:00</lastmod>
   </url><url>
+    <loc>https://usualtreee.github.io/tags/allwinner/</loc>
+    <lastmod>2026-05-26T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://usualtreee.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2026-05-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://usualtreee.github.io/tags/embedded/</loc>
+    <lastmod>2026-05-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://usualtreee.github.io/tags/linux/</loc>
     <lastmod>2026-05-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://usualtreee.github.io/tags/npu/</loc>
@@ -73,6 +79,9 @@
                 hreflang="zh-cn"
                 href="https://usualtreee.github.io/tags/"
                 />
+  </url><url>
+    <loc>https://usualtreee.github.io/project/allwinner-screen/</loc>
+    <lastmod>2026-05-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://usualtreee.github.io/project/rk3588/study-day1/</loc>
     <lastmod>2026-05-26T00:00:00+00:00</lastmod>
