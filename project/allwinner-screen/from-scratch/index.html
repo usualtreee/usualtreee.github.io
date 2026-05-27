@@ -273,8 +273,239 @@
             <div class="single-body-content">
                 <h1 class="single-title">全志桌面屏幕 — 从 0 构建项目</h1>
                 <div class="single-content" id="ttsContent"><h1 id="从-0-构建项目">从 0 构建项目
-</h1><hr>
-<!-- 在这里写你的内容 -->
+</h1><h2 id="你需要的东西">你需要的东西
+</h2><h3 id="硬件">硬件
+</h3><table>
+<thead>
+<tr>
+<th>物品</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全志 T113 开发板</td>
+<td>带 LCD 触摸屏，已烧好系统</td>
+</tr>
+<tr>
+<td>USB 数据线</td>
+<td>ADB 调试用</td>
+</tr>
+<tr>
+<td>Windows PC</td>
+<td>开发用，装 WSL</td>
+</tr>
+</tbody>
+</table>
+<h3 id="软件pc-端">软件（PC 端）
+</h3><table>
+<thead>
+<tr>
+<th>软件</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WSL2 (Ubuntu)</td>
+<td>Linux 编译环境</td>
+</tr>
+<tr>
+<td>交叉编译工具链</td>
+<td><code>arm-openwrt-linux-gcc</code>，编译 ARM 程序</td>
+</tr>
+<tr>
+<td>ADB</td>
+<td>推送文件到板子</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="第一步搭建编译环境pc">第一步：搭建编译环境（PC）
+</h2><h3 id="1-启用-wsl2">1. 启用 WSL2
+</h3><p>Windows PowerShell（管理员）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">wsl</span> <span class="p">-</span><span class="n">-install</span> <span class="n">-d</span> <span class="n">Ubuntu</span><span class="p">-</span><span class="mf">22.04</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启电脑，进 Ubuntu 终端。</p>
+<h3 id="2-安装依赖">2. 安装依赖
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install build-essential cmake libsdl2-dev adb
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-安装交叉编译工具链">3. 安装交叉编译工具链
+</h3><p>工具链路径记录在 <code>build.sh</code> 里——<code>arm-openwrt-linux-gcc</code>。把这个工具链放到你电脑上，记住路径，改 <code>build.sh</code> 里的 <code>toolchain_path</code>。</p>
+<hr>
+<h2 id="第二步在-pc-上跑模拟器先验证-ui">第二步：在 PC 上跑模拟器（先验证 UI）
+</h2><p>不需要板子，先在 PC 上把 UI 跑起来：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /mnt/c/Users/13403/Desktop/quanzhi-LVGL/app_sdk_v2/app_sdk
+</span></span><span class="line"><span class="cl">./build.sh -linux
+</span></span><span class="line"><span class="cl">./build/app/demo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时应弹出一个 SDL2 窗口，显示智能桌面助手的 GUI。你可以用鼠标点击交互。</p>
+<p>如果这里跑不通，检查 SDL2 是否装好。如果成功，说明 UI 代码没问题，可以继续。</p>
+<hr>
+<h2 id="第三步交叉编译-t113-版本">第三步：交叉编译 T113 版本
+</h2><h3 id="1-确认工具链">1. 确认工具链
+</h3><p>打开 <code>build.sh</code>，确认 <code>toolchain_path</code> 指向你电脑上交叉编译器的 <code>bin</code> 目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">toolchain_path</span><span class="o">=</span><span class="s2">&#34;/你的路径/toolchain/bin&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>确保该目录下有 <code>arm-openwrt-linux-gcc</code>。</p>
+<h3 id="2-编译">2. 编译
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./build.sh -t113
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译成功后产物在 <code>build/app/demo</code>（ARM 可执行文件）。</p>
+<hr>
+<h2 id="第四步部署到板子">第四步：部署到板子
+</h2><h3 id="1-连接板子">1. 连接板子
+</h3><p>USB 线连接 PC 和 T113 板子。确认 ADB 识别到设备：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">adb devices
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>应列出一个设备。</p>
+<h3 id="2-推送文件">2. 推送文件
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 第一次：推库文件（以后不改库就不需要重复这步）</span>
+</span></span><span class="line"><span class="cl">adb push platform/t113/lib/* /usr/lib/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 第一次：推资源文件（图片、字体、音频）</span>
+</span></span><span class="line"><span class="cl">adb push build/app/res/* /usr/res/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 每次改代码后：推可执行文件</span>
+</span></span><span class="line"><span class="cl">adb push build/app/demo /usr/bin/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-在板子上跑">3. 在板子上跑
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">adb shell
+</span></span><span class="line"><span class="cl">/usr/bin/demo <span class="p">&amp;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>板子的 LCD 屏幕应显示 GUI 界面。</p>
+<hr>
+<h2 id="第五步设置开机自启">第五步：设置开机自启
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">adb shell
+</span></span><span class="line"><span class="cl">vi /etc/init.d/rc.final
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在文件末尾加一行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/usr/bin/demo &amp;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>保存退出，执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">reboot
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>板子重启后自动启动 demo，上电即显示 GUI。</p>
+<hr>
+<h2 id="附录-awindows-上开发-ui">附录 A：Windows 上开发 UI
+</h2><p>如果在 Windows 上改 UI 不想装 WSL：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Git Bash (MINGW64) 终端</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /c/Users/13403/Desktop/quanzhi-LVGL/app_sdk_v2/app_sdk
+</span></span><span class="line"><span class="cl">./build_win.sh -win
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> build/app
+</span></span><span class="line"><span class="cl">./demo.exe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>SDL2、FreeType 等依赖已打包在 <code>platform/win/sdl2/</code> 中，无需额外安装。</p>
+<p>详见 <a class="link" href="Windows%e7%a7%bb%e6%a4%8d%e8%b0%83%e8%af%95%e8%ae%b0%e5%bd%95.md" >Windows移植调试记录.md</a>。</p>
+<hr>
+<h2 id="附录-b常见问题">附录 B：常见问题
+</h2><h3 id="q-buildsh-编译报错-toolchain-not-found">Q: <code>build.sh</code> 编译报错 &ldquo;toolchain not found&rdquo;
+</h3><p>检查 <code>build.sh</code> 里的 <code>toolchain_path</code>，确认路径下有 <code>arm-openwrt-linux-gcc</code>。</p>
+<h3 id="q-adb-找不到设备">Q: ADB 找不到设备
+</h3><ul>
+<li>检查 USB 线是否支持数据传输（不是只能充电的线）</li>
+<li>确认板子已开机</li>
+<li>在 WSL 里可能需要 <code>sudo adb kill-server &amp;&amp; sudo adb start-server</code></li>
+</ul>
+<h3 id="q-推上去跑了但是屏幕没显示">Q: 推上去跑了但是屏幕没显示
+</h3><ul>
+<li><code>adb shell</code> 进板子，看 <code>ps | grep demo</code> 确认进程在跑</li>
+<li>看有没有 printf 错误输出</li>
+<li>检查是否为横竖屏参数问题，可能需要 <code>./build.sh -clean</code> 后重新 cmake</li>
+</ul>
+<h3 id="q-资源文件图片字体显示不出来">Q: 资源文件（图片/字体）显示不出来
+</h3><p>检查 <code>PROJECT_RES_URL</code> 路径。T113 上资源路径是 <code>/usr/res/</code>，确认文件已推到这个目录。</p>
+<h3 id="q-编译好的-demo-很大">Q: 编译好的 demo 很大
+</h3><p>正常。因为 FreeType 和 LVGL 都是静态链接的，最终二进制约 2-3MB。</p>
 </div>
             </div>
         </article>

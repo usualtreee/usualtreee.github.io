@@ -14,8 +14,239 @@
         
         <guid>https://usualtreee.github.io/project/allwinner-screen/from-scratch/</guid>
         <description>&lt;h1 id=&#34;从-0-构建项目&#34;&gt;从 0 构建项目
-&lt;/h1&gt;&lt;hr&gt;
-&lt;!-- 在这里写你的内容 --&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;你需要的东西&#34;&gt;你需要的东西
+&lt;/h2&gt;&lt;h3 id=&#34;硬件&#34;&gt;硬件
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;物品&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;全志 T113 开发板&lt;/td&gt;
+&lt;td&gt;带 LCD 触摸屏，已烧好系统&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;USB 数据线&lt;/td&gt;
+&lt;td&gt;ADB 调试用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Windows PC&lt;/td&gt;
+&lt;td&gt;开发用，装 WSL&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;软件pc-端&#34;&gt;软件（PC 端）
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;软件&lt;/th&gt;
+&lt;th&gt;用途&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;WSL2 (Ubuntu)&lt;/td&gt;
+&lt;td&gt;Linux 编译环境&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;交叉编译工具链&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;arm-openwrt-linux-gcc&lt;/code&gt;，编译 ARM 程序&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ADB&lt;/td&gt;
+&lt;td&gt;推送文件到板子&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第一步搭建编译环境pc&#34;&gt;第一步：搭建编译环境（PC）
+&lt;/h2&gt;&lt;h3 id=&#34;1-启用-wsl2&#34;&gt;1. 启用 WSL2
+&lt;/h3&gt;&lt;p&gt;Windows PowerShell（管理员）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;wsl&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;-install&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-d&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Ubuntu&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;22.04&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;重启电脑，进 Ubuntu 终端。&lt;/p&gt;
+&lt;h3 id=&#34;2-安装依赖&#34;&gt;2. 安装依赖
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install build-essential cmake libsdl2-dev adb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;3-安装交叉编译工具链&#34;&gt;3. 安装交叉编译工具链
+&lt;/h3&gt;&lt;p&gt;工具链路径记录在 &lt;code&gt;build.sh&lt;/code&gt; 里——&lt;code&gt;arm-openwrt-linux-gcc&lt;/code&gt;。把这个工具链放到你电脑上，记住路径，改 &lt;code&gt;build.sh&lt;/code&gt; 里的 &lt;code&gt;toolchain_path&lt;/code&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第二步在-pc-上跑模拟器先验证-ui&#34;&gt;第二步：在 PC 上跑模拟器（先验证 UI）
+&lt;/h2&gt;&lt;p&gt;不需要板子，先在 PC 上把 UI 跑起来：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /mnt/c/Users/13403/Desktop/quanzhi-LVGL/app_sdk_v2/app_sdk
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./build.sh -linux
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./build/app/demo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;此时应弹出一个 SDL2 窗口，显示智能桌面助手的 GUI。你可以用鼠标点击交互。&lt;/p&gt;
+&lt;p&gt;如果这里跑不通，检查 SDL2 是否装好。如果成功，说明 UI 代码没问题，可以继续。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第三步交叉编译-t113-版本&#34;&gt;第三步：交叉编译 T113 版本
+&lt;/h2&gt;&lt;h3 id=&#34;1-确认工具链&#34;&gt;1. 确认工具链
+&lt;/h3&gt;&lt;p&gt;打开 &lt;code&gt;build.sh&lt;/code&gt;，确认 &lt;code&gt;toolchain_path&lt;/code&gt; 指向你电脑上交叉编译器的 &lt;code&gt;bin&lt;/code&gt; 目录：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;toolchain_path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/你的路径/toolchain/bin&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;确保该目录下有 &lt;code&gt;arm-openwrt-linux-gcc&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;2-编译&#34;&gt;2. 编译
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./build.sh -t113
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;编译成功后产物在 &lt;code&gt;build/app/demo&lt;/code&gt;（ARM 可执行文件）。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第四步部署到板子&#34;&gt;第四步：部署到板子
+&lt;/h2&gt;&lt;h3 id=&#34;1-连接板子&#34;&gt;1. 连接板子
+&lt;/h3&gt;&lt;p&gt;USB 线连接 PC 和 T113 板子。确认 ADB 识别到设备：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;adb devices
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;应列出一个设备。&lt;/p&gt;
+&lt;h3 id=&#34;2-推送文件&#34;&gt;2. 推送文件
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 第一次：推库文件（以后不改库就不需要重复这步）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;adb push platform/t113/lib/* /usr/lib/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 第一次：推资源文件（图片、字体、音频）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;adb push build/app/res/* /usr/res/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 每次改代码后：推可执行文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;adb push build/app/demo /usr/bin/
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;3-在板子上跑&#34;&gt;3. 在板子上跑
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;adb shell
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/usr/bin/demo &lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;板子的 LCD 屏幕应显示 GUI 界面。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第五步设置开机自启&#34;&gt;第五步：设置开机自启
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;adb shell
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vi /etc/init.d/rc.final
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在文件末尾加一行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/usr/bin/demo &amp;amp;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;保存退出，执行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;reboot
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;板子重启后自动启动 demo，上电即显示 GUI。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;附录-awindows-上开发-ui&#34;&gt;附录 A：Windows 上开发 UI
+&lt;/h2&gt;&lt;p&gt;如果在 Windows 上改 UI 不想装 WSL：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Git Bash (MINGW64) 终端&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /c/Users/13403/Desktop/quanzhi-LVGL/app_sdk_v2/app_sdk
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./build_win.sh -win
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; build/app
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./demo.exe
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;SDL2、FreeType 等依赖已打包在 &lt;code&gt;platform/win/sdl2/&lt;/code&gt; 中，无需额外安装。&lt;/p&gt;
+&lt;p&gt;详见 &lt;a class=&#34;link&#34; href=&#34;Windows%e7%a7%bb%e6%a4%8d%e8%b0%83%e8%af%95%e8%ae%b0%e5%bd%95.md&#34; &gt;Windows移植调试记录.md&lt;/a&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;附录-b常见问题&#34;&gt;附录 B：常见问题
+&lt;/h2&gt;&lt;h3 id=&#34;q-buildsh-编译报错-toolchain-not-found&#34;&gt;Q: &lt;code&gt;build.sh&lt;/code&gt; 编译报错 &amp;ldquo;toolchain not found&amp;rdquo;
+&lt;/h3&gt;&lt;p&gt;检查 &lt;code&gt;build.sh&lt;/code&gt; 里的 &lt;code&gt;toolchain_path&lt;/code&gt;，确认路径下有 &lt;code&gt;arm-openwrt-linux-gcc&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;q-adb-找不到设备&#34;&gt;Q: ADB 找不到设备
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;检查 USB 线是否支持数据传输（不是只能充电的线）&lt;/li&gt;
+&lt;li&gt;确认板子已开机&lt;/li&gt;
+&lt;li&gt;在 WSL 里可能需要 &lt;code&gt;sudo adb kill-server &amp;amp;&amp;amp; sudo adb start-server&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;q-推上去跑了但是屏幕没显示&#34;&gt;Q: 推上去跑了但是屏幕没显示
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;adb shell&lt;/code&gt; 进板子，看 &lt;code&gt;ps | grep demo&lt;/code&gt; 确认进程在跑&lt;/li&gt;
+&lt;li&gt;看有没有 printf 错误输出&lt;/li&gt;
+&lt;li&gt;检查是否为横竖屏参数问题，可能需要 &lt;code&gt;./build.sh -clean&lt;/code&gt; 后重新 cmake&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;q-资源文件图片字体显示不出来&#34;&gt;Q: 资源文件（图片/字体）显示不出来
+&lt;/h3&gt;&lt;p&gt;检查 &lt;code&gt;PROJECT_RES_URL&lt;/code&gt; 路径。T113 上资源路径是 &lt;code&gt;/usr/res/&lt;/code&gt;，确认文件已推到这个目录。&lt;/p&gt;
+&lt;h3 id=&#34;q-编译好的-demo-很大&#34;&gt;Q: 编译好的 demo 很大
+&lt;/h3&gt;&lt;p&gt;正常。因为 FreeType 和 LVGL 都是静态链接的，最终二进制约 2-3MB。&lt;/p&gt;
 </description>
         </item>
         <item>

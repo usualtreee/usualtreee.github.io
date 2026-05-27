@@ -281,8 +281,606 @@
             <div class="single-body-content">
                 <h1 class="single-title">OV-Watch — 从 0 构建项目</h1>
                 <div class="single-content" id="ttsContent"><h1 id="从-0-构建项目">从 0 构建项目
-</h1><hr>
-<!-- 在这里写你的内容 -->
+</h1><p>假设你有一块 STM32F411CEU6 + 一模一样的硬件（传感器、屏幕、蓝牙模块等），手上只有一个空白文件夹。</p>
+<hr>
+<h2 id="第一步cubemx-生成框架">第一步：CubeMX 生成框架
+</h2><p>用 STM32CubeMX 图形化配置，点 &ldquo;GENERATE CODE&rdquo;，得到骨架工程。</p>
+<h3 id="11-基础设置">1.1 基础设置
+</h3><table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MCU 型号</td>
+<td>STM32F411CEU6</td>
+</tr>
+<tr>
+<td>时钟源</td>
+<td>HSI → PLL → 100MHz（<code>PLLM=8, PLLN=100, PLLP=2</code>）</td>
+</tr>
+<tr>
+<td>调试接口</td>
+<td>Serial Wire（SWD）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-配置外设引脚">1.2 配置外设引脚
+</h3><p>对照硬件原理图（<code>Hardware/SCH_Core_2024-05-26.pdf</code>），在 CubeMX 里把每个外设的引脚配好：</p>
+<table>
+<thead>
+<tr>
+<th>外设</th>
+<th>类型</th>
+<th>引脚</th>
+<th>CubeMX 配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LCD</td>
+<td>SPI1</td>
+<td>PA5(SCK)/PA7(MOSI)/PB6(CS)/PB7(DC)/PA15(RST)</td>
+<td>SPI1 Full-Duplex Master</td>
+</tr>
+<tr>
+<td>触摸屏</td>
+<td>I2C1</td>
+<td>PB8(SCL)/PB9(SDA)</td>
+<td>I2C1</td>
+</tr>
+<tr>
+<td>IMU</td>
+<td>I2C1</td>
+<td>PB8/PB9</td>
+<td>同上（挂同一根总线）</td>
+</tr>
+<tr>
+<td>温湿度</td>
+<td>I2C1</td>
+<td>PB8/PB9</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>罗盘</td>
+<td>I2C1</td>
+<td>PB8/PB9</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>气压</td>
+<td>I2C1</td>
+<td>PB8/PB9</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>蓝牙</td>
+<td>USART1</td>
+<td>PA9(TX)/PA10(RX)</td>
+<td>USART1 Async</td>
+</tr>
+<tr>
+<td>RTC</td>
+<td>RTC</td>
+<td>—</td>
+<td>启用 LSE 外部 32.768kHz 晶振</td>
+</tr>
+<tr>
+<td>LCD 背光</td>
+<td>TIM3_CH3</td>
+<td>PB0</td>
+<td>PWM Generation</td>
+</tr>
+<tr>
+<td>按键 KEY1</td>
+<td>GPIO Input</td>
+<td>PA0</td>
+<td>上拉输入</td>
+</tr>
+<tr>
+<td>按键 KEY2</td>
+<td>GPIO Input</td>
+<td>PA1</td>
+<td>上拉输入</td>
+</tr>
+<tr>
+<td>蓝牙使能</td>
+<td>GPIO Output</td>
+<td>PB1</td>
+<td>推挽输出</td>
+</tr>
+<tr>
+<td>电源使能</td>
+<td>GPIO Output</td>
+<td>PA4</td>
+<td>推挽输出</td>
+</tr>
+<tr>
+<td>看门狗</td>
+<td>IWDG</td>
+<td>—</td>
+<td>启用独立看门狗</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-配置中间件">1.3 配置中间件
+</h3><table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RTOS</td>
+<td>FreeRTOS，CMSIS-RTOS v2 封装</td>
+</tr>
+<tr>
+<td>Tick Rate</td>
+<td>1000Hz（1ms）</td>
+</tr>
+<tr>
+<td>Heap Size</td>
+<td>16KB</td>
+</tr>
+<tr>
+<td>Stack Size</td>
+<td>128 words × 任务</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-生成代码">1.4 生成代码
+</h3><p>CubeMX 点 &ldquo;GENERATE CODE&rdquo;，输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Core/Inc/    ← main.h, freertos.h, gpio.h, spi.h, i2c.h, rtc.h, ...
+</span></span><span class="line"><span class="cl">Core/Src/    ← main.c, freertos.c, stm32f4xx_it.c, gpio.c, spi.c, ...
+</span></span><span class="line"><span class="cl">Drivers/     ← STM32 HAL 库（CMSIS + HAL_Driver）
+</span></span><span class="line"><span class="cl">MDK-ARM/     ← Keil 工程文件（.uvprojx）
+</span></span><span class="line"><span class="cl">system_stm32f4xx.c
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此时 Keil 打开能编译通过，但没任何功能。<code>main.c</code> 和 <code>freertos.c</code> 的 <code>/* USER CODE BEGIN */</code> 块全是空的。</p>
+<hr>
+<h2 id="第二步加入第三方库">第二步：加入第三方库
+</h2><h3 id="21-加入-lvgl">2.1 加入 LVGL
+</h3><ol>
+<li>从 GitHub 下载 LVGL v8.2 源码 → 放进 <code>Middlewares/LVGL/GUI/lvgl/</code></li>
+<li>从 LVGL 模板复制 <code>lv_conf_template.h</code> → 改名 <code>lv_conf.h</code>，放到 <code>Middlewares/LVGL/</code> 下</li>
+<li>编辑 <code>lv_conf.h</code>：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#if 1  </span><span class="c1">// 把模板里的 #if 0 改成 #if 1，启用整个配置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define LV_COLOR_DEPTH 16
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LV_HOR_RES_MAX 240
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LV_VER_RES_MAX 280
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LV_MEM_SIZE (32 * 1024)
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LV_TICK_CUSTOM 1
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LV_TICK_CUSTOM_INCLUDE &#34;FreeRTOS.h&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LV_TICK_CUSTOM_SYS_TIME_EXPR (xTaskGetTickCount())
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 只保留需要的字体，减小固件体积
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define LV_FONT_MONTSERRAT_14 1
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LV_FONT_MONTSERRAT_18 1
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LV_FONT_MONTSERRAT_20 1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>Keil 工程 → 魔术棒 → C/C++ → Include Paths 加入 <code>Middlewares/LVGL/GUI/lvgl</code>，然后把 <code>lvgl/src/</code> 下所有 <code>.c</code> 加入编译列表</li>
+</ol>
+<h3 id="22-加入-freertos">2.2 加入 FreeRTOS
+</h3><p>FreeRTOS 已经在 CubeMX 第一步时自动加好了，不需要手动操作。源码在 <code>Middlewares/Third_Party/FreeRTOS/</code>。</p>
+<h3 id="23-加入-lvgl-字体">2.3 加入 LVGL 字体
+</h3><p>在 <code>GUI_App/Fonts/</code> 下放自定义字体文件（醋园体、图标字体等），Keil 编译列表中加入这些 <code>.c</code> 文件。</p>
+<hr>
+<h2 id="第三步写-bsp-驱动">第三步：写 BSP 驱动
+</h2><p>按照依赖顺序逐个写。</p>
+<h3 id="31-系统延时">3.1 系统延时
+</h3><p><code>SYSTEM/delay.c</code>：用 SysTick 写个微秒级延时，所有驱动初始化时都依赖它。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">delay_us</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">nus</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 用 SysTick-&gt;VAL 做微秒延时
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">delay_ms</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">nms</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 调 HAL_Delay 或循环
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="32-i2c-封装">3.2 I2C 封装
+</h3><p><code>BSP/IIC/</code>：其他传感器全部挂在 I2C1 上，先封装好统一的读写。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">uint8_t</span> <span class="nf">I2C_ReadByte</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="n">dev_addr</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="n">reg_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">uint8_t</span> <span class="nf">I2C_WriteByte</span><span class="p">(</span><span class="kt">uint8_t</span> <span class="n">dev_addr</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="n">reg_addr</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="n">data</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="33-lcd-屏幕">3.3 LCD 屏幕
+</h3><p><code>BSP/LCD/</code>：ST7789 SPI 驱动。<strong>屏幕亮了才有调试手段。</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">LCD_Init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">LCD_Fill</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">x1</span><span class="p">,</span> <span class="kt">uint16_t</span> <span class="n">y1</span><span class="p">,</span> <span class="kt">uint16_t</span> <span class="n">x2</span><span class="p">,</span> <span class="kt">uint16_t</span> <span class="n">y2</span><span class="p">,</span> <span class="kt">uint16_t</span> <span class="n">color</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">LCD_ShowString</span><span class="p">(</span><span class="kt">uint16_t</span> <span class="n">x</span><span class="p">,</span> <span class="kt">uint16_t</span> <span class="n">y</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">str</span><span class="p">,</span> <span class="p">...);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>初始化顺序（查 ST7789 数据手册）：硬件复位 → 软件复位 → 睡眠退出 → 设置像素格式 → 设置行/列地址 → 开显示。</p>
+<h3 id="34-按键">3.4 按键
+</h3><p><code>BSP/KEY/</code>：GPIO 读取 + 去抖。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">uint8_t</span> <span class="nf">KEY_Scan</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>  <span class="c1">// 返回 0=没按, 1=KEY1, 2=KEY2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="35-各传感器">3.5 各传感器
+</h3><p>每个传感器的套路：读芯片数据手册 → 知道寄存器地址 → <code>I2C_ReadByte/WriteByte</code> 读写 → 封装接口。</p>
+<table>
+<thead>
+<tr>
+<th>传感器</th>
+<th>文件夹</th>
+<th>I2C 地址</th>
+<th>核心函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MPU6050</td>
+<td><code>MPU6050/</code></td>
+<td>0x68</td>
+<td><code>MPU6050_Init()</code>、<code>MPU6050_GetSteps()</code>、抬腕检测</td>
+</tr>
+<tr>
+<td>EM7028</td>
+<td><code>EM7028/</code></td>
+<td>—</td>
+<td><code>EM7028_Init()</code>、<code>EM7028_ReadPPG()</code></td>
+</tr>
+<tr>
+<td>AHT21</td>
+<td><code>AHT21/</code></td>
+<td>0x38</td>
+<td><code>AHT21_Init()</code>、<code>AHT21_GetHumiTemp()</code></td>
+</tr>
+<tr>
+<td>LSM303DLH</td>
+<td><code>LSM303DLH/</code></td>
+<td>0x1E</td>
+<td><code>LSM303DLH_Init()</code>、读方向角</td>
+</tr>
+<tr>
+<td>SPL06-001</td>
+<td><code>SPL06_001/</code></td>
+<td>0x76</td>
+<td><code>SPL06_001_Init()</code>、读气压/海拔</td>
+</tr>
+<tr>
+<td>CST816</td>
+<td><code>TOUCH/</code></td>
+<td>—</td>
+<td><code>CST816_Init()</code>、读触摸坐标</td>
+</tr>
+</tbody>
+</table>
+<h3 id="36-蓝牙">3.6 蓝牙
+</h3><p><code>BSP/KT6328/</code>：初始化 UART → KT6368A 初始化 → 蓝牙 SPP 配对。</p>
+<h3 id="37-电源管理">3.7 电源管理
+</h3><p><code>BSP/POWER/</code>：控制 TPS63020 使能、电池电量 ADC 读取。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Power_Init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Power_Shutdown</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>     <span class="c1">// 关 TPS63020，仅 RTC 存活
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">uint8_t</span> <span class="nf">BatCalculate</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>   <span class="c1">// ADC 读电池电压 → 算百分比
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="38-eeprom-存储">3.8 EEPROM 存储
+</h3><p><code>BSP/BL24C02/DataSave.c</code>：I2C EEPROM 读写，用户设置持久化。</p>
+<h3 id="39-看门狗">3.9 看门狗
+</h3><p><code>BSP/OWDG/</code>：独立看门狗，喂狗失败则 MCU 自动复位。</p>
+<hr>
+<h2 id="第四步写应用层">第四步：写应用层
+</h2><h3 id="41-func核心逻辑">4.1 Func（核心逻辑）
+</h3><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>功能</th>
+<th>要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HWDataAccess.c/h</code></td>
+<td>硬件抽象层</td>
+<td><code>HW_USE_HARDWARE</code> 宏隔离真机和仿真器</td>
+</tr>
+<tr>
+<td><code>PageManager.c/h</code></td>
+<td>页面栈导航</td>
+<td>深度 6 层，<code>Page_Load</code>/<code>Page_Back</code>/<code>Page_Back_Bottom</code></td>
+</tr>
+<tr>
+<td><code>StrCalculate.c/h</code></td>
+<td>双栈计算器</td>
+<td>操作数栈 + 运算符栈，支持小数</td>
+</tr>
+<tr>
+<td><code>pubsub.c/h</code></td>
+<td>发布-订阅</td>
+<td>链表实现，键值/传感器数据通知</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-gui_appui-界面">4.2 GUI_App（UI 界面）
+</h3><p>用 SquareLine Studio 可视化设计 → 导出 C 代码 → 放入 <code>GUI_App/Screens/</code>。</p>
+<p>每个页面结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">lv_obj_t</span> <span class="o">*</span><span class="n">ui_MyPage</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 注册到页面栈
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Page_t</span> <span class="n">Page_My</span> <span class="o">=</span> <span class="p">{</span><span class="n">ui_MyPage_screen_init</span><span class="p">,</span> <span class="n">ui_MyPage_screen_deinit</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ui_MyPage</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 初始化函数（每个页面改的东西）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">ui_MyPage_screen_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ui_MyPage</span> <span class="o">=</span> <span class="nf">lv_obj_create</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// lv_label_create()、lv_btn_create()、设置坐标、设置样式...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 销毁函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">ui_MyPage_screen_deinit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 释放定时器等资源
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>共 19 个页面，从 <code>ui_HomePage.c</code> 到 <code>ui_AboutPage.c</code>。</p>
+<h3 id="43-tasksfreertos-任务">4.3 Tasks（FreeRTOS 任务）
+</h3><p>在 <code>user_TasksInit.c</code> 中创建全部任务和消息队列：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">13 个任务：
+</span></span><span class="line"><span class="cl">  HardwareInitTask    ← 开机跑一次，初始化所有外设 → 挂起
+</span></span><span class="line"><span class="cl">  WDOGFeedTask        ← 每 100ms 喂狗
+</span></span><span class="line"><span class="cl">  KeyTask             ← 每 10ms 扫描按键 → 发消息
+</span></span><span class="line"><span class="cl">  ScrRenewTask        ← 收消息 → 切换页面
+</span></span><span class="line"><span class="cl">  SensorDataTask      ← 定时读温湿度/气压/罗盘
+</span></span><span class="line"><span class="cl">  HRDataTask          ← 读心率 + 跑峰值检测算法
+</span></span><span class="line"><span class="cl">  MPUCheckTask        ← 抬腕检测 → 唤醒
+</span></span><span class="line"><span class="cl">  LvHandlerTask       ← 每 1ms 调 lv_task_handler()
+</span></span><span class="line"><span class="cl">  ChargPageEnterTask  ← 检测充电
+</span></span><span class="line"><span class="cl">  DataSaveTask        ← 存 EEPROM
+</span></span><span class="line"><span class="cl">  MessageSendTask     ← 蓝牙发数据
+</span></span><span class="line"><span class="cl">  IdleEnterTask       ← 超时无操作 → STOP 睡眠
+</span></span><span class="line"><span class="cl">  StopEnterTask       ← 长按 KEY1 → 关机
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">6 个消息队列：
+</span></span><span class="line"><span class="cl">  Key_MessageQueue、Idle_MessageQueue、Stop_MessageQueue、
+</span></span><span class="line"><span class="cl">  IdleBreak_MessageQueue、HomeUpdata_MessageQueue、DataSave_MessageQueue
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="第五步写-bootloader">第五步：写 BootLoader
+</h2><h3 id="51-新建独立-keil-工程">5.1 新建独立 Keil 工程
+</h3><p>CubeMX 新建一个工程，ROM 起始地址设为 <code>0x08000000</code>，大小 48KB。</p>
+<h3 id="52-加入-st-官方-ymodem">5.2 加入 ST 官方 Ymodem
+</h3><p>从 ST 官方 IAP 例程复制 <code>ymodem.c/h</code>、<code>flash_if.c/h</code>、<code>menu.c/h</code>、<code>common.c/h</code>。</p>
+<h3 id="53-组装">5.3 组装
+</h3><p><code>main.c</code> 中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">HAL_Init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">SystemClock_Config</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 初始化最小外设（LCD、按键、蓝牙）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">LCD_Init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">KT6328_Enable</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">Key_Port_Init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="err">按住</span> <span class="n">KEY1</span> <span class="err">开机</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">FLASH_If_Init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">Main_Menu</span><span class="p">();</span>         <span class="c1">// ST 官方代码，等 Ymodem 传输
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">FLASH</span> <span class="err">里有</span> <span class="n">APP</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="err">跳转</span> <span class="n">APP</span><span class="p">;</span>           <span class="c1">// VTOR = 0x0800C000，跳转
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">LCD_ShowString</span><span class="p">(</span><span class="s">&#34;No App!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="54-关键设置">5.4 关键设置
+</h3><table>
+<thead>
+<tr>
+<th>项</th>
+<th>BootLoader</th>
+<th>APP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROM 起始</td>
+<td><code>0x08000000</code></td>
+<td><code>0x0800C000</code></td>
+</tr>
+<tr>
+<td>ROM 大小</td>
+<td>48KB</td>
+<td>464KB</td>
+</tr>
+<tr>
+<td>中断向量表</td>
+<td><code>SCB-&gt;VTOR = FLASH_BASE</code></td>
+<td><code>SCB-&gt;VTOR = 0x0000C000U</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="整个工作量评估">整个工作量评估
+</h2><table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>耗时（估计）</th>
+<th>谁做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CubeMX 生成框架</td>
+<td>半天</td>
+<td>自己配</td>
+</tr>
+<tr>
+<td>加入 LVGL + FreeRTOS</td>
+<td>半天</td>
+<td>复制粘贴</td>
+</tr>
+<tr>
+<td>写 BSP 驱动</td>
+<td><strong>2-3 周</strong></td>
+<td>最费时，每颗芯片一个驱动</td>
+</tr>
+<tr>
+<td>写应用层（UI + Func + Tasks）</td>
+<td>2-3 周</td>
+<td>反复调</td>
+</tr>
+<tr>
+<td>写 BootLoader</td>
+<td>2-3 天</td>
+<td>ST 官方代码 + 组装</td>
+</tr>
+<tr>
+<td>调试 + 修 bug</td>
+<td>2-4 周</td>
+<td>最不可预测</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总计</strong>：从零开始大概 <strong>1.5-2 个月</strong>（全职），大块时间在写 BSP 驱动和 UI 调试上。</p>
+<hr>
+<h2 id="从零构建-vs-复现">从零构建 vs 复现
+</h2><p>如果只是<strong>复现</strong>（硬件已有、代码已有）：</p>
+<ol>
+<li>CubeMX 两步打开 <code>.ioc</code> → 不改任何配置，点 Generate Code 重新生成一次 Core/</li>
+<li>Keil 打开 <code>.uvprojx</code> → 编译 → ST-Link 烧录</li>
+<li>结束</li>
+</ol>
+<p>你现在的学习路线就是先复现跑通，再逐步理解每一层怎么写的。</p>
 </div>
             </div>
         </article>
