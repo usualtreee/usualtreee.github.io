@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OV-Watch — 学习总结 Day 1 — Usualtree</title>
+    <link rel="icon" href="/favicon.ico">
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    
+    <link rel="stylesheet" href="/scss/custom.min.196d2895d3349f6cabde0088dfa40dfe9d26a1696918513546e452717dea85d8.css">
+</head>
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <div class="single-top-bar">
+            
+            <a href="/project/" class="postlist-back"><span data-zh="← 返回项目" data-en="← Projects"></span></a>
+            
+            <div class="single-page-nav">
+                <a href="/project/ov-watch/study-guide/" class="single-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> <span data-zh="上一页" data-en="Prev"></span></a>
+                <a href="/project/ov-watch/debug-log/" class="single-nav-btn"><span data-zh="下一页" data-en="Next"></span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+            </div>
+        </div>
+        
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+                
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        
+        <div class="single-with-sidebar">
+            <nav class="single-sidebar card glass-card">
+                <div class="sidebar-title" data-zh="📑 目录" data-en="📑 Index"></div>
+                <ul class="sidebar-list">
+                    
+                    <li><a href="/project/ov-watch/" class="sidebar-link ">OV-Watch-项目概况</a></li>
+                    
+                    <li><a href="/project/ov-watch/debug-log/" class="sidebar-link ">OV-Watch — Debug 记录</a></li>
+                    
+                    <li><a href="/project/ov-watch/study-guide/" class="sidebar-link ">OV-Watch — 学习路径</a></li>
+                    
+                    <li><a href="/project/ov-watch/study-day1/" class="sidebar-link active">OV-Watch — 学习总结 Day 1</a></li>
+                    
+                </ul>
+            </nav>
+            <article class="card glass-card single-card single-card-side">
+        
+            <div class="single-body-content">
+                <h1 class="single-title">OV-Watch — 学习总结 Day 1</h1>
+                <div class="single-content" id="ttsContent"><h2 id="一项目是什么">一、项目是什么
+</h2><p>OV-Watch：基于 STM32F411CEU6（ARM Cortex-M4）的智能手表，FreeRTOS + LVGL v8.2，19 个 UI 界面，14 项功能（心率、计步、指南针、蓝牙 OTA、计算器、2048 等）。</p>
+<h2 id="二仿真器搭建">二、仿真器搭建
+</h2><h3 id="做了什么">做了什么
+</h3><ol>
+<li>装 CMake + MinGW（w64devkit）</li>
+<li>补装 SDL2 开发包（项目只带了 <code>SDL2.dll</code> 运行时，缺头文件和 CMake 配置）</li>
+<li><code>cmake .. -G &quot;MinGW Makefiles&quot; -DSDL2_DIR=...</code> 配置</li>
+<li><code>make -j4</code> 编译</li>
+<li><code>../bin/main.exe</code> 运行——弹出 480×560 手表 UI 窗口</li>
+</ol>
+<h3 id="踩坑">踩坑
+</h3><ul>
+<li><strong>坑 1</strong>：CMake 找不到 SDL2 → 下载 SDL2-devel-mingw.zip，拷头文件到 MinGW include，拷 .a 到 MinGW lib</li>
+<li><strong>坑 2</strong>：仿真器窗口太小 + 手势难以触发 → <code>lv_drv_conf.h</code> 中 <code>SDL_ZOOM</code> 从 1 改为 2；<code>main.c</code> 中鼠标手势 <code>gesture_limit</code> 降为 30，<code>gesture_min_velocity</code> 降为 0</li>
+<li><strong>坑 3</strong>：左滑无反应 → 四个页面（MenuPage/SetPage/GameSelectPage/DateTimeSetPage）的 LV_DIR_RIGHT 判断补上 LV_DIR_LEFT</li>
+<li><strong>坑 4</strong>：计算器、心率等 12 个页面完全没有手势 → PageManager 加通用左滑返回回调，2048 和 HomePage 标 <code>true</code> 排除</li>
+</ul>
+<h3 id="仿真器操作总结">仿真器操作总结
+</h3><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>对应</th>
+<th>按键/动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>鼠标单击</td>
+<td>手指点触</td>
+<td>点按钮</td>
+</tr>
+<tr>
+<td>鼠标按住拖拽</td>
+<td>手指滑动</td>
+<td>切页/返回</td>
+</tr>
+<tr>
+<td>Backspace 键</td>
+<td>物理返回键</td>
+<td>任意页面返回</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>键盘方向键不生效——手表 UI 用的是触摸手势，不是 LVGL 控件组导航。</p>
+</blockquote>
+<h2 id="三项目目录结构理解">三、项目目录结构理解
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OV-Watch-main/
+</span></span><span class="line"><span class="cl">├── 3D Modle/         ← 3D 打印壳体 STL 文件
+</span></span><span class="line"><span class="cl">├── Firmware/         ← 预编译固件（.hex / .bin）
+</span></span><span class="line"><span class="cl">├── Hardware/         ← PCB 原理图 + Gerber（双板：Core 核心板 + Back 背板）
+</span></span><span class="line"><span class="cl">├── Software/         ← 全部源码
+</span></span><span class="line"><span class="cl">│   ├── IAP_F411/     ← BootLoader 工程（Keil）
+</span></span><span class="line"><span class="cl">│   └── OV_Watch/     ← APP 主工程（Keil）
+</span></span><span class="line"><span class="cl">├── lv_sim_vscode_win/← LVGL PC 仿真器（VS Code + CMake）
+</span></span><span class="line"><span class="cl">│   ├── lvgl/         ← LVGL v8.2 源码（第三方库，复制来的）
+</span></span><span class="line"><span class="cl">│   ├── lv_drivers/   ← LVGL 显示/输入驱动（只用 sdl/）
+</span></span><span class="line"><span class="cl">│   ├── user_test/    ← 手表应用代码（= Software/OV_Watch/User/ 的仿真副本）
+</span></span><span class="line"><span class="cl">│   │   ├── GUI_App/  ← 19 个 UI 界面
+</span></span><span class="line"><span class="cl">│   │   └── Func/     ← 硬件抽象层/页面栈/计算器/pubsub
+</span></span><span class="line"><span class="cl">│   ├── main.c        ← 仿真器入口：lv_init() → ui_init() → while(1)
+</span></span><span class="line"><span class="cl">│   ├── lv_conf.h     ← LVGL 配置
+</span></span><span class="line"><span class="cl">│   └── lv_drv_conf.h ← LVGL 驱动配置
+</span></span><span class="line"><span class="cl">└── images/           ← README 配图
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="关键认知">关键认知
+</h3><ul>
+<li><strong>仿真器代码和 Keil 代码不共享</strong>：在仿真器 <code>user_test/</code> 改完 UI，手动复制到 <code>Software/OV_Watch/User/</code> 覆盖，切换宏 <code>HW_USE_HARDWARE</code> 即可</li>
+<li><strong>LVGL 是源码编译</strong>：不是装库，是把 <code>lvgl/</code> 整个目录的 <code>.c</code> 文件跟自己的代码一起编进固件</li>
+<li><strong>FreeRTOS 同理</strong>：源码在 <code>Middlewares/Third_Party/FreeRTOS/</code>，一套 <code>FreeRTOSConfig.h</code> 决定一切</li>
+</ul>
+<h2 id="四softwareov_watch-内部结构">四、Software/OV_Watch/ 内部结构
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OV_Watch/
+</span></span><span class="line"><span class="cl">├── Core/            ← 程序入口 + STM32 初始化（main.c、freertos.c）
+</span></span><span class="line"><span class="cl">├── Drivers/         ← STM32 HAL 库（CMSIS + HAL_Driver）
+</span></span><span class="line"><span class="cl">├── Middlewares/     ← 第三方中间件（LVGL + FreeRTOS）
+</span></span><span class="line"><span class="cl">├── BSP/             ← 板级外设驱动（作者写的，每颗芯片一个文件夹）
+</span></span><span class="line"><span class="cl">├── User/            ← 应用层
+</span></span><span class="line"><span class="cl">│   ├── Tasks/       ← 13 个 FreeRTOS 任务（调度层：谁在什么时候干什么）
+</span></span><span class="line"><span class="cl">│   ├── Func/        ← 核心逻辑（不关心显示：页面栈/计算器/硬件抽象层/pubsub）
+</span></span><span class="line"><span class="cl">│   └── GUI_App/     ← 19 个 UI 界面（显示层：只关心屏幕上长什么样）
+</span></span><span class="line"><span class="cl">├── SYSTEM/          ← 系统延时
+</span></span><span class="line"><span class="cl">├── MDK-ARM/         ← Keil 工程文件（.uvprojx）
+</span></span><span class="line"><span class="cl">└── OV_Watch.ioc     ← STM32CubeMX 引脚配置
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="drivers-vs-bsp">Drivers vs BSP
+</h3><ul>
+<li><strong>Drivers（ST 官方）</strong>：通用 HAL 层，<code>HAL_I2C_Read()</code> 怎么发 I2C 数据</li>
+<li><strong>BSP（作者写）</strong>：知道每颗外设芯片的寄存器地址，<code>MPU6050_GetSteps()</code> 发什么数据读到步数</li>
+</ul>
+<h3 id="user-三文件夹协作流程">User/ 三文件夹协作流程
+</h3><p>以&quot;按 KEY1 返回&quot;为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">KeyTask（Tasks/）         去读 GPIO → 发出消息
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">ScrRenewTask（Tasks/）    收到消息 → 决定调 Page_Back()
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">PageManager（Func/）      弹栈 → 找到上一页
+</span></span><span class="line"><span class="cl">    ↓
+</span></span><span class="line"><span class="cl">ui_HomePage_screen_init（GUI_App/）  重新渲染界面到屏幕
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="五lvgl-在-pc-上的工作原理">五、LVGL 在 PC 上的工作原理
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">仿真器（PC）：
+</span></span><span class="line"><span class="cl">  main.c → lv_init() → hal_init() → sdl_init()
+</span></span><span class="line"><span class="cl">         → lv_timer_handler() 每 5ms 调一次
+</span></span><span class="line"><span class="cl">         → SDL2 把 LVGL 像素画到电脑窗口
+</span></span><span class="line"><span class="cl">         → SDL2 把鼠标事件转成 LVGL 触摸事件
+</span></span><span class="line"><span class="cl">         → HW_USE_HARDWARE = 0，传感器全返回假数据
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">真机（STM32）：
+</span></span><span class="line"><span class="cl">  main.c → FreeRTOS 调度
+</span></span><span class="line"><span class="cl">         → LvHandlerTask 每 1ms 调 lv_timer_handler()
+</span></span><span class="line"><span class="cl">         → LVGL 像素直接写到 ST7789 LCD
+</span></span><span class="line"><span class="cl">         → CST816 触摸事件
+</span></span><span class="line"><span class="cl">         → HW_USE_HARDWARE = 1，传感器真实数据
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="六bootloader--ota-核心概念">六、BootLoader + OTA 核心概念
+</h2><ul>
+<li>FLASH 分区：BootLoader（0x08000000，48KB）+ APP（0x0800C000，464KB）</li>
+<li>APP 第一行 <code>SCB-&gt;VTOR = 0x0000C000U</code> —— 重映射中断向量表</li>
+<li>OTA 流程：手机蓝牙 SPP → Ymodem 协议分包传输 → BootLoader 校验 → 写入 FLASH → 重启运行新 APP</li>
+<li>HEX vs BIN：<code>.hex</code> 带地址信息（ST-Link 用），<code>.bin</code> 纯机器码（OTA 用）</li>
+<li><code>NoBoot.hex</code> = BootLoader.hex + APP.bin 合并（一次烧完）</li>
+</ul>
+<h2 id="七cmsis-rtos-v2">七、CMSIS-RTOS v2
+</h2><p>ARM 公司定的 RTOS 标准 API 接口。项目代码写 <code>osThreadNew()</code>、<code>osDelay()</code>、<code>osMessageQueuePut()</code>，底层翻译成 FreeRTOS 的 <code>xTaskCreate()</code>、<code>vTaskDelay()</code>、<code>xQueueSend()</code>。它不是 ST 要求的，是 ARM 推的&quot;换 RTOS 不用改代码&quot;的标准。</p>
+<h2 id="八今日修改的文件汇总">八、今日修改的文件汇总
+</h2><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>改动</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lv_sim_vscode_win/lv_drv_conf.h</code></td>
+<td><code>SDL_ZOOM: 1 → 2</code></td>
+</tr>
+<tr>
+<td><code>lv_sim_vscode_win/main.c</code></td>
+<td>鼠标手势 <code>gesture_limit=30</code>、<code>gesture_min_velocity=0</code></td>
+</tr>
+<tr>
+<td><code>lv_sim_vscode_win/user_test/Func/Inc/PageManager.h</code></td>
+<td><code>Page_t</code> 加 <code>no_auto_swipe_back</code> 字段</td>
+</tr>
+<tr>
+<td><code>lv_sim_vscode_win/user_test/Func/Src/PageManager.c</code></td>
+<td>通用左滑返回回调 + <code>Page_Load</code> 自动挂载</td>
+</tr>
+<tr>
+<td><code>lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_MenuPage.c</code></td>
+<td>补 <code>LV_DIR_LEFT</code> 响应</td>
+</tr>
+<tr>
+<td><code>lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_SetPage.c</code></td>
+<td>补 <code>LV_DIR_LEFT</code> 响应</td>
+</tr>
+<tr>
+<td><code>lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_GameSelectPage.c</code></td>
+<td>补 <code>LV_DIR_LEFT</code> 响应</td>
+</tr>
+<tr>
+<td><code>lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_DateTimeSetPage.c</code></td>
+<td>补 <code>LV_DIR_LEFT</code> 响应</td>
+</tr>
+<tr>
+<td><code>lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_Game2048Page.c</code></td>
+<td>标 <code>no_auto_swipe_back = true</code></td>
+</tr>
+<tr>
+<td><code>lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_HomePage.c</code></td>
+<td>标 <code>no_auto_swipe_back = true</code></td>
+</tr>
+<tr>
+<td><code>lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_AboutPage.c</code></td>
+<td><code>&quot;OV-Watch&quot; → &quot;TREE&quot;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+            </div>
+        </article>
+        </div>
+    </div>
+
+    
+    <div class="page-nav-arrows">
+        <a href="/project/ov-watch/study-guide/" class="page-nav-arrow page-nav-prev" title="上一页"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></a>
+        <a href="/project/ov-watch/debug-log/" class="page-nav-arrow page-nav-next" title="下一页"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    
+
+    
+    <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+</html>

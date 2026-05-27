@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OV-Watch — Debug 记录 — Usualtree</title>
+    <link rel="icon" href="/favicon.ico">
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    
+    <link rel="stylesheet" href="/scss/custom.min.196d2895d3349f6cabde0088dfa40dfe9d26a1696918513546e452717dea85d8.css">
+</head>
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <div class="single-top-bar">
+            
+            <a href="/project/" class="postlist-back"><span data-zh="← 返回项目" data-en="← Projects"></span></a>
+            
+            <div class="single-page-nav">
+                <a href="/project/ov-watch/study-day1/" class="single-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> <span data-zh="上一页" data-en="Prev"></span></a>
+                
+            </div>
+        </div>
+        
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+                
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        
+        <div class="single-with-sidebar">
+            <nav class="single-sidebar card glass-card">
+                <div class="sidebar-title" data-zh="📑 目录" data-en="📑 Index"></div>
+                <ul class="sidebar-list">
+                    
+                    <li><a href="/project/ov-watch/" class="sidebar-link ">OV-Watch-项目概况</a></li>
+                    
+                    <li><a href="/project/ov-watch/debug-log/" class="sidebar-link active">OV-Watch — Debug 记录</a></li>
+                    
+                    <li><a href="/project/ov-watch/study-guide/" class="sidebar-link ">OV-Watch — 学习路径</a></li>
+                    
+                    <li><a href="/project/ov-watch/study-day1/" class="sidebar-link ">OV-Watch — 学习总结 Day 1</a></li>
+                    
+                </ul>
+            </nav>
+            <article class="card glass-card single-card single-card-side">
+        
+            <div class="single-body-content">
+                <h1 class="single-title">OV-Watch — Debug 记录</h1>
+                <div class="single-content" id="ttsContent"><h2 id="踩坑-1cmake-找不到-sdl2">踩坑 1：CMake 找不到 SDL2
+</h2><h3 id="环境">环境
+</h3><ul>
+<li>OS：Windows 11</li>
+<li>编译器：w64devkit (MinGW GCC 15.2.0)</li>
+<li>CMake：已安装</li>
+</ul>
+<h3 id="现象">现象
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> lv_sim_vscode_win <span class="o">&amp;&amp;</span> mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">$ cmake .. -G <span class="s2">&#34;MinGW Makefiles&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">CMake Error at CMakeLists.txt:15 <span class="o">(</span>find_package<span class="o">)</span>:
+</span></span><span class="line"><span class="cl">  By not providing <span class="s2">&#34;FindSDL2.cmake&#34;</span> in CMAKE_MODULE_PATH this project has
+</span></span><span class="line"><span class="cl">  asked CMake to find a package configuration file provided by <span class="s2">&#34;SDL2&#34;</span>, but
+</span></span><span class="line"><span class="cl">  CMake did not find one.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Could not find a package configuration file provided by <span class="s2">&#34;SDL2&#34;</span> with any of
+</span></span><span class="line"><span class="cl">  the following names:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    SDL2Config.cmake
+</span></span><span class="line"><span class="cl">    sdl2-config.cmake
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="排查">排查
+</h3><ol>
+<li>项目目录下确实有 <code>SDL2.dll</code>（运行时库），但缺少编译所需的头文件和 CMake 配置文件</li>
+<li>MinGW 的 <code>lib/</code> 下有 <code>libSDL2.a</code>（链接库），但 <code>include/</code> 下没有 <code>SDL2/</code> 目录（头文件）</li>
+<li>系统没有 <code>sdl2-config.cmake</code>，<code>find_package</code> 无法定位 SDL2</li>
+</ol>
+<p>总结：项目只带了 <code>SDL2.dll</code>（运行时），缺少 <strong>SDL2 开发包</strong>（头文件 + CMake 配置）。</p>
+<h3 id="解决">解决
+</h3><p><strong>Step 1</strong>：下载 SDL2 开发包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -L -o /tmp/SDL2-devel-mingw.zip <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="s2">&#34;https://github.com/libsdl-org/SDL/releases/download/release-2.30.12/SDL2-devel-2.30.12-mingw.zip&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Step 2</strong>：解压并安装头文件到 MinGW</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">unzip /tmp/SDL2-devel-mingw.zip -d /tmp/sdl2-devel/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 拷贝头文件</span>
+</span></span><span class="line"><span class="cl">cp -r /tmp/sdl2-devel/SDL2-2.30.12/x86_64-w64-mingw32/include/SDL2 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="s2">&#34;F:/application/w64devkit/include/&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 拷贝库文件</span>
+</span></span><span class="line"><span class="cl">cp /tmp/sdl2-devel/SDL2-2.30.12/x86_64-w64-mingw32/lib/libSDL2.a <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="s2">&#34;F:/application/w64devkit/lib/&#34;</span>
+</span></span><span class="line"><span class="cl">cp /tmp/sdl2-devel/SDL2-2.30.12/x86_64-w64-mingw32/lib/libSDL2main.a <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="s2">&#34;F:/application/w64devkit/lib/&#34;</span>
+</span></span><span class="line"><span class="cl">cp /tmp/sdl2-devel/SDL2-2.30.12/x86_64-w64-mingw32/lib/libSDL2.dll.a <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  <span class="s2">&#34;F:/application/w64devkit/lib/&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Step 3</strong>：指定 SDL2 CMake 配置文件路径，重新编译</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cmake .. -G <span class="s2">&#34;MinGW Makefiles&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -DSDL2_DIR<span class="o">=</span><span class="s2">&#34;/tmp/sdl2-devel/SDL2-2.30.12/cmake&#34;</span>
+</span></span><span class="line"><span class="cl">make -j4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译成功，生成 <code>bin/main.exe</code>。</p>
+<h3 id="根因">根因
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">项目带的 SDL2.dll ──→ 运行时够用，编译不够
+</span></span><span class="line"><span class="cl">缺少的 SDL2-devel ──→ 头文件(.h) + CMake配置 + 导入库(.dll.a)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>CMake 的 <code>find_package(SDL2 REQUIRED)</code> 需要 <code>sdl2-config.cmake</code>，这个文件只存在于 SDL2 开发包中。</p>
+<h3 id="永久性改动">永久性改动
+</h3><table>
+<thead>
+<tr>
+<th>改动</th>
+<th>路径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新增 SDL2 头文件</td>
+<td><code>F:/application/w64devkit/include/SDL2/</code></td>
+<td>编译时查找 <code>SDL.h</code> 等</td>
+</tr>
+<tr>
+<td>新增 SDL2 导入库</td>
+<td><code>F:/application/w64devkit/lib/libSDL2.dll.a</code></td>
+<td>链接时使用</td>
+</tr>
+<tr>
+<td>保留 SDL2 开发包</td>
+<td><code>/tmp/sdl2-devel/SDL2-2.30.12/</code></td>
+<td>含 <code>sdl2-config.cmake</code>，<strong>不要删除</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="后续编译命令">后续编译命令
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> lv_sim_vscode_win
+</span></span><span class="line"><span class="cl">mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">cmake .. -G <span class="s2">&#34;MinGW Makefiles&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -DSDL2_DIR<span class="o">=</span><span class="s2">&#34;/tmp/sdl2-devel/SDL2-2.30.12/cmake&#34;</span>
+</span></span><span class="line"><span class="cl">make -j4
+</span></span><span class="line"><span class="cl">../bin/main.exe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="踩坑-2仿真器鼠标交互卡顿手势难以触发">踩坑 2：仿真器鼠标交互卡顿、手势难以触发
+</h2><h3 id="现象-1">现象
+</h3><p>仿真器窗口弹出来后：</p>
+<ul>
+<li>鼠标拖拽页面很难滑动</li>
+<li>从主页右滑进入菜单后，左滑回不去</li>
+<li>键盘方向键也不管用</li>
+</ul>
+<h3 id="排查-1">排查
+</h3><p><strong>1. 键盘方向键为什么不灵？</strong></p>
+<p>看了 <code>lv_drivers/sdl/sdl.c</code> 的键盘处理代码（第 572-600 行），方向键确实被正确映射为 <code>LV_KEY_RIGHT</code>/<code>LV_KEY_LEFT</code>。但这些键是给 LVGL <strong>控件组导航</strong>用的——手表 UI 用的是触摸手势（<code>LV_EVENT_GESTURE</code>），根本没用控件组。所以方向键无效。</p>
+<p><strong>真正的返回键是 Backspace</strong>（退格键）：</p>
+<ul>
+<li><code>sdl.c:336-340</code> — 检测到 <code>data-&gt;key == 8</code>（<code>LV_KEY_BACKSPACE</code>）→ 发布 <code>&quot;SDL_Key&quot;</code> 消息</li>
+<li><code>ui.c:17-21</code> — 订阅该消息 → 调用 <code>Page_Back()</code></li>
+</ul>
+<p>所以键盘上 <strong>Backspace = 返回</strong>，不是 ESC，不是方向键。</p>
+<p><strong>2. 鼠标拖拽手势为什么难触发？</strong></p>
+<p>LVGL 手势检测（<code>lv_hal_indev.c</code>）要求同时满足两个条件：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>默认值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gesture_limit</code></td>
+<td>50px</td>
+<td>最少拖拽距离</td>
+</tr>
+<tr>
+<td><code>gesture_min_velocity</code></td>
+<td>3</td>
+<td>最少拖拽速度</td>
+</tr>
+</tbody>
+</table>
+<p>问题一：仿真器窗口 <code>SDL_ZOOM = 1</code>，只有 240×280 像素——太小了，50px 占比太大。</p>
+<p>问题二：鼠标拖本来就很慢，速度达不到阈值 3，所以慢拖永远不触发手势。</p>
+<h3 id="解决-1">解决
+</h3><p><strong>修改 <code>lv_drv_conf.h</code></strong>（第 102 行）：窗口放大一倍</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 改前
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define SDL_ZOOM 1
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// 改后
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define SDL_ZOOM 2   </span><span class="c1">// 窗口变成 480x560，鼠标操作更方便
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>修改 <code>main.c</code></strong>（第 148-150 行后）：降低手势门槛</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 新增
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">indev_drv_1</span><span class="p">.</span><span class="n">gesture_limit</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>          <span class="c1">// 默认 50px → 30px
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">indev_drv_1</span><span class="p">.</span><span class="n">gesture_min_velocity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>    <span class="c1">// 默认 3 → 0（关掉速度检查）
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="根因-1">根因
+</h3><p>LVGL 手势检测的两个默认值是为<strong>手指触摸</strong>设计的（手指快、拖距短）。鼠标操作特性完全不同（精度高但速度慢），直接用默认值会导致手势识别率极低。</p>
+<h3 id="永久性改动-1">永久性改动
+</h3><table>
+<thead>
+<tr>
+<th>改动</th>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SDL_ZOOM: 1 → 2</code></td>
+<td><code>lv_drv_conf.h:102</code></td>
+<td>窗口放大一倍</td>
+</tr>
+<tr>
+<td>新增 <code>gesture_limit = 30</code></td>
+<td><code>main.c:148-150</code></td>
+<td>降低最小拖拽距离</td>
+</tr>
+<tr>
+<td>新增 <code>gesture_min_velocity = 0</code></td>
+<td><code>main.c:148-150</code></td>
+<td>取消速度限制</td>
+</tr>
+</tbody>
+</table>
+<h3 id="仿真器操作方式总结">仿真器操作方式总结
+</h3><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>对应真机</th>
+<th>按键/动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>鼠标<strong>单击</strong></td>
+<td>手指点一下</td>
+<td>点按钮、点菜单项</td>
+</tr>
+<tr>
+<td>鼠标<strong>按住拖拽</strong></td>
+<td>手指滑动</td>
+<td>主页右滑→菜单、左滑/Backspace→返回</td>
+</tr>
+<tr>
+<td><strong>Backspace 键</strong></td>
+<td>物理返回键</td>
+<td>任意页面返回上一页</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="踩坑-3左滑手势无效部分页面只响应右滑">踩坑 3：左滑手势无效（部分页面只响应右滑）
+</h2><h3 id="现象-2">现象
+</h3><ul>
+<li>主页右滑能进菜单 ✓</li>
+<li>菜单右滑能返回 ✓</li>
+<li>菜单<strong>左滑无反应</strong> ✗（本应也返回）</li>
+<li>设置页、游戏选择页、日期设置页同样问题</li>
+</ul>
+<h3 id="排查-2">排查
+</h3><p>搜索所有页面的手势处理代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">grep -n <span class="s2">&#34;LV_DIR_RIGHT\|LV_DIR_LEFT&#34;</span> user_test/GUI_App/Screens/Src/*.c
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：<strong>所有页面只判断了 <code>LV_DIR_RIGHT</code>，没有判断 <code>LV_DIR_LEFT</code></strong>。</p>
+<p>以 <code>ui_MenuPage.c:98-104</code> 为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">event_code</span> <span class="o">==</span> <span class="n">LV_EVENT_GESTURE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nf">lv_indev_get_gesture_dir</span><span class="p">(</span><span class="nf">lv_indev_get_act</span><span class="p">())</span> <span class="o">==</span> <span class="n">LV_DIR_RIGHT</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">Page_Back</span><span class="p">();</span>  <span class="c1">// 只右滑能触发，左滑被忽略
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解决-2">解决
+</h3><p>修改 4 个页面（MenuPage、SetPage、GameSelectPage、DateTimeSetPage），把方向判断从单一右滑改为左右都响应：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 改前
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span><span class="p">(</span><span class="nf">lv_indev_get_gesture_dir</span><span class="p">(</span><span class="nf">lv_indev_get_act</span><span class="p">())</span> <span class="o">==</span> <span class="n">LV_DIR_RIGHT</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 改后
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span><span class="p">(</span><span class="nf">lv_indev_get_gesture_dir</span><span class="p">(</span><span class="nf">lv_indev_get_act</span><span class="p">())</span> <span class="o">==</span> <span class="n">LV_DIR_RIGHT</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">   <span class="nf">lv_indev_get_gesture_dir</span><span class="p">(</span><span class="nf">lv_indev_get_act</span><span class="p">())</span> <span class="o">==</span> <span class="n">LV_DIR_LEFT</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="根因-2">根因
+</h3><p>真机手表戴在手腕上，拇指自然只做右滑操作，作者只写了右滑。仿真器上鼠标拖拽方向不固定，用户习惯左滑返回。</p>
+<hr>
+<h2 id="踩坑-4计算器心率等页面完全没有手势功能">踩坑 4：计算器、心率等页面完全没有手势功能
+</h2><h3 id="现象-3">现象
+</h3><p>从菜单进入计算器、心率、指南针、日历、计时器等页面后，左右滑都没反应，只能用 Backspace 返回。</p>
+<h3 id="排查-3">排查
+</h3><p>搜索发现这些页面根本没有 <code>LV_EVENT_GESTURE</code> 处理代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">有手势的页面：HomePage, MenuPage, SetPage, GameSelectPage, Game2048Page, DateTimeSetPage
+</span></span><span class="line"><span class="cl">无手势的页面：ComputerPage, HRPage, SPO2Page, CompassPage, EnvPage, CalendarPage,
+</span></span><span class="line"><span class="cl">             TimerPage, ChargPage, AboutPage, NFCCardPage, OffTimePage, GameMemPage
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>12 个页面全都没有手势处理——每个加 3 行代码太蠢了。</p>
+<h3 id="解决-3">解决
+</h3><p>在 <code>PageManager</code> 里加<strong>通用手势回调</strong>，所有页面自动获得左滑返回能力。</p>
+<p><strong>1. <code>PageManager.h</code></strong> — <code>Page_t</code> 结构体加字段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">init</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">deinit</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">lv_obj_t</span> <span class="o">**</span><span class="n">page_obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">no_auto_swipe_back</span><span class="p">;</span>   <span class="c1">// true = 不自动加左滑返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">Page_t</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>C 语言零初始化：未指定的结构体字段默认为 0（false），所以所有已有的 <code>Page_t Page_XXX = {...}</code> 声明不用改，自动获得左滑返回。</p>
+<p><strong>2. <code>PageManager.c</code></strong> — 通用回调 + <code>Page_Load</code> 里自动挂载：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 通用手势回调：左滑 → 返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kt">void</span> <span class="nf">auto_swipe_back_handler</span><span class="p">(</span><span class="kt">lv_event_t</span> <span class="o">*</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">event_code</span> <span class="o">==</span> <span class="n">LV_EVENT_GESTURE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="nf">lv_indev_get_gesture_dir</span><span class="p">(</span><span class="nf">lv_indev_get_act</span><span class="p">())</span> <span class="o">==</span> <span class="n">LV_DIR_LEFT</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">Page_Back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Page_Load 末尾加一行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">newPage</span><span class="o">-&gt;</span><span class="n">no_auto_swipe_back</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">lv_obj_add_event_cb</span><span class="p">(</span><span class="o">*</span><span class="n">newPage</span><span class="o">-&gt;</span><span class="n">page_obj</span><span class="p">,</span> <span class="n">auto_swipe_back_handler</span><span class="p">,</span> <span class="n">LV_EVENT_ALL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3. 例外页面</strong> — 2048 和 HomePage 标为 <code>true</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// ui_Game2048Page.c — 左滑是游戏操作，不能抢占
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Page_t</span> <span class="n">Page_Game_2048</span> <span class="o">=</span> <span class="p">{...,</span> <span class="nb">true</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ui_HomePage.c — 已经是底部，没有可返回的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Page_t</span> <span class="n">Page_Home</span> <span class="o">=</span> <span class="p">{...,</span> <span class="nb">true</span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="根因-3">根因
+</h3><p>原项目只有少数页面加了手势，大量页面只靠物理按键返回。仿真器物理按键不方便，需要手势补充。</p>
+<h3 id="永久性改动-2">永久性改动
+</h3><table>
+<thead>
+<tr>
+<th>改动</th>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Page_t</code> 加 <code>no_auto_swipe_back</code> 字段</td>
+<td><code>PageManager.h</code></td>
+<td>标记不自动挂手势的页面</td>
+</tr>
+<tr>
+<td>通用 <code>auto_swipe_back_handler</code></td>
+<td><code>PageManager.c</code></td>
+<td>左滑自动返回</td>
+</tr>
+<tr>
+<td><code>Page_Load</code> 里自动挂载回调</td>
+<td><code>PageManager.c</code></td>
+<td>所有页面自动获得左滑返回</td>
+</tr>
+<tr>
+<td>LV_DIR_LEFT 支持</td>
+<td>4 个页面 <code>.c</code></td>
+<td>已有手势的页面补上左滑</td>
+</tr>
+<tr>
+<td>2048 / HomePage 标 <code>true</code></td>
+<td>2 个页面 <code>.c</code></td>
+<td>排除例外</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</div>
+            </div>
+        </article>
+        </div>
+    </div>
+
+    
+    <div class="page-nav-arrows">
+        <a href="/project/ov-watch/study-day1/" class="page-nav-arrow page-nav-prev" title="上一页"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></a>
+        
+    </div>
+    
+
+    
+    <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+</html>

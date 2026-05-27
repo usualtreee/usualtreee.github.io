@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OV-Watch — 学习路径 — Usualtree</title>
+    <link rel="icon" href="/favicon.ico">
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    
+    <link rel="stylesheet" href="/scss/custom.min.196d2895d3349f6cabde0088dfa40dfe9d26a1696918513546e452717dea85d8.css">
+</head>
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <div class="single-top-bar">
+            
+            <a href="/project/" class="postlist-back"><span data-zh="← 返回项目" data-en="← Projects"></span></a>
+            
+            <div class="single-page-nav">
+                <a href="/project/ov-watch/" class="single-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> <span data-zh="上一页" data-en="Prev"></span></a>
+                <a href="/project/ov-watch/study-day1/" class="single-nav-btn"><span data-zh="下一页" data-en="Next"></span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+            </div>
+        </div>
+        
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+                
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        
+        <div class="single-with-sidebar">
+            <nav class="single-sidebar card glass-card">
+                <div class="sidebar-title" data-zh="📑 目录" data-en="📑 Index"></div>
+                <ul class="sidebar-list">
+                    
+                    <li><a href="/project/ov-watch/" class="sidebar-link ">OV-Watch-项目概况</a></li>
+                    
+                    <li><a href="/project/ov-watch/debug-log/" class="sidebar-link ">OV-Watch — Debug 记录</a></li>
+                    
+                    <li><a href="/project/ov-watch/study-guide/" class="sidebar-link active">OV-Watch — 学习路径</a></li>
+                    
+                    <li><a href="/project/ov-watch/study-day1/" class="sidebar-link ">OV-Watch — 学习总结 Day 1</a></li>
+                    
+                </ul>
+            </nav>
+            <article class="card glass-card single-card single-card-side">
+        
+            <div class="single-body-content">
+                <h1 class="single-title">OV-Watch — 学习路径</h1>
+                <div class="single-content" id="ttsContent"><h1 id="ov-watch-学习路径">OV-Watch 学习路径
+</h1><h2 id="前提">前提
+</h2><p>这份路线假设你是初学者——没摸过 STM32、没用过 FreeRTOS、也不知道 LVGL 是什么。没关系，顺着走就行。</p>
+<p><strong>原则</strong>：</p>
+<ul>
+<li>不用一次全看懂，每一遍比上一遍多懂一点就行</li>
+<li>能跑起来的代码 &gt; 脑子里想象的概念</li>
+<li>改代码看效果 &gt; 读代码猜逻辑</li>
+</ul>
+<hr>
+<h1 id="第一阶段先跑起来1-2-天">第一阶段：先跑起来（1-2 天）
+</h1><p>这个阶段的目标只有一个：<strong>让仿真器在电脑上跑起来</strong>。暂时不要求理解代码。</p>
+<h2 id="11-什么是仿真器">1.1 什么是&quot;仿真器&quot;
+</h2><p><code>lv_sim_vscode_win/</code> 这个目录的东西，可以让你<strong>在没有手表硬件的情况下</strong>，在 Windows 电脑上运行整个手表 UI。</p>
+<p>原理很简单：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Keil 工程（真机）：   UI 代码 → LVGL → 调用 LCD 驱动 → 写到 ST7789 屏幕
+</span></span><span class="line"><span class="cl">仿真器工程（PC）：    同一份 UI 代码 → LVGL → 调用 SDL2  → 画到电脑窗口
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>UI 代码是完全一致的，区别只在于最底层画图的那个东西——一个是 LCD 驱动，一个是 SDL2。</p>
+<h2 id="12-动手搭环境">1.2 动手搭环境
+</h2><h3 id="需要安装">需要安装
+</h3><ul>
+<li><strong>VS Code</strong>（编辑器）</li>
+<li><strong>CMake</strong>（构建工具）</li>
+<li><strong>MinGW-w64</strong>（Windows 上的 GCC 编译器）</li>
+</ul>
+<h3 id="步骤">步骤
+</h3><ol>
+<li>VS Code 打开 <code>lv_sim_vscode_win/</code> 目录</li>
+<li>打开 <code>lv_conf.h</code>，找到 SDL2 相关路径，改成你电脑上的实际路径</li>
+<li>打开终端：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir build
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">cmake .. -G <span class="s2">&#34;MinGW Makefiles&#34;</span>
+</span></span><span class="line"><span class="cl">make -j4
+</span></span><span class="line"><span class="cl">./main
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>弹出一个窗口，里面显示着手表表盘界面，就算成功了。</p>
+<h3 id="常见问题">常见问题
+</h3><table>
+<thead>
+<tr>
+<th>报错</th>
+<th>解决</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SDL2.dll 找不到</code></td>
+<td>把 <code>lv_sim_vscode_win/SDL2.dll</code> 复制到 <code>build/</code> 目录</td>
+</tr>
+<tr>
+<td><code>cmake 命令不存在</code></td>
+<td>没装 CMake，去官网下载安装</td>
+</tr>
+<tr>
+<td><code>make 命令不存在</code></td>
+<td>没装 MinGW，去 <code>mingw-w64.org</code> 下载</td>
+</tr>
+</tbody>
+</table>
+<h2 id="13-玩一遍所有功能">1.3 玩一遍所有功能
+</h2><p>用鼠标点击仿真器窗口里的按钮，把每个功能都点一遍：</p>
+<ul>
+<li>主表盘 → 菜单 → 心率页 / 环境页 / 指南针 / 计算器 / 日历 / 倒计时 / 2048 / 翻牌游戏 / 设置 / 关于</li>
+</ul>
+<p>每点进一个页面，去 <code>lv_sim_vscode_win/user_test/GUI_App/Screens/</code> 下找到对应的 <code>.c</code> 文件看一眼文件名——不需要读代码，只需要对得上&quot;这个 UI 对应哪个文件&quot;就行。</p>
+<h2 id="14-第一个实验改-hw_use_hardware">1.4 第一个实验：改 HW_USE_HARDWARE
+</h2><p>打开 <code>lv_sim_vscode_win/user_test/Func/Inc/HWDataAccess.h</code>，找到：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define HW_USE_HARDWARE 0
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>这行代码的意思是：<strong>不访问真实硬件，全部用假的模拟数据</strong>。正因为设成了 0，仿真器才能在没有 STM32、没有传感器的情况下跑起来。</p>
+<p>把它改成 <code>1</code>，重新编译，看会发生什么。</p>
+<blockquote>
+<p>答案是：编译报错。因为 PC 上没有 STM32 的 HAL 库。这个实验让你直观理解硬件抽象层的意义——一层宏开关，隔开了 UI 代码和硬件代码。</p>
+</blockquote>
+<hr>
+<h1 id="第二阶段搞懂-ui-层2-3-天">第二阶段：搞懂 UI 层（2-3 天）
+</h1><p>你已经在仿真器里看到了界面。现在搞清楚这些界面是怎么被创建、怎么被管理的。</p>
+<h2 id="21-lvgl-是什么">2.1 LVGL 是什么
+</h2><p>LVGL 是一个<strong>给单片机用的 GUI 库</strong>，跟 PC 上的 Qt、Web 前端本质上是一回事：</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>LVGL 中叫什么</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>屏幕</td>
+<td><code>lv_scr_act()</code></td>
+<td>当前显示的&quot;画布&quot;</td>
+</tr>
+<tr>
+<td>按钮</td>
+<td><code>lv_btn_create(parent)</code></td>
+<td>创建一个按钮，放在 parent 上</td>
+</tr>
+<tr>
+<td>文字</td>
+<td><code>lv_label_create(parent)</code></td>
+<td>创建一个文本标签</td>
+</tr>
+<tr>
+<td>图片</td>
+<td><code>lv_img_create(parent)</code></td>
+<td>创建一个图片</td>
+</tr>
+<tr>
+<td>刷新</td>
+<td><code>lv_task_handler()</code></td>
+<td>LVGL 主循环，定期调用才会刷新画面</td>
+</tr>
+</tbody>
+</table>
+<p>所有 LVGL 对象都是 C 语言通过函数调用创建的。没有 XML 布局文件，没有可视化编辑器（SquareLine Studio 只是辅助，最终导出还是 C 代码）。</p>
+<h2 id="22-拆解一个最简单的页面">2.2 拆解一个最简单的页面
+</h2><p>建议从 <code>ui_AboutPage.c</code> 开始（关于页面，内容简单），用 VS Code 打开它。</p>
+<p>不用逐行看懂，只需要回答三个问题：</p>
+<ol>
+<li><strong>哪个函数是创建这个页面的？</strong> → 找 <code>ui_AboutPage_screen_init()</code></li>
+<li><strong>这个页面有哪些屏幕对象？</strong> → 看 <code>lv_obj_t *ui_AboutPage</code> 的声明</li>
+<li><strong>页面上的文字、图片在哪里创建的？</strong> → 在 <code>_screen_init()</code> 函数体里找 <code>lv_label_create</code> / <code>lv_img_create</code></li>
+</ol>
+<h3 id="练习改关于页面的文字">练习：改关于页面的文字
+</h3><p>在 <code>ui_AboutPage.c</code> 里找到创建文本的地方，把版本号改成别的字符串。重新编译，运行，看看界面上变了没有。</p>
+<h2 id="23-理解页面怎么切换">2.3 理解页面怎么切换
+</h2><p>打开 <code>PageManager.c</code>。这个文件实现了一个<strong>栈</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[栈顶]
+</span></span><span class="line"><span class="cl">  页面C  ← 当前显示的
+</span></span><span class="line"><span class="cl">  页面B
+</span></span><span class="line"><span class="cl">  页面A  ← 首页
+</span></span><span class="line"><span class="cl">[栈底]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>进入新页面 = <code>Push</code>（入栈）</li>
+<li>按返回键 = <code>Pop</code>（出栈）</li>
+<li>按 Home 键 = 全部清空，只剩首页</li>
+</ul>
+<h3 id="核心函数">核心函数
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Page_Load</span><span class="p">(</span><span class="n">Page_t</span> <span class="o">*</span><span class="n">newPage</span><span class="p">)</span>   <span class="c1">// 加载新页面（入栈）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">Page_Back</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>              <span class="c1">// 回到上一页（出栈）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">Page_Back_Bottom</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>       <span class="c1">// 直接回到首页（清栈）
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="练习追踪一次按键到页面切换的全过程">练习：追踪一次按键到页面切换的全过程
+</h3><ol>
+<li>在 <code>user_KeyTask.c</code> 里找按键处理代码 —— 按 KEY1 发了什么消息？</li>
+<li>谁收到了这个消息？→ 在 <code>user_ScrRenewTask.c</code> 里找</li>
+<li>它调了 <code>Page_Load</code> 还是 <code>Page_Back</code>？</li>
+<li>最终调用了哪个 <code>ui_XXX_screen_init()</code>？</li>
+</ol>
+<blockquote>
+<p>不需要看懂全部细节，能把&quot;按键→消息队列→页面切换→LVGL刷新&quot;这条链路串起来就行。</p>
+</blockquote>
+<h2 id="24-lvgl-的心跳lv_task_handler">2.4 LVGL 的&quot;心跳&quot;——<code>lv_task_handler()</code>
+</h2><p>LVGL 不像网页有事件循环，它需要你<strong>每隔几毫秒主动调用一次</strong> <code>lv_task_handler()</code>，才会更新画面。</p>
+<p>在 <code>user_TasksInit.c</code> 里找到 <code>LvHandlerTask</code>，它每隔 1ms 调用一次 <code>lv_task_handler()</code>。这就是整个手表 UI 的心脏。</p>
+<h3 id="练习改刷新频率">练习：改刷新频率
+</h3><p>把 <code>osDelay(1)</code> 改成 <code>osDelay(10)</code>，重新编译运行。UI 会变卡顿。改回来。</p>
+<p>这个实验让你理解——LVGL 的画面完全靠 <code>lv_task_handler()</code> 驱动，不调用它画面就静止。</p>
+<hr>
+<h1 id="第三阶段理解-freertos-多任务2-3-天">第三阶段：理解 FreeRTOS 多任务（2-3 天）
+</h1><p>第二阶段你看到了一个个任务（<code>KeyTask</code>、<code>LvHandlerTask</code> 等）。现在搞清楚&quot;任务&quot;到底是什么，以及这些任务怎么协作。</p>
+<h2 id="31-什么是-freertos-任务">3.1 什么是 FreeRTOS 任务
+</h2><p>单片机只有一颗 CPU，同一时刻只能做一件事。操作系统的作用就是<strong>让一颗 CPU 看起来像同时在做好几件事</strong>。</p>
+<p>实现方式：每隔一段时间切换一次当前执行的任务（上下文切换），每个任务跑一小段就换成下一个。</p>
+<h3 id="核心概念">核心概念
+</h3><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>代码中叫</th>
+<th>一句话解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>任务</td>
+<td><code>osThreadId_t</code></td>
+<td>一个独立的执行流，有自己的 while(1) 循环</td>
+</tr>
+<tr>
+<td>优先级</td>
+<td><code>osPriority_t</code></td>
+<td>谁先跑。高优先级的任务就绪时，低优先级的会被抢占</td>
+</tr>
+<tr>
+<td>消息队列</td>
+<td><code>osMessageQueueId_t</code></td>
+<td>任务间传递数据的安全通道</td>
+</tr>
+<tr>
+<td>延时</td>
+<td><code>osDelay(ms)</code></td>
+<td>当前任务暂停 ms 毫秒，让 CPU 去跑别的任务</td>
+</tr>
+</tbody>
+</table>
+<h2 id="32-逐个读懂-13-个任务">3.2 逐个读懂 13 个任务
+</h2><p>打开 <code>user_TasksInit.c</code>，对照下表找到每个任务：</p>
+<h3 id="高优先级组不能卡卡了就出大事">高优先级组（不能卡，卡了就出大事）
+</h3><table>
+<thead>
+<tr>
+<th>任务</th>
+<th>函数名</th>
+<th>做什么</th>
+<th>怎么验证</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>硬件初始化</td>
+<td><code>HardwareInitTask</code></td>
+<td>开机跑一次，把所有外设 init 完就挂起</td>
+<td>看代码，任务末尾是 <code>osThreadSuspend</code> 还是 <code>while(1)</code>？</td>
+</tr>
+<tr>
+<td>喂狗</td>
+<td><code>WDOGFeedTask</code></td>
+<td>每 100ms 喂一次独立看门狗</td>
+<td>看门狗的作用：如果程序死循环了，看门狗收不到喂信号就复位 MCU</td>
+</tr>
+<tr>
+<td>空闲检测</td>
+<td><code>IdleEnterTask</code></td>
+<td>用户多久没操作？超时就进睡眠</td>
+<td>追踪 <code>IdleTimerHandle</code> 这个定时器</td>
+</tr>
+<tr>
+<td>关机检测</td>
+<td><code>StopEnterTask</code></td>
+<td>长按 KEY1 后关机</td>
+<td>找 <code>power_shutdown</code> 的调用点</td>
+</tr>
+</tbody>
+</table>
+<h3 id="中优先级组用户交互相关">中优先级组（用户交互相关）
+</h3><table>
+<thead>
+<tr>
+<th>任务</th>
+<th>函数名</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>按键扫描</td>
+<td><code>KeyTask</code></td>
+<td>每 10ms 读一次 GPIO，判断哪个键被按下</td>
+</tr>
+</tbody>
+</table>
+<h3 id="低优先级组可以慢但不能错">低优先级组（可以慢，但不能错）
+</h3><table>
+<thead>
+<tr>
+<th>任务</th>
+<th>函数名</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LVGL 渲染</td>
+<td><code>LvHandlerTask</code></td>
+<td>循环调 <code>lv_task_handler()</code>，刷新画面</td>
+</tr>
+<tr>
+<td>页面切换</td>
+<td><code>ScrRenewTask</code></td>
+<td>接收按键消息，管理页面栈的 push/pop</td>
+</tr>
+<tr>
+<td>传感器通用</td>
+<td><code>SensorDataTask</code></td>
+<td>定时读温湿度、气压、罗盘</td>
+</tr>
+<tr>
+<td>心率采集</td>
+<td><code>HRDataTask</code></td>
+<td>读 EM7028 + 跑心率算法</td>
+</tr>
+<tr>
+<td>充电检测</td>
+<td><code>ChargPageEnterTask</code></td>
+<td>检测到充电就弹充电动画</td>
+</tr>
+<tr>
+<td>蓝牙消息</td>
+<td><code>MessageSendTask</code></td>
+<td>通过蓝牙把数据发出去</td>
+</tr>
+<tr>
+<td>姿态检测</td>
+<td><code>MPUCheckTask</code></td>
+<td>抬腕检测，决定要不要唤醒屏幕</td>
+</tr>
+<tr>
+<td>数据保存</td>
+<td><code>DataSaveTask</code></td>
+<td>改设置后，写到 EEPROM 持久化</td>
+</tr>
+</tbody>
+</table>
+<h3 id="核心理解">核心理解
+</h3><p><strong>为什么 LVGL 渲染优先级最低？</strong> 因为渲染耗时长。如果优先级高，按键和传感器数据就来不及处理，体验会变差。宁可画面慢一帧，也不能按键没反应。</p>
+<h2 id="33-任务间怎么通信消息队列">3.3 任务间怎么通信：消息队列
+</h2><p>任务之间不能直接调用对方的函数（不安全），而是通过<strong>消息队列</strong>传递数据。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 发送方
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">osMessageQueuePut</span><span class="p">(</span><span class="n">Key_MessageQueue</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">key_value</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 接收方
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">osMessageQueueGet</span><span class="p">(</span><span class="n">Key_MessageQueue</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">key_value</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">osWaitForever</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个项目用了 6 个消息队列：</p>
+<table>
+<thead>
+<tr>
+<th>队列名</th>
+<th>谁发</th>
+<th>谁收</th>
+<th>传递什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Key_MessageQueue</code></td>
+<td>KeyTask</td>
+<td>ScrRenewTask</td>
+<td>哪个键被按下</td>
+</tr>
+<tr>
+<td><code>Idle_MessageQueue</code></td>
+<td>定时器</td>
+<td>IdleEnterTask</td>
+<td>无操作计时</td>
+</tr>
+<tr>
+<td><code>Stop_MessageQueue</code></td>
+<td>KeyTask</td>
+<td>StopEnterTask</td>
+<td>关机指令</td>
+</tr>
+<tr>
+<td><code>IdleBreak_MessageQueue</code></td>
+<td>多个</td>
+<td>多个</td>
+<td>打断睡眠</td>
+</tr>
+<tr>
+<td><code>HomeUpdata_MessageQueue</code></td>
+<td>多个</td>
+<td>ScrRenewTask</td>
+<td>刷新首页</td>
+</tr>
+<tr>
+<td><code>DataSave_MessageQueue</code></td>
+<td>多个</td>
+<td>DataSaveTask</td>
+<td>保存数据请求</td>
+</tr>
+</tbody>
+</table>
+<h3 id="练习追踪一个消息的一生">练习：追踪一个消息的一生
+</h3><p>选 <code>Key_MessageQueue</code>，用 VS Code 的&quot;查找所有引用&quot;：</p>
+<ol>
+<li>哪里 <code>Put</code> 了？→ 找到发送点</li>
+<li>哪里 <code>Get</code> 了？→ 找到接收点</li>
+<li>接收到之后做了什么？→ 追踪处理逻辑</li>
+</ol>
+<p>给每条消息画一条 &ldquo;Put → 队列 → Get → 处理&rdquo; 的路径，画完你对任务间通信就有底了。</p>
+<h2 id="34-tick-hookfreertos-的心跳">3.4 Tick Hook：FreeRTOS 的心跳
+</h2><p><code>freertos.c</code> 里有一个 <code>vApplicationTickHook()</code>，FreeRTOS 的每个 tick（1ms）都会调它一次。它干两件事：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">vApplicationTickHook</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">TaskTickHook</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>TaskTickHook()</code> 在 <code>user_TasksInit.c</code> 里：</p>
+<ul>
+<li><code>lv_tick_inc(1)</code> — 告诉 LVGL 过了 1ms（LVGL 内部有很多基于时间的动画）</li>
+<li>计时器页面的秒表逻辑（如果秒表开着就 +1）</li>
+</ul>
+<hr>
+<h1 id="第四阶段深入关键模块2-3-天">第四阶段：深入关键模块（2-3 天）
+</h1><p>现在你对整体架构有概念了，接下来深入几个最有代表性的模块。</p>
+<h2 id="41-硬件抽象层hwdataaccess">4.1 硬件抽象层（HWDataAccess）
+</h2><p><strong>文件</strong>：<a class="link" href="Software/OV_Watch/User/Func/Inc/HWDataAccess.h" >HWDataAccess.h</a></p>
+<h3 id="问题为什么需要这一层">问题：为什么需要这一层？
+</h3><p>想象一下，如果没有这一层——每个 UI 页面都直接调用 <code>HAL_I2C_Read(MPU6050_ADDR)</code>。那么在 PC 仿真器上：</p>
+<ul>
+<li>没有 I2C 总线 → 编译不过</li>
+<li>没有 HAL 库 → 链接不过</li>
+<li>有了也读不到数据 → 运行崩溃</li>
+</ul>
+<p>硬件抽象层的解决方案很巧妙：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define HW_USE_HARDWARE 1   </span><span class="c1">// 模式 1：编译真实驱动代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define HW_USE_HARDWARE 0   </span><span class="c1">// 模式 0：返回写死的模拟数据
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="它是怎么实现的">它是怎么实现的
+</h3><p>打开 <code>HWDataAccess.h</code>，看这段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#if HW_USE_HARDWARE
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="cp">#define HW_USE_IMU    1    </span><span class="c1">// 需要真实 IMU 驱动
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="cp">#define HW_USE_AHT21  1    </span><span class="c1">// 需要真实温湿度驱动
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#endif
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>当 <code>HW_USE_HARDWARE = 0</code> 时，<code>HW_USE_IMU</code> 等所有子宏都不会被定义，<code>#if HW_USE_IMU</code> 块内的 <code>#include</code> 和调用代码都不会被编译。</p>
+<p>然后在 <code>HWDataAccess.c</code> 里：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#if HW_USE_HARDWARE
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="c1">// 真机分支：调用 STM32 HAL 库，读真实传感器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">HWInterface</span><span class="p">.</span><span class="n">IMU</span><span class="p">.</span><span class="n">GetSteps</span> <span class="o">=</span> <span class="n">MPU6050_GetSteps</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#else
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="c1">// 仿真分支：返回固定值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">HWInterface</span><span class="p">.</span><span class="n">IMU</span><span class="p">.</span><span class="n">GetSteps</span> <span class="o">=</span> <span class="n">Fake_GetSteps</span><span class="p">;</span>  <span class="c1">// 永远返回 500
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#endif
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="练习">练习
+</h3><ol>
+<li>对比 <code>HWDataAccess.c</code> 里 <code>#if HW_USE_HARDWARE</code> 和 <code>#else</code> 分支，找出至少三个不同</li>
+<li>找一处调用 <code>HWInterface.XXX</code> 的 UI 代码，理解 UI 层完全不知道自己是跑在真机还是仿真器上</li>
+</ol>
+<h2 id="42-页面栈导航pagemanager">4.2 页面栈导航（PageManager）
+</h2><p><strong>文件</strong>：<a class="link" href="Software/OV_Watch/User/Func/Inc/PageManager.h" >PageManager.h</a> / <a class="link" href="Software/OV_Watch/User/Func/Src/PageManager.c" >PageManager.c</a></p>
+<h3 id="数据结构">数据结构
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">init</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>       <span class="c1">// 函数指针：初始化这个页面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">deinit</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>     <span class="c1">// 函数指针：销毁这个页面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">lv_obj_t</span> <span class="o">**</span><span class="n">page_obj</span><span class="p">;</span>      <span class="c1">// LVGL 对象指针的指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">Page_t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Page_t</span><span class="o">*</span> <span class="n">pages</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>         <span class="c1">// 最多存 6 个页面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">uint8_t</span> <span class="n">top</span><span class="p">;</span>              <span class="c1">// 当前栈顶位置
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">PageStack_t</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="操作演示">操作演示
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">初始状态：           top=0, pages=[ 空, 空, 空, 空, 空, 空 ]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Page_Load(HomePage):
+</span></span><span class="line"><span class="cl">  pages[0]=HomePage, top=1    →  显示 HomePage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Page_Load(MenuPage):
+</span></span><span class="line"><span class="cl">  pages[1]=MenuPage, top=2    →  显示 MenuPage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Page_Load(HRPage):
+</span></span><span class="line"><span class="cl">  pages[2]=HRPage,   top=3    →  显示 HRPage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Page_Back():
+</span></span><span class="line"><span class="cl">  top=2, 显示 MenuPage
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Page_Back():
+</span></span><span class="line"><span class="cl">  top=1, 显示 HomePage
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="为什么要存函数指针而不是直接存页面对象">为什么要存函数指针而不是直接存页面对象
+</h3><p>官方 README 特别提到了这个坑：</p>
+<blockquote>
+<p>不能直接在 push 操作中使用 <code>ui_HomePage</code> 入栈，它是会动态变化的</p>
+</blockquote>
+<p>原因是 <code>lv_obj_t</code> 在页面切换后可能被 LVGL 回收，指针变成悬空指针。存函数指针则不会——函数地址是固定的，返回时重新调用 <code>init()</code> 即可重建页面。</p>
+<h3 id="练习-1">练习
+</h3><ol>
+<li>让仿真器跑起来，从首页→菜单→设置→关于，然后一路返回。每次返回时在 <code>Page_Back()</code> 里加一句 <code>printf</code>，看栈的变化。</li>
+<li>尝试把 <code>MAX_DEPTH</code> 改成 2，然后连续进 4 个页面，看会发生什么。</li>
+</ol>
+<h2 id="43-双栈计算器strcalculate">4.3 双栈计算器（StrCalculate）
+</h2><p><strong>文件</strong>：<a class="link" href="Software/OV_Watch/User/Func/Src/StrCalculate.c" >StrCalculate.c</a></p>
+<h3 id="算法核心">算法核心
+</h3><p>两个栈：<strong>操作数栈</strong>（存数字）和<strong>运算符栈</strong>（存 +-*/）。</p>
+<p>遍历输入字符串，每读到一个字符：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">读到数字 → 压入操作数栈
+</span></span><span class="line"><span class="cl">读到运算符 → 跟运算符栈顶比较优先级：
+</span></span><span class="line"><span class="cl">  - 当前 &gt; 栈顶 → 入栈（等着）
+</span></span><span class="line"><span class="cl">  - 当前 ≤ 栈顶 → 弹栈计算（栈顶的优先算）
+</span></span><span class="line"><span class="cl">读完所有字符 → 弹空运算符栈，结果在操作数栈顶
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="为什么要建两个栈不直接算">为什么要建两个栈不直接算
+</h3><p>因为运算符有优先级。比如 <code>1+2*3</code>：</p>
+<ul>
+<li>读到 <code>+</code> 时还不知道后面有 <code>*</code>，不能直接算 <code>1+2</code></li>
+<li>需要把 <code>+</code> 存起来，让 <code>*</code> 先算</li>
+</ul>
+<p>栈就是解决&quot;后面的事比前面急&quot;的数据结构。</p>
+<h3 id="小数怎么处理">小数怎么处理
+</h3><p>代码里用 <code>NumBehindPoint_Flag</code> 标记当前读到小数点后第几位。核心逻辑：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 小数点后第一位：÷10
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 小数点后第二位：再÷10（相当于 ÷100）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 然后加上栈顶已有的整数部分
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="练习-2">练习
+</h3><ol>
+<li>在仿真器里打开计算器，算 <code>1+2*3</code>，验证结果是 7 而不是 9</li>
+<li>手写一遍 <code>1+2*6/3</code> 的栈变化过程（纸上画两个栈，一步步走）</li>
+<li>找到 <code>CalculateOne()</code> 函数，理解它怎么从两个栈里各取数据、计算、再放回去</li>
+</ol>
+<h2 id="44-心率算法">4.4 心率算法
+</h2><p><strong>文件</strong>：<a class="link" href="Software/OV_Watch/BSP/EM7028/HrAlgorythm.c" >HrAlgorythm.c</a></p>
+<h3 id="ppg-信号是什么">PPG 信号是什么
+</h3><p>EM7028 传感器发射绿光穿过皮肤，光电二极管接收反射光。心脏跳动时血液量变化 → 反射光强度变化 → 产生一个波形。</p>
+<h3 id="峰值检测算法的思路">峰值检测算法的思路
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">原始信号采样 → 环形队列缓冲（存最近 N 个点）
+</span></span><span class="line"><span class="cl">  → 扫描队列找峰值（比前后都高）
+</span></span><span class="line"><span class="cl">  → 计算相邻两个峰间距（多少个采样点）
+</span></span><span class="line"><span class="cl">  → 换算为 BPM（两次心跳的间隔 → 每分钟跳多少次）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>比官方库快的原因是：官方库可能做了 FFT 等复杂运算，而峰值检测只需遍历一次队列。</p>
+<h3 id="环形队列">环形队列
+</h3><p>文件：<a class="link" href="Software/OV_Watch/BSP/EM7028/user_Queue.c" >user_Queue.c</a></p>
+<p>环形队列是一个固定大小的数组，写满了就覆盖最老的数据。适合传感器这种&quot;一直来新数据，只关心最近 N 个点&quot;的场景。</p>
+<h3 id="练习-3">练习
+</h3><ol>
+<li>看懂环形队列的入队和出队逻辑</li>
+<li>找到心率算法的峰值查找部分，看阈值怎么设的</li>
+</ol>
+<hr>
+<h1 id="第五阶段bootloader-与-ota2-天">第五阶段：BootLoader 与 OTA（2 天）
+</h1><h2 id="51-为什么要分-bootloader-和-app">5.1 为什么要分 BootLoader 和 APP
+</h2><p>没有 BootLoader 时，更新固件必须用 ST-Link 物理连接到板子。有了 BootLoader，可以通过蓝牙无线升级。</p>
+<p>二者的关系：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">上电 → BootLoader（先跑）→ 检测：要升级吗？
+</span></span><span class="line"><span class="cl">  ├─ 要 → 接收新固件 → 写入 FLASH
+</span></span><span class="line"><span class="cl">  └─ 不要 → 直接跳转到 APP
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">APP（主程序）正常运行
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="52-flash-怎么分的">5.2 FLASH 怎么分的
+</h2><p>STM32F411 有 512KB FLASH：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x08000000 ┌──────────────┐
+</span></span><span class="line"><span class="cl">           │  BootLoader  │ 48KB（先跑，管升级）
+</span></span><span class="line"><span class="cl">0x0800C000 ├──────────────┤
+</span></span><span class="line"><span class="cl">           │              │
+</span></span><span class="line"><span class="cl">           │    APP       │ 464KB（主程序）
+</span></span><span class="line"><span class="cl">           │              │
+</span></span><span class="line"><span class="cl">0x0807FFFF └──────────────┘
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="为什么从-0x0000c000-开始">为什么从 0x0000C000 开始
+</h3><p><code>0xC000</code> = 48 × 1024 = 49152 字节。BootLoader 占前 48KB，APP 从第 49KB 开始。</p>
+<h2 id="53-中断向量表重映射">5.3 中断向量表重映射
+</h2><p>BootLoader 跑的时候，CPU 的中断向量表指向 <code>0x08000000</code>。APP 跑的时候需要指向 <code>0x0800C000</code>。</p>
+<p><strong>代码</strong>：<a class="link" href="Software/OV_Watch/Core/Src/main.c" >main.c:75</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">SCB</span><span class="o">-&gt;</span><span class="n">VTOR</span> <span class="o">=</span> <span class="mh">0x0000C000U</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这是 APP 的 <code>main()</code> 函数里<strong>必须第一行执行</strong>的语句。没有它，中断一来 CPU 还去 BootLoader 的向量表取地址，后果不可预期。</p>
+<h2 id="54-ymodem-协议">5.4 Ymodem 协议
+</h2><p><strong>文件</strong>：<a class="link" href="Software/IAP_F411/Ymodem/ymodem.c" >ymodem.c</a></p>
+<p>Ymodem 是一个文件传输协议。发送方把文件切成 128 字节的小包，每包加 CRC 校验。接收方校验通过就 ACK，校验失败就 NAK 要求重发。</p>
+<h3 id="核心流程">核心流程
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">发送方（手机）                  接收方（手表 BootLoader）
+</span></span><span class="line"><span class="cl">    │                                │
+</span></span><span class="line"><span class="cl">    │──────── 第 1 包(128B+CRC) ────→│ 校验 ✓
+</span></span><span class="line"><span class="cl">    │←────────── ACK ───────────────│
+</span></span><span class="line"><span class="cl">    │──────── 第 2 包(128B+CRC) ────→│ 校验 ✓
+</span></span><span class="line"><span class="cl">    │←────────── ACK ───────────────│
+</span></span><span class="line"><span class="cl">    │             ...                │
+</span></span><span class="line"><span class="cl">    │──────── 最后包(EOT) ──────────→│
+</span></span><span class="line"><span class="cl">    │←────────── ACK ───────────────│  写入完成，跳转 APP
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="55-练习">5.5 练习
+</h2><ol>
+<li>对比 BootLoader 工程（<code>IAP_F411/</code>）和 APP 工程（<code>OV_Watch/</code>）的 <code>main.c</code>，找出三个关键差异</li>
+<li>在 Keil 的工程设置里看 IROM1 的起始地址：APP 是 <code>0x0800C000</code>，BootLoader 是 <code>0x08000000</code></li>
+<li>把 OTA 流程用自己的话写一遍（不需要理解 Ymodem 每行代码，能讲清&quot;上电→检测→接收→写 FLASH→跳转&quot;就行）</li>
+</ol>
+<hr>
+<h1 id="第六阶段外设与硬件对接1-2-天">第六阶段：外设与硬件对接（1-2 天）
+</h1><p>这个阶段需要结合硬件原理图来看。如果你手上有 PCB 板最好，没有的话看原理图 PDF 也能理解。</p>
+<h2 id="61-i2c-总线上的设备">6.1 I2C 总线上的设备
+</h2><p><code>Hardware/SCH_Core_2024-05-26.pdf</code> 里能看到 I2C1 总线挂了 4 个设备：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">STM32 I2C1 (PB6=SCL, PB7=SDA)
+</span></span><span class="line"><span class="cl">  ├── 0x68  MPU6050     6轴IMU
+</span></span><span class="line"><span class="cl">  ├── 0x38  AHT21        温湿度
+</span></span><span class="line"><span class="cl">  ├── 0x1E  LSM303DLH    电子罗盘
+</span></span><span class="line"><span class="cl">  └── 0x76  SPL06-001    气压高度
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>每个设备有不同的 I2C 从机地址，CPU 通过地址区分跟谁说话。</p>
+<h3 id="怎么知道驱动写得对不对">怎么知道驱动写得对不对
+</h3><p>打开 <code>BSP/MPU6050/MPU6050.c</code>（举例）：</p>
+<ol>
+<li>找 <code>HAL_I2C_Mem_Read()</code> 或 <code>HAL_I2C_Mem_Write()</code> 调用</li>
+<li>看第一个参数是 I2C 句柄，第二个参数是设备地址</li>
+<li>地址必须跟原理图上的一致</li>
+</ol>
+<h3 id="练习-4">练习
+</h3><p>随机挑 3 个 BSP 驱动文件，每个里面找一个 <code>HAL_I2C_*</code> 或 <code>HAL_SPI_*</code> 调用，理解它在跟哪个设备、读写什么寄存器。</p>
+<h2 id="62-驱动的分层">6.2 驱动的分层
+</h2><p>每个外设驱动的典型结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">em70x8.c         ← 芯片操作（读写寄存器、启动测量）
+</span></span><span class="line"><span class="cl">  ↓ 调用
+</span></span><span class="line"><span class="cl">HrAlgorythm.c    ← 算法层（取原始数据 → 算出心率值）
+</span></span><span class="line"><span class="cl">  ↓ 数据写入
+</span></span><span class="line"><span class="cl">HWDataAccess.c   ← 中间层（统一接口，隔离硬件）
+</span></span><span class="line"><span class="cl">  ↓ 被调用
+</span></span><span class="line"><span class="cl">UI 页面           ← 显示心率数字
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="练习-5">练习
+</h3><p>选心率或 IMU，从最底层的寄存器读写函数开始，一层层往上追，画一个完整的分层调用图。</p>
+<hr>
+<h1 id="整体学习节奏">整体学习节奏
+</h1><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>天数</th>
+<th>重点产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一阶段：仿真器跑起来</td>
+<td>1-2 天</td>
+<td>环境搭建成功 + 所有功能玩过一遍</td>
+</tr>
+<tr>
+<td>第二阶段：UI 层</td>
+<td>2-3 天</td>
+<td>能改 UI、理解页面切换、知道 LVGL 心跳</td>
+</tr>
+<tr>
+<td>第三阶段：FreeRTOS</td>
+<td>2-3 天</td>
+<td>13 个任务职责清晰、消息队列链路能画出来</td>
+</tr>
+<tr>
+<td>第四阶段：关键模块</td>
+<td>2-3 天</td>
+<td>深入 4 个核心模块（HAL/页面栈/计算器/心率）</td>
+</tr>
+<tr>
+<td>第五阶段：BootLoader</td>
+<td>2 天</td>
+<td>理解 FLASH 分区 + 中断向量 + OTA 流程</td>
+</tr>
+<tr>
+<td>第六阶段：外设驱动</td>
+<td>1-2 天</td>
+<td>看懂 I2C/SPI 驱动结构，能从寄存器追到 UI</td>
+</tr>
+</tbody>
+</table>
+<p><strong>合计 10-15 天</strong>，每天 2-3 小时。</p>
+<hr>
+<h1 id="速查表">速查表
+</h1><table>
+<thead>
+<tr>
+<th>想找什么</th>
+<th>去哪里</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>所有任务的定义</td>
+<td><a class="link" href="Software/OV_Watch/User/Tasks/Src/user_TasksInit.c" >user_TasksInit.c</a></td>
+</tr>
+<tr>
+<td>硬件抽象层</td>
+<td><a class="link" href="Software/OV_Watch/User/Func/Inc/HWDataAccess.h" >HWDataAccess.h</a> → <a class="link" href="Software/OV_Watch/User/Func/Src/HWDataAccess.c" >HWDataAccess.c</a></td>
+</tr>
+<tr>
+<td>页面栈</td>
+<td><a class="link" href="Software/OV_Watch/User/Func/Inc/PageManager.h" >PageManager.h</a> → <a class="link" href="Software/OV_Watch/User/Func/Src/PageManager.c" >PageManager.c</a></td>
+</tr>
+<tr>
+<td>双栈计算器</td>
+<td><a class="link" href="Software/OV_Watch/User/Func/Src/StrCalculate.c" >StrCalculate.c</a></td>
+</tr>
+<tr>
+<td>发布-订阅</td>
+<td><a class="link" href="Software/OV_Watch/User/Func/Inc/pubsub.h" >pubsub.h</a> → <a class="link" href="Software/OV_Watch/User/Func/Src/pubsub.c" >pubsub.c</a></td>
+</tr>
+<tr>
+<td>心率算法</td>
+<td><a class="link" href="Software/OV_Watch/BSP/EM7028/HrAlgorythm.c" >HrAlgorythm.c</a></td>
+</tr>
+<tr>
+<td>环形队列</td>
+<td><a class="link" href="Software/OV_Watch/BSP/EM7028/user_Queue.c" >user_Queue.c</a></td>
+</tr>
+<tr>
+<td>EEPROM 存储</td>
+<td><a class="link" href="Software/OV_Watch/BSP/BL24C02/DataSave.c" >DataSave.c</a></td>
+</tr>
+<tr>
+<td>蓝牙升级流程</td>
+<td><a class="link" href="Software/IAP_F411/Ymodem/ymodem.c" >ymodem.c</a></td>
+</tr>
+<tr>
+<td>中断向量表</td>
+<td><a class="link" href="Software/OV_Watch/Core/Src/main.c" >main.c:75</a></td>
+</tr>
+<tr>
+<td>FreeRTOS Tick</td>
+<td><a class="link" href="Software/OV_Watch/Core/Src/freertos.c" >freertos.c:87-95</a></td>
+</tr>
+<tr>
+<td>仿真器入口</td>
+<td><a class="link" href="lv_sim_vscode_win/main.c" >lv_sim_vscode_win/main.c</a></td>
+</tr>
+<tr>
+<td>每个 UI 界面</td>
+<td><a class="link" href="Software/OV_Watch/User/GUI_App/Screens/" >GUI_App/Screens/</a> 下有 19 个页面对应的 <code>.c</code> 文件</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="检验标准">检验标准
+</h1><p>走完整个路线后，你应该能：</p>
+<ul>
+<li><input disabled="" type="checkbox"> 在仿真器里跑起来，改几行 UI 代码能看到效果变化</li>
+<li><input disabled="" type="checkbox"> 画出 13 个任务的层级关系和 6 个消息队列的通信链路</li>
+<li><input disabled="" type="checkbox"> 解释硬件抽象层怎么通过一个宏隔离真机和仿真器</li>
+<li><input disabled="" type="checkbox"> 手写页面栈的 push/pop 过程，知道栈深度 6 层什么意思</li>
+<li><input disabled="" type="checkbox"> 用纸笔走一遍 <code>1+2*6/3</code> 的双栈计算过程</li>
+<li><input disabled="" type="checkbox"> 解释为什么 APP 的 <code>main()</code> 第一行必须是 <code>SCB-&gt;VTOR = 0x0000C000U</code></li>
+<li><input disabled="" type="checkbox"> 从任意一个传感器驱动开始，顺着代码追到它最终显示在哪个 UI 页面上</li>
+</ul>
+</div>
+            </div>
+        </article>
+        </div>
+    </div>
+
+    
+    <div class="page-nav-arrows">
+        <a href="/project/ov-watch/" class="page-nav-arrow page-nav-prev" title="上一页"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></a>
+        <a href="/project/ov-watch/study-day1/" class="page-nav-arrow page-nav-next" title="下一页"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    
+
+    
+    <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+</html>

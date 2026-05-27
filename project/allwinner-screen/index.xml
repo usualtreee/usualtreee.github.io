@@ -7,6 +7,312 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Tue, 26 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://usualtreee.github.io/project/allwinner-screen/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Tue, 26 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://usualtreee.github.io/project/allwinner-screen/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>全志桌面屏幕 — 学习路径</title>
+        <link>https://usualtreee.github.io/project/allwinner-screen/study-guide/</link>
+        <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/project/allwinner-screen/study-guide/</guid>
+        <description>&lt;h2 id=&#34;前提&#34;&gt;前提
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Windows 电脑一台（你现在就有的）&lt;/li&gt;
+&lt;li&gt;不需要买开发板就能开始学&lt;/li&gt;
+&lt;li&gt;目标不是&amp;quot;学完所有理论&amp;quot;，是&amp;quot;能看懂/能改/能加功能&amp;quot;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第一阶段让代码在-wsl-里跑起来1-2-天&#34;&gt;第一阶段：让代码在 WSL 里跑起来（1-2 天）
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：不买硬件，在 Windows 上看到这个项目的 GUI 窗口。&lt;/p&gt;
+&lt;p&gt;学习内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;装 WSL2（Windows Subsystem for Linux）
+&lt;ul&gt;
+&lt;li&gt;PowerShell 管理员运行：&lt;code&gt;wsl --install -d Ubuntu-22.04&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;重启电脑，打开 Ubuntu 终端&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;装依赖：
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt install build-essential cmake libsdl2-dev
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;编译运行：
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /mnt/c/Users/13403/Desktop/quanzhi-LVGL/app_sdk_v2/app_sdk
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./build.sh -linux
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./build/app/demo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;如果跳出 SDL 窗口显示 GUI 界面 → 成功了&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;获取的技能&lt;/strong&gt;：知道程序是怎么从源码变成可运行的窗口的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;不需要理解&lt;/strong&gt;：CMake、编译原理、交叉编译——先跑起来再说。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第二阶段看懂-mainc-和-lvgl-怎么转起来的1-2-天&#34;&gt;第二阶段：看懂 main.c 和 LVGL 怎么转起来的（1-2 天）
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：看懂程序入口，能加一个自己的 UI 页面。&lt;/p&gt;
+&lt;p&gt;学习内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;读 &lt;code&gt;app/main.c&lt;/code&gt;（45 行）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;lv_init()&lt;/code&gt; → 初始化 LVGL&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lv_port_disp_init()&lt;/code&gt; → 初始化显示&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;while(1) { lv_task_handler(); usleep(...); }&lt;/code&gt; → 主循环（死循环刷新 UI）&lt;/li&gt;
+&lt;li&gt;不需要看懂 WiFi/BLE 的初始化，先跳过&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读 &lt;code&gt;app/ui/page_about_us.c&lt;/code&gt;（97 行，项目里最短的页面）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;com_style_init()&lt;/code&gt; → 背景样式&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lv_obj_create(parent)&lt;/code&gt; → 创建容器&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lv_img_create()&lt;/code&gt; → 创建图片&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lv_obj_set_align()&lt;/code&gt; → 对齐&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;模式&lt;/strong&gt;：创建容器 → 往里面放控件 → 对齐 → 完成&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;改点东西练手&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把关于页的文字改掉&lt;/li&gt;
+&lt;li&gt;在主页菜单里加一项&amp;quot;测试&amp;quot;，点了跳转到关于页&lt;/li&gt;
+&lt;li&gt;重编译看效果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;获取的技能&lt;/strong&gt;：看懂 LVGL 的页面是怎么建的，能改文字、加按钮。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键概念&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;lv_obj_t *&lt;/code&gt; → LVGL 里所有东西（按钮、文字、图片）都是&amp;quot;对象&amp;quot;，返回指针&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lv_obj_set_align(obj, LV_ALIGN_CENTER, x, y)&lt;/code&gt; → 把对象放在父容器的某个位置&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;delete_current_page()&lt;/code&gt; → 删掉当前页面的所有控件，清屏&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第三阶段看懂一个完整的业务页面2-3-天&#34;&gt;第三阶段：看懂一个完整的业务页面（2-3 天）
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：理解 UI 页面 + 数据 + 逻辑是怎么配合的。&lt;/p&gt;
+&lt;p&gt;学习内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;读 &lt;code&gt;app/ui/page_tomato_learn.c&lt;/code&gt;（194 行，番茄钟学习页面）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;页面创建&lt;/strong&gt;：&lt;code&gt;init_page_tomato_learn()&lt;/code&gt; → 建容器、标签、按钮&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;按钮回调&lt;/strong&gt;：按钮点击后调 &lt;code&gt;btn_event_cb()&lt;/code&gt;，里面修改 &lt;code&gt;device_state_t&lt;/code&gt; 里的状态&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;定时器刷新&lt;/strong&gt;：每 1000ms 更新倒计时文字，归零时跳转页面&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;音频&lt;/strong&gt;：开始学习时播 &lt;code&gt;audio_start.wav&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读 &lt;code&gt;app/ui/data/device_data.h&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;全局只有一个 &lt;code&gt;device_state_t&lt;/code&gt; 结构体&lt;/li&gt;
+&lt;li&gt;所有页面读写的数据都在里面&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;get_device_state()&lt;/code&gt; 获取，改完自动生效&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读 &lt;code&gt;app/ui/page_conf.h&lt;/code&gt; + &lt;code&gt;page_conf.c&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个页面注册为 &lt;code&gt;init_page_xxx()&lt;/code&gt; 函数&lt;/li&gt;
+&lt;li&gt;页面跳转就是调另一个 &lt;code&gt;init_page_xxx()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;获取的技能&lt;/strong&gt;：能独立加一个新页面，带按钮和跳转。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键概念&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;全局状态：所有页面共享 &lt;code&gt;device_state_t&lt;/code&gt;，不需要传参&lt;/li&gt;
+&lt;li&gt;页面跳转：清掉当前页 → 调目标页的 init 函数 → 新页面显示&lt;/li&gt;
+&lt;li&gt;定时器：&lt;code&gt;lv_timer_create(callback, interval, user_data)&lt;/code&gt; 创建周期性任务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第四阶段看懂异步通信模式1-2-天&#34;&gt;第四阶段：看懂异步通信模式（1-2 天）
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：理解三个异步模块怎么工作的。&lt;/p&gt;
+&lt;p&gt;学习内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;读 &lt;code&gt;component/osal/osal_thread.c&lt;/code&gt; + &lt;code&gt;osal_queue.c&lt;/code&gt;（约 250 行）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;就是对 &lt;code&gt;pthread&lt;/code&gt; 和 System V 消息队列的简单包装&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;osal_thread_create()&lt;/code&gt; → 开一个线程&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;osal_queue_send()&lt;/code&gt; → 发消息到队列&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;osal_queue_recv()&lt;/code&gt; → 从队列收消息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;读 &lt;code&gt;component/player/audio_player_async.c&lt;/code&gt;（84 行，最短的异步模块）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;UI 页面调 start_play_audio_async(&amp;#34;xxx.wav&amp;#34;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;消息扔进队列（立即返回，不阻塞UI）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;工作线程从队列取出消息
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;调 em_play_audio() 真正播放
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对比 &lt;code&gt;component/net/http_manager.c&lt;/code&gt; 和 &lt;code&gt;component/usb_hid/usb_hid_async.c&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;三个模块结构完全一样，只是工作线程干的事不同&lt;/li&gt;
+&lt;li&gt;看懂一个 = 看懂全部&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;获取的技能&lt;/strong&gt;：理解项目中反复出现的&amp;quot;异步模式&amp;quot;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键概念&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同步 vs 异步：同步 = 调完等结果（UI 会卡），异步 = 发了不管自己继续跑&lt;/li&gt;
+&lt;li&gt;消息队列：一个&amp;quot;邮箱&amp;quot;，一方投递一方取件，互不阻塞&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第五阶段理解跨平台是怎么回事1-天&#34;&gt;第五阶段：理解跨平台是怎么回事（1 天）
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：知道为什么同一份代码能在 PC 和板子上跑。&lt;/p&gt;
+&lt;p&gt;学习内容：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;看 &lt;code&gt;app/main.c&lt;/code&gt; 里的 &lt;code&gt;#ifdef SIMULATOR_LINUX&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编译时如果定义了 &lt;code&gt;SIMULATOR_LINUX&lt;/code&gt; → 跳过 WiFi 和 BLE&lt;/li&gt;
+&lt;li&gt;没定义 → 启动 WiFi 和 BLE&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;看 &lt;code&gt;component/hal/&lt;/code&gt; 目录下的 6 个头文件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只定义接口，不写实现&lt;/li&gt;
+&lt;li&gt;比如 &lt;code&gt;em_play_audio()&lt;/code&gt; 的声明在这里，实现在平台层&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对比两个平台的音频实现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;platform/x86linux/src/hal/em_hal_audio.c&lt;/code&gt; → &lt;code&gt;system(&amp;quot;aplay xxx.wav &amp;amp;&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;platform/t113/src/hal/em_hal_audio.c&lt;/code&gt; → &lt;code&gt;fork()&lt;/code&gt; + &lt;code&gt;system(&amp;quot;aplay&amp;quot;)&lt;/code&gt; + GPIO 控制功放&lt;/li&gt;
+&lt;li&gt;接口一样，实现不同&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;获取的技能&lt;/strong&gt;：理解 HAL（硬件抽象层）的套路——定义统一接口，不同平台不同实现。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;关键概念&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;条件编译：&lt;code&gt;#ifdef&lt;/code&gt; 决定哪段代码参与编译&lt;/li&gt;
+&lt;li&gt;HAL 模式：上层调接口，底层换实现，代码不改&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;第六阶段摸到真机装-wsl--板子到手后&#34;&gt;第六阶段：摸到真机（装 WSL + 板子到手后）
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：把代码烧到 T113 板子上跑。&lt;/p&gt;
+&lt;p&gt;需要的工具：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;T113 板子一块&lt;/li&gt;
+&lt;li&gt;USB 数据线&lt;/li&gt;
+&lt;li&gt;PC 上装 ADB（&lt;code&gt;sudo apt install adb&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;./build.sh -t113&lt;/code&gt; → 交叉编译出 ARM 版的 demo&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;adb push build/app/demo /usr/bin/&lt;/code&gt; → 推到板子上&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;adb push build/app/res/* /usr/res/&lt;/code&gt; → 推资源文件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;adb shell /usr/bin/demo &amp;amp;&lt;/code&gt; → 在板子上跑&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;获取的技能&lt;/strong&gt;：知道交叉编译和推送部署的流程。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;总时间表&#34;&gt;总时间表
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;阶段&lt;/th&gt;
+&lt;th&gt;内容&lt;/th&gt;
+&lt;th&gt;天数&lt;/th&gt;
+&lt;th&gt;需硬件&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;WSL 跑起 GUI&lt;/td&gt;
+&lt;td&gt;1-2&lt;/td&gt;
+&lt;td&gt;无&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;看懂 main.c + 一个简单页面&lt;/td&gt;
+&lt;td&gt;1-2&lt;/td&gt;
+&lt;td&gt;无&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;看懂业务页面 + 全局状态&lt;/td&gt;
+&lt;td&gt;2-3&lt;/td&gt;
+&lt;td&gt;无&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;看懂异步通信模式&lt;/td&gt;
+&lt;td&gt;1-2&lt;/td&gt;
+&lt;td&gt;无&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;理解跨平台 HAL&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;无&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;真机部署&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;T113 板子&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;合计&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;7-11 天&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;前五个阶段完全不需要硬件，一台 Windows 电脑 + WSL 就能走完。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;学习原则&#34;&gt;学习原则
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;先抄后改再创&lt;/strong&gt;：先照抄一个页面，改文字，加按钮，最后才自己从零写&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;不需要全懂再动手&lt;/strong&gt;：看到一个 API 就去 &lt;a class=&#34;link&#34; href=&#34;https://docs.lvgl.io/8.3/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;LVGL 文档&lt;/a&gt; 搜，用到了再学&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跑起来比看懂重要&lt;/strong&gt;：改完立刻编译运行看效果，有反馈才有动力&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跳过不用的&lt;/strong&gt;：BLE 协议细节、cURL 内部实现、System V IPC 原理——改 UI 用不到就不看&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;一份代码拆成两层看&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;上层（&lt;code&gt;app/&lt;/code&gt;、&lt;code&gt;component/&lt;/code&gt;）：业务逻辑，跨平台通用&lt;/li&gt;
+&lt;li&gt;下层（&lt;code&gt;platform/&lt;/code&gt;）：硬件相关，换平台才改&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
     </channel>
 </rss>

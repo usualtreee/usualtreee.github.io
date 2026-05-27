@@ -7,7 +7,1705 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
-        <lastBuildDate>Tue, 26 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://usualtreee.github.io/tags/stm32/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 27 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://usualtreee.github.io/tags/stm32/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>OV-Watch — Debug 记录</title>
+        <link>https://usualtreee.github.io/project/ov-watch/debug-log/</link>
+        <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/project/ov-watch/debug-log/</guid>
+        <description>&lt;h2 id=&#34;踩坑-1cmake-找不到-sdl2&#34;&gt;踩坑 1：CMake 找不到 SDL2
+&lt;/h2&gt;&lt;h3 id=&#34;环境&#34;&gt;环境
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;OS：Windows 11&lt;/li&gt;
+&lt;li&gt;编译器：w64devkit (MinGW GCC 15.2.0)&lt;/li&gt;
+&lt;li&gt;CMake：已安装&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;现象&#34;&gt;现象
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; lv_sim_vscode_win &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mkdir build &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; build
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ cmake .. -G &lt;span class=&#34;s2&#34;&gt;&amp;#34;MinGW Makefiles&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;CMake Error at CMakeLists.txt:15 &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;find_package&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  By not providing &lt;span class=&#34;s2&#34;&gt;&amp;#34;FindSDL2.cmake&amp;#34;&lt;/span&gt; in CMAKE_MODULE_PATH this project has
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  asked CMake to find a package configuration file provided by &lt;span class=&#34;s2&#34;&gt;&amp;#34;SDL2&amp;#34;&lt;/span&gt;, but
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  CMake did not find one.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  Could not find a package configuration file provided by &lt;span class=&#34;s2&#34;&gt;&amp;#34;SDL2&amp;#34;&lt;/span&gt; with any of
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  the following names:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    SDL2Config.cmake
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    sdl2-config.cmake
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;排查&#34;&gt;排查
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;项目目录下确实有 &lt;code&gt;SDL2.dll&lt;/code&gt;（运行时库），但缺少编译所需的头文件和 CMake 配置文件&lt;/li&gt;
+&lt;li&gt;MinGW 的 &lt;code&gt;lib/&lt;/code&gt; 下有 &lt;code&gt;libSDL2.a&lt;/code&gt;（链接库），但 &lt;code&gt;include/&lt;/code&gt; 下没有 &lt;code&gt;SDL2/&lt;/code&gt; 目录（头文件）&lt;/li&gt;
+&lt;li&gt;系统没有 &lt;code&gt;sdl2-config.cmake&lt;/code&gt;，&lt;code&gt;find_package&lt;/code&gt; 无法定位 SDL2&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;总结：项目只带了 &lt;code&gt;SDL2.dll&lt;/code&gt;（运行时），缺少 &lt;strong&gt;SDL2 开发包&lt;/strong&gt;（头文件 + CMake 配置）。&lt;/p&gt;
+&lt;h3 id=&#34;解决&#34;&gt;解决
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Step 1&lt;/strong&gt;：下载 SDL2 开发包&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl -L -o /tmp/SDL2-devel-mingw.zip &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://github.com/libsdl-org/SDL/releases/download/release-2.30.12/SDL2-devel-2.30.12-mingw.zip&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Step 2&lt;/strong&gt;：解压并安装头文件到 MinGW&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;unzip /tmp/SDL2-devel-mingw.zip -d /tmp/sdl2-devel/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 拷贝头文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp -r /tmp/sdl2-devel/SDL2-2.30.12/x86_64-w64-mingw32/include/SDL2 &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;F:/application/w64devkit/include/&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 拷贝库文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp /tmp/sdl2-devel/SDL2-2.30.12/x86_64-w64-mingw32/lib/libSDL2.a &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;F:/application/w64devkit/lib/&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp /tmp/sdl2-devel/SDL2-2.30.12/x86_64-w64-mingw32/lib/libSDL2main.a &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;F:/application/w64devkit/lib/&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp /tmp/sdl2-devel/SDL2-2.30.12/x86_64-w64-mingw32/lib/libSDL2.dll.a &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;#34;F:/application/w64devkit/lib/&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Step 3&lt;/strong&gt;：指定 SDL2 CMake 配置文件路径，重新编译&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cmake .. -G &lt;span class=&#34;s2&#34;&gt;&amp;#34;MinGW Makefiles&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DSDL2_DIR&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/tmp/sdl2-devel/SDL2-2.30.12/cmake&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make -j4
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;编译成功，生成 &lt;code&gt;bin/main.exe&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;根因&#34;&gt;根因
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;项目带的 SDL2.dll ──→ 运行时够用，编译不够
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;缺少的 SDL2-devel ──→ 头文件(.h) + CMake配置 + 导入库(.dll.a)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;CMake 的 &lt;code&gt;find_package(SDL2 REQUIRED)&lt;/code&gt; 需要 &lt;code&gt;sdl2-config.cmake&lt;/code&gt;，这个文件只存在于 SDL2 开发包中。&lt;/p&gt;
+&lt;h3 id=&#34;永久性改动&#34;&gt;永久性改动
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;改动&lt;/th&gt;
+&lt;th&gt;路径&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;新增 SDL2 头文件&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;F:/application/w64devkit/include/SDL2/&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;编译时查找 &lt;code&gt;SDL.h&lt;/code&gt; 等&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;新增 SDL2 导入库&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;F:/application/w64devkit/lib/libSDL2.dll.a&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;链接时使用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;保留 SDL2 开发包&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/tmp/sdl2-devel/SDL2-2.30.12/&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;含 &lt;code&gt;sdl2-config.cmake&lt;/code&gt;，&lt;strong&gt;不要删除&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;后续编译命令&#34;&gt;后续编译命令
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; lv_sim_vscode_win
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir build &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; build
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cmake .. -G &lt;span class=&#34;s2&#34;&gt;&amp;#34;MinGW Makefiles&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;  -DSDL2_DIR&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/tmp/sdl2-devel/SDL2-2.30.12/cmake&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make -j4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;../bin/main.exe
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;踩坑-2仿真器鼠标交互卡顿手势难以触发&#34;&gt;踩坑 2：仿真器鼠标交互卡顿、手势难以触发
+&lt;/h2&gt;&lt;h3 id=&#34;现象-1&#34;&gt;现象
+&lt;/h3&gt;&lt;p&gt;仿真器窗口弹出来后：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;鼠标拖拽页面很难滑动&lt;/li&gt;
+&lt;li&gt;从主页右滑进入菜单后，左滑回不去&lt;/li&gt;
+&lt;li&gt;键盘方向键也不管用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;排查-1&#34;&gt;排查
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;1. 键盘方向键为什么不灵？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;看了 &lt;code&gt;lv_drivers/sdl/sdl.c&lt;/code&gt; 的键盘处理代码（第 572-600 行），方向键确实被正确映射为 &lt;code&gt;LV_KEY_RIGHT&lt;/code&gt;/&lt;code&gt;LV_KEY_LEFT&lt;/code&gt;。但这些键是给 LVGL &lt;strong&gt;控件组导航&lt;/strong&gt;用的——手表 UI 用的是触摸手势（&lt;code&gt;LV_EVENT_GESTURE&lt;/code&gt;），根本没用控件组。所以方向键无效。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;真正的返回键是 Backspace&lt;/strong&gt;（退格键）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sdl.c:336-340&lt;/code&gt; — 检测到 &lt;code&gt;data-&amp;gt;key == 8&lt;/code&gt;（&lt;code&gt;LV_KEY_BACKSPACE&lt;/code&gt;）→ 发布 &lt;code&gt;&amp;quot;SDL_Key&amp;quot;&lt;/code&gt; 消息&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ui.c:17-21&lt;/code&gt; — 订阅该消息 → 调用 &lt;code&gt;Page_Back()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以键盘上 &lt;strong&gt;Backspace = 返回&lt;/strong&gt;，不是 ESC，不是方向键。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. 鼠标拖拽手势为什么难触发？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;LVGL 手势检测（&lt;code&gt;lv_hal_indev.c&lt;/code&gt;）要求同时满足两个条件：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数&lt;/th&gt;
+&lt;th&gt;默认值&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;gesture_limit&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;50px&lt;/td&gt;
+&lt;td&gt;最少拖拽距离&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;gesture_min_velocity&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;最少拖拽速度&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;问题一：仿真器窗口 &lt;code&gt;SDL_ZOOM = 1&lt;/code&gt;，只有 240×280 像素——太小了，50px 占比太大。&lt;/p&gt;
+&lt;p&gt;问题二：鼠标拖本来就很慢，速度达不到阈值 3，所以慢拖永远不触发手势。&lt;/p&gt;
+&lt;h3 id=&#34;解决-1&#34;&gt;解决
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;修改 &lt;code&gt;lv_drv_conf.h&lt;/code&gt;&lt;/strong&gt;（第 102 行）：窗口放大一倍&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 改前
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define SDL_ZOOM 1
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 改后
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define SDL_ZOOM 2   &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 窗口变成 480x560，鼠标操作更方便
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;修改 &lt;code&gt;main.c&lt;/code&gt;&lt;/strong&gt;（第 148-150 行后）：降低手势门槛&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 新增
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;indev_drv_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gesture_limit&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;          &lt;span class=&#34;c1&#34;&gt;// 默认 50px → 30px
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;indev_drv_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;gesture_min_velocity&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// 默认 3 → 0（关掉速度检查）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;根因-1&#34;&gt;根因
+&lt;/h3&gt;&lt;p&gt;LVGL 手势检测的两个默认值是为&lt;strong&gt;手指触摸&lt;/strong&gt;设计的（手指快、拖距短）。鼠标操作特性完全不同（精度高但速度慢），直接用默认值会导致手势识别率极低。&lt;/p&gt;
+&lt;h3 id=&#34;永久性改动-1&#34;&gt;永久性改动
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;改动&lt;/th&gt;
+&lt;th&gt;文件&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;SDL_ZOOM: 1 → 2&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;lv_drv_conf.h:102&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;窗口放大一倍&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;新增 &lt;code&gt;gesture_limit = 30&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;main.c:148-150&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;降低最小拖拽距离&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;新增 &lt;code&gt;gesture_min_velocity = 0&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;main.c:148-150&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;取消速度限制&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;仿真器操作方式总结&#34;&gt;仿真器操作方式总结
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;对应真机&lt;/th&gt;
+&lt;th&gt;按键/动作&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;鼠标&lt;strong&gt;单击&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;手指点一下&lt;/td&gt;
+&lt;td&gt;点按钮、点菜单项&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;鼠标&lt;strong&gt;按住拖拽&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;手指滑动&lt;/td&gt;
+&lt;td&gt;主页右滑→菜单、左滑/Backspace→返回&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Backspace 键&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;物理返回键&lt;/td&gt;
+&lt;td&gt;任意页面返回上一页&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;踩坑-3左滑手势无效部分页面只响应右滑&#34;&gt;踩坑 3：左滑手势无效（部分页面只响应右滑）
+&lt;/h2&gt;&lt;h3 id=&#34;现象-2&#34;&gt;现象
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;主页右滑能进菜单 ✓&lt;/li&gt;
+&lt;li&gt;菜单右滑能返回 ✓&lt;/li&gt;
+&lt;li&gt;菜单&lt;strong&gt;左滑无反应&lt;/strong&gt; ✗（本应也返回）&lt;/li&gt;
+&lt;li&gt;设置页、游戏选择页、日期设置页同样问题&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;排查-2&#34;&gt;排查
+&lt;/h3&gt;&lt;p&gt;搜索所有页面的手势处理代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;grep -n &lt;span class=&#34;s2&#34;&gt;&amp;#34;LV_DIR_RIGHT\|LV_DIR_LEFT&amp;#34;&lt;/span&gt; user_test/GUI_App/Screens/Src/*.c
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;结果：&lt;strong&gt;所有页面只判断了 &lt;code&gt;LV_DIR_RIGHT&lt;/code&gt;，没有判断 &lt;code&gt;LV_DIR_LEFT&lt;/code&gt;&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;以 &lt;code&gt;ui_MenuPage.c:98-104&lt;/code&gt; 为例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;event_code&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LV_EVENT_GESTURE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;lv_indev_get_gesture_dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;lv_indev_get_act&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LV_DIR_RIGHT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nf&#34;&gt;Page_Back&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// 只右滑能触发，左滑被忽略
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;解决-2&#34;&gt;解决
+&lt;/h3&gt;&lt;p&gt;修改 4 个页面（MenuPage、SetPage、GameSelectPage、DateTimeSetPage），把方向判断从单一右滑改为左右都响应：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 改前
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;lv_indev_get_gesture_dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;lv_indev_get_act&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LV_DIR_RIGHT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 改后
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;lv_indev_get_gesture_dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;lv_indev_get_act&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LV_DIR_RIGHT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   &lt;span class=&#34;nf&#34;&gt;lv_indev_get_gesture_dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;lv_indev_get_act&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LV_DIR_LEFT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;根因-2&#34;&gt;根因
+&lt;/h3&gt;&lt;p&gt;真机手表戴在手腕上，拇指自然只做右滑操作，作者只写了右滑。仿真器上鼠标拖拽方向不固定，用户习惯左滑返回。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;踩坑-4计算器心率等页面完全没有手势功能&#34;&gt;踩坑 4：计算器、心率等页面完全没有手势功能
+&lt;/h2&gt;&lt;h3 id=&#34;现象-3&#34;&gt;现象
+&lt;/h3&gt;&lt;p&gt;从菜单进入计算器、心率、指南针、日历、计时器等页面后，左右滑都没反应，只能用 Backspace 返回。&lt;/p&gt;
+&lt;h3 id=&#34;排查-3&#34;&gt;排查
+&lt;/h3&gt;&lt;p&gt;搜索发现这些页面根本没有 &lt;code&gt;LV_EVENT_GESTURE&lt;/code&gt; 处理代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;有手势的页面：HomePage, MenuPage, SetPage, GameSelectPage, Game2048Page, DateTimeSetPage
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;无手势的页面：ComputerPage, HRPage, SPO2Page, CompassPage, EnvPage, CalendarPage,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;             TimerPage, ChargPage, AboutPage, NFCCardPage, OffTimePage, GameMemPage
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;12 个页面全都没有手势处理——每个加 3 行代码太蠢了。&lt;/p&gt;
+&lt;h3 id=&#34;解决-3&#34;&gt;解决
+&lt;/h3&gt;&lt;p&gt;在 &lt;code&gt;PageManager&lt;/code&gt; 里加&lt;strong&gt;通用手势回调&lt;/strong&gt;，所有页面自动获得左滑返回能力。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. &lt;code&gt;PageManager.h&lt;/code&gt;&lt;/strong&gt; — &lt;code&gt;Page_t&lt;/code&gt; 结构体加字段：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;deinit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;lv_obj_t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;page_obj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;no_auto_swipe_back&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;// true = 不自动加左滑返回
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Page_t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;C 语言零初始化：未指定的结构体字段默认为 0（false），所以所有已有的 &lt;code&gt;Page_t Page_XXX = {...}&lt;/code&gt; 声明不用改，自动获得左滑返回。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. &lt;code&gt;PageManager.c&lt;/code&gt;&lt;/strong&gt; — 通用回调 + &lt;code&gt;Page_Load&lt;/code&gt; 里自动挂载：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 通用手势回调：左滑 → 返回
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;auto_swipe_back_handler&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;lv_event_t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;event_code&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LV_EVENT_GESTURE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;lv_indev_get_gesture_dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;lv_indev_get_act&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LV_DIR_LEFT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;nf&#34;&gt;Page_Back&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// Page_Load 末尾加一行
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;newPage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;no_auto_swipe_back&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nf&#34;&gt;lv_obj_add_event_cb&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;newPage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;page_obj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;auto_swipe_back_handler&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LV_EVENT_ALL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;NULL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;3. 例外页面&lt;/strong&gt; — 2048 和 HomePage 标为 &lt;code&gt;true&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ui_Game2048Page.c — 左滑是游戏操作，不能抢占
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Page_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Page_Game_2048&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{...,&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ui_HomePage.c — 已经是底部，没有可返回的
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Page_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Page_Home&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{...,&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;根因-3&#34;&gt;根因
+&lt;/h3&gt;&lt;p&gt;原项目只有少数页面加了手势，大量页面只靠物理按键返回。仿真器物理按键不方便，需要手势补充。&lt;/p&gt;
+&lt;h3 id=&#34;永久性改动-2&#34;&gt;永久性改动
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;改动&lt;/th&gt;
+&lt;th&gt;文件&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Page_t&lt;/code&gt; 加 &lt;code&gt;no_auto_swipe_back&lt;/code&gt; 字段&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;PageManager.h&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;标记不自动挂手势的页面&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;通用 &lt;code&gt;auto_swipe_back_handler&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;PageManager.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;左滑自动返回&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Page_Load&lt;/code&gt; 里自动挂载回调&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;PageManager.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;所有页面自动获得左滑返回&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LV_DIR_LEFT 支持&lt;/td&gt;
+&lt;td&gt;4 个页面 &lt;code&gt;.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;已有手势的页面补上左滑&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2048 / HomePage 标 &lt;code&gt;true&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;2 个页面 &lt;code&gt;.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;排除例外&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+</description>
+        </item>
+        <item>
+        <title>OV-Watch — 学习路径</title>
+        <link>https://usualtreee.github.io/project/ov-watch/study-guide/</link>
+        <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/project/ov-watch/study-guide/</guid>
+        <description>&lt;h1 id=&#34;ov-watch-学习路径&#34;&gt;OV-Watch 学习路径
+&lt;/h1&gt;&lt;h2 id=&#34;前提&#34;&gt;前提
+&lt;/h2&gt;&lt;p&gt;这份路线假设你是初学者——没摸过 STM32、没用过 FreeRTOS、也不知道 LVGL 是什么。没关系，顺着走就行。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;原则&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不用一次全看懂，每一遍比上一遍多懂一点就行&lt;/li&gt;
+&lt;li&gt;能跑起来的代码 &amp;gt; 脑子里想象的概念&lt;/li&gt;
+&lt;li&gt;改代码看效果 &amp;gt; 读代码猜逻辑&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;第一阶段先跑起来1-2-天&#34;&gt;第一阶段：先跑起来（1-2 天）
+&lt;/h1&gt;&lt;p&gt;这个阶段的目标只有一个：&lt;strong&gt;让仿真器在电脑上跑起来&lt;/strong&gt;。暂时不要求理解代码。&lt;/p&gt;
+&lt;h2 id=&#34;11-什么是仿真器&#34;&gt;1.1 什么是&amp;quot;仿真器&amp;quot;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;lv_sim_vscode_win/&lt;/code&gt; 这个目录的东西，可以让你&lt;strong&gt;在没有手表硬件的情况下&lt;/strong&gt;，在 Windows 电脑上运行整个手表 UI。&lt;/p&gt;
+&lt;p&gt;原理很简单：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Keil 工程（真机）：   UI 代码 → LVGL → 调用 LCD 驱动 → 写到 ST7789 屏幕
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;仿真器工程（PC）：    同一份 UI 代码 → LVGL → 调用 SDL2  → 画到电脑窗口
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;UI 代码是完全一致的，区别只在于最底层画图的那个东西——一个是 LCD 驱动，一个是 SDL2。&lt;/p&gt;
+&lt;h2 id=&#34;12-动手搭环境&#34;&gt;1.2 动手搭环境
+&lt;/h2&gt;&lt;h3 id=&#34;需要安装&#34;&gt;需要安装
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;VS Code&lt;/strong&gt;（编辑器）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CMake&lt;/strong&gt;（构建工具）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MinGW-w64&lt;/strong&gt;（Windows 上的 GCC 编译器）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;步骤&#34;&gt;步骤
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;VS Code 打开 &lt;code&gt;lv_sim_vscode_win/&lt;/code&gt; 目录&lt;/li&gt;
+&lt;li&gt;打开 &lt;code&gt;lv_conf.h&lt;/code&gt;，找到 SDL2 相关路径，改成你电脑上的实际路径&lt;/li&gt;
+&lt;li&gt;打开终端：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mkdir build
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; build
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cmake .. -G &lt;span class=&#34;s2&#34;&gt;&amp;#34;MinGW Makefiles&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make -j4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./main
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;弹出一个窗口，里面显示着手表表盘界面，就算成功了。&lt;/p&gt;
+&lt;h3 id=&#34;常见问题&#34;&gt;常见问题
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;报错&lt;/th&gt;
+&lt;th&gt;解决&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;SDL2.dll 找不到&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;把 &lt;code&gt;lv_sim_vscode_win/SDL2.dll&lt;/code&gt; 复制到 &lt;code&gt;build/&lt;/code&gt; 目录&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;cmake 命令不存在&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;没装 CMake，去官网下载安装&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;make 命令不存在&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;没装 MinGW，去 &lt;code&gt;mingw-w64.org&lt;/code&gt; 下载&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;13-玩一遍所有功能&#34;&gt;1.3 玩一遍所有功能
+&lt;/h2&gt;&lt;p&gt;用鼠标点击仿真器窗口里的按钮，把每个功能都点一遍：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主表盘 → 菜单 → 心率页 / 环境页 / 指南针 / 计算器 / 日历 / 倒计时 / 2048 / 翻牌游戏 / 设置 / 关于&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;每点进一个页面，去 &lt;code&gt;lv_sim_vscode_win/user_test/GUI_App/Screens/&lt;/code&gt; 下找到对应的 &lt;code&gt;.c&lt;/code&gt; 文件看一眼文件名——不需要读代码，只需要对得上&amp;quot;这个 UI 对应哪个文件&amp;quot;就行。&lt;/p&gt;
+&lt;h2 id=&#34;14-第一个实验改-hw_use_hardware&#34;&gt;1.4 第一个实验：改 HW_USE_HARDWARE
+&lt;/h2&gt;&lt;p&gt;打开 &lt;code&gt;lv_sim_vscode_win/user_test/Func/Inc/HWDataAccess.h&lt;/code&gt;，找到：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define HW_USE_HARDWARE 0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这行代码的意思是：&lt;strong&gt;不访问真实硬件，全部用假的模拟数据&lt;/strong&gt;。正因为设成了 0，仿真器才能在没有 STM32、没有传感器的情况下跑起来。&lt;/p&gt;
+&lt;p&gt;把它改成 &lt;code&gt;1&lt;/code&gt;，重新编译，看会发生什么。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;答案是：编译报错。因为 PC 上没有 STM32 的 HAL 库。这个实验让你直观理解硬件抽象层的意义——一层宏开关，隔开了 UI 代码和硬件代码。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;第二阶段搞懂-ui-层2-3-天&#34;&gt;第二阶段：搞懂 UI 层（2-3 天）
+&lt;/h1&gt;&lt;p&gt;你已经在仿真器里看到了界面。现在搞清楚这些界面是怎么被创建、怎么被管理的。&lt;/p&gt;
+&lt;h2 id=&#34;21-lvgl-是什么&#34;&gt;2.1 LVGL 是什么
+&lt;/h2&gt;&lt;p&gt;LVGL 是一个&lt;strong&gt;给单片机用的 GUI 库&lt;/strong&gt;，跟 PC 上的 Qt、Web 前端本质上是一回事：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;概念&lt;/th&gt;
+&lt;th&gt;LVGL 中叫什么&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;屏幕&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;lv_scr_act()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;当前显示的&amp;quot;画布&amp;quot;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;按钮&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;lv_btn_create(parent)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;创建一个按钮，放在 parent 上&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;文字&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;lv_label_create(parent)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;创建一个文本标签&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;图片&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;lv_img_create(parent)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;创建一个图片&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;刷新&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;lv_task_handler()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;LVGL 主循环，定期调用才会刷新画面&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;所有 LVGL 对象都是 C 语言通过函数调用创建的。没有 XML 布局文件，没有可视化编辑器（SquareLine Studio 只是辅助，最终导出还是 C 代码）。&lt;/p&gt;
+&lt;h2 id=&#34;22-拆解一个最简单的页面&#34;&gt;2.2 拆解一个最简单的页面
+&lt;/h2&gt;&lt;p&gt;建议从 &lt;code&gt;ui_AboutPage.c&lt;/code&gt; 开始（关于页面，内容简单），用 VS Code 打开它。&lt;/p&gt;
+&lt;p&gt;不用逐行看懂，只需要回答三个问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;哪个函数是创建这个页面的？&lt;/strong&gt; → 找 &lt;code&gt;ui_AboutPage_screen_init()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;这个页面有哪些屏幕对象？&lt;/strong&gt; → 看 &lt;code&gt;lv_obj_t *ui_AboutPage&lt;/code&gt; 的声明&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;页面上的文字、图片在哪里创建的？&lt;/strong&gt; → 在 &lt;code&gt;_screen_init()&lt;/code&gt; 函数体里找 &lt;code&gt;lv_label_create&lt;/code&gt; / &lt;code&gt;lv_img_create&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;练习改关于页面的文字&#34;&gt;练习：改关于页面的文字
+&lt;/h3&gt;&lt;p&gt;在 &lt;code&gt;ui_AboutPage.c&lt;/code&gt; 里找到创建文本的地方，把版本号改成别的字符串。重新编译，运行，看看界面上变了没有。&lt;/p&gt;
+&lt;h2 id=&#34;23-理解页面怎么切换&#34;&gt;2.3 理解页面怎么切换
+&lt;/h2&gt;&lt;p&gt;打开 &lt;code&gt;PageManager.c&lt;/code&gt;。这个文件实现了一个&lt;strong&gt;栈&lt;/strong&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[栈顶]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  页面C  ← 当前显示的
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  页面B
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  页面A  ← 首页
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[栈底]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;进入新页面 = &lt;code&gt;Push&lt;/code&gt;（入栈）&lt;/li&gt;
+&lt;li&gt;按返回键 = &lt;code&gt;Pop&lt;/code&gt;（出栈）&lt;/li&gt;
+&lt;li&gt;按 Home 键 = 全部清空，只剩首页&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;核心函数&#34;&gt;核心函数
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Page_Load&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Page_t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;newPage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;// 加载新页面（入栈）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Page_Back&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;              &lt;span class=&#34;c1&#34;&gt;// 回到上一页（出栈）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Page_Back_Bottom&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;// 直接回到首页（清栈）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;练习追踪一次按键到页面切换的全过程&#34;&gt;练习：追踪一次按键到页面切换的全过程
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;在 &lt;code&gt;user_KeyTask.c&lt;/code&gt; 里找按键处理代码 —— 按 KEY1 发了什么消息？&lt;/li&gt;
+&lt;li&gt;谁收到了这个消息？→ 在 &lt;code&gt;user_ScrRenewTask.c&lt;/code&gt; 里找&lt;/li&gt;
+&lt;li&gt;它调了 &lt;code&gt;Page_Load&lt;/code&gt; 还是 &lt;code&gt;Page_Back&lt;/code&gt;？&lt;/li&gt;
+&lt;li&gt;最终调用了哪个 &lt;code&gt;ui_XXX_screen_init()&lt;/code&gt;？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不需要看懂全部细节，能把&amp;quot;按键→消息队列→页面切换→LVGL刷新&amp;quot;这条链路串起来就行。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;24-lvgl-的心跳lv_task_handler&#34;&gt;2.4 LVGL 的&amp;quot;心跳&amp;quot;——&lt;code&gt;lv_task_handler()&lt;/code&gt;
+&lt;/h2&gt;&lt;p&gt;LVGL 不像网页有事件循环，它需要你&lt;strong&gt;每隔几毫秒主动调用一次&lt;/strong&gt; &lt;code&gt;lv_task_handler()&lt;/code&gt;，才会更新画面。&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;user_TasksInit.c&lt;/code&gt; 里找到 &lt;code&gt;LvHandlerTask&lt;/code&gt;，它每隔 1ms 调用一次 &lt;code&gt;lv_task_handler()&lt;/code&gt;。这就是整个手表 UI 的心脏。&lt;/p&gt;
+&lt;h3 id=&#34;练习改刷新频率&#34;&gt;练习：改刷新频率
+&lt;/h3&gt;&lt;p&gt;把 &lt;code&gt;osDelay(1)&lt;/code&gt; 改成 &lt;code&gt;osDelay(10)&lt;/code&gt;，重新编译运行。UI 会变卡顿。改回来。&lt;/p&gt;
+&lt;p&gt;这个实验让你理解——LVGL 的画面完全靠 &lt;code&gt;lv_task_handler()&lt;/code&gt; 驱动，不调用它画面就静止。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;第三阶段理解-freertos-多任务2-3-天&#34;&gt;第三阶段：理解 FreeRTOS 多任务（2-3 天）
+&lt;/h1&gt;&lt;p&gt;第二阶段你看到了一个个任务（&lt;code&gt;KeyTask&lt;/code&gt;、&lt;code&gt;LvHandlerTask&lt;/code&gt; 等）。现在搞清楚&amp;quot;任务&amp;quot;到底是什么，以及这些任务怎么协作。&lt;/p&gt;
+&lt;h2 id=&#34;31-什么是-freertos-任务&#34;&gt;3.1 什么是 FreeRTOS 任务
+&lt;/h2&gt;&lt;p&gt;单片机只有一颗 CPU，同一时刻只能做一件事。操作系统的作用就是&lt;strong&gt;让一颗 CPU 看起来像同时在做好几件事&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;实现方式：每隔一段时间切换一次当前执行的任务（上下文切换），每个任务跑一小段就换成下一个。&lt;/p&gt;
+&lt;h3 id=&#34;核心概念&#34;&gt;核心概念
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;概念&lt;/th&gt;
+&lt;th&gt;代码中叫&lt;/th&gt;
+&lt;th&gt;一句话解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;任务&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;osThreadId_t&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;一个独立的执行流，有自己的 while(1) 循环&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;优先级&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;osPriority_t&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;谁先跑。高优先级的任务就绪时，低优先级的会被抢占&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;消息队列&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;osMessageQueueId_t&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;任务间传递数据的安全通道&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;延时&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;osDelay(ms)&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;当前任务暂停 ms 毫秒，让 CPU 去跑别的任务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;32-逐个读懂-13-个任务&#34;&gt;3.2 逐个读懂 13 个任务
+&lt;/h2&gt;&lt;p&gt;打开 &lt;code&gt;user_TasksInit.c&lt;/code&gt;，对照下表找到每个任务：&lt;/p&gt;
+&lt;h3 id=&#34;高优先级组不能卡卡了就出大事&#34;&gt;高优先级组（不能卡，卡了就出大事）
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;任务&lt;/th&gt;
+&lt;th&gt;函数名&lt;/th&gt;
+&lt;th&gt;做什么&lt;/th&gt;
+&lt;th&gt;怎么验证&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;硬件初始化&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;HardwareInitTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;开机跑一次，把所有外设 init 完就挂起&lt;/td&gt;
+&lt;td&gt;看代码，任务末尾是 &lt;code&gt;osThreadSuspend&lt;/code&gt; 还是 &lt;code&gt;while(1)&lt;/code&gt;？&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;喂狗&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;WDOGFeedTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;每 100ms 喂一次独立看门狗&lt;/td&gt;
+&lt;td&gt;看门狗的作用：如果程序死循环了，看门狗收不到喂信号就复位 MCU&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;空闲检测&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;IdleEnterTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;用户多久没操作？超时就进睡眠&lt;/td&gt;
+&lt;td&gt;追踪 &lt;code&gt;IdleTimerHandle&lt;/code&gt; 这个定时器&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;关机检测&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;StopEnterTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;长按 KEY1 后关机&lt;/td&gt;
+&lt;td&gt;找 &lt;code&gt;power_shutdown&lt;/code&gt; 的调用点&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;中优先级组用户交互相关&#34;&gt;中优先级组（用户交互相关）
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;任务&lt;/th&gt;
+&lt;th&gt;函数名&lt;/th&gt;
+&lt;th&gt;做什么&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;按键扫描&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;KeyTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;每 10ms 读一次 GPIO，判断哪个键被按下&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;低优先级组可以慢但不能错&#34;&gt;低优先级组（可以慢，但不能错）
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;任务&lt;/th&gt;
+&lt;th&gt;函数名&lt;/th&gt;
+&lt;th&gt;做什么&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;LVGL 渲染&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;LvHandlerTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;循环调 &lt;code&gt;lv_task_handler()&lt;/code&gt;，刷新画面&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;页面切换&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ScrRenewTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;接收按键消息，管理页面栈的 push/pop&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;传感器通用&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SensorDataTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;定时读温湿度、气压、罗盘&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;心率采集&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;HRDataTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;读 EM7028 + 跑心率算法&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;充电检测&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;ChargPageEnterTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;检测到充电就弹充电动画&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;蓝牙消息&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;MessageSendTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;通过蓝牙把数据发出去&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;姿态检测&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;MPUCheckTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;抬腕检测，决定要不要唤醒屏幕&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;数据保存&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;DataSaveTask&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;改设置后，写到 EEPROM 持久化&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;核心理解&#34;&gt;核心理解
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;为什么 LVGL 渲染优先级最低？&lt;/strong&gt; 因为渲染耗时长。如果优先级高，按键和传感器数据就来不及处理，体验会变差。宁可画面慢一帧，也不能按键没反应。&lt;/p&gt;
+&lt;h2 id=&#34;33-任务间怎么通信消息队列&#34;&gt;3.3 任务间怎么通信：消息队列
+&lt;/h2&gt;&lt;p&gt;任务之间不能直接调用对方的函数（不安全），而是通过&lt;strong&gt;消息队列&lt;/strong&gt;传递数据。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 发送方
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;osMessageQueuePut&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Key_MessageQueue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key_value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 接收方
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;osMessageQueueGet&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Key_MessageQueue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key_value&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;NULL&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;osWaitForever&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这个项目用了 6 个消息队列：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;队列名&lt;/th&gt;
+&lt;th&gt;谁发&lt;/th&gt;
+&lt;th&gt;谁收&lt;/th&gt;
+&lt;th&gt;传递什么&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Key_MessageQueue&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;KeyTask&lt;/td&gt;
+&lt;td&gt;ScrRenewTask&lt;/td&gt;
+&lt;td&gt;哪个键被按下&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Idle_MessageQueue&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;定时器&lt;/td&gt;
+&lt;td&gt;IdleEnterTask&lt;/td&gt;
+&lt;td&gt;无操作计时&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;Stop_MessageQueue&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;KeyTask&lt;/td&gt;
+&lt;td&gt;StopEnterTask&lt;/td&gt;
+&lt;td&gt;关机指令&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;IdleBreak_MessageQueue&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;多个&lt;/td&gt;
+&lt;td&gt;多个&lt;/td&gt;
+&lt;td&gt;打断睡眠&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;HomeUpdata_MessageQueue&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;多个&lt;/td&gt;
+&lt;td&gt;ScrRenewTask&lt;/td&gt;
+&lt;td&gt;刷新首页&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;DataSave_MessageQueue&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;多个&lt;/td&gt;
+&lt;td&gt;DataSaveTask&lt;/td&gt;
+&lt;td&gt;保存数据请求&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;练习追踪一个消息的一生&#34;&gt;练习：追踪一个消息的一生
+&lt;/h3&gt;&lt;p&gt;选 &lt;code&gt;Key_MessageQueue&lt;/code&gt;，用 VS Code 的&amp;quot;查找所有引用&amp;quot;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;哪里 &lt;code&gt;Put&lt;/code&gt; 了？→ 找到发送点&lt;/li&gt;
+&lt;li&gt;哪里 &lt;code&gt;Get&lt;/code&gt; 了？→ 找到接收点&lt;/li&gt;
+&lt;li&gt;接收到之后做了什么？→ 追踪处理逻辑&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;给每条消息画一条 &amp;ldquo;Put → 队列 → Get → 处理&amp;rdquo; 的路径，画完你对任务间通信就有底了。&lt;/p&gt;
+&lt;h2 id=&#34;34-tick-hookfreertos-的心跳&#34;&gt;3.4 Tick Hook：FreeRTOS 的心跳
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;freertos.c&lt;/code&gt; 里有一个 &lt;code&gt;vApplicationTickHook()&lt;/code&gt;，FreeRTOS 的每个 tick（1ms）都会调它一次。它干两件事：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;vApplicationTickHook&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nf&#34;&gt;TaskTickHook&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;code&gt;TaskTickHook()&lt;/code&gt; 在 &lt;code&gt;user_TasksInit.c&lt;/code&gt; 里：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;lv_tick_inc(1)&lt;/code&gt; — 告诉 LVGL 过了 1ms（LVGL 内部有很多基于时间的动画）&lt;/li&gt;
+&lt;li&gt;计时器页面的秒表逻辑（如果秒表开着就 +1）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;第四阶段深入关键模块2-3-天&#34;&gt;第四阶段：深入关键模块（2-3 天）
+&lt;/h1&gt;&lt;p&gt;现在你对整体架构有概念了，接下来深入几个最有代表性的模块。&lt;/p&gt;
+&lt;h2 id=&#34;41-硬件抽象层hwdataaccess&#34;&gt;4.1 硬件抽象层（HWDataAccess）
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;文件&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Inc/HWDataAccess.h&#34; &gt;HWDataAccess.h&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;问题为什么需要这一层&#34;&gt;问题：为什么需要这一层？
+&lt;/h3&gt;&lt;p&gt;想象一下，如果没有这一层——每个 UI 页面都直接调用 &lt;code&gt;HAL_I2C_Read(MPU6050_ADDR)&lt;/code&gt;。那么在 PC 仿真器上：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;没有 I2C 总线 → 编译不过&lt;/li&gt;
+&lt;li&gt;没有 HAL 库 → 链接不过&lt;/li&gt;
+&lt;li&gt;有了也读不到数据 → 运行崩溃&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;硬件抽象层的解决方案很巧妙：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define HW_USE_HARDWARE 1   &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 模式 1：编译真实驱动代码
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#define HW_USE_HARDWARE 0   &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 模式 0：返回写死的模拟数据
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;它是怎么实现的&#34;&gt;它是怎么实现的
+&lt;/h3&gt;&lt;p&gt;打开 &lt;code&gt;HWDataAccess.h&lt;/code&gt;，看这段：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#if HW_USE_HARDWARE
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;cp&#34;&gt;#define HW_USE_IMU    1    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 需要真实 IMU 驱动
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;cp&#34;&gt;#define HW_USE_AHT21  1    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 需要真实温湿度驱动
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// ...
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#endif
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;当 &lt;code&gt;HW_USE_HARDWARE = 0&lt;/code&gt; 时，&lt;code&gt;HW_USE_IMU&lt;/code&gt; 等所有子宏都不会被定义，&lt;code&gt;#if HW_USE_IMU&lt;/code&gt; 块内的 &lt;code&gt;#include&lt;/code&gt; 和调用代码都不会被编译。&lt;/p&gt;
+&lt;p&gt;然后在 &lt;code&gt;HWDataAccess.c&lt;/code&gt; 里：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#if HW_USE_HARDWARE
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// 真机分支：调用 STM32 HAL 库，读真实传感器
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;HWInterface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IMU&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;GetSteps&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MPU6050_GetSteps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#else
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// 仿真分支：返回固定值
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;HWInterface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;IMU&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;GetSteps&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Fake_GetSteps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// 永远返回 500
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#endif
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;练习&#34;&gt;练习
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;对比 &lt;code&gt;HWDataAccess.c&lt;/code&gt; 里 &lt;code&gt;#if HW_USE_HARDWARE&lt;/code&gt; 和 &lt;code&gt;#else&lt;/code&gt; 分支，找出至少三个不同&lt;/li&gt;
+&lt;li&gt;找一处调用 &lt;code&gt;HWInterface.XXX&lt;/code&gt; 的 UI 代码，理解 UI 层完全不知道自己是跑在真机还是仿真器上&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;42-页面栈导航pagemanager&#34;&gt;4.2 页面栈导航（PageManager）
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;文件&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Inc/PageManager.h&#34; &gt;PageManager.h&lt;/a&gt; / &lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Src/PageManager.c&#34; &gt;PageManager.c&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;数据结构&#34;&gt;数据结构
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;// 函数指针：初始化这个页面
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;deinit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;// 函数指针：销毁这个页面
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;lv_obj_t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;page_obj&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// LVGL 对象指针的指针
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Page_t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;typedef&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;Page_t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pages&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;         &lt;span class=&#34;c1&#34;&gt;// 最多存 6 个页面
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;uint8_t&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;top&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;              &lt;span class=&#34;c1&#34;&gt;// 当前栈顶位置
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;PageStack_t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;操作演示&#34;&gt;操作演示
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;初始状态：           top=0, pages=[ 空, 空, 空, 空, 空, 空 ]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Page_Load(HomePage):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  pages[0]=HomePage, top=1    →  显示 HomePage
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Page_Load(MenuPage):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  pages[1]=MenuPage, top=2    →  显示 MenuPage
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Page_Load(HRPage):
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  pages[2]=HRPage,   top=3    →  显示 HRPage
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Page_Back():
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  top=2, 显示 MenuPage
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Page_Back():
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  top=1, 显示 HomePage
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;为什么要存函数指针而不是直接存页面对象&#34;&gt;为什么要存函数指针而不是直接存页面对象
+&lt;/h3&gt;&lt;p&gt;官方 README 特别提到了这个坑：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不能直接在 push 操作中使用 &lt;code&gt;ui_HomePage&lt;/code&gt; 入栈，它是会动态变化的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;原因是 &lt;code&gt;lv_obj_t&lt;/code&gt; 在页面切换后可能被 LVGL 回收，指针变成悬空指针。存函数指针则不会——函数地址是固定的，返回时重新调用 &lt;code&gt;init()&lt;/code&gt; 即可重建页面。&lt;/p&gt;
+&lt;h3 id=&#34;练习-1&#34;&gt;练习
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;让仿真器跑起来，从首页→菜单→设置→关于，然后一路返回。每次返回时在 &lt;code&gt;Page_Back()&lt;/code&gt; 里加一句 &lt;code&gt;printf&lt;/code&gt;，看栈的变化。&lt;/li&gt;
+&lt;li&gt;尝试把 &lt;code&gt;MAX_DEPTH&lt;/code&gt; 改成 2，然后连续进 4 个页面，看会发生什么。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;43-双栈计算器strcalculate&#34;&gt;4.3 双栈计算器（StrCalculate）
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;文件&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Src/StrCalculate.c&#34; &gt;StrCalculate.c&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;算法核心&#34;&gt;算法核心
+&lt;/h3&gt;&lt;p&gt;两个栈：&lt;strong&gt;操作数栈&lt;/strong&gt;（存数字）和&lt;strong&gt;运算符栈&lt;/strong&gt;（存 +-*/）。&lt;/p&gt;
+&lt;p&gt;遍历输入字符串，每读到一个字符：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;读到数字 → 压入操作数栈
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;读到运算符 → 跟运算符栈顶比较优先级：
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  - 当前 &amp;gt; 栈顶 → 入栈（等着）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  - 当前 ≤ 栈顶 → 弹栈计算（栈顶的优先算）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;读完所有字符 → 弹空运算符栈，结果在操作数栈顶
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;为什么要建两个栈不直接算&#34;&gt;为什么要建两个栈不直接算
+&lt;/h3&gt;&lt;p&gt;因为运算符有优先级。比如 &lt;code&gt;1+2*3&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;读到 &lt;code&gt;+&lt;/code&gt; 时还不知道后面有 &lt;code&gt;*&lt;/code&gt;，不能直接算 &lt;code&gt;1+2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;需要把 &lt;code&gt;+&lt;/code&gt; 存起来，让 &lt;code&gt;*&lt;/code&gt; 先算&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;栈就是解决&amp;quot;后面的事比前面急&amp;quot;的数据结构。&lt;/p&gt;
+&lt;h3 id=&#34;小数怎么处理&#34;&gt;小数怎么处理
+&lt;/h3&gt;&lt;p&gt;代码里用 &lt;code&gt;NumBehindPoint_Flag&lt;/code&gt; 标记当前读到小数点后第几位。核心逻辑：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 小数点后第一位：÷10
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 小数点后第二位：再÷10（相当于 ÷100）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 然后加上栈顶已有的整数部分
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;练习-2&#34;&gt;练习
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;在仿真器里打开计算器，算 &lt;code&gt;1+2*3&lt;/code&gt;，验证结果是 7 而不是 9&lt;/li&gt;
+&lt;li&gt;手写一遍 &lt;code&gt;1+2*6/3&lt;/code&gt; 的栈变化过程（纸上画两个栈，一步步走）&lt;/li&gt;
+&lt;li&gt;找到 &lt;code&gt;CalculateOne()&lt;/code&gt; 函数，理解它怎么从两个栈里各取数据、计算、再放回去&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;44-心率算法&#34;&gt;4.4 心率算法
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;文件&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/BSP/EM7028/HrAlgorythm.c&#34; &gt;HrAlgorythm.c&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;ppg-信号是什么&#34;&gt;PPG 信号是什么
+&lt;/h3&gt;&lt;p&gt;EM7028 传感器发射绿光穿过皮肤，光电二极管接收反射光。心脏跳动时血液量变化 → 反射光强度变化 → 产生一个波形。&lt;/p&gt;
+&lt;h3 id=&#34;峰值检测算法的思路&#34;&gt;峰值检测算法的思路
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;原始信号采样 → 环形队列缓冲（存最近 N 个点）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  → 扫描队列找峰值（比前后都高）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  → 计算相邻两个峰间距（多少个采样点）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  → 换算为 BPM（两次心跳的间隔 → 每分钟跳多少次）
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;比官方库快的原因是：官方库可能做了 FFT 等复杂运算，而峰值检测只需遍历一次队列。&lt;/p&gt;
+&lt;h3 id=&#34;环形队列&#34;&gt;环形队列
+&lt;/h3&gt;&lt;p&gt;文件：&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/BSP/EM7028/user_Queue.c&#34; &gt;user_Queue.c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;环形队列是一个固定大小的数组，写满了就覆盖最老的数据。适合传感器这种&amp;quot;一直来新数据，只关心最近 N 个点&amp;quot;的场景。&lt;/p&gt;
+&lt;h3 id=&#34;练习-3&#34;&gt;练习
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;看懂环形队列的入队和出队逻辑&lt;/li&gt;
+&lt;li&gt;找到心率算法的峰值查找部分，看阈值怎么设的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;第五阶段bootloader-与-ota2-天&#34;&gt;第五阶段：BootLoader 与 OTA（2 天）
+&lt;/h1&gt;&lt;h2 id=&#34;51-为什么要分-bootloader-和-app&#34;&gt;5.1 为什么要分 BootLoader 和 APP
+&lt;/h2&gt;&lt;p&gt;没有 BootLoader 时，更新固件必须用 ST-Link 物理连接到板子。有了 BootLoader，可以通过蓝牙无线升级。&lt;/p&gt;
+&lt;p&gt;二者的关系：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;上电 → BootLoader（先跑）→ 检测：要升级吗？
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ├─ 要 → 接收新固件 → 写入 FLASH
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  └─ 不要 → 直接跳转到 APP
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;APP（主程序）正常运行
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;52-flash-怎么分的&#34;&gt;5.2 FLASH 怎么分的
+&lt;/h2&gt;&lt;p&gt;STM32F411 有 512KB FLASH：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;0x08000000 ┌──────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           │  BootLoader  │ 48KB（先跑，管升级）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;0x0800C000 ├──────────────┤
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           │              │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           │    APP       │ 464KB（主程序）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;           │              │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;0x0807FFFF └──────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;为什么从-0x0000c000-开始&#34;&gt;为什么从 0x0000C000 开始
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;0xC000&lt;/code&gt; = 48 × 1024 = 49152 字节。BootLoader 占前 48KB，APP 从第 49KB 开始。&lt;/p&gt;
+&lt;h2 id=&#34;53-中断向量表重映射&#34;&gt;5.3 中断向量表重映射
+&lt;/h2&gt;&lt;p&gt;BootLoader 跑的时候，CPU 的中断向量表指向 &lt;code&gt;0x08000000&lt;/code&gt;。APP 跑的时候需要指向 &lt;code&gt;0x0800C000&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/Core/Src/main.c&#34; &gt;main.c:75&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;SCB&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VTOR&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mh&#34;&gt;0x0000C000U&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这是 APP 的 &lt;code&gt;main()&lt;/code&gt; 函数里&lt;strong&gt;必须第一行执行&lt;/strong&gt;的语句。没有它，中断一来 CPU 还去 BootLoader 的向量表取地址，后果不可预期。&lt;/p&gt;
+&lt;h2 id=&#34;54-ymodem-协议&#34;&gt;5.4 Ymodem 协议
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;文件&lt;/strong&gt;：&lt;a class=&#34;link&#34; href=&#34;Software/IAP_F411/Ymodem/ymodem.c&#34; &gt;ymodem.c&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Ymodem 是一个文件传输协议。发送方把文件切成 128 字节的小包，每包加 CRC 校验。接收方校验通过就 ACK，校验失败就 NAK 要求重发。&lt;/p&gt;
+&lt;h3 id=&#34;核心流程&#34;&gt;核心流程
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;发送方（手机）                  接收方（手表 BootLoader）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    │                                │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    │──────── 第 1 包(128B+CRC) ────→│ 校验 ✓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    │←────────── ACK ───────────────│
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    │──────── 第 2 包(128B+CRC) ────→│ 校验 ✓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    │←────────── ACK ───────────────│
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    │             ...                │
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    │──────── 最后包(EOT) ──────────→│
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    │←────────── ACK ───────────────│  写入完成，跳转 APP
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;55-练习&#34;&gt;5.5 练习
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;对比 BootLoader 工程（&lt;code&gt;IAP_F411/&lt;/code&gt;）和 APP 工程（&lt;code&gt;OV_Watch/&lt;/code&gt;）的 &lt;code&gt;main.c&lt;/code&gt;，找出三个关键差异&lt;/li&gt;
+&lt;li&gt;在 Keil 的工程设置里看 IROM1 的起始地址：APP 是 &lt;code&gt;0x0800C000&lt;/code&gt;，BootLoader 是 &lt;code&gt;0x08000000&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;把 OTA 流程用自己的话写一遍（不需要理解 Ymodem 每行代码，能讲清&amp;quot;上电→检测→接收→写 FLASH→跳转&amp;quot;就行）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;第六阶段外设与硬件对接1-2-天&#34;&gt;第六阶段：外设与硬件对接（1-2 天）
+&lt;/h1&gt;&lt;p&gt;这个阶段需要结合硬件原理图来看。如果你手上有 PCB 板最好，没有的话看原理图 PDF 也能理解。&lt;/p&gt;
+&lt;h2 id=&#34;61-i2c-总线上的设备&#34;&gt;6.1 I2C 总线上的设备
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Hardware/SCH_Core_2024-05-26.pdf&lt;/code&gt; 里能看到 I2C1 总线挂了 4 个设备：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;STM32 I2C1 (PB6=SCL, PB7=SDA)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ├── 0x68  MPU6050     6轴IMU
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ├── 0x38  AHT21        温湿度
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ├── 0x1E  LSM303DLH    电子罗盘
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  └── 0x76  SPL06-001    气压高度
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;每个设备有不同的 I2C 从机地址，CPU 通过地址区分跟谁说话。&lt;/p&gt;
+&lt;h3 id=&#34;怎么知道驱动写得对不对&#34;&gt;怎么知道驱动写得对不对
+&lt;/h3&gt;&lt;p&gt;打开 &lt;code&gt;BSP/MPU6050/MPU6050.c&lt;/code&gt;（举例）：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;找 &lt;code&gt;HAL_I2C_Mem_Read()&lt;/code&gt; 或 &lt;code&gt;HAL_I2C_Mem_Write()&lt;/code&gt; 调用&lt;/li&gt;
+&lt;li&gt;看第一个参数是 I2C 句柄，第二个参数是设备地址&lt;/li&gt;
+&lt;li&gt;地址必须跟原理图上的一致&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;练习-4&#34;&gt;练习
+&lt;/h3&gt;&lt;p&gt;随机挑 3 个 BSP 驱动文件，每个里面找一个 &lt;code&gt;HAL_I2C_*&lt;/code&gt; 或 &lt;code&gt;HAL_SPI_*&lt;/code&gt; 调用，理解它在跟哪个设备、读写什么寄存器。&lt;/p&gt;
+&lt;h2 id=&#34;62-驱动的分层&#34;&gt;6.2 驱动的分层
+&lt;/h2&gt;&lt;p&gt;每个外设驱动的典型结构：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;em70x8.c         ← 芯片操作（读写寄存器、启动测量）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ↓ 调用
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;HrAlgorythm.c    ← 算法层（取原始数据 → 算出心率值）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ↓ 数据写入
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;HWDataAccess.c   ← 中间层（统一接口，隔离硬件）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ↓ 被调用
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;UI 页面           ← 显示心率数字
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;练习-5&#34;&gt;练习
+&lt;/h3&gt;&lt;p&gt;选心率或 IMU，从最底层的寄存器读写函数开始，一层层往上追，画一个完整的分层调用图。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;整体学习节奏&#34;&gt;整体学习节奏
+&lt;/h1&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;阶段&lt;/th&gt;
+&lt;th&gt;天数&lt;/th&gt;
+&lt;th&gt;重点产出&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;第一阶段：仿真器跑起来&lt;/td&gt;
+&lt;td&gt;1-2 天&lt;/td&gt;
+&lt;td&gt;环境搭建成功 + 所有功能玩过一遍&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;第二阶段：UI 层&lt;/td&gt;
+&lt;td&gt;2-3 天&lt;/td&gt;
+&lt;td&gt;能改 UI、理解页面切换、知道 LVGL 心跳&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;第三阶段：FreeRTOS&lt;/td&gt;
+&lt;td&gt;2-3 天&lt;/td&gt;
+&lt;td&gt;13 个任务职责清晰、消息队列链路能画出来&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;第四阶段：关键模块&lt;/td&gt;
+&lt;td&gt;2-3 天&lt;/td&gt;
+&lt;td&gt;深入 4 个核心模块（HAL/页面栈/计算器/心率）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;第五阶段：BootLoader&lt;/td&gt;
+&lt;td&gt;2 天&lt;/td&gt;
+&lt;td&gt;理解 FLASH 分区 + 中断向量 + OTA 流程&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;第六阶段：外设驱动&lt;/td&gt;
+&lt;td&gt;1-2 天&lt;/td&gt;
+&lt;td&gt;看懂 I2C/SPI 驱动结构，能从寄存器追到 UI&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;合计 10-15 天&lt;/strong&gt;，每天 2-3 小时。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;速查表&#34;&gt;速查表
+&lt;/h1&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;想找什么&lt;/th&gt;
+&lt;th&gt;去哪里&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;所有任务的定义&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Tasks/Src/user_TasksInit.c&#34; &gt;user_TasksInit.c&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;硬件抽象层&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Inc/HWDataAccess.h&#34; &gt;HWDataAccess.h&lt;/a&gt; → &lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Src/HWDataAccess.c&#34; &gt;HWDataAccess.c&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;页面栈&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Inc/PageManager.h&#34; &gt;PageManager.h&lt;/a&gt; → &lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Src/PageManager.c&#34; &gt;PageManager.c&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;双栈计算器&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Src/StrCalculate.c&#34; &gt;StrCalculate.c&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;发布-订阅&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Inc/pubsub.h&#34; &gt;pubsub.h&lt;/a&gt; → &lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/Func/Src/pubsub.c&#34; &gt;pubsub.c&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;心率算法&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/BSP/EM7028/HrAlgorythm.c&#34; &gt;HrAlgorythm.c&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;环形队列&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/BSP/EM7028/user_Queue.c&#34; &gt;user_Queue.c&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;EEPROM 存储&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/BSP/BL24C02/DataSave.c&#34; &gt;DataSave.c&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;蓝牙升级流程&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/IAP_F411/Ymodem/ymodem.c&#34; &gt;ymodem.c&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;中断向量表&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/Core/Src/main.c&#34; &gt;main.c:75&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;FreeRTOS Tick&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/Core/Src/freertos.c&#34; &gt;freertos.c:87-95&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;仿真器入口&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;lv_sim_vscode_win/main.c&#34; &gt;lv_sim_vscode_win/main.c&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;每个 UI 界面&lt;/td&gt;
+&lt;td&gt;&lt;a class=&#34;link&#34; href=&#34;Software/OV_Watch/User/GUI_App/Screens/&#34; &gt;GUI_App/Screens/&lt;/a&gt; 下有 19 个页面对应的 &lt;code&gt;.c&lt;/code&gt; 文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;检验标准&#34;&gt;检验标准
+&lt;/h1&gt;&lt;p&gt;走完整个路线后，你应该能：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 在仿真器里跑起来，改几行 UI 代码能看到效果变化&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 画出 13 个任务的层级关系和 6 个消息队列的通信链路&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 解释硬件抽象层怎么通过一个宏隔离真机和仿真器&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 手写页面栈的 push/pop 过程，知道栈深度 6 层什么意思&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 用纸笔走一遍 &lt;code&gt;1+2*6/3&lt;/code&gt; 的双栈计算过程&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 解释为什么 APP 的 &lt;code&gt;main()&lt;/code&gt; 第一行必须是 &lt;code&gt;SCB-&amp;gt;VTOR = 0x0000C000U&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 从任意一个传感器驱动开始，顺着代码追到它最终显示在哪个 UI 页面上&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>OV-Watch — 学习总结 Day 1</title>
+        <link>https://usualtreee.github.io/project/ov-watch/study-day1/</link>
+        <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/project/ov-watch/study-day1/</guid>
+        <description>&lt;h2 id=&#34;一项目是什么&#34;&gt;一、项目是什么
+&lt;/h2&gt;&lt;p&gt;OV-Watch：基于 STM32F411CEU6（ARM Cortex-M4）的智能手表，FreeRTOS + LVGL v8.2，19 个 UI 界面，14 项功能（心率、计步、指南针、蓝牙 OTA、计算器、2048 等）。&lt;/p&gt;
+&lt;h2 id=&#34;二仿真器搭建&#34;&gt;二、仿真器搭建
+&lt;/h2&gt;&lt;h3 id=&#34;做了什么&#34;&gt;做了什么
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;装 CMake + MinGW（w64devkit）&lt;/li&gt;
+&lt;li&gt;补装 SDL2 开发包（项目只带了 &lt;code&gt;SDL2.dll&lt;/code&gt; 运行时，缺头文件和 CMake 配置）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cmake .. -G &amp;quot;MinGW Makefiles&amp;quot; -DSDL2_DIR=...&lt;/code&gt; 配置&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make -j4&lt;/code&gt; 编译&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;../bin/main.exe&lt;/code&gt; 运行——弹出 480×560 手表 UI 窗口&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;踩坑&#34;&gt;踩坑
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;坑 1&lt;/strong&gt;：CMake 找不到 SDL2 → 下载 SDL2-devel-mingw.zip，拷头文件到 MinGW include，拷 .a 到 MinGW lib&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;坑 2&lt;/strong&gt;：仿真器窗口太小 + 手势难以触发 → &lt;code&gt;lv_drv_conf.h&lt;/code&gt; 中 &lt;code&gt;SDL_ZOOM&lt;/code&gt; 从 1 改为 2；&lt;code&gt;main.c&lt;/code&gt; 中鼠标手势 &lt;code&gt;gesture_limit&lt;/code&gt; 降为 30，&lt;code&gt;gesture_min_velocity&lt;/code&gt; 降为 0&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;坑 3&lt;/strong&gt;：左滑无反应 → 四个页面（MenuPage/SetPage/GameSelectPage/DateTimeSetPage）的 LV_DIR_RIGHT 判断补上 LV_DIR_LEFT&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;坑 4&lt;/strong&gt;：计算器、心率等 12 个页面完全没有手势 → PageManager 加通用左滑返回回调，2048 和 HomePage 标 &lt;code&gt;true&lt;/code&gt; 排除&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;仿真器操作总结&#34;&gt;仿真器操作总结
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;操作&lt;/th&gt;
+&lt;th&gt;对应&lt;/th&gt;
+&lt;th&gt;按键/动作&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;鼠标单击&lt;/td&gt;
+&lt;td&gt;手指点触&lt;/td&gt;
+&lt;td&gt;点按钮&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;鼠标按住拖拽&lt;/td&gt;
+&lt;td&gt;手指滑动&lt;/td&gt;
+&lt;td&gt;切页/返回&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Backspace 键&lt;/td&gt;
+&lt;td&gt;物理返回键&lt;/td&gt;
+&lt;td&gt;任意页面返回&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;键盘方向键不生效——手表 UI 用的是触摸手势，不是 LVGL 控件组导航。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;三项目目录结构理解&#34;&gt;三、项目目录结构理解
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;OV-Watch-main/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── 3D Modle/         ← 3D 打印壳体 STL 文件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── Firmware/         ← 预编译固件（.hex / .bin）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── Hardware/         ← PCB 原理图 + Gerber（双板：Core 核心板 + Back 背板）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── Software/         ← 全部源码
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── IAP_F411/     ← BootLoader 工程（Keil）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   └── OV_Watch/     ← APP 主工程（Keil）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── lv_sim_vscode_win/← LVGL PC 仿真器（VS Code + CMake）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── lvgl/         ← LVGL v8.2 源码（第三方库，复制来的）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── lv_drivers/   ← LVGL 显示/输入驱动（只用 sdl/）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── user_test/    ← 手表应用代码（= Software/OV_Watch/User/ 的仿真副本）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   │   ├── GUI_App/  ← 19 个 UI 界面
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   │   └── Func/     ← 硬件抽象层/页面栈/计算器/pubsub
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── main.c        ← 仿真器入口：lv_init() → ui_init() → while(1)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── lv_conf.h     ← LVGL 配置
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   └── lv_drv_conf.h ← LVGL 驱动配置
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└── images/           ← README 配图
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;关键认知&#34;&gt;关键认知
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;仿真器代码和 Keil 代码不共享&lt;/strong&gt;：在仿真器 &lt;code&gt;user_test/&lt;/code&gt; 改完 UI，手动复制到 &lt;code&gt;Software/OV_Watch/User/&lt;/code&gt; 覆盖，切换宏 &lt;code&gt;HW_USE_HARDWARE&lt;/code&gt; 即可&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;LVGL 是源码编译&lt;/strong&gt;：不是装库，是把 &lt;code&gt;lvgl/&lt;/code&gt; 整个目录的 &lt;code&gt;.c&lt;/code&gt; 文件跟自己的代码一起编进固件&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;FreeRTOS 同理&lt;/strong&gt;：源码在 &lt;code&gt;Middlewares/Third_Party/FreeRTOS/&lt;/code&gt;，一套 &lt;code&gt;FreeRTOSConfig.h&lt;/code&gt; 决定一切&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;四softwareov_watch-内部结构&#34;&gt;四、Software/OV_Watch/ 内部结构
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;OV_Watch/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── Core/            ← 程序入口 + STM32 初始化（main.c、freertos.c）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── Drivers/         ← STM32 HAL 库（CMSIS + HAL_Driver）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── Middlewares/     ← 第三方中间件（LVGL + FreeRTOS）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── BSP/             ← 板级外设驱动（作者写的，每颗芯片一个文件夹）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── User/            ← 应用层
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── Tasks/       ← 13 个 FreeRTOS 任务（调度层：谁在什么时候干什么）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   ├── Func/        ← 核心逻辑（不关心显示：页面栈/计算器/硬件抽象层/pubsub）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;│   └── GUI_App/     ← 19 个 UI 界面（显示层：只关心屏幕上长什么样）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── SYSTEM/          ← 系统延时
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── MDK-ARM/         ← Keil 工程文件（.uvprojx）
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;└── OV_Watch.ioc     ← STM32CubeMX 引脚配置
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;drivers-vs-bsp&#34;&gt;Drivers vs BSP
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Drivers（ST 官方）&lt;/strong&gt;：通用 HAL 层，&lt;code&gt;HAL_I2C_Read()&lt;/code&gt; 怎么发 I2C 数据&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;BSP（作者写）&lt;/strong&gt;：知道每颗外设芯片的寄存器地址，&lt;code&gt;MPU6050_GetSteps()&lt;/code&gt; 发什么数据读到步数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;user-三文件夹协作流程&#34;&gt;User/ 三文件夹协作流程
+&lt;/h3&gt;&lt;p&gt;以&amp;quot;按 KEY1 返回&amp;quot;为例：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;KeyTask（Tasks/）         去读 GPIO → 发出消息
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ScrRenewTask（Tasks/）    收到消息 → 决定调 Page_Back()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;PageManager（Func/）      弹栈 → 找到上一页
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ↓
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ui_HomePage_screen_init（GUI_App/）  重新渲染界面到屏幕
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;五lvgl-在-pc-上的工作原理&#34;&gt;五、LVGL 在 PC 上的工作原理
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;仿真器（PC）：
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  main.c → lv_init() → hal_init() → sdl_init()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         → lv_timer_handler() 每 5ms 调一次
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         → SDL2 把 LVGL 像素画到电脑窗口
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         → SDL2 把鼠标事件转成 LVGL 触摸事件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         → HW_USE_HARDWARE = 0，传感器全返回假数据
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;真机（STM32）：
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  main.c → FreeRTOS 调度
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         → LvHandlerTask 每 1ms 调 lv_timer_handler()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         → LVGL 像素直接写到 ST7789 LCD
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         → CST816 触摸事件
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         → HW_USE_HARDWARE = 1，传感器真实数据
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;六bootloader--ota-核心概念&#34;&gt;六、BootLoader + OTA 核心概念
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;FLASH 分区：BootLoader（0x08000000，48KB）+ APP（0x0800C000，464KB）&lt;/li&gt;
+&lt;li&gt;APP 第一行 &lt;code&gt;SCB-&amp;gt;VTOR = 0x0000C000U&lt;/code&gt; —— 重映射中断向量表&lt;/li&gt;
+&lt;li&gt;OTA 流程：手机蓝牙 SPP → Ymodem 协议分包传输 → BootLoader 校验 → 写入 FLASH → 重启运行新 APP&lt;/li&gt;
+&lt;li&gt;HEX vs BIN：&lt;code&gt;.hex&lt;/code&gt; 带地址信息（ST-Link 用），&lt;code&gt;.bin&lt;/code&gt; 纯机器码（OTA 用）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;NoBoot.hex&lt;/code&gt; = BootLoader.hex + APP.bin 合并（一次烧完）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;七cmsis-rtos-v2&#34;&gt;七、CMSIS-RTOS v2
+&lt;/h2&gt;&lt;p&gt;ARM 公司定的 RTOS 标准 API 接口。项目代码写 &lt;code&gt;osThreadNew()&lt;/code&gt;、&lt;code&gt;osDelay()&lt;/code&gt;、&lt;code&gt;osMessageQueuePut()&lt;/code&gt;，底层翻译成 FreeRTOS 的 &lt;code&gt;xTaskCreate()&lt;/code&gt;、&lt;code&gt;vTaskDelay()&lt;/code&gt;、&lt;code&gt;xQueueSend()&lt;/code&gt;。它不是 ST 要求的，是 ARM 推的&amp;quot;换 RTOS 不用改代码&amp;quot;的标准。&lt;/p&gt;
+&lt;h2 id=&#34;八今日修改的文件汇总&#34;&gt;八、今日修改的文件汇总
+&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;文件&lt;/th&gt;
+&lt;th&gt;改动&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/lv_drv_conf.h&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;SDL_ZOOM: 1 → 2&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/main.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;鼠标手势 &lt;code&gt;gesture_limit=30&lt;/code&gt;、&lt;code&gt;gesture_min_velocity=0&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/user_test/Func/Inc/PageManager.h&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;Page_t&lt;/code&gt; 加 &lt;code&gt;no_auto_swipe_back&lt;/code&gt; 字段&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/user_test/Func/Src/PageManager.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;通用左滑返回回调 + &lt;code&gt;Page_Load&lt;/code&gt; 自动挂载&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_MenuPage.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;补 &lt;code&gt;LV_DIR_LEFT&lt;/code&gt; 响应&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_SetPage.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;补 &lt;code&gt;LV_DIR_LEFT&lt;/code&gt; 响应&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_GameSelectPage.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;补 &lt;code&gt;LV_DIR_LEFT&lt;/code&gt; 响应&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_DateTimeSetPage.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;补 &lt;code&gt;LV_DIR_LEFT&lt;/code&gt; 响应&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_Game2048Page.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;标 &lt;code&gt;no_auto_swipe_back = true&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_HomePage.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;标 &lt;code&gt;no_auto_swipe_back = true&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lv_sim_vscode_win/user_test/GUI_App/Screens/Src/ui_AboutPage.c&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;&amp;quot;OV-Watch&amp;quot; → &amp;quot;TREE&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        </item>
+        <item>
         <title>OV-Watch-项目概况</title>
         <link>https://usualtreee.github.io/project/ov-watch/</link>
         <pubDate>Tue, 26 May 2026 00:00:00 +0000</pubDate>

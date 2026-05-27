@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全志桌面屏幕 — 学习路径 — Usualtree</title>
+    <link rel="icon" href="/favicon.ico">
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    
+    <link rel="stylesheet" href="/scss/custom.min.196d2895d3349f6cabde0088dfa40dfe9d26a1696918513546e452717dea85d8.css">
+</head>
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <div class="single-top-bar">
+            
+            <a href="/project/" class="postlist-back"><span data-zh="← 返回项目" data-en="← Projects"></span></a>
+            
+            <div class="single-page-nav">
+                <a href="/project/allwinner-screen/" class="single-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> <span data-zh="上一页" data-en="Prev"></span></a>
+                
+            </div>
+        </div>
+        
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        
+        <div class="single-with-sidebar">
+            <nav class="single-sidebar card glass-card">
+                <div class="sidebar-title" data-zh="📑 目录" data-en="📑 Index"></div>
+                <ul class="sidebar-list">
+                    
+                    <li><a href="/project/allwinner-screen/" class="sidebar-link ">项目概况</a></li>
+                    
+                    <li><a href="/project/allwinner-screen/study-guide/" class="sidebar-link active">全志桌面屏幕 — 学习路径</a></li>
+                    
+                </ul>
+            </nav>
+            <article class="card glass-card single-card single-card-side">
+        
+            <div class="single-body-content">
+                <h1 class="single-title">全志桌面屏幕 — 学习路径</h1>
+                <div class="single-content" id="ttsContent"><h2 id="前提">前提
+</h2><ul>
+<li>Windows 电脑一台（你现在就有的）</li>
+<li>不需要买开发板就能开始学</li>
+<li>目标不是&quot;学完所有理论&quot;，是&quot;能看懂/能改/能加功能&quot;</li>
+</ul>
+<hr>
+<h2 id="第一阶段让代码在-wsl-里跑起来1-2-天">第一阶段：让代码在 WSL 里跑起来（1-2 天）
+</h2><p><strong>目标</strong>：不买硬件，在 Windows 上看到这个项目的 GUI 窗口。</p>
+<p>学习内容：</p>
+<ol>
+<li>装 WSL2（Windows Subsystem for Linux）
+<ul>
+<li>PowerShell 管理员运行：<code>wsl --install -d Ubuntu-22.04</code></li>
+<li>重启电脑，打开 Ubuntu 终端</li>
+</ul>
+</li>
+<li>装依赖：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install build-essential cmake libsdl2-dev
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>编译运行：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /mnt/c/Users/13403/Desktop/quanzhi-LVGL/app_sdk_v2/app_sdk
+</span></span><span class="line"><span class="cl">./build.sh -linux
+</span></span><span class="line"><span class="cl">./build/app/demo
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>如果跳出 SDL 窗口显示 GUI 界面 → 成功了</li>
+</ol>
+<p><strong>获取的技能</strong>：知道程序是怎么从源码变成可运行的窗口的。</p>
+<p><strong>不需要理解</strong>：CMake、编译原理、交叉编译——先跑起来再说。</p>
+<hr>
+<h2 id="第二阶段看懂-mainc-和-lvgl-怎么转起来的1-2-天">第二阶段：看懂 main.c 和 LVGL 怎么转起来的（1-2 天）
+</h2><p><strong>目标</strong>：看懂程序入口，能加一个自己的 UI 页面。</p>
+<p>学习内容：</p>
+<ol>
+<li>
+<p>读 <code>app/main.c</code>（45 行）</p>
+<ul>
+<li><code>lv_init()</code> → 初始化 LVGL</li>
+<li><code>lv_port_disp_init()</code> → 初始化显示</li>
+<li><code>while(1) { lv_task_handler(); usleep(...); }</code> → 主循环（死循环刷新 UI）</li>
+<li>不需要看懂 WiFi/BLE 的初始化，先跳过</li>
+</ul>
+</li>
+<li>
+<p>读 <code>app/ui/page_about_us.c</code>（97 行，项目里最短的页面）</p>
+<ul>
+<li><code>com_style_init()</code> → 背景样式</li>
+<li><code>lv_obj_create(parent)</code> → 创建容器</li>
+<li><code>lv_img_create()</code> → 创建图片</li>
+<li><code>lv_obj_set_align()</code> → 对齐</li>
+<li><strong>模式</strong>：创建容器 → 往里面放控件 → 对齐 → 完成</li>
+</ul>
+</li>
+<li>
+<p>改点东西练手</p>
+<ul>
+<li>把关于页的文字改掉</li>
+<li>在主页菜单里加一项&quot;测试&quot;，点了跳转到关于页</li>
+<li>重编译看效果</li>
+</ul>
+</li>
+</ol>
+<p><strong>获取的技能</strong>：看懂 LVGL 的页面是怎么建的，能改文字、加按钮。</p>
+<p><strong>关键概念</strong>：</p>
+<ul>
+<li><code>lv_obj_t *</code> → LVGL 里所有东西（按钮、文字、图片）都是&quot;对象&quot;，返回指针</li>
+<li><code>lv_obj_set_align(obj, LV_ALIGN_CENTER, x, y)</code> → 把对象放在父容器的某个位置</li>
+<li><code>delete_current_page()</code> → 删掉当前页面的所有控件，清屏</li>
+</ul>
+<hr>
+<h2 id="第三阶段看懂一个完整的业务页面2-3-天">第三阶段：看懂一个完整的业务页面（2-3 天）
+</h2><p><strong>目标</strong>：理解 UI 页面 + 数据 + 逻辑是怎么配合的。</p>
+<p>学习内容：</p>
+<ol>
+<li>
+<p>读 <code>app/ui/page_tomato_learn.c</code>（194 行，番茄钟学习页面）</p>
+<ul>
+<li><strong>页面创建</strong>：<code>init_page_tomato_learn()</code> → 建容器、标签、按钮</li>
+<li><strong>按钮回调</strong>：按钮点击后调 <code>btn_event_cb()</code>，里面修改 <code>device_state_t</code> 里的状态</li>
+<li><strong>定时器刷新</strong>：每 1000ms 更新倒计时文字，归零时跳转页面</li>
+<li><strong>音频</strong>：开始学习时播 <code>audio_start.wav</code></li>
+</ul>
+</li>
+<li>
+<p>读 <code>app/ui/data/device_data.h</code></p>
+<ul>
+<li>全局只有一个 <code>device_state_t</code> 结构体</li>
+<li>所有页面读写的数据都在里面</li>
+<li><code>get_device_state()</code> 获取，改完自动生效</li>
+</ul>
+</li>
+<li>
+<p>读 <code>app/ui/page_conf.h</code> + <code>page_conf.c</code></p>
+<ul>
+<li>每个页面注册为 <code>init_page_xxx()</code> 函数</li>
+<li>页面跳转就是调另一个 <code>init_page_xxx()</code></li>
+</ul>
+</li>
+</ol>
+<p><strong>获取的技能</strong>：能独立加一个新页面，带按钮和跳转。</p>
+<p><strong>关键概念</strong>：</p>
+<ul>
+<li>全局状态：所有页面共享 <code>device_state_t</code>，不需要传参</li>
+<li>页面跳转：清掉当前页 → 调目标页的 init 函数 → 新页面显示</li>
+<li>定时器：<code>lv_timer_create(callback, interval, user_data)</code> 创建周期性任务</li>
+</ul>
+<hr>
+<h2 id="第四阶段看懂异步通信模式1-2-天">第四阶段：看懂异步通信模式（1-2 天）
+</h2><p><strong>目标</strong>：理解三个异步模块怎么工作的。</p>
+<p>学习内容：</p>
+<ol>
+<li>
+<p>读 <code>component/osal/osal_thread.c</code> + <code>osal_queue.c</code>（约 250 行）</p>
+<ul>
+<li>就是对 <code>pthread</code> 和 System V 消息队列的简单包装</li>
+<li><code>osal_thread_create()</code> → 开一个线程</li>
+<li><code>osal_queue_send()</code> → 发消息到队列</li>
+<li><code>osal_queue_recv()</code> → 从队列收消息</li>
+</ul>
+</li>
+<li>
+<p>读 <code>component/player/audio_player_async.c</code>（84 行，最短的异步模块）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">UI 页面调 start_play_audio_async(&#34;xxx.wav&#34;)
+</span></span><span class="line"><span class="cl">      ↓
+</span></span><span class="line"><span class="cl">消息扔进队列（立即返回，不阻塞UI）
+</span></span><span class="line"><span class="cl">      ↓
+</span></span><span class="line"><span class="cl">工作线程从队列取出消息
+</span></span><span class="line"><span class="cl">      ↓
+</span></span><span class="line"><span class="cl">调 em_play_audio() 真正播放
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>对比 <code>component/net/http_manager.c</code> 和 <code>component/usb_hid/usb_hid_async.c</code></p>
+<ul>
+<li>三个模块结构完全一样，只是工作线程干的事不同</li>
+<li>看懂一个 = 看懂全部</li>
+</ul>
+</li>
+</ol>
+<p><strong>获取的技能</strong>：理解项目中反复出现的&quot;异步模式&quot;。</p>
+<p><strong>关键概念</strong>：</p>
+<ul>
+<li>同步 vs 异步：同步 = 调完等结果（UI 会卡），异步 = 发了不管自己继续跑</li>
+<li>消息队列：一个&quot;邮箱&quot;，一方投递一方取件，互不阻塞</li>
+</ul>
+<hr>
+<h2 id="第五阶段理解跨平台是怎么回事1-天">第五阶段：理解跨平台是怎么回事（1 天）
+</h2><p><strong>目标</strong>：知道为什么同一份代码能在 PC 和板子上跑。</p>
+<p>学习内容：</p>
+<ol>
+<li>
+<p>看 <code>app/main.c</code> 里的 <code>#ifdef SIMULATOR_LINUX</code></p>
+<ul>
+<li>编译时如果定义了 <code>SIMULATOR_LINUX</code> → 跳过 WiFi 和 BLE</li>
+<li>没定义 → 启动 WiFi 和 BLE</li>
+</ul>
+</li>
+<li>
+<p>看 <code>component/hal/</code> 目录下的 6 个头文件</p>
+<ul>
+<li>只定义接口，不写实现</li>
+<li>比如 <code>em_play_audio()</code> 的声明在这里，实现在平台层</li>
+</ul>
+</li>
+<li>
+<p>对比两个平台的音频实现：</p>
+<ul>
+<li><code>platform/x86linux/src/hal/em_hal_audio.c</code> → <code>system(&quot;aplay xxx.wav &amp;&quot;)</code></li>
+<li><code>platform/t113/src/hal/em_hal_audio.c</code> → <code>fork()</code> + <code>system(&quot;aplay&quot;)</code> + GPIO 控制功放</li>
+<li>接口一样，实现不同</li>
+</ul>
+</li>
+</ol>
+<p><strong>获取的技能</strong>：理解 HAL（硬件抽象层）的套路——定义统一接口，不同平台不同实现。</p>
+<p><strong>关键概念</strong>：</p>
+<ul>
+<li>条件编译：<code>#ifdef</code> 决定哪段代码参与编译</li>
+<li>HAL 模式：上层调接口，底层换实现，代码不改</li>
+</ul>
+<hr>
+<h2 id="第六阶段摸到真机装-wsl--板子到手后">第六阶段：摸到真机（装 WSL + 板子到手后）
+</h2><p><strong>目标</strong>：把代码烧到 T113 板子上跑。</p>
+<p>需要的工具：</p>
+<ul>
+<li>T113 板子一块</li>
+<li>USB 数据线</li>
+<li>PC 上装 ADB（<code>sudo apt install adb</code>）</li>
+</ul>
+<p>步骤：</p>
+<ol>
+<li><code>./build.sh -t113</code> → 交叉编译出 ARM 版的 demo</li>
+<li><code>adb push build/app/demo /usr/bin/</code> → 推到板子上</li>
+<li><code>adb push build/app/res/* /usr/res/</code> → 推资源文件</li>
+<li><code>adb shell /usr/bin/demo &amp;</code> → 在板子上跑</li>
+</ol>
+<p><strong>获取的技能</strong>：知道交叉编译和推送部署的流程。</p>
+<hr>
+<h2 id="总时间表">总时间表
+</h2><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>内容</th>
+<th>天数</th>
+<th>需硬件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>WSL 跑起 GUI</td>
+<td>1-2</td>
+<td>无</td>
+</tr>
+<tr>
+<td>2</td>
+<td>看懂 main.c + 一个简单页面</td>
+<td>1-2</td>
+<td>无</td>
+</tr>
+<tr>
+<td>3</td>
+<td>看懂业务页面 + 全局状态</td>
+<td>2-3</td>
+<td>无</td>
+</tr>
+<tr>
+<td>4</td>
+<td>看懂异步通信模式</td>
+<td>1-2</td>
+<td>无</td>
+</tr>
+<tr>
+<td>5</td>
+<td>理解跨平台 HAL</td>
+<td>1</td>
+<td>无</td>
+</tr>
+<tr>
+<td>6</td>
+<td>真机部署</td>
+<td>1</td>
+<td>T113 板子</td>
+</tr>
+<tr>
+<td><strong>合计</strong></td>
+<td></td>
+<td><strong>7-11 天</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>前五个阶段完全不需要硬件，一台 Windows 电脑 + WSL 就能走完。</p>
+<hr>
+<h2 id="学习原则">学习原则
+</h2><ol>
+<li><strong>先抄后改再创</strong>：先照抄一个页面，改文字，加按钮，最后才自己从零写</li>
+<li><strong>不需要全懂再动手</strong>：看到一个 API 就去 <a class="link" href="https://docs.lvgl.io/8.3/"  target="_blank" rel="noopener"
+    >LVGL 文档</a> 搜，用到了再学</li>
+<li><strong>跑起来比看懂重要</strong>：改完立刻编译运行看效果，有反馈才有动力</li>
+<li><strong>跳过不用的</strong>：BLE 协议细节、cURL 内部实现、System V IPC 原理——改 UI 用不到就不看</li>
+<li><strong>一份代码拆成两层看</strong>：
+<ul>
+<li>上层（<code>app/</code>、<code>component/</code>）：业务逻辑，跨平台通用</li>
+<li>下层（<code>platform/</code>）：硬件相关，换平台才改</li>
+</ul>
+</li>
+</ol>
+</div>
+            </div>
+        </article>
+        </div>
+    </div>
+
+    
+    <div class="page-nav-arrows">
+        <a href="/project/allwinner-screen/" class="page-nav-arrow page-nav-prev" title="上一页"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></a>
+        
+    </div>
+    
+
+    
+    <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+</html>
