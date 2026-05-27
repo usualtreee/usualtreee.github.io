@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RK3588 — 从 0 构建项目 — Usualtree</title>
+    <link rel="icon" href="/favicon.ico">
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    
+    <link rel="stylesheet" href="/scss/custom.min.196d2895d3349f6cabde0088dfa40dfe9d26a1696918513546e452717dea85d8.css">
+</head>
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <div class="single-top-bar">
+            
+            <a href="/project/" class="postlist-back"><span data-zh="← 返回项目" data-en="← Projects"></span></a>
+            
+            <div class="single-page-nav">
+                <a href="/project/rk3588/study-day1/" class="single-nav-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> <span data-zh="上一页" data-en="Prev"></span></a>
+                
+            </div>
+        </div>
+        
+        
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+        
+        <div class="single-with-sidebar">
+            <nav class="single-sidebar card glass-card">
+                <div class="sidebar-title" data-zh="📑 目录" data-en="📑 Index"></div>
+                <ul class="sidebar-list">
+                    
+                    <li><a href="/project/rk3588/" class="sidebar-link ">项目概况以及复现问题解决</a></li>
+                    
+                    <li><a href="/project/rk3588/day2/" class="sidebar-link ">学习指南</a></li>
+                    
+                    <li><a href="/project/rk3588/study-day1/" class="sidebar-link ">学习总结 - Day 1</a></li>
+                    
+                    <li><a href="/project/rk3588/from-scratch/" class="sidebar-link active">RK3588 — 从 0 构建项目</a></li>
+                    
+                </ul>
+            </nav>
+            <article class="card glass-card single-card single-card-side">
+        
+            <div class="single-body-content">
+                <h1 class="single-title">RK3588 — 从 0 构建项目</h1>
+                <div class="single-content" id="ttsContent"><h1 id="从-0-构建项目">从 0 构建项目
+</h1><h2 id="阶段-0环境搭建12-天">阶段 0：环境搭建（1~2 天）
+</h2><h3 id="目标">目标
+</h3><p>板子能编译 C++ 程序，所有依赖库验证通过。</p>
+<h3 id="做什么">做什么
+</h3><p><strong>1. 刷系统</strong></p>
+<ul>
+<li>板子刷 Ubuntu ARM64 固件（用 RKDevTool 烧写 update.img）</li>
+<li><code>uname -a</code> 确认输出 aarch64</li>
+</ul>
+<p><strong>2. 装编译工具</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install build-essential cmake -y   <span class="c1"># g++ + make + cmake</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3. 获取依赖库</strong></p>
+<ul>
+<li>从瑞芯微 SDK 拿到 RKNN / MPP / RGA 的 <code>.h</code> 和 <code>.so</code></li>
+<li>FFmpeg / OpenCV 从板子扒或 apt 装</li>
+<li>全部放进项目 <code>third_party/</code> 下</li>
+</ul>
+<p><strong>4. 目录结构</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">demo0/
+</span></span><span class="line"><span class="cl">├── main.cpp
+</span></span><span class="line"><span class="cl">├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">├── build.sh
+</span></span><span class="line"><span class="cl">├── include/         ← 空目录占位
+</span></span><span class="line"><span class="cl">├── lib/             ← 空目录占位
+</span></span><span class="line"><span class="cl">├── third_party/
+</span></span><span class="line"><span class="cl">│   ├── rknn/    ← 拷的
+</span></span><span class="line"><span class="cl">│   ├── mpp/     ← 拷的
+</span></span><span class="line"><span class="cl">│   ├── rga/     ← 拷的
+</span></span><span class="line"><span class="cl">│   ├── ffmpeg-lite/ ← 拷的
+</span></span><span class="line"><span class="cl">│   └── opencv4-1/   ← 拷的
+</span></span><span class="line"><span class="cl">└── build/           ← 空目录
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>5. 逐库验证</strong></p>
+<ul>
+<li>main.cpp 里一次只测一个库，通过再换下一个</li>
+<li>编译报错 = 头文件路径不对</li>
+<li>链接报错 = .so 路径不对</li>
+<li>运行报错 = LD_LIBRARY_PATH 没设对</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 第1轮：只测 RKNN
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;rknn_api.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rknn_context</span> <span class="n">ctx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;rknn_init ret: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">rknn_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 后续依次测 MPP、RGA、FFmpeg、OpenCV
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>6. 验收标准</strong></p>
+<ul>
+<li>每个库都能 <code>#include</code> 编译通过</li>
+<li>每个库都能调一个函数跑不报 symbol not found</li>
+<li>全部 5 个库通过 → 阶段 0 完成</li>
+</ul>
+<hr>
+<h2 id="阶段-1单路视频解码23-天">阶段 1：单路视频解码（2~3 天）
+</h2><h3 id="目标-1">目标
+</h3><p>一个 MP4 文件能解码出一帧帧图片并显示。</p>
+<h3 id="做什么-1">做什么
+</h3><p><strong>1. FFmpeg 打开文件</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">AVFormatContext</span> <span class="o">*</span><span class="n">fmtCtx</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">avformat_open_input</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fmtCtx</span><span class="p">,</span> <span class="s">&#34;test.mp4&#34;</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">avformat_find_stream_info</span><span class="p">(</span><span class="n">fmtCtx</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 找到视频流
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">videoIdx</span> <span class="o">=</span> <span class="n">av_find_best_stream</span><span class="p">(</span><span class="n">fmtCtx</span><span class="p">,</span> <span class="n">AVMEDIA_TYPE_VIDEO</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2. 循环读包</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">AVPacket</span> <span class="o">*</span><span class="n">pkt</span> <span class="o">=</span> <span class="n">av_packet_alloc</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="n">av_read_frame</span><span class="p">(</span><span class="n">fmtCtx</span><span class="p">,</span> <span class="n">pkt</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">pkt</span><span class="o">-&gt;</span><span class="n">stream_index</span> <span class="o">==</span> <span class="n">videoIdx</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 把 pkt 喂给解码器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">av_packet_unref</span><span class="p">(</span><span class="n">pkt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3. 引入 MPP 硬解码器</strong></p>
+<ul>
+<li>AVPacket（压缩 H.264 数据）→ <code>MppDecoder::Decode()</code> → 解码回调 → 拿到 YUV 帧</li>
+<li>YUV 转 <code>cv::Mat</code>（BGR 格式），<code>cv::imshow()</code> 显示</li>
+</ul>
+<p><strong>4. 帧率控制</strong></p>
+<ul>
+<li>本地文件需要按源帧率限速（不然倍速播放）</li>
+<li>RTSP 不需要限速（实时流自己控制节奏）</li>
+</ul>
+<h3 id="验收">验收
+</h3><ul>
+<li>画面正常显示</li>
+<li>帧率不卡不倍速</li>
+</ul>
+<hr>
+<h2 id="阶段-2单模型-ai-推理23-天">阶段 2：单模型 AI 推理（2~3 天）
+</h2><h3 id="目标-2">目标
+</h3><p>解码出来的帧跑一个人体检测模型，把框画上。</p>
+<h3 id="做什么-2">做什么
+</h3><p><strong>1. 准备 .rknn 模型（PC 上）</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PyTorch YOLO 模型
+</span></span><span class="line"><span class="cl">   ↓ 导出
+</span></span><span class="line"><span class="cl">   ONNX 格式
+</span></span><span class="line"><span class="cl">   ↓ RKNN-Toolkit2 量化
+</span></span><span class="line"><span class="cl">   person_relu.rknn（INT8，NPU 能吃的最终格式）
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2. 板子上最小推理通路</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 加载模型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">rknn_context</span> <span class="n">ctx</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">rknn_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctx</span><span class="p">,</span> <span class="n">model_data</span><span class="p">,</span> <span class="n">model_size</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">rknn_set_core_mask</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">RKNN_NPU_CORE_0</span><span class="p">);</span>   <span class="c1">// 绑 NPU Core 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 准备输入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span> <span class="n">frame</span> <span class="o">=</span> <span class="err">解码出来的帧</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cv</span><span class="o">::</span><span class="n">resize</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">Size</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">640</span><span class="p">));</span>    <span class="c1">// 模型输入尺寸
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">cv</span><span class="o">::</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">COLOR_BGR2RGB</span><span class="p">);</span>  <span class="c1">// 模型要 RGB
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">rknn_input</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">buf</span> <span class="o">=</span> <span class="n">frame</span><span class="p">.</span><span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span> <span class="o">=</span> <span class="mi">640</span> <span class="o">*</span> <span class="mi">640</span> <span class="o">*</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">fmt</span> <span class="o">=</span> <span class="n">RKNN_TENSOR_NHWC</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 跑推理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">rknn_inputs_set</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">inputs</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">rknn_run</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>                        <span class="c1">// NPU 干活，CPU 空闲
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 取输出 + 后处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">rknn_output</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">rknn_outputs_get</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 解码输出 → NMS 去重 → 坐标反算 → cv::rectangle() 画框
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3. 关键知识点</strong></p>
+<ul>
+<li><code>.rknn</code> 文件 = 网络架构 + 权重 + 量化参数，一个文件全包</li>
+<li>NPU 不认 FP32，必须 INT8 量化</li>
+<li>NMS（非极大值抑制）= 去掉重叠的高置信度框</li>
+<li>坐标反算 = 模型输出基于 640×640，要映射回原始分辨率</li>
+</ul>
+<h3 id="验收-1">验收
+</h3><ul>
+<li>框跟人走，位置正确</li>
+<li>单帧推理 &lt; 50ms</li>
+</ul>
+<hr>
+<h2 id="阶段-3解码和推理分离12-天">阶段 3：解码和推理分离（1~2 天）
+</h2><h3 id="目标-3">目标
+</h3><p>解码和推理跑在两个线程，中间用队列传递，互不阻塞。</p>
+<h3 id="做什么-3">做什么
+</h3><p><strong>1. 写 FrameQueue（线程安全有界阻塞队列）</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 核心三个方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">push</span><span class="p">()</span>          <span class="c1">// 生产者放数据，满了就阻塞等待
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">wait_and_pop</span><span class="p">()</span>  <span class="c1">// 消费者取数据，空了就阻塞等待
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">shutdown</span><span class="p">()</span>      <span class="c1">// 通知所有人下班
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>用 <code>std::mutex</code> + <code>std::condition_variable</code> 实现。</p>
+<p><strong>2. 两个线程</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">线程1（解码）：解完一帧 → frameQueue.push(frame)
+</span></span><span class="line"><span class="cl">线程2（推理）：frameQueue.wait_and_pop(frame) → 跑推理 → 画框 → 显示
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3. 背压机制</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">解码比推理快 → 队列满 → push 阻塞 → 解码线程自动慢下来
+</span></span><span class="line"><span class="cl">推理比解码快 → 队列空 → pop 阻塞  → 推理线程自动等
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>不需要任何计时器，队列本身就能自动调节速率。</p>
+<h3 id="验收-2">验收
+</h3><ul>
+<li>两个线程稳定运行不崩溃</li>
+<li>画面流畅无黑屏</li>
+<li>队列长度稳定在 2~4 帧</li>
+</ul>
+<hr>
+<h2 id="阶段-4多模型并行推理23-天">阶段 4：多模型并行推理（2~3 天）
+</h2><h3 id="目标-4">目标
+</h3><p>同一帧同时跑 3 个模型（人员/安全帽/打电话），真正并行。</p>
+<h3 id="做什么-4">做什么
+</h3><p><strong>1. 把推理逻辑封装成类</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">rknn_lite</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">interf</span><span class="p">(</span><span class="n">detect_result_group_t</span> <span class="o">&amp;</span><span class="n">result</span><span class="p">);</span>  <span class="c1">// 完整推理管线
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 内部分步：前处理 → set_input → rknn_run → get_output → 后处理 → 画框
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2. 模型绑定不同 NPU 核心</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="err">人员模型</span>  <span class="err">→</span> <span class="n">rknn_set_core_mask</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">RKNN_NPU_CORE_0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="err">安全帽</span>    <span class="err">→</span> <span class="n">rknn_set_core_mask</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">RKNN_NPU_CORE_1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="err">打电话</span>    <span class="err">→</span> <span class="n">rknn_set_core_mask</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">RKNN_NPU_CORE_2</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3. 引入线程池并行提交</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 同一帧 3 个模型同时提交
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">pool</span><span class="p">.</span><span class="n">submit</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span> <span class="n">model_person</span><span class="o">-&gt;</span><span class="n">interf</span><span class="p">(</span><span class="n">result1</span><span class="p">);</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f2</span> <span class="o">=</span> <span class="n">pool</span><span class="p">.</span><span class="n">submit</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span> <span class="n">model_helmet</span><span class="o">-&gt;</span><span class="n">interf</span><span class="p">(</span><span class="n">result2</span><span class="p">);</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">f4</span> <span class="o">=</span> <span class="n">pool</span><span class="p">.</span><span class="n">submit</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span> <span class="n">model_callplay</span><span class="o">-&gt;</span><span class="n">interf</span><span class="p">(</span><span class="n">result4</span><span class="p">);</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">f1</span><span class="p">.</span><span class="n">get</span><span class="p">();</span> <span class="n">f2</span><span class="p">.</span><span class="n">get</span><span class="p">();</span> <span class="n">f4</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>  <span class="c1">// 三个全跑完才继续
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>NPU 三个核心同时算，耗时不叠加。</p>
+<h3 id="验收-3">验收
+</h3><ul>
+<li>3 个模型总耗时 ≈ 最慢那个（而不是 3 个相加）</li>
+<li>NPU 利用率上升</li>
+</ul>
+<hr>
+<h2 id="阶段-5rga-硬件加速12-天">阶段 5：RGA 硬件加速（1~2 天）
+</h2><h3 id="目标-5">目标
+</h3><p>用硬件替代 OpenCV 做图像预处理，释放 CPU。</p>
+<h3 id="做什么-5">做什么
+</h3><p><strong>1. 替换操作</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">RGA</span> <span class="err">替代：</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cv</span><span class="o">::</span><span class="n">resize</span><span class="p">()</span>     <span class="err">→</span> <span class="n">imresize</span><span class="p">()</span>       <span class="c1">// 硬件缩放
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">cv</span><span class="o">::</span><span class="n">cvtColor</span><span class="p">()</span>   <span class="err">→</span> <span class="n">imcvtcolor</span><span class="p">()</span>     <span class="c1">// 硬件色彩转换（BGR → RGB）
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2. DMA 零拷贝</strong></p>
+<ul>
+<li>预分配 DMA32 对齐内存池</li>
+<li>RGA 输入输出都在 DMA 内存里，不经过 CPU</li>
+</ul>
+<p><strong>3. Fallback 机制</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">rga_done</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// RGA 失败，降级到 OpenCV CPU 处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cv</span><span class="o">::</span><span class="n">cvtColor</span><span class="p">(...);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cv</span><span class="o">::</span><span class="n">resize</span><span class="p">(...);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="验收-4">验收
+</h3><ul>
+<li>前处理耗时从 ~15ms 降到 ~3ms</li>
+<li>CPU 占用下降</li>
+</ul>
+<hr>
+<h2 id="阶段-6多路流--结果融合23-天">阶段 6：多路流 + 结果融合（2~3 天）
+</h2><h3 id="目标-6">目标
+</h3><p>从 1 路扩展为 4 路，多模型检测结果融合去重。</p>
+<h3 id="做什么-6">做什么
+</h3><p><strong>1. 封装 StreamLoader</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="err">一个</span> <span class="n">StreamLoader</span> <span class="o">=</span> <span class="n">FFmpeg</span> <span class="err">拉流</span> <span class="o">+</span> <span class="n">MPP</span> <span class="err">解码</span> <span class="err">的完整单元</span>
+</span></span><span class="line"><span class="cl"><span class="mi">4</span> <span class="err">路</span> <span class="o">=</span> <span class="mi">4</span> <span class="err">个</span> <span class="n">StreamLoader</span> <span class="o">+</span> <span class="mi">4</span> <span class="err">个解码线程</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2. 每路创建独立的模型实例</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rknn_lite</span> <span class="o">*</span><span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">rknn_lite</span><span class="p">(</span><span class="n">person_model</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>  <span class="c1">// 共 12 个实例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">rknn_lite</span> <span class="o">*</span><span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">rknn_lite</span><span class="p">(</span><span class="n">helmet_model</span><span class="p">,</span>   <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rknn_lite</span> <span class="o">*</span><span class="n">p4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">rknn_lite</span><span class="p">(</span><span class="n">callplay_model</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 启动推理线程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3. 多模型结果融合</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// DetectionFusionManager
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">fuseDetections</span><span class="p">(</span><span class="n">person_results</span><span class="p">,</span> <span class="n">helmet_results</span><span class="p">,</span> <span class="n">tired_results</span><span class="p">,</span> <span class="n">callplay_results</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">IoU</span> <span class="err">去重</span>     <span class="err">→</span> <span class="err">同类别重叠框合并</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">IoM</span> <span class="err">嵌套融合</span>  <span class="err">→</span> <span class="err">人框包含帽框</span> <span class="err">→</span> <span class="err">归为一个目标</span>
+</span></span><span class="line"><span class="cl">    <span class="err">└──</span> <span class="err">加权置信度</span>    <span class="err">→</span> <span class="err">综合多个模型的置信度</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>4. 4 路画面 2×2 拼接</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// combineImage 线程，固定 24fps
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">每</span> <span class="mi">1</span><span class="o">/</span><span class="mi">24</span> <span class="err">秒：</span>
+</span></span><span class="line"><span class="cl">    <span class="err">取</span> <span class="mi">4</span> <span class="err">路的最新帧（有的路可能还是旧帧）</span>
+</span></span><span class="line"><span class="cl">    <span class="err">缩放成</span> <span class="mi">640</span><span class="err">×</span><span class="mi">540</span>  <span class="err">→</span> <span class="err">拼成</span> <span class="mi">1280</span><span class="err">×</span><span class="mi">1080</span> <span class="err">大画面</span>
+</span></span><span class="line"><span class="cl">    <span class="err">推流输出</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="验收-5">验收
+</h3><ul>
+<li>4 路同时跑帧率无明显下降</li>
+<li>融合后框无重复标注</li>
+<li>4 格画面比例正确</li>
+</ul>
+<hr>
+<h2 id="阶段-7推流输出--gb2818123-天">阶段 7：推流输出 + GB28181（2~3 天）
+</h2><h3 id="目标-7">目标
+</h3><p>合成画面推到网络上，别人远程看。</p>
+<h3 id="做什么-7">做什么
+</h3><p><strong>1. MPP 硬编码</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">MppEncoder</span> <span class="n">encoder</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">encoder</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">720</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">2000000</span><span class="p">);</span>  <span class="c1">// 宽高、帧率、码率
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">encoder</span><span class="p">.</span><span class="n">EncodeFrame</span><span class="p">(</span><span class="n">bgr_data</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">pkt_data</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pkt_size</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2. StreamingManager（生产者-消费者）</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">combineImage 线程 → push 画面到推流队列
+</span></span><span class="line"><span class="cl">推流线程 → pop → MPP 编码 → FFmpeg 封包 → RTMP 发出
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3. GB28181（可选）</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">eXosip2 SIP 信令 → 注册/心跳/Invite
+</span></span><span class="line"><span class="cl">PS 流封装 → RTP 分包 → UDP 发出
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="核心思想总结">核心思想总结
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">永远先跑通 1 路 + 1 模型的最小闭环
+</span></span><span class="line"><span class="cl">验证管线正确后再横向扩展
+</span></span><span class="line"><span class="cl">不要一上来就搞 4 路 + 4 模型 + 推流
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">技术栈分层：
+</span></span><span class="line"><span class="cl">  80% 调库 ─ 知道函数名和入出参
+</span></span><span class="line"><span class="cl">  15% 搭骨架 ─ FrameQueue + ThreadPool
+</span></span><span class="line"><span class="cl">   5% 业务逻辑 ─ 融合算法 + 帧率控制 + main 编排
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h2 id="完整路线图">完整路线图
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">阶段0  环境搭建     ██░░░░░░░░  板子能编译，库全验证
+</span></span><span class="line"><span class="cl">阶段1  单路解码     ████░░░░░░  一个 MP4 出画面
+</span></span><span class="line"><span class="cl">阶段2  单模型推理   ██████░░░░  画面 + AI 检测框
+</span></span><span class="line"><span class="cl">阶段3  解码推理分离 ████████░░  两线程 + 队列 ← 架构成型
+</span></span><span class="line"><span class="cl">阶段4  多模型并行   █████████░  3 模型 NPU 并行
+</span></span><span class="line"><span class="cl">阶段5  RGA 加速    █████████░  硬件加速预处理
+</span></span><span class="line"><span class="cl">阶段6  多路 + 融合  ██████████  4 路 + 融合去重
+</span></span><span class="line"><span class="cl">阶段7  推流 + 国标  ██████████  远程可看
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div>
+            </div>
+        </article>
+        </div>
+    </div>
+
+    
+    <div class="page-nav-arrows">
+        <a href="/project/rk3588/study-day1/" class="page-nav-arrow page-nav-prev" title="上一页"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></a>
+        
+    </div>
+    
+
+    
+    <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+</html>
