@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>力扣刷题记录 — Usualtree</title>
+    <link rel="icon" href="/favicon.ico">
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    
+    <link rel="stylesheet" href="/scss/custom.min.196d2895d3349f6cabde0088dfa40dfe9d26a1696918513546e452717dea85d8.css">
+</head>
+
+
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <div class="single-top-bar">
+            <a href="/project/" class="postlist-back"><span data-zh="← 返回项目" data-en="← Projects"></span></a>
+            <div class="single-page-nav">
+                
+                <a href="/project/leetcode/day1/" class="single-nav-btn"><span data-zh="下一页" data-en="Next"></span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+            </div>
+        </div>
+        
+        
+        
+        <div class="single-with-sidebar">
+            <nav class="single-sidebar card glass-card">
+                <div class="sidebar-title" data-zh="📑 目录" data-en="📑 Index"></div>
+                <ul class="sidebar-list">
+                    <li><a href="/project/leetcode/" class="sidebar-link active">力扣刷题记录</a></li>
+                    
+                    
+                    <li><a href="/project/leetcode/day1/" class="sidebar-link">力扣刷题 — Day 1</a></li>
+                    
+                    
+                </ul>
+            </nav>
+            <article class="card glass-card single-card single-card-side">
+        
+            <div class="single-body-content">
+                <h1 class="single-title">力扣刷题记录</h1>
+                <div class="single-content" id="ttsContent"><h1 id="力扣刷题记录">力扣刷题记录
+</h1><hr>
+<!-- 在这里写你的内容 -->
+</div>
+            </div>
+        </article>
+        </div>
+    </div>
+    
+    <div class="page-nav-arrows">
+        
+        <a href="/project/leetcode/day1/" class="page-nav-arrow page-nav-next" title="下一页"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+    
+    
+    <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+
+</html>

@@ -8,6 +8,14 @@
         <language>zh-cn</language>
         <copyright>Usualtree</copyright>
         <lastBuildDate>Wed, 27 May 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://usualtreee.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Algorithm</title>
+        <link>https://usualtreee.github.io/tags/algorithm/</link>
+        <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/tags/algorithm/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Allwinner</title>
         <link>https://usualtreee.github.io/tags/allwinner/</link>
         <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
@@ -29,6 +37,22 @@
         <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
         
         <guid>https://usualtreee.github.io/tags/embedded/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>English</title>
+        <link>https://usualtreee.github.io/tags/english/</link>
+        <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/tags/english/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>IELTS</title>
+        <link>https://usualtreee.github.io/tags/ielts/</link>
+        <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://usualtreee.github.io/tags/ielts/</guid>
         <description></description>
         </item>
         <item>
@@ -69,22 +93,6 @@
         <pubDate>Wed, 27 May 2026 00:00:00 +0000</pubDate>
         
         <guid>https://usualtreee.github.io/tags/stm32/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>English</title>
-        <link>https://usualtreee.github.io/tags/english/</link>
-        <pubDate>Fri, 22 May 2026 00:00:00 +0000</pubDate>
-        
-        <guid>https://usualtreee.github.io/tags/english/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>IELTS</title>
-        <link>https://usualtreee.github.io/tags/ielts/</link>
-        <pubDate>Fri, 22 May 2026 00:00:00 +0000</pubDate>
-        
-        <guid>https://usualtreee.github.io/tags/ielts/</guid>
         <description></description>
         </item>
         
