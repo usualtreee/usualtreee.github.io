@@ -85,6 +85,10 @@
             
         
             
+        
+            
+        
+            
                 
             
         
@@ -394,7 +398,7 @@
     
     <div class="tts-bar" id="ttsBar" style="padding:8px 24px">
         <div class="tts-controls" style="justify-content:center">
-            <span style="font-size:12px;color:#aaa" data-zh="💡 点击任意单词重复朗读两遍" data-en="💡 Click any word to hear it twice"></span>
+            <span style="font-size:12px;color:#aaa" data-zh="💡 点击朗读两遍 | Shift+点击查翻译" data-en="💡 Click to hear twice | Shift+click to translate"></span>
         </div>
     </div>
 
@@ -425,6 +429,22 @@
         loadVoices(); synth.onvoiceschanged = loadVoices;
 
         
+        var wordDict = {};
+        var strongs = content.querySelectorAll('strong');
+        for (var s = 0; s < strongs.length; s++) {
+            var en = strongs[s].textContent.trim().toLowerCase();
+            var node = strongs[s].nextSibling;
+            var zh = '';
+            while (node) {
+                if (node.nodeType === 3) { zh += node.textContent; }
+                else if (node.tagName === 'STRONG') break;
+                node = node.nextSibling;
+            }
+            zh = zh.replace(/^[\s—–\-：:]+/, '').trim().slice(0, 20);
+            if (en && zh && !/^[一-鿿]+$/.test(en)) wordDict[en] = zh;
+        }
+
+        
         var wordSpans = [];
         var tw = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, null, false);
         var textNodes = [];
@@ -447,12 +467,39 @@
         }
 
         
+        var tipEl = document.createElement('div');
+        tipEl.style.cssText = 'position:fixed;z-index:9999;padding:6px 12px;background:rgba(30,30,50,0.9);color:#a5d6a7;border-radius:8px;font-size:13px;pointer-events:none;display:none;max-width:220px;text-align:center';
+        document.body.appendChild(tipEl);
+        document.addEventListener('click', function(e) { if (!e.target.closest('.tts-word')) tipEl.style.display = 'none'; });
+        function showTip(text, rect) { tipEl.textContent = text; tipEl.style.display = 'block'; tipEl.style.left = (rect.left + rect.width/2) + 'px'; tipEl.style.top = (rect.top - 36) + 'px'; tipEl.style.transform = 'translate(-50%,0)'; }
+
+        
         var currentWord = null;
         content.addEventListener('click', function(e) {
             var span = e.target.closest('.tts-word');
             if (!span) return;
             var word = span.textContent.trim();
             if (!word || /^[一-鿿]+$/.test(word)) return;
+
+            
+            if (e.shiftKey) {
+                var key = word.replace(/[,.!?;:'\"]/g, '').toLowerCase();
+                var r = span.getBoundingClientRect();
+                tipEl.textContent = '翻译中...';
+                tipEl.style.display = 'block';
+                tipEl.style.left = (r.left + r.width/2) + 'px';
+                tipEl.style.top = (r.top - 36) + 'px';
+                tipEl.style.transform = 'translate(-50%,0)';
+                fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(key) + '&langpair=en|zh-CN')
+                    .then(function(resp) { return resp.json(); })
+                    .then(function(data) {
+                        var t = (data.responseData && data.responseData.translatedText) ? data.responseData.translatedText : '';
+                        if (t && t.toLowerCase() !== key) showTip(word + ' → ' + t, r);
+                        else showTip(word + ' (无翻译)', r);
+                    })
+                    .catch(function() { showTip(word + ' (翻译失败)', r); });
+                return;
+            }
 
             synth.cancel();
             if (currentWord) currentWord.classList.remove('tts-active');

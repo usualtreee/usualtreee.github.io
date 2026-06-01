@@ -163,15 +163,24 @@
     </div>
     
     
-    <div class="tts-bar" id="ttsBar" style="padding:8px 24px"><div class="tts-controls" style="justify-content:center"><span style="font-size:12px;color:#aaa" data-zh="💡 点击任意单词重复朗读两遍" data-en="💡 Click any word to hear it twice"></span></div></div>
+    <div class="tts-bar" id="ttsBar" style="padding:8px 24px"><div class="tts-controls" style="justify-content:center"><span style="font-size:12px;color:#aaa" data-zh="💡 点击单词朗读两遍，Shift+点击查看翻译" data-en="💡 Click word to hear twice, Shift+click for translation"></span></div></div>
     <script>
     (function(){var synth=window.speechSynthesis;if(!synth)return;var content=document.getElementById('ttsContent'),selectedVoice=null;
     function loadVoices(){var voices=synth.getVoices();for(var i=0;i<voices.length;i++){var n=voices[i].name.toLowerCase(),l=voices[i].lang;if(l==='en-GB'&&n.indexOf('google')!==-1){selectedVoice=voices[i];return}}for(var i=0;i<voices.length;i++){if(voices[i].lang==='en-GB'){selectedVoice=voices[i];return}}for(var i=0;i<voices.length;i++){if(voices[i].lang.indexOf('en')===0){selectedVoice=voices[i];return}}}
     loadVoices();synth.onvoiceschanged=loadVoices;
+    
+    var wordDict={};var strongs=content.querySelectorAll('strong');for(var s=0;s<strongs.length;s++){var en=strongs[s].textContent.trim().toLowerCase();var node=strongs[s].nextSibling;var zh='';while(node){if(node.nodeType===3)zh+=node.textContent;else if(node.tagName==='STRONG')break;node=node.nextSibling}zh=zh.replace(/^[\s—–\-：:]+/,'').trim().slice(0,20);if(en&&zh&&!/^[一-鿿]+$/.test(en))wordDict[en]=zh}
     var wordSpans=[],tw=document.createTreeWalker(content,NodeFilter.SHOW_TEXT,null,false),textNodes=[];
     while(tw.nextNode()){if(!tw.currentNode.parentElement.closest('pre,code,script,style,a,button,select,input'))textNodes.push(tw.currentNode)}
     for(var i=0;i<textNodes.length;i++){var text=textNodes[i].textContent,tokens=text.match(/[a-zA-Z0-9']+|[一-鿿]|[^a-zA-Z0-9'一-鿿]+/g)||[text],frag=document.createDocumentFragment();for(var t=0;t<tokens.length;t++){var span=document.createElement('span');span.className='tts-word';span.textContent=tokens[t];frag.appendChild(span);wordSpans.push(span)}textNodes[i].parentNode.replaceChild(frag,textNodes[i])}
-    var currentWord=null;content.addEventListener('click',function(e){var span=e.target.closest('.tts-word');if(!span)return;var word=span.textContent.trim();if(!word||/^[一-鿿]+$/.test(word))return;synth.cancel();if(currentWord)currentWord.classList.remove('tts-active');currentWord=span;span.classList.add('tts-active');var count=0;function speakTwice(){if(count>=2)return;var u=new SpeechSynthesisUtterance(word);u.rate=0.85;u.lang='en-GB';if(selectedVoice)u.voice=selectedVoice;u.onend=function(){count++;if(count<2)speakTwice()};synth.speak(u)}speakTwice()})})();
+    
+    var tipEl=document.createElement('div');tipEl.style.cssText='position:fixed;z-index:9999;padding:6px 12px;background:rgba(30,30,50,0.9);color:#a5d6a7;border-radius:8px;font-size:13px;pointer-events:none;display:none;max-width:220px;text-align:center';document.body.appendChild(tipEl);
+    document.addEventListener('click',function(e){if(!e.target.closest('.tts-word'))tipEl.style.display='none'});
+    function showTip(text,rect){tipEl.textContent=text;tipEl.style.display='block';tipEl.style.left=(rect.left+rect.width/2)+'px';tipEl.style.top=(rect.top-36)+'px';tipEl.style.transform='translate(-50%,0)'}
+    var currentWord=null;content.addEventListener('click',function(e){var span=e.target.closest('.tts-word');if(!span)return;var word=span.textContent.trim();if(!word||/^[一-鿿]+$/.test(word))return;
+    
+    if(e.shiftKey){var key=word.replace(/[,.!?;:'\"]/g,'').toLowerCase();var r=span.getBoundingClientRect();tipEl.textContent='翻译中...';tipEl.style.display='block';tipEl.style.left=(r.left+r.width/2)+'px';tipEl.style.top=(r.top-36)+'px';tipEl.style.transform='translate(-50%,0)';fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(key)+'&langpair=en|zh-CN').then(function(resp){return resp.json()}).then(function(data){var t=(data.responseData&&data.responseData.translatedText)?data.responseData.translatedText:'';if(t&&t.toLowerCase()!==key)showTip(word+' → '+t,r);else showTip(word+' (无翻译)',r)}).catch(function(){showTip(word+' (翻译失败)',r)});return;}
+    synth.cancel();if(currentWord)currentWord.classList.remove('tts-active');currentWord=span;span.classList.add('tts-active');var count=0;function speakTwice(){if(count>=2)return;var u=new SpeechSynthesisUtterance(word);u.rate=0.85;u.lang='en-GB';if(selectedVoice)u.voice=selectedVoice;u.onend=function(){count++;if(count<2)speakTwice()};synth.speak(u)}speakTwice()})})();
     </script>
     
     <button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
