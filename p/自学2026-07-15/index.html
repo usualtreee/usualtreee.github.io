@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[自学]2026-07-15  — Usualtree</title>
+    <script>var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');</script>
+    <link rel="icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="/scss/custom.min.196d2895d3349f6cabde0088dfa40dfe9d26a1696918513546e452717dea85d8.css">
+</head>
+<body class="single-body">
+    <div class="home-bg"></div>
+    <div class="single-container">
+        <a href="javascript:history.back()" class="postlist-back"><span data-zh="← 返回" data-en="← Back"></span></a>
+
+        <article class="card glass-card single-card">
+            
+            <div class="single-cover-wrap">
+                <img class="single-cover" src="/img/cover.jpg" alt="cover">
+            </div>
+            
+
+            <div class="single-body-content">
+                <h1 class="single-title">[自学]2026-07-15 </h1>
+
+                <div class="single-meta">
+                    <span class="single-date">📅 2026-07-15</span>
+                    
+                    <span class="single-cat">📂 学习笔记</span>
+                    
+                    
+                </div>
+
+                <div class="single-content">
+                    <h4 id="-主线任务注意要从实践出发在实践中完善理论知识做好资料整理">📅 主线任务（注意要从实践出发，在实践中完善理论知识，做好资料整理）
+</h4><p><strong>近期目标</strong>：速通rk部署项目，然后做简历，复习八股力扣，不断投递中训练，后续计划是往nv部署上走，主要学和云端交叉的部分的知识；雅思阅读弄完，做一下自己的口语语料库；</p>
+<ul>
+<li>
+<p><strong>嵌入式</strong>:</p>
+</li>
+<li>
+<p><strong>雅思</strong>：</p>
+</li>
+</ul>
+
+                </div>
+            </div>
+        </article>
+    </div>
+<button class="theme-toggle" id="themeToggle" title="切换明暗主题" aria-label="切换明暗主题">
+    <svg id="iconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<button class="theme-toggle lang-toggle" id="langToggle" title="切换语言" aria-label="切换语言" style="bottom:82px">
+    <span id="langLabel">中</span>
+</button>
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    var sun = document.getElementById('iconSun');
+    var moon = document.getElementById('iconMoon');
+    var html = document.documentElement;
+
+    function setTheme(t) {
+        html.setAttribute('data-theme', t);
+        sun.style.display = t === 'dark' ? 'none' : '';
+        moon.style.display = t === 'dark' ? '' : 'none';
+        localStorage.setItem('theme', t);
+    }
+    var saved = localStorage.getItem('theme') || 'light';
+    setTheme(saved);
+    btn.addEventListener('click', function() {
+        setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+
+
+(function() {
+    var btn = document.getElementById('langToggle');
+    var label = document.getElementById('langLabel');
+    if (!btn) return;
+    var lang = localStorage.getItem('lang') || 'en';
+
+    function setLang(l) {
+        lang = l;
+        label.textContent = l === 'zh' ? '中' : 'EN';
+        localStorage.setItem('lang', l);
+        document.querySelectorAll('[data-zh]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l);
+            if (t !== null) el.textContent = t;
+        });
+        document.querySelectorAll('[data-zh-placeholder]').forEach(function(el) {
+            var t = el.getAttribute('data-' + l + '-placeholder');
+            if (t !== null) el.placeholder = t;
+        });
+    }
+    setLang(lang);
+    btn.addEventListener('click', function() { setLang(lang === 'zh' ? 'en' : 'zh'); });
+})();
+</script>
+
+</body>
+</html>
